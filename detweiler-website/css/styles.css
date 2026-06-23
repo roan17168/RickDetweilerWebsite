@@ -1,0 +1,685 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+    /* Color Palette */
+    --primary-blue: #1B365D;    /* Oxford Blue */
+    --secondary-clay: #D48166;  /* Warm Terracotta */
+    --accent-gold: #E6B325;     /* Soft Gold */
+    --bg-cream: #F9F7F2;        /* Parchment Background */
+    --card-white: #FFFFFF;
+    --text-charcoal: #263241;
+    --border-muted: #E4E1DA;
+    
+    /* Typography */
+    --font-heading: 'Lora', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-cream);
+    color: var(--text-charcoal);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .academic-serif {
+    font-family: var(--font-heading);
+    color: var(--primary-blue);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.3s ease;
+}
+
+/* Shared Navigation */
+nav {
+    background: var(--card-white);
+    padding: 1.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-muted);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--primary-blue);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-links a:hover {
+    color: var(--secondary-clay);
+}
+
+/* Hero Section */
+.hero {
+    padding: 5rem 10%;
+    text-align: center;
+    background: linear-gradient(to bottom, #ffffff, var(--bg-cream));
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #555;
+}
+
+/* 6-Card Grid (Soundbites Inspired) */
+.perspective-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 4rem 10%;
+}
+
+.card {
+    background: var(--card-white);
+    padding: 2.5rem;
+    border-radius: 15px;
+    border: 1px solid var(--border-muted);
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 250px;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: var(--secondary-clay);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.card i {
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+}
+
+.card h3 {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+}
+
+.card p {
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #666;
+}
+
+/* Footer */
+footer {
+    background: var(--primary-blue);
+    color: white;
+    padding: 4rem 10%;
+    margin-top: 4rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+/* Accessibility: Focus States */
+a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--accent-gold);
+    outline-offset: 4px;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2.2rem; }
+    .nav-links { display: none; } /* Add a hamburger menu in Batch 2 */
+}
+
+/* ============================================
+   PERSPECTIVE PAGE STYLES
+   ============================================ */
+
+/* Perspective Hero */
+.perspective-hero {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, #2a4a7a 100%);
+    color: white;
+    padding: 5rem 10%;
+    text-align: center;
+}
+
+.perspective-hero .audience-tag {
+    display: inline-block;
+    background: var(--accent-gold);
+    color: var(--primary-blue);
+    padding: 0.4rem 1.2rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.perspective-hero h1 {
+    color: white;
+    font-size: 2.5rem;
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    font-style: italic;
+}
+
+.perspective-hero .intro-text {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Quick Answer Section */
+.quick-answer {
+    padding: 4rem 10%;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.quick-answer h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.quick-answer p {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #444;
+}
+
+/* Evidence Quote Block */
+.evidence-quote {
+    background: white;
+    border-left: 5px solid var(--accent-gold);
+    padding: 2rem 2.5rem;
+    margin: 3rem auto;
+    max-width: 800px;
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+}
+
+.evidence-quote blockquote {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--primary-blue);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.evidence-quote cite {
+    font-size: 0.9rem;
+    color: var(--secondary-clay);
+    font-style: normal;
+    font-weight: 600;
+}
+
+/* Accordion Section */
+.deep-dive-section {
+    padding: 4rem 10%;
+    background: white;
+}
+
+.deep-dive-section .section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.deep-dive-section .section-title h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.deep-dive-section .section-title p {
+    color: #666;
+    font-style: italic;
+}
+
+.accordion-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.accordion-item {
+    background: var(--bg-cream);
+    border: 1px solid var(--border-muted);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.accordion-button {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 1.5rem 2rem;
+    text-align: left;
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.accordion-button:hover {
+    background: rgba(212, 129, 102, 0.05);
+}
+
+.accordion-button .icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+    color: var(--secondary-clay);
+}
+
+.accordion-button[aria-expanded="true"] .icon {
+    transform: rotate(45deg);
+}
+
+.accordion-panel {
+    padding: 0 2rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+.accordion-panel[data-open="true"] {
+    padding: 0 2rem 1.5rem;
+    max-height: 1000px;
+}
+
+.accordion-panel p, .accordion-panel li {
+    color: #444;
+    line-height: 1.7;
+    margin-bottom: 0.8rem;
+}
+
+.accordion-panel ul {
+    padding-left: 1.5rem;
+}
+
+/* CTA Section */
+.perspective-cta {
+    background: var(--bg-cream);
+    padding: 4rem 10%;
+    text-align: center;
+}
+
+.perspective-cta h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.perspective-cta p {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    color: #555;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.9rem 2rem;
+    border-radius: 30px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    transition: 0.3s ease;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--secondary-clay);
+}
+
+.btn-secondary {
+    background: transparent;
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+}
+
+.btn-secondary:hover {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.btn-gold {
+    background: var(--accent-gold);
+    color: var(--primary-blue);
+}
+
+.btn-gold:hover {
+    background: var(--primary-blue);
+    color: white;
+}
+
+/* ============================================
+   ABOUT PAGE STYLES
+   ============================================ */
+
+.about-hero {
+    padding: 5rem 10%;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-photo {
+    width: 100%;
+    max-width: 350px;
+    aspect-ratio: 3/4;
+    background: var(--border-muted);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-intro h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+}
+
+.about-intro .title {
+    color: var(--secondary-clay);
+    font-size: 1.1rem;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+.about-bio {
+    padding: 0 10% 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.about-bio p {
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+    color: #444;
+}
+
+.milestones {
+    background: white;
+    padding: 4rem 10%;
+}
+
+.milestones h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+}
+
+.milestone-list {
+    max-width: 800px;
+    margin: 0 auto;
+    list-style: none;
+}
+
+.milestone-list li {
+    padding: 1.2rem 0 1.2rem 2.5rem;
+    border-bottom: 1px solid var(--border-muted);
+    position: relative;
+}
+
+.milestone-list li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: var(--accent-gold);
+    font-size: 1.2rem;
+}
+
+.book-feature {
+    background: var(--primary-blue);
+    color: white;
+    padding: 5rem 10%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.book-cover {
+    width: 100%;
+    max-width: 280px;
+    aspect-ratio: 2/3;
+    background: var(--border-muted);
+    border-radius: 8px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    overflow: hidden;
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-info h2 {
+    color: white;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+.book-info .subtitle {
+    color: var(--accent-gold);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+.book-info p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    opacity: 0.95;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .perspective-hero h1 { font-size: 1.8rem; }
+    .about-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    .about-photo { margin: 0 auto; }
+    .book-feature {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .book-cover { margin: 0 auto; }
+    .accordion-button { font-size: 1rem; padding: 1.2rem 1.5rem; }
+    .accordion-panel[data-open="true"] { padding: 0 1.5rem 1.5rem; }
+}
+
+/* ============================================
+   PERSPECTIVES DROPDOWN
+   ============================================ */
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    min-width: 220px;
+    border-radius: 10px;
+    border: 1px solid var(--border-muted);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    z-index: 1000;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 0.85rem 1.2rem;
+    color: var(--text-charcoal);
+    font-size: 0.95rem;
+    border-bottom: 1px solid var(--border-muted);
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background: var(--bg-cream);
+    color: var(--primary-blue);
+    padding-left: 1.6rem; /* subtle indent on hover */
+}
+
+/* Show on hover (desktop) */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Rotate caret when open */
+.dropdown:hover .fa-caret-down {
+    transform: rotate(180deg);
+    transition: transform 0.2s ease;
+}
+
+.fa-caret-down {
+    transition: transform 0.2s ease;
+    font-size: 0.8rem;
+    margin-left: 4px;
+}
+
+/* ============================================
+   🛡️ DESKTOP PROTECTION (769px and bigger)
+   This ensures your desktop site stays EXACTLY as it is.
+   ============================================ */
+@media (min-width: 769px) {
+    .mobile-toggle {
+        display: none !important;  /* Hamburger is HIDDEN on desktop */
+    }
+    .nav-links {
+        display: flex !important;  /* Your menu stays visible & horizontal */
+    }
+}
+
+/* ============================================
+   📱 BULLETPROOF MOBILE NAV
+   ============================================ */
+@media (max-width: 768px) {
+    
+    /* Make sure nav allows dropdown to overflow */
+    nav {
+        position: relative !important;
+        overflow: visible !important;
+    }
+    
+    /* Show hamburger */
+    .mobile-toggle {
+        display: block !important;
+        font-size: 1.8rem !important;
+        color: #1B365D !important;
+        cursor: pointer !important;
+        background: none !important;
+        border: none !important;
+        padding: 0.5rem !important;
+    }
+
+    /* Hide menu by default */
+    .nav-links {
+        display: none !important;
+        flex-direction: column !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+        background: white !important;
+        padding: 1.5rem !important;
+        gap: 1.5rem !important;
+        z-index: 99999 !important;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+        list-style: none !important;
+        margin: 0 !important;
+    }
+
+    /* Show menu when active */
+    .nav-links.active {
+        display: flex !important;
+    }
+    
+    /* Mobile dropdown stacks cleanly */
+    .dropdown-content {
+        position: static !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding-left: 1rem !important;
+        min-width: 100% !important;
+        display: none !important;
+    }
+    
+    .dropdown-content.mobile-open {
+        display: block !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-toggle {
+        display: none !important;
+    }
+}

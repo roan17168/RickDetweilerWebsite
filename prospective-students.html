@@ -38,7 +38,7 @@
         <li class="dropdown">
             <a href="#" class="dropbtn">Perspectives <i class="fa-solid fa-caret-down"></i></a>
             <div class="dropdown-content">
-                <a href="prospective-students.html">Looking for College</a>
+                <a href="prospective-students.html">I'm Looking for College</a>
                 <a href="current-students.html">I'm a College Student</a>
                 <a href="professors.html">I'm a Professor</a>
                 <a href="parents.html">I'm a Parent</a>
@@ -59,6 +59,11 @@
         <span class="audience-tag">For Prospective Students</span>
         <h1>"Who will I become, and will this education help me build a meaningful, authentic life?"</h1>
         <p class="intro-text">You're not afraid of unemployment in the abstract — you're afraid of becoming the wrong version of yourself. Every message you've heard frames college as a credential transaction. The evidence offers something different: an encounter with a future self that feels real and traceable.</p>
+        <h1><button class="quiz-trigger-btn" 
+            data-audience="Looking for College (Prospective Students)"
+            onclick="initQuiz('Looking for College (Prospective Students)')">
+            DIVE DEEPER
+        </button></h1>
     </header>
 
     <section class="quick-answer">
@@ -154,7 +159,18 @@
         </div>
         <a href="mailto:rick@higheredimpact.org" target="_blank" class="btn btn-gold">Contact</a>
     </footer>
-
+<!-- Quiz Modal Structure -->
+<div id="quiz-overlay">
+    <div id="quiz-modal">
+        <span class="quiz-close" onclick="closeQuiz()">&times;</span>
+        <div class="quiz-progress-container">
+            <div id="quiz-progress-bar"></div>
+        </div>
+        <div id="quiz-content">
+            <!-- Dynamic Content Loads Here -->
+        </div>
+    </div>
+</div>
     <script src="js/main.js"></script>
 </body>
 </html>

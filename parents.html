@@ -38,7 +38,7 @@
         <li class="dropdown">
             <a href="#" class="dropbtn">Perspectives <i class="fa-solid fa-caret-down"></i></a>
             <div class="dropdown-content">
-                <a href="prospective-students.html">Looking for College</a>
+                <a href="prospective-students.html">I'm Looking for College</a>
                 <a href="current-students.html">I'm a College Student</a>
                 <a href="professors.html">I'm a Professor</a>
                 <a href="parents.html">I'm a Parent</a>
@@ -60,6 +60,11 @@
         <span class="audience-tag">For Parents</span>
         <h1>"Is this investment going to give my child a secure, independent, and meaningful future?"</h1>
         <p class="intro-text">Your fears are real — debt, unemployment, failure to launch. The evidence offers a different conversation, one where "starting salary" is exposed as the wrong metric for what really matters.</p>
+        <h1><button class="quiz-trigger-btn" 
+            data-audience="Parents"
+            onclick="initQuiz('Parents')">
+            DIVE DEEPER
+        </button></h1>
     </header>
 
     <!-- QUICK ANSWER -->
@@ -164,5 +169,17 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <!-- Quiz Modal Structure -->
+<div id="quiz-overlay">
+    <div id="quiz-modal">
+        <span class="quiz-close" onclick="closeQuiz()">&times;</span>
+        <div class="quiz-progress-container">
+            <div id="quiz-progress-bar"></div>
+        </div>
+        <div id="quiz-content">
+            <!-- Dynamic Content Loads Here -->
+        </div>
+    </div>
+</div>
 </body>
 </html>

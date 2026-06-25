@@ -38,7 +38,7 @@
         <li class="dropdown">
             <a href="#" class="dropbtn">Perspectives <i class="fa-solid fa-caret-down"></i></a>
             <div class="dropdown-content">
-                <a href="prospective-students.html">Looking for College</a>
+                <a href="prospective-students.html">I'm Looking for College</a>
                 <a href="current-students.html">I'm a College Student</a>
                 <a href="professors.html">I'm a Professor</a>
                 <a href="parents.html">I'm a Parent</a>
@@ -59,6 +59,11 @@
         <span class="audience-tag">For Professors</span>
         <h1>"How can I prove that my teaching has a lasting impact on my students' lives?"</h1>
         <p class="intro-text">You've felt the pressure of a "vocational-first" climate that asks you to justify the humanities, the arts, the sciences in narrow economic terms. The evidence finally gives you what you've needed: empirical proof that the way you teach changes lives.</p>
+        <h1><button class="quiz-trigger-btn" 
+            data-audience="Professors"
+            onclick="initQuiz('Professors')">
+            DIVE DEEPER
+        </button></h1>
     </header>
 
     <section class="quick-answer">
@@ -155,5 +160,17 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <!-- Quiz Modal Structure -->
+<div id="quiz-overlay">
+    <div id="quiz-modal">
+        <span class="quiz-close" onclick="closeQuiz()">&times;</span>
+        <div class="quiz-progress-container">
+            <div id="quiz-progress-bar"></div>
+        </div>
+        <div id="quiz-content">
+            <!-- Dynamic Content Loads Here -->
+        </div>
+    </div>
+</div>
 </body>
 </html>

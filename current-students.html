@@ -38,7 +38,7 @@
         <li class="dropdown">
             <a href="#" class="dropbtn">Perspectives <i class="fa-solid fa-caret-down"></i></a>
             <div class="dropdown-content">
-                <a href="prospective-students.html">Looking for College</a>
+                <a href="prospective-students.html">I'm Looking for College</a>
                 <a href="current-students.html">I'm a College Student</a>
                 <a href="professors.html">I'm a Professor</a>
                 <a href="parents.html">I'm a Parent</a>
@@ -59,6 +59,11 @@
         <span class="audience-tag">For College Students</span>
         <h1>"How do I turn these diverse classes into a coherent, adaptable future?"</h1>
         <p class="intro-text">You may be in the middle of a "sophomore slump" — questioning whether all this reading, writing, and discussion adds up to anything. The data says: it does. And the way you learn now will define your life.</p>
+        <h1><button class="quiz-trigger-btn" 
+            data-audience="Current Students"
+            onclick="initQuiz('Current Students')">
+            DIVE DEEPER
+        </button></h1>
     </header>
 
     <section class="quick-answer">
@@ -150,5 +155,17 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <!-- Quiz Modal Structure -->
+<div id="quiz-overlay">
+    <div id="quiz-modal">
+        <span class="quiz-close" onclick="closeQuiz()">&times;</span>
+        <div class="quiz-progress-container">
+            <div id="quiz-progress-bar"></div>
+        </div>
+        <div id="quiz-content">
+            <!-- Dynamic Content Loads Here -->
+        </div>
+    </div>
+</div>
 </body>
 </html>

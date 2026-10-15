@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1b365d">
+  <title>Faculty | What College Is Really For</title>
+  <meta name="description" content="For professors, instructors, and adjunct faculty. Which parts of teaching still matter to students in thirty years, five evidence-based practices, and a course self-audit.">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Google Fonts: Lora (Serif) & Inter (Sans-serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Shared Global Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">What College Is Really For</a>
+      
+      <nav class="nav-links">
+        <div class="dropdown">
+          <button class="dropbtn" aria-haspopup="true" aria-expanded="false">
+            Perspectives <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="choosing-a-college.html">Choosing a College</a>
+            <a href="in-college.html">In College</a>
+            <a href="parents.html">Parents</a>
+            <a href="faculty.html" class="active">Faculty</a>
+            <a href="college-leaders.html">College Leaders</a>
+            <a href="policymakers.html">Policymakers</a>
+          </div>
+        </div>
+        <a href="understanding-college.html">Understanding College</a>
+        <a href="the-research.html">The Research</a>
+        <a href="about.html">About</a>
+      </nav>
+      
+      <div class="mobile-toggle" id="mobile-menu" aria-label="Toggle navigation" role="button" tabindex="0">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 3.5rem 0 5rem;">
+    <div class="reading-container">
+      
+      <span class="section-label">For Faculty</span>
+      <h1>Which parts of my teaching will still matter to students in thirty years?</h1>
+      
+      <p style="font-size: 1.15rem; color: var(--text-charcoal); line-height: 1.6;">
+        Most professors did not choose this work only to cover content. They chose it to make a difference in students' lives, and the evidence says they do. In this study, specific teaching and mentoring practices were linked, decades later, to graduates who led, volunteered, kept learning, and described their lives as fulfilled.
+      </p>
+
+      <!-- Quiz Trigger Callout -->
+      <div style="background: var(--bg-surface); border: 1.5px solid var(--accent-gold); border-radius: var(--radius-card); padding: 1.75rem; margin: 2rem 0; text-align: center; box-shadow: var(--shadow-subtle);">
+        <h3 style="margin-bottom: 0.5rem;">Check Your Teaching Practices</h3>
+        <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          5 questions. Two minutes. Discover how your day-to-day teaching aligns with the evidence of long-term life impact.
+        </p>
+        <button class="gold-btn quiz-trigger-btn" 
+                data-audience="Faculty" 
+                onclick="window.initQuiz('Faculty')">
+          Take the Quiz
+        </button>
+      </div>
+
+      <!-- The Five Practice Cards -->
+      <section style="margin-top: 3.5rem;">
+        <span class="section-label">Evidence-Based Teaching</span>
+        <h2>Five practices that make a lasting difference</h2>
+        <p>
+          These practices have a significant relationship to important life outcomes for all students, and they matter even more for students with the least. In the study, several links were strongest for graduates from lower-income families. George Kuh's research on high-impact practices found the same pattern: underrepresented and low-income students benefited most from practices like these.<sup>[16]</sup>
+        </p>
+
+        <!-- Card 1: Know Their Names -->
+        <article style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-subtle);">
+          <h3>1. Know their names</h3>
+          <p><strong>Why it matters:</strong> Graduates whose professors mostly knew their first name were <strong>67% more likely</strong> to describe their lives as highly fulfilled. Knowing students by name was also linked to adult civic involvement.</p>
+          <p><strong>Ask yourself:</strong> <em>How many names do I know by week four?</em></p>
+          <details class="accordion-item" style="margin-top: 1rem;">
+            <summary>Adaptations across teaching contexts</summary>
+            <div class="accordion-content">
+              <p><strong>Small class:</strong> Use name cards or a seating chart for the first month.</p>
+              <p><strong>Large course:</strong> Use the photo roster, learn the names of students who speak, and ask teaching assistants to learn their sections. Use a name every time you call on someone.</p>
+              <p><strong>Students who work or commute:</strong> Arrive five minutes early and greet students by name as they come in.</p>
+              <p><strong>Part-time faculty:</strong> Names cost nothing and need no office. This is the most portable of the five.</p>
+            </div>
+          </details>
+        </article>
+
+        <!-- Card 2: Talk Outside Class -->
+        <article style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-subtle);">
+          <h3>2. Talk with students outside class, and not only about the course</h3>
+          <p><strong>Why it matters:</strong> Graduates who had a college mentor with a lasting impact were <strong>26% more likely</strong> to be leaders as adults. Graduates who often talked with professors outside class about non-academic subjects were <strong>37% more likely</strong> to volunteer more as adults. Alexander Astin's study of 25,000 students found student-faculty interaction to be among the strongest influences on development.</p>
+          <p><strong>Ask yourself:</strong> <em>Which students have I spoken with one-to-one this term?</em></p>
+          <details class="accordion-item" style="margin-top: 1rem;">
+            <summary>Adaptations across teaching contexts</summary>
+            <div class="accordion-content">
+              <p><strong>Small class:</strong> Require one ten-minute office-hours visit from every student in the first three weeks.</p>
+              <p><strong>Large course:</strong> Hold small-group office hours for eight to ten students at a time, and ask teaching assistants or learning assistants to do the same.</p>
+              <p><strong>Students who work or commute:</strong> Offer video office hours, early-morning or evening times, and the five minutes after class. When a student asks about the course, ask one question about their plans.</p>
+              <p><strong>Part-time faculty:</strong> Use a short video meeting or the minutes after class, and ask the department for a space to meet students.</p>
+            </div>
+          </details>
+        </article>
+
+        <!-- Card 3: Active Class Time -->
+        <article style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-subtle);">
+          <h3>3. Make class time active</h3>
+          <p><strong>Why it matters:</strong> Graduates who took small discussion classes in their first two years were <strong>25% more likely</strong> to keep learning actively as adults, and <strong>37% more likely</strong> to stay closely involved in arts, ideas, and other cultures. In science, engineering, and mathematics, a review of 225 studies by Scott Freeman et al. found that students in traditional lectures were about 1.5× as likely to fail as students in classes that used active learning.<sup>[17]</sup></p>
+          <p><strong>Ask yourself:</strong> <em>Who did most of the talking in my last class?</em></p>
+          <details class="accordion-item" style="margin-top: 1rem;">
+            <summary>Adaptations across teaching contexts</summary>
+            <div class="accordion-content">
+              <p><strong>Small class:</strong> Open each class with a question, and take answers before you give yours.</p>
+              <p><strong>Large course:</strong> Pose a question, have students answer, discuss it with a neighbor, and answer again. Richard Light's work popularized the one-minute paper at the end of class as a simple way to hear from everyone.</p>
+              <p><strong>Students who work or commute:</strong> Build the reading into class. Read a short passage together, then discuss it, rather than assuming it was done at home.</p>
+              <p><strong>Part-time faculty:</strong> All of these work in any room, with no extra preparation beyond the question.</p>
+            </div>
+          </details>
+        </article>
+
+        <!-- Card 4: Open-Ended Assignments -->
+        <article style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-subtle);">
+          <h3>4. Give assignments with no single right answer</h3>
+          <p><strong>Why it matters:</strong> Graduates whose coursework often involved questions with no single right answer were <strong>61% more likely</strong> to describe their lives as highly fulfilled, and <strong>25% more likely</strong> to keep learning actively. Being required to write papers in most classes showed similar links.</p>
+          <p><strong>Ask yourself:</strong> <em>Which of my assignments could two good students answer differently?</em></p>
+          <details class="accordion-item" style="margin-top: 1rem;">
+            <summary>Discipline-specific adaptations</summary>
+            <div class="accordion-content">
+              <p><strong>Humanities &amp; Social Sciences:</strong> Replace one quiz with a short paper that takes a position.</p>
+              <p><strong>Science, Math &amp; Engineering:</strong> Set a design problem, or ask students to explain why their approach is better than another one that also works.</p>
+              <p><strong>Professional Programs:</strong> Use a case with competing goods. In nursing, a patient's wishes against a protocol. In business or accounting, a judgment call in reporting.</p>
+            </div>
+          </details>
+        </article>
+
+        <!-- Card 5: Examine Own Thinking -->
+        <article style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-subtle);">
+          <h3>5. Ask students to examine their own thinking</h3>
+          <p><strong>Why it matters:</strong> Graduates whose professors made them examine the strengths and weaknesses of their own arguments were <strong>149% more likely</strong> to describe their lives as highly fulfilled: about two and a half times as likely. This was the largest difference in that part of the study.</p>
+          <p><strong>Ask yourself:</strong> <em>Do my students ever have to argue against themselves?</em></p>
+          <details class="accordion-item" style="margin-top: 1rem;">
+            <summary>Discipline-specific adaptations</summary>
+            <div class="accordion-content">
+              <p><strong>Any course:</strong> Add one line to every assignment: <em>"State the strongest objection to your answer."</em></p>
+              <p><strong>Science, Math &amp; Engineering:</strong> <em>"Where could this calculation or design go wrong?"</em></p>
+              <p><strong>Professional Programs:</strong> <em>"What would a skeptical colleague say about this decision?"</em></p>
+            </div>
+          </details>
+        </article>
+      </section>
+
+      <!-- Mentoring Load & Equity Note -->
+      <section style="margin-top: 2rem;">
+        <details class="accordion-item">
+          <summary>Who carries this work: Mentoring loads &amp; cultural taxation</summary>
+          <div class="accordion-content">
+            <p>
+              Mentoring, advising, and conversations outside class take time, and that time is not shared evenly. Studies of faculty workload find that women faculty do more of this kind of service than men,<sup>[18]</sup> and faculty of color often describe extra mentoring and service demands, sometimes called "cultural taxation." The work is rarely counted in tenure and promotion reviews. If these practices matter, departments and institutions need to recognize, share, and reward them. The <a href="college-leaders.html">College Leaders checklist</a> includes rewarding this work.
+            </p>
+          </div>
+        </details>
+      </section>
+
+      <!-- INTERACTIVE TOOL: COURSE SELF-AUDIT -->
+      <section id="audit-tool" style="margin-top: 4rem; background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 2.25rem; box-shadow: var(--shadow-subtle);">
+        <span class="section-label">Interactive Tool</span>
+        <h2>One Course, Five Checks (Self-Audit)</h2>
+        <p><strong>What it's for:</strong> Look at one course you teach against the five practices in the study, and identify one or two changes to try next term. It is for your own use and reflection, not a performance review.</p>
+        <p style="font-size: 0.95rem; color: var(--text-muted);">
+          <strong>How to use it:</strong> Choose one course you teach often. Describe what happens now using evidence, rate each practice (Strong, Partway, Not yet), and commit to one change for next term.
+        </p>
+
+        <div class="table-container" style="margin-top: 1.5rem;">
+          <table class="responsive-data-table">
+            <thead>
+              <tr>
+                <th style="width: 25%;">Practice</th>
+                <th style="width: 30%;">What Happens Now (Evidence)</th>
+                <th style="width: 15%;">Rating</th>
+                <th style="width: 30%;">One Change for Next Term</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Practice"><strong>1. I know students' names</strong></td>
+                <td data-label="Current Evidence"><input type="text" placeholder="e.g. Learned 15/30 by midterm" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Rating">
+                  <select style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                    <option>Strong</option>
+                    <option>Partway</option>
+                    <option>Not yet</option>
+                  </select>
+                </td>
+                <td data-label="Next Step"><input type="text" placeholder="Use photo roster & name cards week 1" style="width: 100%; padding: 0.35rem;"></td>
+              </tr>
+              <tr>
+                <td data-label="Practice"><strong>2. I talk with students outside class</strong></td>
+                <td data-label="Current Evidence"><input type="text" placeholder="e.g. Only saw students about grade disputes" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Rating">
+                  <select style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                    <option>Strong</option>
+                    <option>Partway</option>
+                    <option>Not yet</option>
+                  </select>
+                </td>
+                <td data-label="Next Step"><input type="text" placeholder="Require 5-min check-in in first 3 weeks" style="width: 100%; padding: 0.35rem;"></td>
+              </tr>
+              <tr>
+                <td data-label="Practice"><strong>3. Class time is active</strong></td>
+                <td data-label="Current Evidence"><input type="text" placeholder="e.g. Lectured 45 of 50 minutes" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Rating">
+                  <select style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                    <option>Strong</option>
+                    <option>Partway</option>
+                    <option>Not yet</option>
+                  </select>
+                </td>
+                <td data-label="Next Step"><input type="text" placeholder="Add 10-min peer debate weekly" style="width: 100%; padding: 0.35rem;"></td>
+              </tr>
+              <tr>
+                <td data-label="Practice"><strong>4. Assignments have no single right answer</strong></td>
+                <td data-label="Current Evidence"><input type="text" placeholder="e.g. Multiple choice quizzes only" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Rating">
+                  <select style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                    <option>Strong</option>
+                    <option>Partway</option>
+                    <option>Not yet</option>
+                  </select>
+                </td>
+                <td data-label="Next Step"><input type="text" placeholder="Add open design prompt to final set" style="width: 100%; padding: 0.35rem;"></td>
+              </tr>
+              <tr>
+                <td data-label="Practice"><strong>5. Students examine their own thinking</strong></td>
+                <td data-label="Current Evidence"><input type="text" placeholder="e.g. Not explicitly prompted" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Rating">
+                  <select style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                    <option>Strong</option>
+                    <option>Partway</option>
+                    <option>Not yet</option>
+                  </select>
+                </td>
+                <td data-label="Next Step"><input type="text" placeholder="Add 'State strongest objection' prompt" style="width: 100%; padding: 0.35rem;"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tool Action Row (Item 1 Enhancement) -->
+        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap;">
+          <button class="navy-btn" onclick="window.printToolReport('audit-tool')">
+            <i class="fa-solid fa-print" style="margin-right: 0.5rem;"></i> Print
+          </button>
+          <button class="btn btn-outline" onclick="window.copyToolToClipboard('audit-tool')">
+            <i class="fa-solid fa-copy" style="margin-right: 0.5rem;"></i> Copy Text
+          </button>
+          <button class="btn btn-outline" style="color: #c53030; border-color: #feb2b2;" onclick="window.clearToolData('audit-tool')">
+            <i class="fa-solid fa-rotate-left" style="margin-right: 0.5rem;"></i> Reset Form
+          </button>
+        </div>
+      </section>
+
+      <!-- Universal Closing Callout: A Meaningful Life in a World of Change -->
+      <section class="meaningful-life-block" style="margin-top: 3.5rem;">
+        <div class="stat-callout-g6">
+          <span class="stat-big-number">9.4</span>
+          <span class="stat-big-caption">jobs already held by age 38 by Americans now in their early forties.</span>
+        </div>
+        <h3 style="margin-bottom: 0.5rem;">A meaningful life in a world of change</h3>
+        <p>
+          Gallup found that graduates who had a professor who cared about them, made them excited about learning, and encouraged their hopes were <strong>more than twice as likely</strong> to be engaged at work and to be thriving in their lives.<sup>[19]</sup> In this study, the same kind of teaching was linked, decades later, to graduates who led, volunteered, kept learning, and found their lives fulfilling.
+        </p>
+        <p style="margin-bottom: 0;">
+          The World Economic Forum expects nearly 40% of the skills used at work to change by 2030.<sup>[20]</sup> What your teaching builds in them will not: the ability to learn, to think, to work with people unlike themselves, and to contribute to the common good.
+        </p>
+      </section>
+
+      <!-- Next Steps Navigation -->
+      <section style="margin-top: 3.5rem; border-top: 1px solid var(--border-muted); padding-top: 2rem;">
+        <h4>Where to go next:</h4>
+        <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+          <li>Complete the course self-audit for one course using the form above.</li>
+          <li>Share it with one colleague and compare notes, or bring it to a department meeting.</li>
+          <li>See the institutional side: read <a href="college-leaders.html">College Leaders</a> for budget and promotion models.</li>
+          <li>Review <a href="the-research.html">The Research</a> for study methodology and corroborating research.</li>
+        </ol>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Shared Global Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-title">What College Is Really For</div>
+      <p class="footer-citation">
+        Based on interviews with 1,000 college graduates, ages 25 to 65, from every kind of college. Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021).
+      </p>
+      <nav class="footer-nav">
+        <a href="understanding-college.html">Understanding College</a>
+        <a href="the-research.html">The Research</a>
+        <a href="about.html">About the Author</a>
+        <a href="about.html#book">Get the Book</a>
+        <a href="about.html#contact">Contact</a>
+      </nav>
+      <p class="footer-contact">
+        Contact: <a href="mailto:Detweiler@higheredimpact.org">Detweiler@higheredimpact.org</a>
+      </p>
+      <p class="footer-copy">
+        &copy; 2026 Richard A. Detweiler. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Modal Container Placeholder for Quiz -->
+  <div id="quiz-overlay">
+    <div id="quiz-modal">
+      <button class="quiz-close" onclick="window.closeQuizModal()">&times;</button>
+      <div class="quiz-progress-container">
+        <div id="quiz-progress-bar"></div>
+      </div>
+      <div id="quiz-content"></div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

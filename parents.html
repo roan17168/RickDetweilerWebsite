@@ -1,185 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO Meta Tags -->
-<meta name="description" content="Is college worth the investment? Empirical research shows liberal arts graduates achieve stronger long-term outcomes. A guide for parents.">
-<meta name="keywords" content="liberal arts, higher education, Richard Detweiler, college value, liberal arts evidence, MIT Press, lives of consequence">
-<meta name="author" content="Richard A. Detweiler">
-
-<!-- Open Graph / Facebook / LinkedIn -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://yourdomain.com/">
-<meta property="og:title" content="For Parents | The Evidence Liberal Arts Needs">
-<meta property="og:description" content="Your fears are real — debt, unemployment, failure to launch. The evidence offers a different conversation.">
-<meta property="og:image" content="https://yourdomain.com/assets/images/book-cover.jpg">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Evidence Liberal Arts Needs">
-<meta name="twitter:description" content="What do I need to know about the liberal arts as a parent.">
-<meta name="twitter:image" content="https://yourdomain.com/assets/images/book-cover.jpg">
-
-<!-- Favicon (the little icon in browser tabs) -->
-<link rel="icon" type="image/png" href="assets/images/favicon.png">
-    <title>For Parents | The Evidence Liberal Arts Needs</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1b365d">
+  <title>Parents | What College Is Really For</title>
+  <meta name="description" content="For parents of students choosing college. What college really costs, what to do and when, and the questions to ask colleges and your own child.">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Google Fonts: Lora (Serif) & Inter (Sans-serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <nav>
-    <div class="logo"><a href="index.html">Richard A. Detweiler</a></div>
-    
-    <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About the Author</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropbtn">Perspectives <i class="fa-solid fa-caret-down"></i></a>
-            <div class="dropdown-content">
-                <a href="prospective-students.html">I'm Looking for College</a>
-                <a href="current-students.html">I'm a College Student</a>
-                <a href="professors.html">I'm a Professor</a>
-                <a href="parents.html">I'm a Parent</a>
-                <a href="administrators.html">I'm an Administrator</a>
-                <a href="legislators.html">I'm a Legislator</a>
-            </div>
-        </li>
-        <li><a href="resources.html">Resources</a></li>
-        <li><a href="https://mitpress.mit.edu/9780262543101/the-evidence-liberal-arts-needs/" target="_blank">The Book</a></li>
-    </ul>
-
-    <div class="mobile-toggle" id="mobile-menu">
+  <!-- Shared Global Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">What College Is Really For</a>
+      
+      <nav class="nav-links">
+        <div class="dropdown">
+          <button class="dropbtn" aria-haspopup="true" aria-expanded="false">
+            Perspectives <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="choosing-a-college.html">Choosing a College</a>
+            <a href="in-college.html">In College</a>
+            <a href="parents.html" class="active">Parents</a>
+            <a href="faculty.html">Faculty</a>
+            <a href="college-leaders.html">College Leaders</a>
+            <a href="policymakers.html">Policymakers</a>
+          </div>
+        </div>
+        <a href="understanding-college.html">Understanding College</a>
+        <a href="the-research.html">The Research</a>
+        <a href="about.html">About</a>
+      </nav>
+      
+      <div class="mobile-toggle" id="mobile-menu" aria-label="Toggle navigation" role="button" tabindex="0">
         <i class="fa-solid fa-bars"></i>
+      </div>
     </div>
-</nav>
+  </header>
 
-    <!-- HERO: Fundamental Question -->
-    <header class="perspective-hero">
-        <span class="audience-tag">For Parents</span>
-        <h1>"Is this investment going to give my child a secure, independent, and meaningful future?"</h1>
-        <p class="intro-text">Your fears are real — debt, unemployment, failure to launch. The evidence offers a different conversation, one where "starting salary" is exposed as the wrong metric for what really matters.</p>
-        <h1><button class="quiz-trigger-btn" 
-            data-audience="Parents"
-            onclick="initQuiz('Parents')">
-            DIVE DEEPER
-        </button></h1>
-    </header>
+  <main class="container" style="padding: 3.5rem 0 5rem;">
+    <div class="reading-container">
+      
+      <span class="section-label">For Parents</span>
+      <h1>College is a big investment. What should it buy?</h1>
+      
+      <p style="font-size: 1.15rem; color: var(--text-charcoal); line-height: 1.6;">
+        Whatever your family can pay, start with two things: what college will really cost you, and what your child should get for it. The research points to things most college comparisons leave out: whether professors will know your child, how widely your child will study, and how much they will be asked to think.
+      </p>
 
-    <!-- QUICK ANSWER -->
-    <section class="quick-answer">
-        <h2>The Short Answer</h2>
-        <p>Decades of empirical research show that liberal arts graduates do not just "catch up" to their vocationally-trained peers — they often surpass them in income, leadership, civic engagement, and life satisfaction by mid-career. Your child's college experience matters more than their first job title.</p>
-    </section>
+      <!-- Quiz Trigger Callout -->
+      <div style="background: var(--bg-surface); border: 1.5px solid var(--accent-gold); border-radius: var(--radius-card); padding: 1.75rem; margin: 2rem 0; text-align: center; box-shadow: var(--shadow-subtle);">
+        <h3 style="margin-bottom: 0.5rem;">Discover What Matters Most for Your Child</h3>
+        <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          5 questions, plus one optional. Two minutes. There are no wrong answers; every one of these hopes is reasonable.
+        </p>
+        <button class="gold-btn quiz-trigger-btn" 
+                data-audience="Parents" 
+                onclick="window.initQuiz('Parents')">
+          Take the Quiz
+        </button>
+      </div>
 
-    <!-- VERIFIED QUOTE -->
-    <div class="evidence-quote">
-        <blockquote>"Do the content and educational context of a liberal arts education actually make a difference in the ways that people live their lives? It is to this question that we now turn."</blockquote>
-        <cite>— Richard A. Detweiler, <em>The Evidence Liberal Arts Needs</em></cite>
+      <!-- What College Really Costs for Parents -->
+      <section style="margin-top: 3rem; background: var(--bg-surface-alt); border-radius: var(--radius-card); padding: 2rem; border: 1px solid var(--border-muted);">
+        <span class="section-label">Paying for College</span>
+        <h2>The price on the website is rarely the price families pay.</h2>
+        <p>
+          Most families pay less than the published price. At private nonprofit colleges, <strong>9 in 10 first-year students get grants</strong> from the college itself, and on average those grants cover more than half of the published tuition.<sup>[8]</sup>
+        </p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.25rem;">
+          <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-muted);">
+            <strong style="color: var(--primary-navy); display: block; margin-bottom: 0.5rem;">If money is tight:</strong>
+            <p style="font-size: 0.92rem; margin-bottom: 0;">You may pay little or nothing. Some selective private colleges cost lower-income families less than a regional state university. Use Net Price Calculators early.</p>
+          </div>
+          <div style="background: var(--bg-surface); padding: 1.25rem; border-radius: 8px; border: 1px solid var(--border-muted);">
+            <strong style="color: var(--primary-navy); display: block; margin-bottom: 0.5rem;">If paying most of it:</strong>
+            <p style="font-size: 0.92rem; margin-bottom: 0;">Look for merit scholarships. Many colleges offer substantial discounts based on academic record, regardless of family income.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Parent's Step-by-Step Timeline (Collapsible) -->
+      <section style="margin-top: 2rem;">
+        <details class="accordion-item">
+          <summary>First time doing this? A parent's timeline</summary>
+          <div class="accordion-content">
+            <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+              <li><strong>Junior year:</strong> Talk with your child's school counselor. Try three net price calculators together, including one at a private college you assumed was too expensive.</li>
+              <li><strong>Summer before senior year:</strong> Help your child make a balanced list: affordable probables, matches, and reaches. Ask about fee waivers.</li>
+              <li><strong>Fall of senior year:</strong> File the FAFSA at studentaid.gov as soon as it opens. Tax information is brought in directly from the IRS.</li>
+              <li><strong>Spring of senior year:</strong> Compare financial aid award letters side by side. Look at the net price (cost minus free grants), not the loans.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>About student loans, honestly</summary>
+          <div class="accordion-content">
+            <p>Borrowing can make sense if kept within reasonable bounds:</p>
+            <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li><strong>Rule of thumb:</strong> Keep your child's total borrowing below what they expect to earn in their first year of work.</li>
+              <li><strong>Federal loans first:</strong> Federal Direct Loans have fixed rates and income-driven repayment protections. Avoid private loans with variable rates whenever possible.</li>
+              <li><strong>Four-year completion rate:</strong> A college where students finish in four years often costs less than a cheaper college where they take five or six.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>Other paths: Community college transfer &amp; apprenticeships</summary>
+          <div class="accordion-content">
+            <p>Starting at a community college and transferring to a four-year institution can dramatically cut degree costs. Verify articulation agreements in advance. Apprenticeships, trade certifications, and military benefits are also viable routes. The questions on this site apply to any college your child considers along any of these paths.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- Questions for Parents to Ask -->
+      <section style="margin-top: 3.5rem;">
+        <span class="section-label">Questions Worth Asking</span>
+        <h2>Questions to ask colleges &amp; your child</h2>
+        
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 1.5rem;">
+          <h4 style="color: var(--primary-navy); margin-bottom: 0.75rem;">Questions to ask the college:</h4>
+          <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0;">
+            <li>How many professors will know my child by name by the end of their first year?</li>
+            <li>How much room do students have to take courses outside their major and still graduate in four years?</li>
+            <li>What share of students complete a research project or internship, and is there funding for unpaid placements?</li>
+            <li>Where are your graduates ten years after graduation, not just six months out?</li>
+          </ol>
+        </div>
+
+        <div style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.75rem;">
+          <h4 style="color: var(--primary-navy); margin-bottom: 0.75rem;">Questions to leave with your child:</h4>
+          <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0;">
+            <li>What kind of person do you want to be at 30?</li>
+            <li>What is one thing you believe now that you'd like a college class to test?</li>
+            <li>What would you study if jobs were not an immediate concern?</li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Universal Closing Callout: A Meaningful Life in a World of Change -->
+      <section class="meaningful-life-block" style="margin-top: 3.5rem;">
+        <div class="stat-callout-g6">
+          <span class="stat-big-number">9.4</span>
+          <span class="stat-big-caption">jobs already held by age 38 by Americans now in their early forties.</span>
+        </div>
+        <h3 style="margin-bottom: 0.5rem;">A meaningful life in a world of change</h3>
+        <p>
+          Ask parents what they want most for their children as adults, and roughly nine in ten say to be financially independent and to have work they enjoy. Two-thirds say it is extremely important that their children be honest and ethical.<sup>[14]</sup>
+        </p>
+        <p style="margin-bottom: 0;">
+          The World Economic Forum expects nearly 40% of the skills used at work to change by 2030.<sup>[15]</sup> The best preparation is not a narrow ticket to a first job. It is an education that helps your child stand on their own, find work worth doing and become someone others can count on.
+        </p>
+      </section>
+
+      <!-- Next Steps Navigation -->
+      <section style="margin-top: 3.5rem; border-top: 1px solid var(--border-muted); padding-top: 2rem;">
+        <h4>Where to go next:</h4>
+        <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+          <li>This month: try three net price calculators with your child.</li>
+          <li>Use the <a href="choosing-a-college.html#scorecard-tool">College Scorecard</a> together to compare finalists.</li>
+          <li>See <a href="understanding-college.html">Understanding College</a> for a plain guide to college types.</li>
+          <li>Review <a href="the-research.html">The Research</a> on long-term career and life outcomes.</li>
+        </ol>
+      </section>
+
     </div>
+  </main>
 
-    <!-- DEEP DIVE ACCORDIONS -->
-    <section class="deep-dive-section">
-        <div class="section-title">
-            <h2>Explore the Evidence</h2>
-            <p>Click each section to dive deeper</p>
-        </div>
+  <!-- Shared Global Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-title">What College Is Really For</div>
+      <p class="footer-citation">
+        Based on interviews with 1,000 college graduates, ages 25 to 65, from every kind of college. Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021).
+      </p>
+      <nav class="footer-nav">
+        <a href="understanding-college.html">Understanding College</a>
+        <a href="the-research.html">The Research</a>
+        <a href="about.html">About the Author</a>
+        <a href="about.html#book">Get the Book</a>
+        <a href="about.html#contact">Contact</a>
+      </nav>
+      <p class="footer-contact">
+        Contact: <a href="mailto:Detweiler@higheredimpact.org">Detweiler@higheredimpact.org</a>
+      </p>
+      <p class="footer-copy">
+        &copy; 2026 Richard A. Detweiler. All rights reserved.
+      </p>
+    </div>
+  </footer>
 
-        <div class="accordion-container">
-
-            <!-- Accordion 1: The Mid-Career Surge -->
-            <article class="accordion-item">
-                <button class="accordion-button" aria-expanded="false" aria-controls="panel-1">
-                    The Mid-Career Surge: Why Liberal Arts Graduates Overtake Their Peers
-                    <span class="icon" aria-hidden="true">+</span>
-                </button>
-                <div class="accordion-panel" id="panel-1" data-open="false">
-                    <p>One of the most striking findings in Detweiler's research is that early-career salary comparisons paint a misleading picture. While vocationally-trained graduates often earn slightly more in their first jobs, liberal arts graduates demonstrate stronger income growth, leadership advancement, and adaptability over the long term.</p>
-                    <p>This happens because the skills cultivated by a liberal arts education — critical thinking, communication, ethical reasoning, and the ability to learn quickly across domains — become increasingly valuable as careers progress and industries change.</p>
-                </div>
-            </article>
-
-            <!-- Accordion 2: Future-Proofing -->
-            <article class="accordion-item">
-                <button class="accordion-button" aria-expanded="false" aria-controls="panel-2">
-                    Future-Proofing Your Child: The Skills AI Cannot Replace
-                    <span class="icon" aria-hidden="true">+</span>
-                </button>
-                <div class="accordion-panel" id="panel-2" data-open="false">
-                    <p>As automation and AI reshape the job market, the skills most resistant to disruption are precisely those a liberal arts education cultivates:</p>
-                    <ul>
-                        <li>Complex, non-linear problem solving across disciplines</li>
-                        <li>Ethical and contextual reasoning</li>
-                        <li>Empathy and human-centered communication</li>
-                        <li>The capacity to learn and adapt rapidly</li>
-                    </ul>
-                    <p>A narrow, vocational degree may train your child for today's job — but a liberal arts education prepares them for the job that doesn't exist yet.</p>
-                </div>
-            </article>
-
-            <!-- Accordion 3: ROI Debate -->
-            <article class="accordion-item">
-                <button class="accordion-button" aria-expanded="false" aria-controls="panel-3">
-                    The Debt vs. Value Debate: Understanding the True ROI
-                    <span class="icon" aria-hidden="true">+</span>
-                </button>
-                <div class="accordion-panel" id="panel-3" data-open="false">
-                    <p>The conversation around "Is college worth it?" is too often reduced to a single number: starting salary versus tuition. Detweiler's research reframes this calculation by tracking life outcomes 10, 20, and 40 years post-graduation.</p>
-                    <p>What he found: graduates exhibit higher rates of life satisfaction, civic leadership, independence, and meaningful careers. These outcomes don't appear on a salary spreadsheet — but they define whether your child builds a life of consequence.</p>
-                </div>
-            </article>
-
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="perspective-cta">
-        <h2>Continue Your Journey</h2>
-        <p>Explore other perspectives or dive deeper into the research that makes this case.</p>
-        <div class="cta-buttons">
-            <a href="index.html" class="btn btn-secondary">View All Perspectives</a>
-            <a href="about.html" class="btn btn-primary">Meet the Author</a>
-            <a href="https://mitpress.mit.edu/9780262543101/the-evidence-liberal-arts-needs/" target="_blank" class="btn btn-gold">Purchase the Book</a>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-content">
-            <div>
-                <h4 class="academic-serif" style="color: var(--accent-gold);">The Evidence</h4>
-                <p style="font-size: 0.85rem; margin-top: 1rem;">Based on the empirical research of Richard A. Detweiler, tracing the lives of 1,000 graduates over 50 years.</p>
-            </div>
-            <div>
-                <h4 class="academic-serif" style="color: var(--accent-gold);">Navigation</h4>
-                <ul style="list-style: none; margin-top: 1rem; font-size: 0.9rem;">
-                    <li><a href="about.html">About Richard</a></li>
-                    <li><a href="index.html">Perspectives</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="academic-serif" style="color: var(--accent-gold);">Purchase</h4>
-                <p style="font-size: 0.9rem; margin-top: 1rem;">Available via MIT Press, Amazon, and local bookstores.</p>
-            </div>
-        </div>
-        <div style="text-align: center; margin-top: 3rem; font-size: 0.8rem; opacity: 0.7;">
-            &copy; 2026 Richard A. Detweiler. All rights reserved.
-        </div>
-        <a href="mailto:rick@higheredimpact.org" target="_blank" class="btn btn-gold">Contact</a>
-    </footer>
-
-    <script src="js/main.js"></script>
-    <!-- Quiz Modal Structure -->
-<div id="quiz-overlay">
+  <!-- Modal Container Placeholder for Quiz -->
+  <div id="quiz-overlay">
     <div id="quiz-modal">
-        <span class="quiz-close" onclick="closeQuiz()">&times;</span>
-        <div class="quiz-progress-container">
-            <div id="quiz-progress-bar"></div>
-        </div>
-        <div id="quiz-content">
-            <!-- Dynamic Content Loads Here -->
-        </div>
+      <button class="quiz-close" onclick="window.closeQuizModal()">&times;</button>
+      <div class="quiz-progress-container">
+        <div id="quiz-progress-bar"></div>
+      </div>
+      <div id="quiz-content"></div>
     </div>
-</div>
+  </div>
+
+  <script src="main.js"></script>
 </body>
 </html>

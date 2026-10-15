@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1b365d">
+  <title>Choosing a College | What College Is Really For</title>
+  <meta name="description" content="A one-minute quiz for high school students. Find out what you want most from college and get the questions to ask on campus visits.">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Google Fonts: Lora (Serif) & Inter (Sans-serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Shared Global Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">What College Is Really For</a>
+      
+      <nav class="nav-links">
+        <div class="dropdown">
+          <button class="dropbtn" aria-haspopup="true" aria-expanded="false">
+            Perspectives <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="choosing-a-college.html" class="active">Choosing a College</a>
+            <a href="in-college.html">In College</a>
+            <a href="parents.html">Parents</a>
+            <a href="faculty.html">Faculty</a>
+            <a href="college-leaders.html">College Leaders</a>
+            <a href="policymakers.html">Policymakers</a>
+          </div>
+        </div>
+        <a href="understanding-college.html">Understanding College</a>
+        <a href="the-research.html">The Research</a>
+        <a href="about.html">About</a>
+      </nav>
+      
+      <div class="mobile-toggle" id="mobile-menu" aria-label="Toggle navigation" role="button" tabindex="0">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" style="padding: 3.5rem 0 5rem;">
+    <div class="reading-container">
+      
+      <span class="section-label">For Students Choosing a College</span>
+      <h1>Rankings can't tell you what college will do for you.</h1>
+      
+      <p style="font-size: 1.15rem; color: var(--text-charcoal); line-height: 1.6;">
+        Majors, price, location, dorms. They all matter. None of them tell you who you'll be at 28 or in the years that follow. Start with what you want out of college, then find the schools that can deliver it.
+      </p>
+
+      <!-- Quiz Trigger Callout -->
+      <div style="background: var(--bg-surface); border: 1.5px solid var(--accent-gold); border-radius: var(--radius-card); padding: 1.75rem; margin: 2rem 0; text-align: center; box-shadow: var(--shadow-subtle);">
+        <h3 style="margin-bottom: 0.5rem;">Find What You Want Out of College</h3>
+        <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+          5 questions, plus one optional. About a minute. No sign-up, no wrong answers.
+        </p>
+        <button class="gold-btn quiz-trigger-btn" 
+                data-audience="Choosing a College" 
+                onclick="window.initQuiz('Choosing a College')">
+          Take the Quiz
+        </button>
+      </div>
+
+      <!-- What You Get Section -->
+      <section style="margin-top: 2.5rem;">
+        <h4>What you get:</h4>
+        <ul style="padding-left: 1.25rem; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.5rem;">
+          <li><strong>Your result:</strong> What your answers say you want most from college.</li>
+          <li><strong>Questions to ask:</strong> Easy to say, hard to dodge.</li>
+          <li><strong>Ways to check without asking anyone:</strong> Things to look up or notice.</li>
+          <li><strong>A scorecard:</strong> Compare your finalists on what students really experience.</li>
+        </ul>
+      </section>
+
+      <!-- What College Really Costs -->
+      <section style="margin-top: 3rem; background: var(--bg-surface-alt); border-radius: var(--radius-card); padding: 2rem; border: 1px solid var(--border-muted);">
+        <span class="section-label">Financial Reality</span>
+        <h2>The price on the website is not the price you'll pay.</h2>
+        <p>
+          Most students pay less than the published price, often much less. At private nonprofit colleges, <strong>9 in 10 first-year students get grants</strong> from the college itself, and on average those grants cover more than half of the published tuition.<sup>[3]</sup> Some colleges with high published prices cost students from lower-income families less than a public university does. You can find your real price before you apply:
+        </p>
+        <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 0;">
+          <li><strong>Net price calculator:</strong> Every college must post one on its website. Enter your family's information and it estimates what you would pay after grants. Search for the college's name and "net price calculator."</li>
+          <li><strong>College Scorecard (collegescorecard.ed.gov):</strong> From the US Department of Education. It shows each college's average yearly cost for families at your income level, and how many of its students graduate.</li>
+          <li><strong>Federal Student Aid (FAFSA - studentaid.gov):</strong> Fill out the federal financial aid form that colleges use. It is needed for most grants, work-study jobs and loans.</li>
+        </ul>
+      </section>
+
+      <!-- First in Your Family Guide (Collapsible) -->
+      <section style="margin-top: 2rem;">
+        <details class="accordion-item">
+          <summary>First in your family to go to college? Read this</summary>
+          <div class="accordion-content">
+            <p>You're not behind. Many students figure this out without anyone at home who has done it. These five steps matter most:</p>
+            <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
+              <li><strong>Talk to your school counselor this year:</strong> Say: "I want to go to college, and I'm the first in my family. What should I be doing now?" Counselors expect this question.</li>
+              <li><strong>Try three net price calculators:</strong> Include at least one private college you assumed was too expensive.</li>
+              <li><strong>Ask about fee waivers:</strong> If money is tight, you can usually apply to colleges and take the SAT or ACT for free. Your counselor can request the waivers.</li>
+              <li><strong>File the FAFSA early:</strong> File in the fall of your senior year as soon as it opens. File early, because some aid runs out.</li>
+              <li><strong>Keep every path open:</strong> Starting at a community college and transferring to a four-year college is a real path. So is a four-year college close to home. The questions on this site work for all of them.</li>
+            </ol>
+            <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">
+              <em>Can't visit?</em> Most colleges offer virtual tours and online information sessions. Many will put you in touch with a current student by email. Some colleges pay travel costs for lower-income students to visit; search for the college's name and "fly-in program."
+            </p>
+          </div>
+        </details>
+      </section>
+
+      <!-- Standard Collapsible Modules -->
+      <section style="margin-top: 2rem;">
+        <details class="accordion-item">
+          <summary>Before you fall for a campus: Dealbreakers &amp; Good signs</summary>
+          <div class="accordion-content">
+            <p><strong>Dealbreakers first:</strong></p>
+            <ul style="padding-left: 1.25rem; margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li>Can my family and I afford this through graduation, after grants and scholarships?</li>
+              <li>Does it have what I might study, with room to change my mind?</li>
+              <li>Do students like me finish here? (Vincent Tinto finds that feeling connected is a big part of finishing.)</li>
+              <li>Will I feel safe, supported and like I belong?</li>
+              <li>Are housing, health, disability and advising services good enough for what I need?</li>
+            </ul>
+            <p><strong>Good signs at any college:</strong></p>
+            <ul style="padding-left: 1.25rem; margin-bottom: 0; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li>Professors know students and talk with them outside class.</li>
+              <li>In class, students speak, write, argue and solve problems.</li>
+              <li>You have room to study outside your major.</li>
+              <li>Students work with people who think and live differently.</li>
+              <li>You get to do real things: research, projects, internships, performances, service.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>Words colleges use (Plain translations)</summary>
+          <div class="accordion-content">
+            <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0;">
+              <li><strong>Major:</strong> The subject you study most.</li>
+              <li><strong>Seminar:</strong> A small class built on discussion.</li>
+              <li><strong>Humanities:</strong> Literature, history, philosophy, languages and the arts.</li>
+              <li><strong>Adviser:</strong> The person who helps you choose courses and plan.</li>
+              <li><strong>Mentor:</strong> An adult who takes a lasting interest in you and your goals.</li>
+              <li><strong>Office hours:</strong> Set times when a professor is available to any student, no appointment needed.</li>
+              <li><strong>Internship:</strong> A short job in a field you're considering.</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- INTERACTIVE TOOL: COLLEGE SCORECARD -->
+      <section id="scorecard-tool" style="margin-top: 4rem; background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 2.25rem; box-shadow: var(--shadow-subtle);">
+        <span class="section-label">Interactive Tool</span>
+        <h2>Your College Scorecard</h2>
+        <p><strong>What it's for:</strong> Turn your visits, calls and research into one page you can compare. It records what you found out about each college, not what the college says about itself.</p>
+        
+        <p style="font-size: 0.95rem; color: var(--text-muted);">
+          <strong>How to use it:</strong> Write your finalists across the top. Star your quiz result row. Gather evidence for each row and rate: Strong, Mixed, Weak, or Don't know yet.
+        </p>
+
+        <div class="table-container" style="margin-top: 1.5rem;">
+          <table class="responsive-data-table" id="scorecard-table">
+            <thead>
+              <tr>
+                <th style="width: 35%;">Experience &amp; Measure</th>
+                <th style="width: 16%;" data-label="College 1"><input type="text" placeholder="College #1" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
+                <th style="width: 16%;" data-label="College 2"><input type="text" placeholder="College #2" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
+                <th style="width: 16%;" data-label="College 3"><input type="text" placeholder="College #3" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
+                <th style="width: 16%;" data-label="College 4"><input type="text" placeholder="College #4" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="Measure"><strong>Dealbreakers:</strong> Affordable after aid? Safe? Support services?</td>
+                <td data-label="College 1"><input type="text" placeholder="Pass / Fail" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 2"><input type="text" placeholder="Pass / Fail" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 3"><input type="text" placeholder="Pass / Fail" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 4"><input type="text" placeholder="Pass / Fail" style="width: 100%; padding: 0.35rem;"></td>
+              </tr>
+              <tr>
+                <td data-label="Measure"><strong>Faculty Contact:</strong> Will professors know my name by year one?</td>
+                <td data-label="College 1"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 2"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 3"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 4"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+              </tr>
+              <tr>
+                <td data-label="Measure"><strong>Breadth:</strong> Can I take &gt;50% of my courses outside my major?</td>
+                <td data-label="College 1"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 2"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 3"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 4"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+              </tr>
+              <tr>
+                <td data-label="Measure"><strong>Classroom Discussion:</strong> Do students do the talking in small seminars?</td>
+                <td data-label="College 1"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 2"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 3"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 4"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+              </tr>
+              <tr>
+                <td data-label="Measure"><strong>Campus Life:</strong> Are students involved in clubs, teams, and community?</td>
+                <td data-label="College 1"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 2"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 3"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="College 4"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tool Action Row (Item 1 Enhancement) -->
+        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap;">
+          <button class="navy-btn" onclick="window.printToolReport('scorecard-tool')">
+            <i class="fa-solid fa-print" style="margin-right: 0.5rem;"></i> Print
+          </button>
+          <button class="btn btn-outline" onclick="window.copyToolToClipboard('scorecard-tool')">
+            <i class="fa-solid fa-copy" style="margin-right: 0.5rem;"></i> Copy Text
+          </button>
+          <button class="btn btn-outline" style="color: #c53030; border-color: #feb2b2;" onclick="window.clearToolData('scorecard-tool')">
+            <i class="fa-solid fa-rotate-left" style="margin-right: 0.5rem;"></i> Reset Form
+          </button>
+        </div>
+      </section>
+
+      <!-- Universal Closing Callout: A Meaningful Life in a World of Change -->
+      <section class="meaningful-life-block">
+        <div class="stat-callout-g6">
+          <span class="stat-big-number">9.4</span>
+          <span class="stat-big-caption">jobs already held by age 38 by Americans now in their early forties.</span>
+        </div>
+        <h3 style="margin-bottom: 0.5rem;">A meaningful life in a world of change</h3>
+        <p>
+          College is more than getting through classes to get a job. It's where you find out what you care about, who you want to become and what you have to give. In the study behind this site, the same experiences were linked to higher income and to leadership, volunteering, continued learning and a fulfilled life.
+        </p>
+        <p style="margin-bottom: 0;">
+          The World Economic Forum expects nearly 40% of the skills used at work to change by 2030.<sup>[2]</sup> An education that teaches people to learn, to think and to work with others prepares them for all of it.
+        </p>
+      </section>
+
+      <!-- Next Steps Navigation -->
+      <section style="margin-top: 3.5rem; border-top: 1px solid var(--border-muted); padding-top: 2rem;">
+        <h4>Where to go next:</h4>
+        <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+          <li>Take the quiz above to find your top outcome.</li>
+          <li>Fill in the scorecard for your 2 to 4 finalist colleges.</li>
+          <li>Read <a href="in-college.html">In College</a> to see how to get these experiences wherever you go.</li>
+          <li>See <a href="understanding-college.html">Understanding College</a> to understand why broad study pays off.</li>
+        </ol>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Shared Global Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-title">What College Is Really For</div>
+      <p class="footer-citation">
+        Based on interviews with 1,000 college graduates, ages 25 to 65, from every kind of college. Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021).
+      </p>
+      <nav class="footer-nav">
+        <a href="understanding-college.html">Understanding College</a>
+        <a href="the-research.html">The Research</a>
+        <a href="about.html">About the Author</a>
+        <a href="about.html#book">Get the Book</a>
+        <a href="about.html#contact">Contact</a>
+      </nav>
+      <p class="footer-contact">
+        Contact: <a href="mailto:Detweiler@higheredimpact.org">Detweiler@higheredimpact.org</a>
+      </p>
+      <p class="footer-copy">
+        &copy; 2026 Richard A. Detweiler. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Modal Container Placeholder for Quiz -->
+  <div id="quiz-overlay">
+    <div id="quiz-modal">
+      <button class="quiz-close" onclick="window.closeQuizModal()">&times;</button>
+      <div class="quiz-progress-container">
+        <div id="quiz-progress-bar"></div>
+      </div>
+      <div id="quiz-content"></div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

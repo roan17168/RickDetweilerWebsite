@@ -1,135 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO Meta Tags -->
-<meta name="description" content="Empirical research proving the lasting impact of liberal arts education on lives of consequence, inquiry, and accomplishment. Explore evidence from six perspectives.">
-<meta name="keywords" content="liberal arts, higher education, Richard Detweiler, college value, liberal arts evidence, MIT Press, lives of consequence">
-<meta name="author" content="Richard A. Detweiler">
-
-<!-- Open Graph / Facebook / LinkedIn -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://yourdomain.com/">
-<meta property="og:title" content="The Evidence Liberal Arts Needs | Richard A. Detweiler">
-<meta property="og:description" content="A landmark study proving liberal arts education shapes lives of consequence. Explore the research from your perspective.">
-<meta property="og:image" content="https://yourdomain.com/assets/images/book-cover.jpg">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Evidence Liberal Arts Needs">
-<meta name="twitter:description" content="Empirical proof that liberal arts education leads to lives of consequence.">
-<meta name="twitter:image" content="https://yourdomain.com/assets/images/book-cover.jpg">
-
-<!-- Favicon (the little icon in browser tabs) -->
-<link rel="icon" type="image/png" href="assets/images/favicon.png">
-    <title>The Evidence Liberal Arts Needs | Richard A. Detweiler</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1b365d">
+  <title>What College Is Really For</title>
+  <meta name="description" content="What is college really for? Findings from interviews with 1,000 graduates, turned into questions for students, parents, faculty, college leaders and policymakers.">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Google Fonts: Lora (Serif) & Inter (Sans-serif) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <nav>
-    <div class="logo"><a href="index.html">Richard A. Detweiler</a></div>
-    
-    <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About the Author</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropbtn">Perspectives <i class="fa-solid fa-caret-down"></i></a>
-            <div class="dropdown-content">
-                <a href="prospective-students.html">I'm Looking for College</a>
-                <a href="current-students.html">I'm a College Student</a>
-                <a href="professors.html">I'm a Professor</a>
-                <a href="parents.html">I'm a Parent</a>
-                <a href="administrators.html">I'm an Administrator</a>
-                <a href="legislators.html">I'm a Legislator</a>
-            </div>
-        </li>
-        <li><a href="resources.html">Resources</a></li>
-        <li><a href="https://mitpress.mit.edu/9780262543101/the-evidence-liberal-arts-needs/" target="_blank">The Book</a></li>
-    </ul>
-
-    <div class="mobile-toggle" id="mobile-menu">
+  <!-- Shared Global Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">What College Is Really For</a>
+      
+      <nav class="nav-links">
+        <div class="dropdown">
+          <button class="dropbtn" aria-haspopup="true" aria-expanded="false">
+            Perspectives <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="choosing-a-college.html">Choosing a College</a>
+            <a href="in-college.html">In College</a>
+            <a href="parents.html">Parents</a>
+            <a href="faculty.html">Faculty</a>
+            <a href="college-leaders.html">College Leaders</a>
+            <a href="policymakers.html">Policymakers</a>
+          </div>
+        </div>
+        <a href="understanding-college.html">Understanding College</a>
+        <a href="the-research.html">The Research</a>
+        <a href="about.html">About</a>
+      </nav>
+      
+      <div class="mobile-toggle" id="mobile-menu" aria-label="Toggle navigation" role="button" tabindex="0">
         <i class="fa-solid fa-bars"></i>
+      </div>
     </div>
-</nav>
+  </header>
 
-    <header class="hero">
-        <h1>The Evidence Liberal Arts Needs</h1>
-        <p>A landmark study proving that a liberal arts education leads to lives of consequence, inquiry, and accomplishment. Explore the research from your perspective.</p>
-    </header>
+  <!-- Homepage Hero Section -->
+  <section class="home-hero">
+    <div class="container">
+      <h1>It's not the major. It's not the ranking. It's what happens there.</h1>
+      <p class="hero-subhead">
+        We asked 1,000 graduates, ages 25 to 65, about their college years and about their lives now. Which college they attended and what they majored in mattered less than what they experienced there.
+      </p>
+      <div class="quiz-prompt-pill">
+        Who are you? Take a two-minute quiz and get the questions worth asking.
+      </div>
+    </div>
+  </section>
 
-    <main>
-        <section class="perspective-grid">
-            <!-- Card 1: Prospective Students -->
-            <a href="prospective-students.html" class="card" aria-label="Prospective Students Perspective">
-                <i class="fa-solid fa-graduation-cap"></i>
-                <h3>I'm Looking for College</h3>
-                <p>"Who will I become, and will this education help me build a meaningful life?"</p>
-            </a>
+  <!-- 6-Card Decision Hub Grid -->
+  <main class="decision-hub-section">
+    <div class="container">
+      <div class="decision-hub-grid">
+        
+        <!-- Card 1: Choosing a College -->
+        <article class="audience-card">
+          <div class="card-header-group">
+            <div class="card-icon"><i class="fa-solid fa-compass"></i></div>
+            <h3>I'm choosing a college</h3>
+            <p class="card-hook">"What do I want college to do for me, and which colleges can do it?"</p>
+          </div>
+          <div class="card-footer-action">
+            <a href="choosing-a-college.html" class="gold-btn card-btn">Start</a>
+          </div>
+        </article>
 
-            <!-- Card 2: Current Students -->
-            <a href="current-students.html" class="card" aria-label="Current Students Perspective">
-                <i class="fa-solid fa-book-open-reader"></i>
-                <h3>I'm a College Student</h3>
-                <p>"How do I turn these diverse classes into a coherent, adaptable future?"</p>
-            </a>
+        <!-- Card 2: In College -->
+        <article class="audience-card">
+          <div class="card-header-group">
+            <div class="card-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <h3>I'm in college</h3>
+            <p class="card-hook">"Am I getting the experiences that last?"</p>
+          </div>
+          <div class="card-footer-action">
+            <a href="in-college.html" class="gold-btn card-btn">Start</a>
+          </div>
+        </article>
 
-            <!-- Card 3: Professors -->
-            <a href="professors.html" class="card" aria-label="Professors Perspective">
-                <i class="fa-solid fa-chalkboard-user"></i>
-                <h3>I'm a Professor</h3>
-                <p>"How can I prove that my teaching has a lasting impact on my students' lives?"</p>
-            </a>
+        <!-- Card 3: Parents -->
+        <article class="audience-card">
+          <div class="card-header-group">
+            <div class="card-icon"><i class="fa-solid fa-people-roof"></i></div>
+            <h3>I'm a parent</h3>
+            <p class="card-hook">"How do we pay for it, and what should it buy?"</p>
+          </div>
+          <div class="card-footer-action">
+            <a href="parents.html" class="gold-btn card-btn">Start</a>
+          </div>
+        </article>
 
-            <!-- Card 4: Parents -->
-            <a href="parents.html" class="card" aria-label="Parents Perspective">
-                <i class="fa-solid fa-house-user"></i>
-                <h3>I'm a Parent</h3>
-                <p>"Is this investment going to give my child a secure and meaningful future?"</p>
-            </a>
+        <!-- Card 4: Faculty -->
+        <article class="audience-card">
+          <div class="card-header-group">
+            <div class="card-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+            <h3>I teach</h3>
+            <p class="card-hook">"Which parts of my teaching will still matter to students in thirty years?"</p>
+          </div>
+          <div class="card-footer-action">
+            <a href="faculty.html" class="gold-btn card-btn">Start</a>
+          </div>
+        </article>
 
-            <!-- Card 5: Administrators -->
-            <a href="administrators.html" class="card" aria-label="Administrators Perspective">
-                <i class="fa-solid fa-building-columns"></i>
-                <h3>I'm an Administrator</h3>
-                <p>"How do we market the 'intangible' value of our institution using hard data?"</p>
-            </a>
+        <!-- Card 5: College Leaders -->
+        <article class="audience-card">
+          <div class="card-header-group">
+            <div class="card-icon"><i class="fa-solid fa-landmark"></i></div>
+            <h3>I lead a college</h3>
+            <p class="card-hook">"Do our budget and incentives protect what changes students' lives?"</p>
+          </div>
+          <div class="card-footer-action">
+            <a href="college-leaders.html" class="gold-btn card-btn">Start</a>
+          </div>
+        </article>
 
-            <!-- Card 6: Legislators -->
-            <a href="legislators.html" class="card" aria-label="Legislators Perspective">
-                <i class="fa-solid fa-landmark"></i>
-                <h3>I'm a Legislator</h3>
-                <p>"Why should public money support broad education over direct workforce training?"</p>
-            </a>
-        </section>
-    </main>
+        <!-- Card 6: Policymakers -->
+        <article class="audience-card">
+          <div class="card-header-group">
+            <div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+            <h3>I make policy</h3>
+            <p class="card-hook">"How should we measure what a college is worth?"</p>
+          </div>
+          <div class="card-footer-action">
+            <a href="policymakers.html" class="gold-btn card-btn">Start</a>
+          </div>
+        </article>
 
-    <footer>
-        <div class="footer-content">
-            <div>
-                <h4 class="academic-serif" style="color: var(--accent-gold);">The Evidence</h4>
-                <p style="font-size: 0.85rem; margin-top: 1rem;">Based on the empirical research of Richard A. Detweiler, tracing the lives of 1,000 graduates over 50 years.</p>
-            </div>
-            <div>
-                <h4 class="academic-serif" style="color: var(--accent-gold);">Navigation</h4>
-                <ul style="list-style: none; margin-top: 1rem; font-size: 0.9rem;">
-                    <li><a href="about.html">About Richard</a></li>
-                    <li><a href="index.html">Perspectives</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="academic-serif" style="color: var(--accent-gold);">Purchase</h4>
-                <p style="font-size: 0.9rem; margin-top: 1rem;">Available via MIT Press, Amazon, and local bookstores.</p>
-            </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- What the Research Found: 3 Common Elements -->
+  <section class="findings-section">
+    <div class="container">
+      <span class="section-label">What the Research Found</span>
+      <h2>Three things the graduates had in common</h2>
+      
+      <div class="findings-grid">
+        <div class="finding-card">
+          <div class="finding-num">1</div>
+          <h4>Learning didn't stop at the classroom door</h4>
+          <p>These graduates talked with professors outside class, about coursework and about everything else. They had a mentor whose influence lasted, and they took a real part in campus life alongside other students. Of everything the study measured, this involvement with faculty and students outside class was the experience most consistently linked to every kind of life outcome.</p>
         </div>
-        <div style="text-align: center; margin-top: 3rem; font-size: 0.8rem; opacity: 0.7;">
-            &copy; 2026 Richard A. Detweiler. All rights reserved.
+
+        <div class="finding-card">
+          <div class="finding-num">2</div>
+          <h4>They studied widely, and major mattered little</h4>
+          <p>Graduates who took more than half their courses outside their major were 24% more likely to report a higher income as adults. Major was unrelated to longer-term success and to most life outcomes.</p>
         </div>
-        <a href="mailto:rick@higheredimpact.org" target="_blank" class="btn btn-gold">Contact</a>
-    </footer>
-    <script src="js/main.js"></script>
+
+        <div class="finding-card">
+          <div class="finding-num">3</div>
+          <h4>They were pushed to think, not only to remember</h4>
+          <p>Courses with small discussions, writing, open-ended assignments and examining their own arguments were linked to graduates who kept learning, were culturally involved and described their lives as fulfilled.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Graphic G5: Six Outcomes Grid -->
+  <section class="outcomes-section">
+    <div class="container">
+      <span class="section-label">Evidence-Based Results</span>
+      <h2>Six long-term life outcomes</h2>
+      <p>The study tracked how these specific college experiences linked to six measurable aspects of adult life decades after graduation:</p>
+      
+      <div class="outcomes-grid">
+        <div class="outcome-box">
+          <div class="outcome-icon"><i class="fa-solid fa-users-gear"></i></div>
+          <div class="outcome-title">Leadership</div>
+          <p class="outcome-desc">Leading organizations and groups</p>
+        </div>
+
+        <div class="outcome-box">
+          <div class="outcome-icon"><i class="fa-solid fa-hands-holding-child"></i></div>
+          <div class="outcome-title">Civic Involvement</div>
+          <p class="outcome-desc">Giving, volunteering, voting</p>
+        </div>
+
+        <div class="outcome-box">
+          <div class="outcome-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+          <div class="outcome-title">Continued Learning</div>
+          <p class="outcome-desc">Continuing to read, study and learn</p>
+        </div>
+
+        <div class="outcome-box">
+          <div class="outcome-icon"><i class="fa-solid fa-palette"></i></div>
+          <div class="outcome-title">Cultural Involvement</div>
+          <p class="outcome-desc">Taking part in arts, ideas and culture</p>
+        </div>
+
+        <div class="outcome-box">
+          <div class="outcome-icon"><i class="fa-solid fa-sun"></i></div>
+          <div class="outcome-title">Fulfillment</div>
+          <p class="outcome-desc">Describing life as meaningful and satisfying</p>
+        </div>
+
+        <div class="outcome-box">
+          <div class="outcome-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="outcome-title">Personal Success</div>
+          <p class="outcome-desc">Position and income</p>
+        </div>
+      </div>
+
+      <!-- Closing Panel: Start at the end -->
+      <div class="closing-panel">
+        <h2>Start at the end.</h2>
+        <p>Most people choose a college, or judge one, or fund one, by starting with what is easiest to see: the name, the rank, the price, the first salary. The evidence says to start at the other end.</p>
+        <p><strong>First,</strong> decide what the education is for. A life with leadership in it, involvement in a community, curiosity that lasts, work that matters and the means to live well.</p>
+        <p><strong>Second,</strong> ask what the evidence says produces that. Professors and students involved with one another outside class. Study across many fields. Teaching that makes students think.</p>
+        <p><strong>Third,</strong> look for the colleges where that happens, and only then choose.</p>
+        <p class="punchline">That is what college is really for.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Shared Global Footer -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-title">What College Is Really For</div>
+      <p class="footer-citation">
+        Based on interviews with 1,000 college graduates, ages 25 to 65, from every kind of college. Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021).
+      </p>
+      <nav class="footer-nav">
+        <a href="understanding-college.html">Understanding College</a>
+        <a href="the-research.html">The Research</a>
+        <a href="about.html">About the Author</a>
+        <a href="about.html#book">Get the Book</a>
+        <a href="about.html#contact">Contact</a>
+      </nav>
+      <p class="footer-contact">
+        Contact: <a href="mailto:Detweiler@higheredimpact.org">Detweiler@higheredimpact.org</a>
+      </p>
+      <p class="footer-copy">
+        &copy; 2026 Richard A. Detweiler. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
 </body>
 </html>

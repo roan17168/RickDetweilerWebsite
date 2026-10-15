@@ -1,552 +1,1653 @@
-// ============================================
-// 1. QUIZ DATA 
-// ============================================
-const quizData = {
-  "quizzes": [
-    {
-      "audience": "Looking for College (Prospective Students)",
-      "description": "Before you choose a campus, discover the life you are actually trying to build. This quiz maps your values to the specific college experiences that research proves will get you there.",
-      "questions": [
+/* ==========================================================================
+   WHAT COLLEGE IS REALLY FOR - MASTER ENGINE
+   Based on Richard A. Detweiler, The Evidence Liberal Arts Needs (MIT Press, 2021)
+   Definitive Revision: October 2026
+
+   CONTENTS
+   1.  Configuration
+   2.  Quiz data store (6 audiences)
+   3.  Optional advice panel library
+   4.  Quiz state machine
+   5.  Quiz rendering engine
+   6.  Result rendering
+   7.  Global window bindings (required by inline onclick handlers)
+   8.  Navigation, dropdowns, accordions
+   9.  Tool handlers: print, copy, autosave
+   10. Bootstrap
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  /* ------------------------------------------------------------------------
+     1. CONFIGURATION
+     ------------------------------------------------------------------------ */
+  var CONFIG = {
+    // Rick's revised text does not call for an uninvited pop-up.
+    // Set to true only if you want the quiz to auto-open once per session.
+    AUTO_POPUP: false,
+    AUTO_POPUP_DELAY_MS: 2000,
+
+    // Choosing an answer advances automatically. No "Next" button.
+    AUTO_ADVANCE_MS: 260,
+
+    // Saves what people type into the scorecard / plan / audit / checklist / brief.
+    TOOL_AUTOSAVE: true,
+    STORAGE_PREFIX: 'wcirf_'
+  };
+
+  /* ------------------------------------------------------------------------
+     2. QUIZ DATA STORE
+     ------------------------------------------------------------------------
+     scoring: "outcome"   -> plurality across 6 life outcomes, bonus tie-breaker
+              "plurality" -> plurality across 3 named stances, 2-way ties shown together
+              "points"    -> Strong 2 / Partway 1 / Not yet 0, banded result
+     ------------------------------------------------------------------------ */
+
+  var QUIZ_DATA = {
+
+    /* ====================== 1. CHOOSING A COLLEGE ====================== */
+    'Choosing a College': {
+      audience: 'Choosing a College',
+      scoring: 'outcome',
+      intro: {
+        heading: 'What do you want college to do for you?',
+        text: 'Five questions, plus one optional. About a minute. There are no wrong answers, and you do not pick your own result. It comes from your answers.'
+      },
+      questions: [
         {
-          "id": 1,
-          "text": "When you imagine your life at age 40, what does 'success' look like to you?",
-          "options": [
-            {"text": "Leading a team to solve a complex, large-scale problem.", "mapping": "L"},
-            {"text": "Being a go-to expert who never stops learning and discovering.", "mapping": "K"},
-            {"text": "Making a tangible difference in the lives of people in my community.", "mapping": "C"},
-            {"text": "Living a life of creative expression and cultural depth.", "mapping": "A"},
-            {"text": "Having a sense of inner peace and a clear personal purpose.", "mapping": "F"},
-            {"text": "Achieving high-level professional status and financial security.", "mapping": "S"}
+          id: 'c1',
+          text: 'Ten years from now, which of these would make you proudest?',
+          options: [
+            { text: 'Running something I built, or helped build.', mapping: 'Leadership' },
+            { text: 'Giving time or money to something bigger than me.', mapping: 'Civic Involvement' },
+            { text: 'Still learning something new every year.', mapping: 'Continued Learning' },
+            { text: 'A life with art, ideas and other cultures in it.', mapping: 'Cultural Involvement' },
+            { text: 'Feeling like my life means something.', mapping: 'Fulfillment' },
+            { text: 'Doing well enough to support the people I love.', mapping: 'Personal Success' }
           ]
         },
         {
-          "id": 2,
-          "text": "Which of these high school experiences made you feel most 'alive'?",
-          "options": [
-            {"text": "Organizing a group or club to achieve a specific goal.", "mapping": "L"},
-            {"text": "Falling down a 'rabbit hole' of research on a topic I love.", "mapping": "K"},
-            {"text": "Volunteering for a cause that helped someone in need.", "mapping": "C"},
-            {"text": "Performing, writing, or creating something original.", "mapping": "A"},
-            {"text": "Having a deep, late-night conversation about the meaning of life.", "mapping": "F"},
-            {"text": "Mastering a difficult skill that will help me in my future career.", "mapping": "S"}
+          id: 'c2',
+          text: 'Which college story would make you say, "that is what I came for"?',
+          options: [
+            { text: 'A professor asked me to lead a project, and I did it.', mapping: 'Leadership' },
+            { text: 'I spent a semester working on a problem in the town around campus.', mapping: 'Civic Involvement' },
+            { text: 'I took a class I never expected to like and it changed what I study.', mapping: 'Continued Learning' },
+            { text: 'I argued about books, music and ideas I would never have found at home.', mapping: 'Cultural Involvement' },
+            { text: 'I finally worked out what I actually care about.', mapping: 'Fulfillment' },
+            { text: 'I got the internship, and then the offer.', mapping: 'Personal Success' }
           ]
         },
         {
-          "id": 3,
-          "text": "What kind of relationship do you want to have with your future professors?",
-          "options": [
-            {"text": "I want a mentor who pushes me to take on leadership roles.", "mapping": "L"},
-            {"text": "I want a scholar who challenges my intellectual assumptions.", "mapping": "K"},
-            {"text": "I want someone who models how to use knowledge for the common good.", "mapping": "C"},
-            {"text": "I want a practitioner who helps me find my creative voice.", "mapping": "A"},
-            {"text": "I want a guide who helps me figure out who I am as a person.", "mapping": "F"},
-            {"text": "I want an expert who can open doors to my first big job.", "mapping": "S"}
+          id: 'c3',
+          text: 'On a campus visit, what would you most want to see with your own eyes?',
+          options: [
+            { text: 'Students running the clubs, the teams and the newspaper.', mapping: 'Leadership' },
+            { text: 'Students working alongside people off campus.', mapping: 'Civic Involvement' },
+            { text: 'A library or lab busy at night with students who want to be there.', mapping: 'Continued Learning' },
+            { text: 'A concert, a gallery or a performance with students in the room.', mapping: 'Cultural Involvement' },
+            { text: 'Students and professors talking about something that is not on the test.', mapping: 'Fulfillment' },
+            { text: 'Students presenting real work to people from outside the college.', mapping: 'Personal Success' }
           ]
         },
         {
-          "id": 4,
-          "text": "If you could only pick one 'superpower' for your career, what would it be?",
-          "options": [
-            {"text": "The ability to inspire and move people toward a vision.", "mapping": "L"},
-            {"text": "The ability to learn anything new, no matter how fast the world changes.", "mapping": "K"},
-            {"text": "The ability to build bridges between people with different values.", "mapping": "C"},
-            {"text": "The ability to see the world through a unique, artistic lens.", "mapping": "A"},
-            {"text": "The ability to stay grounded and happy regardless of external pressure.", "mapping": "F"},
-            {"text": "The ability to navigate complex systems to achieve high-level results.", "mapping": "S"}
+          id: 'c4',
+          text: 'What do you most want to be good at by the time you graduate?',
+          options: [
+            { text: 'Getting people to work together.', mapping: 'Leadership' },
+            { text: 'Making something better for the people around me.', mapping: 'Civic Involvement' },
+            { text: 'Teaching myself whatever I need next.', mapping: 'Continued Learning' },
+            { text: 'Being at home with any idea, culture or kind of person.', mapping: 'Cultural Involvement' },
+            { text: 'Staying true to myself under pressure.', mapping: 'Fulfillment' },
+            { text: 'Figuring out how things work and getting ahead.', mapping: 'Personal Success' }
           ]
         },
         {
-          "id": 5,
-          "text": "What is your biggest fear about the 'wrong' college choice?",
-          "options": [
-            {"text": "Being just a number in a crowd where I can't make an impact.", "mapping": "L"},
-            {"text": "Getting a narrow education that becomes obsolete in ten years.", "mapping": "K"},
-            {"text": "Spending four years in a bubble, disconnected from real-world needs.", "mapping": "C"},
-            {"text": "Losing my creative spark in a rigid, pre-professional program.", "mapping": "A"},
-            {"text": "Graduating with a degree but no sense of what my life is for.", "mapping": "F"},
-            {"text": "Missing out on the network and skills needed for financial independence.", "mapping": "S"}
+          id: 'c5',
+          text: 'What scares you most about picking the wrong college?',
+          options: [
+            { text: "Being a number in a crowd where I can't make a mark.", mapping: 'Leadership' },
+            { text: 'Four years in a bubble, cut off from the real world.', mapping: 'Civic Involvement' },
+            { text: 'Learning things that may be out of date in ten years.', mapping: 'Continued Learning' },
+            { text: 'A narrow program with no room for anything creative or new.', mapping: 'Cultural Involvement' },
+            { text: 'Graduating with a degree and no idea what I want.', mapping: 'Fulfillment' },
+            { text: 'Finishing without the skills or contacts to support myself.', mapping: 'Personal Success' }
           ]
         }
       ],
-      "results": [
+      optional: {
+        text: 'One more, if you like. What else is on your mind? Pick all that fit.',
+        note: 'Not scored. It only adds advice to your result.',
+        options: [
+          { text: "How we'll pay for it", panel: 'paying' },
+          { text: 'Being the first in my family to go', panel: 'firstgen' },
+          { text: 'Feeling like I belong, and finishing', panel: 'belonging' },
+          { text: 'Getting in', panel: 'gettingin' },
+          { text: 'Not getting my first choice', panel: 'firstchoice' }
+        ]
+      },
+      tieBreaker: {
+        text: "It's a free Saturday at college. Which one are you most likely to do?",
+        options: [
+          { text: 'Run the meeting for a group I helped start.', mapping: 'Leadership' },
+          { text: 'Show up for a community project off campus.', mapping: 'Civic Involvement' },
+          { text: 'Go down a rabbit hole on something I just got curious about.', mapping: 'Continued Learning' },
+          { text: 'Go to a show, an exhibit or a film I know nothing about.', mapping: 'Cultural Involvement' },
+          { text: 'Have a long conversation with someone about what matters.', mapping: 'Fulfillment' },
+          { text: 'Work on the project, portfolio or application that moves me forward.', mapping: 'Personal Success' }
+        ]
+      },
+      results: {
+        'Leadership': {
+          profile: 'The Leader',
+          outcome: 'Leadership',
+          lead: 'Your answers point to leadership. You want college to put you in front of people, with something real to run.',
+          research: [
+            'In the study, leadership as an adult was most closely linked to what happened around the classroom, not inside the major. Graduates who had a college mentor whose influence lasted were 26% more likely to be leaders as adults. Graduates who often talked with faculty outside class were 21% to 26% more likely.',
+            'Close involvement in campus life pointed the same way. Who runs things on campus, and whether students get to, tells you more than the leadership language in the brochure.'
+          ],
+          ask: [
+            'Who runs the clubs, the teams and the newspaper here, students or staff?',
+            'How does a first-year student end up leading something by sophomore year?',
+            'How many professors will know my name by the end of my first year?'
+          ],
+          check: [
+            'Open the student newspaper online and see whether students are writing about decisions, or only about events.',
+            'Look at the student government minutes. Do they decide anything that costs money?',
+            'Count the student organizations, then divide by enrollment. A big list at a huge college can mean fewer seats per student.'
+          ],
+          tryThis: 'On your next visit or virtual session, ask one student: "What is something students here decided that actually changed?" The pause before the answer tells you a lot.',
+          otherResearch: 'Alexander Astin\'s study of about 25,000 students at 309 institutions found the peer group to be the single most powerful influence on how students develop, with student-faculty interaction next.',
+          quotes: [
+            { text: 'Strengthening graduates\u2019 readiness for the job market is not only appropriate, it is essential. But it is a floor, not a ceiling.', cite: 'Richard A. Detweiler' }
+          ]
+        },
+        'Civic Involvement': {
+          profile: 'The Community Builder',
+          outcome: 'Civic Involvement',
+          lead: 'Your answers point to civic involvement. You want college to connect you to people beyond yourself, and to keep you connected after you leave.',
+          research: [
+            'Graduates who were closely involved with faculty and other students outside class were 56% more likely to give a larger share of their income to nonprofits, and 42% more likely to volunteer. Graduates who often talked with professors about things other than coursework were 37% more likely to volunteer more as adults.',
+            'One honest note: in this study, voting was not linked to the college experiences measured. Giving and volunteering were. That is why this site calls the outcome civic involvement rather than altruism.'
+          ],
+          ask: [
+            'What share of students do service learning or community-based work, and is it part of courses or added on top?',
+            'Which community partners has the college worked with for more than five years?',
+            'Is there funding for students who cannot afford to do unpaid community work?'
+          ],
+          check: [
+            'Search the college site for "community partnership" and see whether the same organizations come up across several years.',
+            'Look at whether service appears in course catalogs, not only in the admissions pages.'
+          ],
+          tryThis: 'Ask an admissions officer: "Name one thing students here did in this town last year that the town noticed." Specific answers are a good sign.',
+          otherResearch: 'George Kuh found that service learning and other high-impact practices were tied to better grades and to students returning for a second year, with the largest benefits for underrepresented and low-income students.',
+          quotes: [
+            { text: 'I want to be someone my community can count on. Someone who gives back what was given to me.', cite: 'A student, quoted by Richard A. Detweiler, Inside Higher Ed, September 2, 2026' }
+          ]
+        },
+        'Continued Learning': {
+          profile: 'The Lifelong Learner',
+          outcome: 'Continued Learning',
+          lead: 'Your answers point to continued learning. You want college to leave you curious, not finished.',
+          research: [
+            'Graduates who took small discussion classes in their first two years were 25% more likely to keep learning actively as adults. Coursework built on questions with no single right answer was linked to the same outcome, by about 25%.',
+            'Breadth mattered here too. Taking more than half of your courses outside your major was linked to continued learning and, separately, to a 24% greater likelihood of reporting a higher income later.'
+          ],
+          ask: [
+            'How much of my degree can I take outside my major and still graduate in four years?',
+            'How many of my first-year classes will have fewer than 20 students?',
+            'Can I change my major in my second year without losing a semester?'
+          ],
+          check: [
+            'Open the course catalog and add up the credits a major actually requires. Over half the degree is a warning sign for breadth.',
+            'Look at the class-size table in the Common Data Set, which most colleges post online.'
+          ],
+          tryThis: 'Pick one major you are considering and one you would never choose. Read both sets of requirements. The college that makes it easy to take both is the one with room in it.',
+          otherResearch: 'Ernest Pascarella and Patrick Terenzini, reviewing decades of research, concluded that what students do in college matters far more than which college they attend.',
+          quotes: [
+            { text: 'A liberal education gives us a greater capacity to be good workers. But it will also give us the capacity to be good partners, friends, parents, and citizens.', cite: 'Fareed Zakaria, In Defense of a Liberal Education, 2015' }
+          ]
+        },
+        'Cultural Involvement': {
+          profile: 'The Cultural Explorer',
+          outcome: 'Cultural Involvement',
+          lead: 'Your answers point to cultural involvement. You want college to widen what you know, who you know and what you notice.',
+          research: [
+            'Graduates who took small discussion classes early were 37% more likely to stay closely involved with arts, ideas and other cultures as adults. Serious time with people whose backgrounds and beliefs differed from their own was linked to the same outcome.',
+            'This is not about a campus arts calendar. It is about whether students actually end up in rooms with ideas and people unlike their own.'
+          ],
+          ask: [
+            'How do students here end up spending real time with people unlike themselves, not just passing them on a path?',
+            'What share of students study abroad or take part in exchange programs, and what does it cost?',
+            'Which courses are built around discussion rather than lecture?'
+          ],
+          check: [
+            'Look at the events calendar for an ordinary week in November, not for admitted-students weekend.',
+            'Check whether performances, galleries and lectures are open to all students or only to majors.'
+          ],
+          tryThis: 'Ask a current student: "When is the last time you changed your mind about something here, and what did it?"',
+          otherResearch: 'Richard Light\u2019s interviews with Harvard undergraduates found that students who did best got to know faculty, worked in groups, wrote a lot, and learned from peers unlike themselves outside class.',
+          quotes: [
+            { text: 'It\u2019s in Apple\u2019s DNA that technology alone is not enough. It\u2019s technology married with liberal arts, married with the humanities, that yields us the result that makes our heart sing.', cite: 'Steve Jobs, 2011' }
+          ]
+        },
+        'Fulfillment': {
+          profile: 'The Meaning Seeker',
+          outcome: 'Fulfillment',
+          lead: 'Your answers point to fulfillment. You want college to help you work out who you are and what you are for.',
+          research: [
+            'This is where the study found its largest differences, and they came from how people were taught. Graduates whose professors made them examine the strengths and weaknesses of their own arguments were 149% more likely to describe their lives as highly fulfilled, about two and a half times as likely.',
+            'Graduates who discussed philosophical and ethical questions in most of their classes were 59% more likely to report fulfilled lives. Graduates whose professors mostly knew their first name were 67% more likely. Coursework with no single right answer: 61% more likely.'
+          ],
+          ask: [
+            'In a typical class here, who does most of the talking?',
+            'Will I be asked to argue against my own position, and in which courses?',
+            'How many of my professors will know my first name?'
+          ],
+          check: [
+            'Ask to see a real syllabus from a first-year course. Look at whether the assignments have one right answer.',
+            'Sit in on a class if you can, and count the minutes students speak.'
+          ],
+          tryThis: 'Write down one thing you believe right now. Ask each college: "Which course here would make me defend that, and then attack it?"',
+          otherResearch: 'Gallup and Purdue found that graduates who had a professor who cared about them as a person, made them excited about learning and encouraged their hopes were more than twice as likely to be engaged at work and thriving in their lives.',
+          quotes: [
+            { text: 'Strengthening graduates\u2019 readiness for the job market is not only appropriate, it is essential. But it is a floor, not a ceiling.', cite: 'Richard A. Detweiler' }
+          ]
+        },
+        'Personal Success': {
+          profile: 'The Career Builder',
+          outcome: 'Personal Success',
+          lead: 'Your answers point to personal success. You want college to pay off. The evidence says it does, in a way most people get backwards.',
+          research: [
+            'Specialized preparation helped graduates get their first job, but that advantage faded. Over a career, breadth did the work. Graduates who took more than half their courses outside their major were 24% more likely to report a higher income as adults.',
+            'The effect was larger for the people most often told to specialize: 33% for graduates from lower-income families and 34% for graduates who entered with lower test scores. Major was unrelated to longer-term success.'
+          ],
+          ask: [
+            'What share of students complete an internship or a research project, and is there money for students who cannot work unpaid?',
+            'Where are your graduates ten years out, not six months out?',
+            'How much of the degree can I take outside my major and still finish in four years?'
+          ],
+          check: [
+            'Use the federal College Scorecard at collegescorecard.ed.gov for cost at your income level and completion rates.',
+            'Run the net price calculator on each college\u2019s own website before you fall in love with a sticker price.'
+          ],
+          tryThis: 'Ask the career office one question: "What do you know about your graduates at age 35?" Colleges that track that far are thinking about your working life, not your first job.',
+          otherResearch: 'Stacy Dale and Alan Krueger tracked earnings for more than 20 years and found that the effect of attending a more selective college fell to close to zero once students\u2019 own abilities and ambitions were accounted for.',
+          quotes: [
+            { text: 'I personally think there\u2019s going to be a greater demand in 10 years for liberal arts majors than there were for programming majors and maybe even engineering.', cite: 'Mark Cuban, 2017' }
+          ]
+        }
+      }
+    },
+
+    /* ============================ 2. IN COLLEGE ============================ */
+    'In College': {
+      audience: 'In College',
+      scoring: 'points',
+      intro: {
+        heading: 'You picked the college. Now pick the experience.',
+        text: 'Five questions. Two minutes. No answer here is a confession. Most students have some of these and not others.'
+      },
+      questions: [
         {
-          "profile": "The Leader (L)",
-          "description": "You aren't just looking for a job; you're looking for the capacity to move others toward a higher purpose.",
-          "research_insight": "Rick Detweiler’s research reveals that leadership is not a byproduct of a specific major, but of a specific 'ecology.' The data shows that students who lived on campus for at least three years and were deeply involved in campus organizations were significantly more likely to hold leadership positions decades later. This is because leadership is a practiced behavior, not just a set of theories learned in a classroom.\n\nFurthermore, the 'context' of your education matters more than the 'content.' The study found that frequent, non-academic interactions with faculty—talking about life, values, and goals outside of class—is one of the strongest predictors of adult leadership. You need an environment where you are known by name and pushed to take responsibility for a community.",
-          "quotes": [
-            "The liberal arts attribute that is most consistently related to all three aspects of adult life is an education in an authentic and personally involving educational community.",
-            "Leadership... [is] an exemplar of a long-held purpose of education in the tradition of the liberal arts."
+          id: 'i1',
+          text: 'Have you talked with a professor outside class this term, about anything?',
+          options: [
+            { text: 'Yes, more than once, and not only about grades.', mapping: 'Strong', score: 2 },
+            { text: 'Once, briefly.', mapping: 'Partway', score: 1 },
+            { text: 'Not yet.', mapping: 'Not yet', score: 0 }
           ]
         },
         {
-          "profile": "The Career Builder (S)",
-          "description": "You want a return on your investment. The research shows that the best ROI comes from a surprising place: breadth.",
-          "research_insight": "While many students choose a college based on the prestige of a specific major, Detweiler’s longitudinal study found that the major itself is essentially unrelated to long-term income or professional success. Instead, the data shows a 'breadth effect.' Students who took more than half of their courses outside of their major earned significantly higher incomes as adults—up to 34% more for those from lower-income backgrounds.\n\nThis counterintuitive finding suggests that in a rapidly changing economy, the ability to think across disciplines is more valuable than narrow specialization. The research indicates that the 'early job advantage' of vocational majors fades quickly, while the 'liberal arts advantage'—the ability to communicate, adapt, and solve complex problems—compounds over a 40-year career.",
-          "quotes": [
-            "Taking more than half of one’s courses outside one’s major turns out to be especially thought-provoking when it comes to its relationship to long-term success.",
-            "While first job placement and income may be better for those with specialized training, this advantage disappears rather quickly."
+          id: 'i2',
+          text: 'How much of your coursework sits outside your major?',
+          options: [
+            { text: 'About half or more.', mapping: 'Strong', score: 2 },
+            { text: 'Some, mostly required general education.', mapping: 'Partway', score: 1 },
+            { text: 'Almost none. My program is packed.', mapping: 'Not yet', score: 0 }
           ]
+        },
+        {
+          id: 'i3',
+          text: 'In your classes, are you asked to defend a position and then attack it?',
+          options: [
+            { text: 'Often. Discussion, writing and open-ended problems are normal here.', mapping: 'Strong', score: 2 },
+            { text: 'In one or two classes.', mapping: 'Partway', score: 1 },
+            { text: 'Rarely. It is mostly lectures and tests.', mapping: 'Not yet', score: 0 }
+          ]
+        },
+        {
+          id: 'i4',
+          text: 'Are you part of something on campus that meets regularly?',
+          options: [
+            { text: 'Yes, and I show up every week.', mapping: 'Strong', score: 2 },
+            { text: 'I signed up for something but rarely go.', mapping: 'Partway', score: 1 },
+            { text: 'Not yet.', mapping: 'Not yet', score: 0 }
+          ]
+        },
+        {
+          id: 'i5',
+          text: 'Do you spend real time with people whose background or beliefs differ from yours?',
+          options: [
+            { text: 'Yes, regularly, and it has changed how I think.', mapping: 'Strong', score: 2 },
+            { text: 'Sometimes, in class or group work.', mapping: 'Partway', score: 1 },
+            { text: 'Not really. I stay with people like me.', mapping: 'Not yet', score: 0 }
+          ]
+        }
+      ],
+      optional: {
+        text: 'One more, if you like. What is your situation?',
+        note: 'Not scored. It reorders the advice so the usable part comes first.',
+        options: [
+          { text: "I'm at a big university", panel: 'bigu' },
+          { text: 'I commute, work, or both', panel: 'commuter' },
+          { text: 'My major leaves almost no free slots', panel: 'lockedmajor' },
+          { text: 'I am struggling right now', panel: 'struggling' }
+        ]
+      },
+      bands: [
+        {
+          min: 8, max: 10,
+          profile: "You're getting the part that lasts",
+          lead: 'Your answers put you in the group that, in the study, looked most like graduates who did well decades later. Keep it, and deepen one thing.',
+          research: [
+            'The experiences you already have are the ones most consistently linked to adult outcomes: faculty contact outside class, breadth, teaching that makes you think, campus involvement, and time with people unlike you.',
+            'Graduates with a mentor whose influence lasted were 26% more likely to be leaders as adults. Graduates who took more than half their courses outside their major were 24% more likely to report higher incomes.'
+          ],
+          ask: [
+            'Which professor here would still remember me in ten years, and have I given them a reason to?',
+            'What is the most ambitious project I could ask someone to supervise?'
+          ],
+          check: [
+            'Look at whether your college offers independent study, honors theses or paid summer research, and what the deadline is.'
+          ],
+          tryThis: 'Ask one professor to supervise an independent study or research project next term. Go with a one-paragraph idea, not an empty question.',
+          otherResearch: 'Gallup and Purdue found that only 3% of 30,000 graduates strongly agreed they had had all six of the key supportive and hands-on experiences in college. If you have most of them, you are rare.'
+        },
+        {
+          min: 4, max: 7,
+          profile: "You're partway there",
+          lead: 'You have some of it. The gap is usually one or two habits, and they are smaller than they look.',
+          research: [
+            'In the study, these experiences did not have to arrive all at once. Each one was independently linked to adult outcomes, so adding a single habit is worth doing on its own.',
+            'Graduates who often talked with professors outside class about things other than coursework were 37% more likely to volunteer more as adults, and that conversation usually started with a question about the course.'
+          ],
+          ask: [
+            'Which one of the five moves is missing for me right now?',
+            'Who is the one professor I could go see this week?'
+          ],
+          check: [
+            'Look up office hours for every course you are taking. Put one of them in your calendar.'
+          ],
+          tryThis: 'Go to office hours once with a real question: "Can you help me understand one thing from Tuesday?" That is the whole move.',
+          otherResearch: 'Vincent Tinto found that students are more likely to stay and finish when they are connected to both the academic and the social life of a college.'
+        },
+        {
+          min: 0, max: 3,
+          profile: "You've got the classes. Here's the part nobody told you about.",
+          lead: 'Nothing here is a judgment. Most students are never told that the part that lasts happens around the classroom, not only in it.',
+          research: [
+            'The study found that involvement with faculty and other students outside class was the experience most consistently linked to every kind of life outcome measured.',
+            'These links were strongest for students from lower-income families, and they held for every kind of major, including engineering and professional programs.'
+          ],
+          ask: [
+            'What is one class where I could ask the professor a question after the session ends?',
+            'What is one group on campus that meets at a time I am already free?'
+          ],
+          check: [
+            'Find your college\u2019s list of student organizations and pick one that meets weekly.'
+          ],
+          tryThis: 'Pick one move, not five. Stay two minutes after class this week and ask one question. That is the first move, and it is free.',
+          otherResearch: 'Scott Freeman and colleagues reviewed 225 studies and found that students in traditional lectures were about 1.5 times as likely to fail as students in classes built on active learning. If your classes are passive, the work of staying engaged falls to you.'
         }
       ]
     },
-    {
-      "audience": "Current Students",
-      "description": "Are you just 'doing' college, or are you building a life? Check your current habits against the research to see if you're maximizing the impact of your education.",
-      "questions": [
+
+    /* ============================== 3. PARENTS ============================== */
+    'Parents': {
+      audience: 'Parents',
+      scoring: 'plurality',
+      intro: {
+        heading: 'What should this investment buy?',
+        text: 'Five questions, plus one optional. Two minutes. There are no wrong answers. Every one of these hopes is reasonable.'
+      },
+      questions: [
         {
-          "id": 1,
-          "text": "How often do you talk to your professors about things *not* related to your assignments?",
-          "options": [
-            {"text": "Regularly—we talk about life, career goals, and big ideas.", "mapping": "Impact"},
-            {"text": "Occasionally—usually just a quick chat after class.", "mapping": "Moderate"},
-            {"text": "Rarely—I only talk to them if I have a question about a grade.", "mapping": "Low"}
+          id: 'p1',
+          text: 'When you picture your child at 30, what matters most to you?',
+          options: [
+            { text: 'They can support themselves without worry.', mapping: 'Security' },
+            { text: 'They are still growing, still curious, still becoming someone.', mapping: 'Growth' },
+            { text: 'They are doing something they believe in.', mapping: 'Purpose' }
           ]
         },
         {
-          "id": 2,
-          "text": "What percentage of your classes are outside of your major requirements?",
-          "options": [
-            {"text": "More than half—I love exploring different fields.", "mapping": "Impact"},
-            {"text": "About a third—I take my gen-eds, but focus on my major.", "mapping": "Moderate"},
-            {"text": "As few as possible—I want to be an expert in my field.", "mapping": "Low"}
+          id: 'p2',
+          text: 'Which sentence would you most want to hear from them after first year?',
+          options: [
+            { text: '"I know what I am training for, and I am on track."', mapping: 'Security' },
+            { text: '"I took a class I never expected to love."', mapping: 'Growth' },
+            { text: '"I met a professor who made me think about what I am doing with my life."', mapping: 'Purpose' }
           ]
         },
         {
-          "id": 3,
-          "text": "In your classes, how often are you asked to defend your views or solve problems with no 'right' answer?",
-          "options": [
-            {"text": "In almost every class—it's challenging but rewarding.", "mapping": "Impact"},
-            {"text": "In some classes, but others are mostly lectures and exams.", "mapping": "Moderate"},
-            {"text": "Hardly ever—most of my work is about memorizing the right info.", "mapping": "Low"}
+          id: 'p3',
+          text: 'Which worry keeps you up at night?',
+          options: [
+            { text: 'That the money will not come back as a living.', mapping: 'Security' },
+            { text: 'That they will coast through and come out unchanged.', mapping: 'Growth' },
+            { text: 'That they will succeed at something that does not matter to them.', mapping: 'Purpose' }
           ]
         },
         {
-          "id": 4,
-          "text": "How involved are you in the 'life' of the campus (clubs, activism, residential events)?",
-          "options": [
-            {"text": "Very involved—I hold a leadership role or participate daily.", "mapping": "Impact"},
-            {"text": "Somewhat involved—I go to events when I have time.", "mapping": "Moderate"},
-            {"text": "Not at all—I mostly just go to class and go home.", "mapping": "Low"}
+          id: 'p4',
+          text: 'When you compare colleges, what do you look at first?',
+          options: [
+            { text: 'Net price, graduation rate and what graduates earn.', mapping: 'Security' },
+            { text: 'Class sizes, breadth of the curriculum and who teaches first-year courses.', mapping: 'Growth' },
+            { text: 'Whether students and professors actually know one another.', mapping: 'Purpose' },
+            { text: 'Honestly, I am not sure where to find those numbers.', mapping: null, panel: 'wherenumbers' }
           ]
         },
         {
-          "id": 5,
-          "text": "How often do you have serious conversations with students whose political or religious beliefs are the opposite of yours?",
-          "options": [
-            {"text": "Frequently—it's one of the best parts of being here.", "mapping": "Impact"},
-            {"text": "Sometimes, but it usually stays pretty surface-level.", "mapping": "Moderate"},
-            {"text": "Rarely—I mostly hang out with people who think like I do.", "mapping": "Low"}
+          id: 'p5',
+          text: 'If your child wanted to change their major in year two, your first reaction would be:',
+          options: [
+            { text: '"Let us check what that does to the cost and the timeline."', mapping: 'Security' },
+            { text: '"Good. That means you are actually learning something about yourself."', mapping: 'Growth' },
+            { text: '"Tell me what changed your mind."', mapping: 'Purpose' }
           ]
         }
       ],
-      "results": [
+      optional: {
+        text: 'One more, if you like. What else is on your mind? Pick all that fit.',
+        note: 'Not scored. It only adds advice to your result.',
+        options: [
+          { text: 'How we will pay for it', panel: 'payingparent' },
+          { text: 'We are the first family in this', panel: 'firstgenparent' },
+          { text: 'We will likely pay close to full price', panel: 'fullprice' },
+          { text: 'Loans worry me', panel: 'loans' },
+          { text: 'My child\u2019s well-being', panel: 'wellbeing' },
+          { text: 'AI and whether jobs will still be there', panel: 'aijobs' },
+          { text: 'Whether college is the right path at all', panel: 'altpaths' }
+        ]
+      },
+      results: {
+        'Security': {
+          profile: 'Security first',
+          lead: 'You want college to leave your child able to stand on their own. The evidence supports that goal, and points somewhere unexpected to reach it.',
+          research: [
+            'Specialized preparation helped graduates get a first job, but the advantage faded. Over a career, breadth did the work. Graduates who took more than half their courses outside their major were 24% more likely to report a higher income as adults.',
+            'The effect was largest for the families with the least room for error: 33% for graduates from lower-income families and 34% for graduates with lower entrance test scores. Major was unrelated to longer-term success.'
+          ],
+          ask: [
+            'What is our net price after grants, each year, through graduation?',
+            'What share of students like mine graduate in four years here?',
+            'Where are your graduates ten years out, not six months out?'
+          ],
+          check: [
+            'Run the net price calculator on every college\u2019s site, including one private college you assumed was out of reach.',
+            'Use collegescorecard.ed.gov for average cost at your income level and completion rates.'
+          ],
+          tryThis: 'Compare award letters on net price, which is cost minus free grants. Loans are not aid, they are cost moved later.',
+          otherResearch: 'A 2026 survey of corporate recruiters found the skills weighed most in hiring were communication (64%), problem-solving (62%) and adaptability (60%).'
+        },
+        'Growth': {
+          profile: 'Growth first',
+          lead: 'You want college to change your child, not just credential them. The study says the things that do that are specific and askable.',
+          research: [
+            'Graduates who took small discussion classes in their first two years were 25% more likely to keep learning actively as adults and 37% more likely to stay involved with arts, ideas and other cultures.',
+            'Graduates whose coursework often involved questions with no single right answer were 61% more likely to describe their lives as highly fulfilled.'
+          ],
+          ask: [
+            'How many of my child\u2019s first-year classes will have fewer than 20 students?',
+            'Who teaches first-year courses here?',
+            'How much of the degree can be taken outside the major and still finish in four years?'
+          ],
+          check: [
+            'Look up the class-size table in the college\u2019s Common Data Set, usually posted online.',
+            'Add up the credits a major actually requires in the catalog. Over half the degree leaves little room.'
+          ],
+          tryThis: 'Ask for a real first-year syllabus. Look at whether the assignments have one right answer.',
+          otherResearch: 'Ernest Pascarella and Patrick Terenzini concluded, after reviewing decades of research, that what students do in college matters far more than which college they attend.'
+        },
+        'Purpose': {
+          profile: 'Purpose first',
+          lead: 'You want your child to become someone others can count on. The study found that this comes largely from people, not programs.',
+          research: [
+            'Graduates whose professors mostly knew their first name were 67% more likely to describe their lives as highly fulfilled. Graduates with a mentor whose influence lasted were 26% more likely to be leaders as adults.',
+            'Graduates closely involved with faculty and other students outside class were 56% more likely to give a larger share of their income and 42% more likely to volunteer.'
+          ],
+          ask: [
+            'How many professors will know my child by name by the end of first year?',
+            'How does a student here find a mentor, and who makes sure it happens?',
+            'What share of students work closely with a faculty member on a project?'
+          ],
+          check: [
+            'Ask to be put in touch with a current student by email. Ask them to name one adult on campus who knows them.',
+            'Look at whether advising is assigned once, or revisited every year.'
+          ],
+          tryThis: 'Leave three questions with your child: What kind of person do you want to be at 30? What do you believe now that you would like a class to test? What would you study if jobs were not the first concern?',
+          otherResearch: 'Gallup and Purdue found that graduates who had a professor who cared about them, made them excited about learning and encouraged their hopes were more than twice as likely to be engaged at work and thriving.'
+        }
+      }
+    },
+
+    /* ============================== 4. FACULTY ============================== */
+    'Faculty': {
+      audience: 'Faculty',
+      scoring: 'points',
+      intro: {
+        heading: 'Which parts of your teaching show up thirty years later?',
+        text: 'Five questions. Two minutes. This is for you, not for a review file.'
+      },
+      questions: [
         {
-          "profile": "The High-Impact Student",
-          "description": "You are currently living in the 'Sweet Spot' of the liberal arts ecology.",
-          "research_insight": "Detweiler’s research highlights that the most successful and fulfilled adults were those who leaned into the 'context' of their education. By engaging in out-of-class conversations with faculty and peers, you are developing what the book calls 'larger perspectives.' The data shows that students who frequently discussed philosophical or ethical perspectives in most classes were 59% more likely to live a life of inquiry as adults.\n\nYour habit of taking courses outside your major is also a high-impact behavior. The research found that 'span of study'—the deliberate choice to learn across the humanities, social sciences, and sciences—is a primary driver of long-term career success and personal fulfillment. You aren't just earning a degree; you are building the intellectual and social infrastructure for a life of consequence.",
-          "quotes": [
-            "Approaches to teaching that directly engage students and their emotions in the learning process are essential.",
-            "Impactful learning occurs... through extensive relationships with faculty and staff, meaningful engagement with other students who contribute different values and life experiences."
+          id: 'f1',
+          text: 'By week four of a typical course, how many students do you know by name?',
+          options: [
+            { text: 'Most of them.', mapping: 'Strong', score: 2 },
+            { text: 'The ones who speak.', mapping: 'Partway', score: 1 },
+            { text: 'Few or none.', mapping: 'Not yet', score: 0 }
           ]
+        },
+        {
+          id: 'f2',
+          text: 'Do you talk with students outside class about things other than the course?',
+          options: [
+            { text: 'Regularly, and with students who did not seek me out.', mapping: 'Strong', score: 2 },
+            { text: 'Occasionally, usually when a student comes to me.', mapping: 'Partway', score: 1 },
+            { text: 'Rarely. Office hours are mostly about grades.', mapping: 'Not yet', score: 0 }
+          ]
+        },
+        {
+          id: 'f3',
+          text: 'In your last class meeting, who did most of the talking?',
+          options: [
+            { text: 'Students, for a substantial share of the time.', mapping: 'Strong', score: 2 },
+            { text: 'Me, with some questions and discussion.', mapping: 'Partway', score: 1 },
+            { text: 'Me, almost entirely.', mapping: 'Not yet', score: 0 }
+          ]
+        },
+        {
+          id: 'f4',
+          text: 'Could two strong students answer your main assignments differently and both be right?',
+          options: [
+            { text: 'Yes. Open-ended work is central to the course.', mapping: 'Strong', score: 2 },
+            { text: 'In one assignment or project.', mapping: 'Partway', score: 1 },
+            { text: 'No. The work has one correct answer.', mapping: 'Not yet', score: 0 }
+          ]
+        },
+        {
+          id: 'f5',
+          text: 'Are students required to argue against their own position?',
+          options: [
+            { text: 'Yes, it is built into assignments or discussion.', mapping: 'Strong', score: 2 },
+            { text: 'Sometimes, informally.', mapping: 'Partway', score: 1 },
+            { text: 'Not currently.', mapping: 'Not yet', score: 0 }
+          ]
+        }
+      ],
+      optional: {
+        text: 'One more, if you like. What is your teaching situation?',
+        note: 'Not scored. It reorders the adaptations so the usable ones come first.',
+        options: [
+          { text: 'Large lecture course', panel: 'largelecture' },
+          { text: 'Mostly commuting or working students', panel: 'commuterstudents' },
+          { text: 'Part-time or adjunct, no office', panel: 'adjunct' },
+          { text: 'Science, engineering or mathematics', panel: 'stem' }
+        ]
+      },
+      bands: [
+        {
+          min: 8, max: 10,
+          profile: 'Your teaching is built on relationships',
+          lead: 'What you already do is what the study found linked to graduates\u2019 adult lives. The useful question now is who else gets to do it.',
+          research: [
+            'Graduates whose professors mostly knew their first name were 67% more likely to describe their lives as highly fulfilled. Graduates made to examine the strengths and weaknesses of their own arguments were 149% more likely, the largest difference in that part of the study.',
+            'These links were strongest for graduates from lower-income families, which means this teaching does the most for the students with the least.'
+          ],
+          ask: [
+            'Which colleagues in my department carry most of the mentoring, and is it counted anywhere?',
+            'What would it take to make one of these practices standard in our first-year courses?'
+          ],
+          check: [
+            'Look at your department\u2019s tenure and promotion language. Does any of it describe what you actually do with students?'
+          ],
+          tryThis: 'Bring your completed self-audit to one department meeting. One colleague adopting one practice doubles the reach.',
+          otherResearch: 'Studies of faculty workload find that women faculty do more of this kind of service than men, and faculty of color often describe extra mentoring demands, sometimes called cultural taxation. The work is rarely counted.'
+        },
+        {
+          min: 4, max: 7,
+          profile: 'You do some of this',
+          lead: 'You already have part of it. The remaining practices are mostly changes in habit, not in workload.',
+          research: [
+            'Each of the five practices was independently linked to adult outcomes, so adding one is worth doing on its own.',
+            'Graduates who took small discussion classes in their first two years were 25% more likely to keep learning actively and 37% more likely to stay involved with arts, ideas and other cultures.'
+          ],
+          ask: [
+            'Which of the five practices is cheapest for me to add next term?',
+            'What is actually stopping me: class size, room, time, or habit?'
+          ],
+          check: [
+            'Time yourself for one class meeting. Note the minutes students speak.'
+          ],
+          tryThis: 'Add one line to every assignment: "State the strongest objection to your answer." It costs one sentence of preparation.',
+          otherResearch: 'Scott Freeman and colleagues reviewed 225 studies in science, engineering and mathematics and found students in traditional lectures were about 1.5 times as likely to fail as students in active-learning classes.'
+        },
+        {
+          min: 0, max: 3,
+          profile: 'Your teaching is built on content',
+          lead: 'Content is not the problem. The study simply found that what students carry for decades came from how they were taught, and from being known.',
+          research: [
+            'Graduates with a college mentor whose influence lasted were 26% more likely to be leaders as adults. Graduates who often talked with professors outside class about non-academic subjects were 37% more likely to volunteer more.',
+            'Alexander Astin\u2019s study of about 25,000 students found student-faculty interaction among the strongest influences on how students develop.'
+          ],
+          ask: [
+            'Whose names could I learn by week four if I used the photo roster?',
+            'What is the one question I could open class with next week?'
+          ],
+          check: [
+            'Look at your syllabus. Is there a single assignment two good students could answer differently?'
+          ],
+          tryThis: 'Start with names. It costs nothing, needs no office, works in any room, and in the study it was linked to a 67% greater likelihood of graduates describing their lives as highly fulfilled.',
+          otherResearch: 'George Kuh found that high-impact practices such as first-year seminars, undergraduate research and writing-intensive courses benefited low-income and underrepresented students most.'
         }
       ]
     },
-    {
-      "audience": "Professors",
-      "description": "Your impact on students lasts for decades—but it might not be coming from where you think. See how your teaching and mentoring align with the evidence of long-term life impact.",
-      "questions": [
+
+    /* =========================== 5. COLLEGE LEADERS =========================== */
+    'College Leaders': {
+      audience: 'College Leaders',
+      scoring: 'plurality',
+      intro: {
+        heading: 'What is your institution actually optimizing for?',
+        text: 'Five questions. Two minutes. Answer as your institution behaves, not as it describes itself.'
+      },
+      questions: [
         {
-          "id": 1,
-          "text": "How many of your current students do you know by their first name?",
-          "options": [
-            {"text": "All or nearly all of them.", "mapping": "Mentor"},
-            {"text": "Most of them, especially the ones who speak up.", "mapping": "Teacher"},
-            {"text": "Only a few—my classes are too large for that.", "mapping": "Lecturer"}
+          id: 'l1',
+          text: 'When enrollment pressure and educational practice conflict, what usually wins?',
+          options: [
+            { text: 'Enrollment. We follow demand and add programs.', mapping: 'Market-First' },
+            { text: 'Mission. We hold the curriculum and make the case.', mapping: 'Mission-First' },
+            { text: 'The student experience. We protect contact hours and class size.', mapping: 'Experience-First' }
           ]
         },
         {
-          "id": 2,
-          "text": "How often do you discuss non-academic matters (life, values, ethics) with students outside of class?",
-          "options": [
-            {"text": "Frequently—it's a core part of my role.", "mapping": "Mentor"},
-            {"text": "Occasionally, if a student brings it up.", "mapping": "Teacher"},
-            {"text": "Rarely—I prefer to keep my interactions professional and focused on the subject.", "mapping": "Lecturer"}
+          id: 'l2',
+          text: 'What does your board ask about most often?',
+          options: [
+            { text: 'Net tuition revenue, discount rate and market position.', mapping: 'Market-First' },
+            { text: 'Mission fulfillment and academic distinctiveness.', mapping: 'Mission-First' },
+            { text: 'Retention, engagement and what students actually experience.', mapping: 'Experience-First' }
           ]
         },
         {
-          "id": 3,
-          "text": "In your pedagogy, how much time is dedicated to student-led discussion versus your own lecturing?",
-          "options": [
-            {"text": "Discussion is the center of the class; I am a facilitator.", "mapping": "Mentor"},
-            {"text": "It's a mix—I lecture for half and we discuss for half.", "mapping": "Teacher"},
-            {"text": "I primarily lecture to ensure all content is covered.", "mapping": "Lecturer"}
+          id: 'l3',
+          text: 'How are faculty rewarded for time spent with students outside class?',
+          options: [
+            { text: 'They are not. It is invisible in workload and promotion.', mapping: 'Market-First' },
+            { text: 'It is named in our values but not in our criteria.', mapping: 'Mission-First' },
+            { text: 'It is counted in workload, review or promotion.', mapping: 'Experience-First' }
           ]
         },
         {
-          "id": 4,
-          "text": "How often do you challenge students to examine the strengths and weaknesses of their own deeply held views?",
-          "options": [
-            {"text": "In almost every class session.", "mapping": "Mentor"},
-            {"text": "Occasionally, when the topic naturally allows for it.", "mapping": "Teacher"},
-            {"text": "Rarely—I focus on the objective facts of the discipline.", "mapping": "Lecturer"}
+          id: 'l4',
+          text: 'What do you know about your graduates?',
+          options: [
+            { text: 'First-destination placement and early salary.', mapping: 'Market-First' },
+            { text: 'Anecdotes, award winners and advancement relationships.', mapping: 'Mission-First' },
+            { text: 'Survey data at ten and twenty years, including what they experienced here.', mapping: 'Experience-First' }
           ]
         },
         {
-          "id": 5,
-          "text": "Do you see yourself primarily as a researcher who teaches, or a mentor who does research?",
-          "options": [
-            {"text": "A mentor first—my impact on students is my primary legacy.", "mapping": "Mentor"},
-            {"text": "A balance of both.", "mapping": "Teacher"},
-            {"text": "A researcher first—my contribution to the field is my priority.", "mapping": "Lecturer"}
+          id: 'l5',
+          text: 'In your last major curricular decision, what drove it?',
+          options: [
+            { text: 'Projected demand for a new credential.', mapping: 'Market-First' },
+            { text: 'Faculty governance and disciplinary coherence.', mapping: 'Mission-First' },
+            { text: 'Evidence about what students experience and whether they finish.', mapping: 'Experience-First' }
           ]
         }
       ],
-      "results": [
-        {
-          "profile": "The Impact Mentor",
-          "description": "You are the 'Secret Sauce' of the liberal arts experience.",
-          "research_insight": "Rick Detweiler’s research provides a powerful validation of the mentoring role. The data shows that students who had a professor who 'cared about them as a person' and who 'encouraged them to pursue their goals and dreams' were twice as likely to be engaged in their work and thriving in their well-being decades later. This 'personal bond' is what the ancient Greeks called the essence of advanced education.\n\nYour focus on discussion-based pedagogy and challenging students' assumptions is also backed by hard data. The study found that students whose professors encouraged them to examine their own views were 149% more likely to report a life of fulfillment as adults. By prioritizing the 'context' of the relationship over the mere delivery of 'content,' you are ensuring that your teaching has a longitudinal impact that far outlasts the final exam.",
-          "quotes": [
-            "Professors encouraged students to examine strengths/weaknesses of their views... [leading to] 149% [increase in fulfillment].",
-            "If having an impact on the future lives of graduates is what motivates a professor... then a liberal arts–based college is the place to work."
-          ]
+      results: {
+        'Market-First': {
+          profile: 'Market first',
+          lead: 'Your institution responds to demand. That keeps the doors open. The risk is that the practices linked to graduates\u2019 lives are exactly the ones that are hardest to count, and therefore first to be cut.',
+          research: [
+            'In the study, specialized preparation helped graduates get a first job, but the advantage faded. Graduates who took more than half their courses outside their major were 24% more likely to report higher incomes as adults, and 33% among graduates from lower-income families.',
+            'Major requirements that crowd out breadth therefore trade a short-term recruiting message against a long-term outcome you will eventually be measured on.'
+          ],
+          ask: [
+            'What share of our degrees leave room for more than half the credits outside the major?',
+            'Which of our recent program additions produced net new students rather than redistributed ones?'
+          ],
+          check: [
+            'Run a registrar degree audit on credit distribution by program.',
+            'Compare your NSSE items on faculty contact against your peer set.'
+          ],
+          tryThis: 'Add one retention line to the next program proposal template: what does this program do for students who are already here?',
+          otherResearch: 'Vincent Tinto found students persist when connected to both the academic and the social life of an institution. George Kuh found high-impact practices tied to better grades and second-year return, with the largest benefits for low-income and underrepresented students. Every student who stays is tuition you do not have to replace.'
+        },
+        'Mission-First': {
+          profile: 'Mission first',
+          lead: 'Your institution leads with what it believes. The evidence can turn that belief into something measurable, which is what boards and legislators increasingly require.',
+          research: [
+            'The study found that involvement with faculty and other students outside class was the experience most consistently linked to every kind of adult outcome measured.',
+            'Liberal arts colleges in the study were on average twice as likely to provide those six experiences. In a national Gallup study, 45% of graduates of colleges under 5,000 students said professors cared about them as a person, against 24% at larger institutions.'
+          ],
+          ask: [
+            'Which sentence in our mission statement can we show evidence for?',
+            'What do we measure that a trustee would recognize as proof?'
+          ],
+          check: [
+            'Map each mission claim to one data source you already collect.'
+          ],
+          tryThis: 'Pick one mission promise and commit to reporting a number against it at the next board meeting.',
+          otherResearch: 'Gallup and Purdue, surveying 30,000 graduates, found that only 3% strongly agreed they had had all six key supportive and hands-on experiences in college. The promise is common; delivery is not.'
+        },
+        'Experience-First': {
+          profile: 'Experience first',
+          lead: 'You already manage what the study says matters. The useful next question is coverage: which students get it, and which do not.',
+          research: [
+            'The links in the study were strongest for graduates from lower-income families, which means uneven delivery widens gaps rather than narrowing them.',
+            'Graduates with a lasting mentor were 26% more likely to be leaders. Graduates closely involved with faculty and students outside class were 56% more likely to give a larger share of income and 42% more likely to volunteer.'
+          ],
+          ask: [
+            'Which student populations are least likely to report a mentor?',
+            'Who owns each of these practices, by name?'
+          ],
+          check: [
+            'Disaggregate your engagement data by Pell status, commuter status and first-generation status.'
+          ],
+          tryThis: 'Use the Institutional Health Checklist on this page and assign one accountable owner per practice before the next cabinet meeting.',
+          otherResearch: 'Kuh and colleagues studied 20 institutions outperforming their predicted graduation rates. Ursinus College required a two-semester Common Intellectual Experience of every first-year student. The University of Kansas made undergraduate teaching visible through awards and kept most undergraduate courses at 30 students or fewer.'
         }
-      ]
+      }
     },
-    {
-      "audience": "Parents",
-      "description": "You want your child to be successful, happy, and independent. Discover what the research says about which college experiences actually lead to those outcomes.",
-      "questions": [
+
+    /* ============================ 6. POLICYMAKERS ============================ */
+    'Policymakers': {
+      audience: 'Policymakers',
+      scoring: 'plurality',
+      intro: {
+        heading: 'What should the public be buying?',
+        text: 'Five questions. Two minutes. Optional. If you would rather go straight to the brief, close this and use the tool below.'
+      },
+      questions: [
         {
-          "id": 1,
-          "text": "What is your primary goal for your child's college education?",
-          "options": [
-            {"text": "That they get a high-paying job immediately after graduation.", "mapping": "Success"},
-            {"text": "That they become a well-rounded person who knows how to think.", "mapping": "Fulfillment"},
-            {"text": "That they find a career that allows them to help others.", "mapping": "Consequence"}
+          id: 'm1',
+          text: 'What is the strongest argument for public investment in higher education?',
+          options: [
+            { text: 'A workforce employers can hire.', mapping: 'Workforce-First' },
+            { text: 'Citizens who participate, give and lead.', mapping: 'Civic-First' },
+            { text: 'An economy that can absorb change without leaving people behind.', mapping: 'Resilience-First' }
           ]
         },
         {
-          "id": 2,
-          "text": "How do you feel about your child choosing a 'non-vocational' major like Philosophy or History?",
-          "options": [
-            {"text": "I'm worried—I want them to have a clear career path.", "mapping": "Success"},
-            {"text": "I'm supportive, as long as they learn marketable skills too.", "mapping": "Fulfillment"},
-            {"text": "I'm all for it—I want them to follow their passions.", "mapping": "Consequence"}
+          id: 'm2',
+          text: 'Which number would you most want in a committee report?',
+          options: [
+            { text: 'Job placement and earnings in the first years after graduation.', mapping: 'Workforce-First' },
+            { text: 'Alumni volunteering, giving and community leadership.', mapping: 'Civic-First' },
+            { text: 'Earnings at ten and twenty years, and mobility across occupations.', mapping: 'Resilience-First' }
           ]
         },
         {
-          "id": 3,
-          "text": "Which do you think is more important for your child's future success?",
-          "options": [
-            {"text": "The specific technical skills they learn in their major.", "mapping": "Success"},
-            {"text": "The relationships they build with mentors and peers.", "mapping": "Consequence"},
-            {"text": "Their ability to adapt and learn new things on their own.", "mapping": "Fulfillment"}
+          id: 'm3',
+          text: 'A program passes the early-earnings test but graduates stall by year ten. Your response?',
+          options: [
+            { text: 'The test worked. Entry-level outcomes are what we can verify.', mapping: 'Workforce-First' },
+            { text: 'Earnings were never the whole public return in the first place.', mapping: 'Civic-First' },
+            { text: 'The test is too short. We need the long horizon in statute.', mapping: 'Resilience-First' }
           ]
         },
         {
-          "id": 4,
-          "text": "When you look at a college, what 'metric' matters most to you?",
-          "options": [
-            {"text": "The average starting salary of graduates.", "mapping": "Success"},
-            {"text": "The student-to-faculty ratio and class sizes.", "mapping": "Consequence"},
-            {"text": "The percentage of students who go on to advanced degrees.", "mapping": "Fulfillment"}
+          id: 'm4',
+          text: 'Where would you put a marginal dollar?',
+          options: [
+            { text: 'Programs aligned to in-demand occupations.', mapping: 'Workforce-First' },
+            { text: 'Access and completion for underserved students.', mapping: 'Civic-First' },
+            { text: 'Faculty contact, advising and experiential learning that keep students enrolled.', mapping: 'Resilience-First' }
+          ]
+        },
+        {
+          id: 'm5',
+          text: 'Which risk concerns you most over the next decade?',
+          options: [
+            { text: 'Skills gaps that stall employers.', mapping: 'Workforce-First' },
+            { text: 'Declining civic participation and trust.', mapping: 'Civic-First' },
+            { text: 'Graduates trained narrowly for work that changes under them.', mapping: 'Resilience-First' }
           ]
         }
       ],
-      "results": [
-        {
-          "profile": "The Evidence-Based Parent",
-          "description": "You are looking for a 'Life of Accomplishment' for your child.",
-          "research_insight": "It is natural to worry about the 'first job,' but Detweiler’s research shows that the most successful adults—those with the highest incomes and most prestigious positions—were not necessarily those with vocational majors. In fact, for students from lower-income families, taking a broad range of courses outside their major was the single most powerful predictor of high adult income. Breadth is not a luxury; it is a career strategy.\n\nFurthermore, the research shows that 'fulfillment'—the sense of living a meaningful life—is most highly correlated with studying the humanities and engaging in philosophical discussions. If you want your child to be both successful and happy, the evidence suggests you should look for a college that prioritizes 'mentorship' and 'intellectual challenge' over narrow job training. The relationship is the real return on investment.",
-          "quotes": [
-            "The decision you're making now will shape your life long after your first job is a memory.",
-            "For life success (income and position), the liberal arts had neither a positive nor a negative effect... [but] over the long term, the significant effects of both gender and race/ethnicity disappear [for liberal arts graduates]."
-          ]
+      results: {
+        'Workforce-First': {
+          profile: 'Workforce first',
+          lead: 'You want the public investment to produce employable graduates. The evidence agrees with the goal and complicates the method.',
+          research: [
+            'Specialized preparation helped graduates get a first job, but that advantage faded. Graduates who took more than half their credits outside their major were 24% more likely to report a higher income as adults.',
+            'The effect was larger for the students public policy most intends to help: 33% for graduates from lower-income families and 34% for those entering with lower test scores.'
+          ],
+          ask: [
+            'How will we know whether programs that pass the four-year earnings test serve graduates well at ten and twenty years?',
+            'Do our data show how many students complete credits outside their major?'
+          ],
+          check: [
+            'Compare your state wage-record horizon against the four-year federal threshold.'
+          ],
+          tryThis: 'Use the brief generator below to request ten-year earnings alongside the measures you already collect.',
+          otherResearch: 'A 2026 survey of corporate recruiters found employers weigh communication (64%), problem-solving (62%) and adaptability (60%) most heavily in hiring.'
+        },
+        'Civic-First': {
+          profile: 'Civic first',
+          lead: 'You see the public return as citizenship, not only payroll. The study measured that directly.',
+          research: [
+            'Graduates closely involved with faculty and other students outside class were 56% more likely to give a larger share of their income to nonprofits and 42% more likely to volunteer.',
+            'An honest limit: voting was not linked to the college experiences measured. Giving and volunteering were.'
+          ],
+          ask: [
+            'Does any state report include alumni volunteering or giving?',
+            'Which state or federal programs pay for faculty contact and campus involvement for low-income students, and what is happening to their funding?'
+          ],
+          check: [
+            'Review whether your state alumni survey, if any, asks about civic behavior.'
+          ],
+          tryThis: 'Add one civic measure to the brief below, so the civic return has a number next to the earnings number.',
+          otherResearch: 'George Kuh found service learning and related practices tied to better grades and second-year persistence, with the largest benefits for underrepresented and low-income students.'
+        },
+        'Resilience-First': {
+          profile: 'Resilience first',
+          lead: 'You are measuring a working life, not an entry point. That is where the evidence is strongest.',
+          research: [
+            'Americans now in their early forties had already held an average of 9.4 jobs by age 38, about twenty years into their working lives, according to the Bureau of Labor Statistics.',
+            'The World Economic Forum expects nearly 40% of the skills used at work to change by 2030. In the study, breadth, faculty contact and teaching that made students think were linked to adult income and to leadership, civic involvement, continued learning and fulfillment.'
+          ],
+          ask: [
+            'What is the longest horizon in our current accountability statute, and what would it cost to extend it?',
+            'Do we fund the practices linked to completion, or only the credentials linked to current demand?'
+          ],
+          check: [
+            'Check whether your state participates in multi-state wage data exchanges that extend the earnings horizon.'
+          ],
+          tryThis: 'Use the model report-request language in the brief below. It adds a long horizon without discarding the measures you already have.',
+          otherResearch: 'Stacy Dale and Alan Krueger, tracking earnings for more than 20 years, found the effect of attending a more selective college fell close to zero once students\u2019 own abilities and ambitions were accounted for. Raj Chetty, David Deming and John Friedman found Ivy-Plus attendance raised the odds of reaching the top 1%, while the average effect across all graduates was small and not statistically significant.'
         }
-      ]
-    },
-    {
-      "audience": "Administrators",
-      "description": "In an era of budget cuts and 'vocational' pressure, how do you protect your institution's mission? See how your priorities align with the data on student flourishing.",
-      "questions": [
-        {
-          "id": 1,
-          "text": "When you talk to donors or the board, what is your primary 'value proposition'?",
-          "options": [
-            {"text": "Our high job-placement rates and starting salaries.", "mapping": "Market"},
-            {"text": "Our commitment to the 'common good' and civic leadership.", "mapping": "Mission"},
-            {"text": "Our unique, personalized learning community.", "mapping": "Ecology"}
-          ]
-        },
-        {
-          "id": 2,
-          "text": "If you had to cut 10% of the budget, where would you look first?",
-          "options": [
-            {"text": "Student life and non-academic programming.", "mapping": "Market"},
-            {"text": "Small, 'low-enrollment' humanities departments.", "mapping": "Market"},
-            {"text": "Administrative overhead and non-essential facilities.", "mapping": "Mission"}
-          ]
-        },
-        {
-          "id": 3,
-          "text": "How do you incentivize your faculty?",
-          "options": [
-            {"text": "Primarily through research output and grant funding.", "mapping": "Market"},
-            {"text": "Through a balance of research and teaching excellence.", "mapping": "Ecology"},
-            {"text": "By rewarding mentorship and out-of-class student engagement.", "mapping": "Mission"}
-          ]
-        },
-        {
-          "id": 4,
-          "text": "What is the 'ideal' size for your institution?",
-          "options": [
-            {"text": "Large enough to have massive resources and brand name.", "mapping": "Market"},
-            {"text": "Small enough that every student can have a mentor.", "mapping": "Mission"},
-            {"text": "A mid-sized 'research-lite' model.", "mapping": "Ecology"}
-          ]
-        }
-      ],
-      "results": [
-        {
-          "profile": "The Mission Guardian",
-          "description": "You understand that 'Institutional Purpose' is your greatest asset.",
-          "research_insight": "Rick Detweiler’s analysis of 241 liberal arts college mission statements found that 95% of them focus on 'Altruism,' 'Continued Learning,' and 'Leadership.' However, the research shows that these outcomes are only achieved when resources are allocated to the 'educational ecology'—specifically, the context of the learning environment. Administrators who prioritize faculty-student interaction and authentic community are the ones who actually deliver on their mission.\n\nThe data is clear: many impactful practices are 'budget neutral.' They require a shift in priority and time, not necessarily more money. For example, encouraging faculty to spend more time with students outside of class or limiting major requirements to allow for more breadth are high-impact, low-cost strategies. Your role is to protect the 'human scale' of the institution against the pressure to become a 'degree factory.'",
-          "quotes": [
-            "Many impactful practices of liberal arts education are budget neutral: they focus on having faculty and staff spend more time with students outside of class.",
-            "The sudden and extreme changes in higher education... have given us the opportunity to rethink what really matters for higher learning."
-          ]
-        }
-      ]
-    },
-    {
-      "audience": "Legislators",
-      "description": "Is higher education a private benefit or a public good? Use the data to see how liberal arts principles contribute to a healthy democracy and a resilient workforce.",
-      "questions": [
-        {
-          "id": 1,
-          "text": "What is the most important 'ROI' for state-funded higher education?",
-          "options": [
-            {"text": "Filling immediate gaps in the local workforce.", "mapping": "Economic"},
-            {"text": "Developing a responsible, civically engaged citizenry.", "mapping": "Civic"},
-            {"text": "Ensuring long-term economic resilience and innovation.", "mapping": "Resilience"}
-          ]
-        },
-        {
-          "id": 2,
-          "text": "How should we measure the 'quality' of a college?",
-          "options": [
-            {"text": "By the first-year earnings of its graduates.", "mapping": "Economic"},
-            {"text": "By the percentage of graduates who volunteer and lead in their communities.", "mapping": "Civic"},
-            {"text": "By the long-term career adaptability of its alumni.", "mapping": "Resilience"}
-          ]
-        },
-        {
-          "id": 3,
-          "text": "In a world of AI and automation, what skills should we be funding?",
-          "options": [
-            {"text": "Technical skills like coding and data entry.", "mapping": "Economic"},
-            {"text": "Human skills like critical thinking, ethics, and collaboration.", "mapping": "Resilience"},
-            {"text": "Civic skills like debate and community organizing.", "mapping": "Civic"}
-          ]
-        },
-        {
-          "id": 4,
-          "text": "What is the biggest threat to our state's future?",
-          "options": [
-            {"text": "A lack of specialized workers for current industries.", "mapping": "Economic"},
-            {"text": "A breakdown in civic discourse and democratic participation.", "mapping": "Civic"},
-            {"text": "An inability to adapt to rapid technological change.", "mapping": "Resilience"}
-          ]
-        }
-      ],
-      "results": [
-        {
-          "profile": "The Civic ROI Advocate",
-          "description": "You recognize that the 'Common Good' is the ultimate measure of educational success.",
-          "research_insight": "Rick Detweiler’s research provides the 'hard data' for what has long been a 'soft' argument: liberal arts education produces the citizens a democracy needs. The study found that graduates who experienced an 'authentic learning community' were 56% more likely to contribute a larger percentage of their income to charity and significantly more likely to volunteer. This is the 'Civic ROI' that specialized, vocational training often fails to produce.\n\nFurthermore, the research challenges the 'Prussian' model of education—designed to create efficient bureaucrats for the state. Detweiler shows that in a time of constant change, the most 'practical' education is one that is broad and non-vocational. Legislators who focus solely on 'first-job income' are using a flawed metric that ignores the long-term economic and social resilience that liberal arts graduates provide to the state.",
-          "quotes": [
-            "What is now frequently used as a key indicator of the quality of a college or university—first job income—must be supplemented or replaced by indicators of longer-term life outcomes.",
-            "The 'everyone' priority and historic liberal arts 'higher good' purpose conflicted with the Prussian-European purpose, which was designed to serve the immediate needs of the monarch and the state."
-          ]
-        }
-      ]
+      }
     }
-  ]
-};
+  };
 
-// ============================================
-// 2. GLOBAL STATE
-// ============================================
-let currentQuiz = null;
-let currentStep = 0;
-let userAnswers = [];
+  /* ------------------------------------------------------------------------
+     3. OPTIONAL ADVICE PANEL LIBRARY
+     Injected directly beneath the result heading when selected.
+     ------------------------------------------------------------------------ */
+  var PANELS = {
+    /* Choosing a College */
+    paying: {
+      title: 'Paying for it',
+      body: '<p>The price on the website is not the price most students pay. At private nonprofit colleges, about 9 in 10 first-year students receive grants from the college itself, and on average those grants cover more than half of published tuition.</p><p>Run the net price calculator on each college\u2019s own site, and check cost at your income level on <strong>collegescorecard.ed.gov</strong>. File the FAFSA at <strong>studentaid.gov</strong> as soon as it opens in the fall of senior year.</p>'
+    },
+    firstgen: {
+      title: 'First in your family',
+      body: '<p>You are not behind. Tell your school counselor this year: "I want to go to college, and I am the first in my family. What should I be doing now?" Ask about application and test fee waivers. Try three net price calculators, including one private college you assumed was too expensive. File the FAFSA early, because some aid runs out.</p>'
+    },
+    belonging: {
+      title: 'Belonging, and finishing',
+      body: '<p>Vincent Tinto found that students are more likely to stay and finish when they are connected to both the academic and the social life of a college. Ask each college what share of students <em>like you</em> graduate, and what support exists in the first six weeks, when most students who leave decide to.</p>'
+    },
+    gettingin: {
+      title: 'Getting in',
+      body: '<p>Worth knowing: in 2023, 88% of Fortune 100 chief executives had not attended an Ivy League college as undergraduates. Dale and Krueger tracked earnings for more than 20 years and found the effect of attending a more selective college fell close to zero once students\u2019 own abilities and ambitions were accounted for. Build a list with affordable probables, matches and reaches.</p>'
+    },
+    firstchoice: {
+      title: 'If it is not your first choice',
+      body: '<p>The study found that what students <em>did</em> in college mattered more than which college they attended. The five experiences on this site are available at every kind of institution. At larger or less personal places you may have to seek them out, through honors programs, office hours and campus involvement, but they are there.</p>'
+    },
 
-// ============================================
-// 3. GLOBAL FUNCTIONS (Accessible to HTML)
-// ============================================
+    /* In College */
+    bigu: {
+      title: 'At a big university',
+      body: '<p>Start with your TA, who is often the bridge to the professor. Go to office hours in the first weeks before lines form. Look for honors sections, research programs and small seminars, which are where the small-college experience lives inside a large university.</p>'
+    },
+    commuter: {
+      title: 'If you commute or work',
+      body: '<p>Stay two minutes after class, or email one thoughtful question. Ask for a five-minute video check-in. For involvement, choose one group that meets at a time you are already on campus. Consistency beats volume.</p>'
+    },
+    lockedmajor: {
+      title: 'If your major leaves no free slots',
+      body: '<p>Use your required general education courses deliberately instead of treating them as a checklist. One well-chosen requirement a term is still breadth. In the study, these links held for every kind of major, including engineering and professional programs.</p>'
+    },
+    struggling: {
+      title: 'If you are struggling right now',
+      body: '<p>Three things, in order. Tell one professor or adviser this week: "I am struggling this term and I do not want to fall behind. What are my options?" Use tutoring, which is free at almost every college. And protect your credits: dropping one class before the deadline is far better than failing three. Talk to financial aid before withdrawing from anything.</p>'
+    },
 
-// We attach these to 'window' so the HTML onclicks can find them
-window.initQuiz = function(audienceName) {
-    currentQuiz = quizData.quizzes.find(q => q.audience === audienceName);
-    currentStep = 0;
-    userAnswers = [];
+    /* Parents */
+    wherenumbers: {
+      title: 'Where to find the numbers',
+      body: '<p><strong>Net price calculator:</strong> on every college\u2019s own website, by law. <strong>collegescorecard.ed.gov:</strong> average cost at your income level, completion rates and earnings. <strong>studentaid.gov:</strong> the FAFSA. <strong>Common Data Set:</strong> search the college name plus "Common Data Set" for class sizes, retention and who teaches.</p>'
+    },
+    payingparent: {
+      title: 'Paying for it',
+      body: '<p>Most families pay less than the published price. At private nonprofit colleges, about 9 in 10 first-year students get grants from the college, covering on average more than half of published tuition. Compare award letters on net price, which is cost minus free grants, not cost minus loans.</p>'
+    },
+    firstgenparent: {
+      title: 'First family through',
+      body: '<p>Junior year: talk with the school counselor and try three net price calculators together. Summer: build a balanced list and ask about fee waivers. Fall of senior year: file the FAFSA as soon as it opens. Spring: compare awards side by side on net price.</p>'
+    },
+    fullprice: {
+      title: 'If you will pay close to full price',
+      body: '<p>Ask what the money buys that a cheaper option does not: class sizes, who teaches first-year courses, how many professors will know your child, and what share of students complete research or internships with funding attached. Those are the things linked to outcomes decades later.</p>'
+    },
+    loans: {
+      title: 'About loans, honestly',
+      body: '<p>Keep total student borrowing below what your child expects to earn in their first year of work. Use federal Direct Loans before private loans, because of fixed rates and income-driven repayment. And note that a college where students finish in four years often costs less than a cheaper one where they take six.</p>'
+    },
+    wellbeing: {
+      title: 'Well-being',
+      body: '<p>Ask what the counseling wait time is in October, not in June. Ask who notices when a student stops attending. Tinto\u2019s work ties persistence to connection, and connection is also what protects students who are struggling.</p>'
+    },
+    aijobs: {
+      title: 'AI and whether the jobs will be there',
+      body: '<p>The World Economic Forum expects nearly 40% of the skills used at work to change by 2030. A 2026 survey of corporate recruiters found employers weigh communication, problem-solving and adaptability most heavily in hiring. Those are what a broad education builds, and they are the parts hardest to automate.</p>'
+    },
+    altpaths: {
+      title: 'Other paths',
+      body: '<p>Starting at a community college and transferring can cut degree costs substantially; verify articulation agreements in advance. Apprenticeships, trade certifications and military benefits are real routes. The questions on this site apply to any institution along any of these paths.</p>'
+    },
 
-    if (!currentQuiz) return console.error("Quiz not found for:", audienceName);
-
-    document.getElementById('quiz-overlay').classList.add('active');
-    
-    // Show a Welcome Screen first instead of jumping straight to Question 1
-    const container = document.getElementById('quiz-content');
-    container.innerHTML = `
-        <div style="text-align: center; padding: 2rem 0;">
-            <h2 class="result-profile" style="font-size: 2rem;">How will the Liberal Arts affect you?</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem; line-height: 1.6;">
-                Based on Rick Detweiler's research, this quick quiz will show you how your values 
-                align with the lifelong impacts of a liberal arts education.
-            </p>
-            <button class="quiz-trigger-btn" onclick="window.renderStep()">Begin the Quiz</button>
-        </div>
-    `;
-};
-
-window.renderStep = function() {
-    const container = document.getElementById('quiz-content');
-    const progress = document.getElementById('quiz-progress-bar');
-    const question = currentQuiz.questions[currentStep];
-    
-    const progressPercent = (currentStep / currentQuiz.questions.length) * 100;
-    progress.style.width = `${progressPercent}%`;
-
-    container.innerHTML = `
-        <div class="quiz-question-text">${question.text}</div>
-        <div class="quiz-options-list">
-            ${question.options.map((opt, index) => `
-                <div class="quiz-option" onclick="window.selectOption('${opt.mapping}', ${index})">
-                    ${opt.text}
-                </div>
-            `).join('')}
-        </div>
-        <div class="quiz-nav">
-            <button class="quiz-btn" onclick="window.prevStep()" ${currentStep === 0 ? 'disabled' : ''}>Back</button>
-            <button id="next-btn" class="quiz-btn quiz-btn-next" onclick="window.nextStep()" disabled>Next</button>
-        </div>
-    `;
-};
-
-window.selectOption = function(mapping, index) {
-    userAnswers[currentStep] = mapping;
-    const options = document.querySelectorAll('.quiz-option');
-    options.forEach(opt => opt.classList.remove('selected'));
-    options[index].classList.add('selected');
-    document.getElementById('next-btn').disabled = false;
-};
-
-window.nextStep = function() {
-    if (currentStep < currentQuiz.questions.length - 1) {
-        currentStep++;
-        window.renderStep();
-    } else {
-        window.showResults();
+    /* Faculty */
+    largelecture: {
+      title: 'In a large lecture',
+      body: '<p>Use the photo roster, learn the names of students who speak, and use a name every time you call on someone. Hold small-group office hours for eight to ten students at a time. Pose a question, have students answer, discuss with a neighbor, then answer again.</p>'
+    },
+    commuterstudents: {
+      title: 'With commuting and working students',
+      body: '<p>Arrive five minutes early and greet students by name as they come in. Offer video office hours and early or late times. Build the reading into class: read a short passage together and discuss it, rather than assuming it was done at home.</p>'
+    },
+    adjunct: {
+      title: 'Teaching part-time, without an office',
+      body: '<p>Names cost nothing and need no office. So does one question at the start of class, and one added line on every assignment. Ask the department for a space to meet students; it is a reasonable request and it is the main structural barrier.</p>'
+    },
+    stem: {
+      title: 'In science, engineering and mathematics',
+      body: '<p>Set a design problem, or ask students to explain why their approach is better than another that also works. Add: "Where could this calculation or design go wrong?" Freeman and colleagues, reviewing 225 studies, found students in traditional lectures about 1.5 times as likely to fail as those in active-learning classes.</p>'
     }
-};
+  };
 
-window.prevStep = function() {
-    if (currentStep > 0) {
-        currentStep--;
-        window.renderStep();
+  /* ------------------------------------------------------------------------
+     4. QUIZ STATE
+     ------------------------------------------------------------------------ */
+  var state = {
+    audience: null,
+    quiz: null,
+    phase: 'questions',   // questions | optional | tiebreak | results
+    index: 0,
+    answers: [],          // { mapping, score, optionIndex, panel }
+    optionalPanels: [],
+    tieWinner: null,
+    advancing: false
+  };
+
+  function el(id) { return document.getElementById(id); }
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  /* ------------------------------------------------------------------------
+     5. QUIZ RENDERING ENGINE
+     ------------------------------------------------------------------------ */
+
+  // Builds the modal if a page does not already contain it.
+  function ensureQuizDom() {
+    if (el('quiz-overlay')) return;
+    var overlay = document.createElement('div');
+    overlay.id = 'quiz-overlay';
+    overlay.innerHTML =
+      '<div id="quiz-modal" role="dialog" aria-modal="true" aria-label="Quiz">' +
+        '<button class="quiz-close" aria-label="Close quiz" onclick="window.closeQuizModal()">&times;</button>' +
+        '<div class="quiz-progress-container"><div id="quiz-progress-bar"></div></div>' +
+        '<div id="quiz-content"></div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+  }
+
+  function totalSteps() {
+    var n = state.quiz.questions.length;
+    if (state.quiz.optional) n += 1;
+    return n;
+  }
+
+  function completedSteps() {
+    if (state.phase === 'results') return totalSteps();
+    if (state.phase === 'tiebreak') return totalSteps();
+    if (state.phase === 'optional') return state.quiz.questions.length;
+    return state.index;
+  }
+
+  function setProgress() {
+    var bar = el('quiz-progress-bar');
+    if (!bar) return;
+    var pct = Math.round((completedSteps() / totalSteps()) * 100);
+    bar.style.width = Math.min(100, Math.max(0, pct)) + '%';
+  }
+
+  function backButtonHtml(enabled) {
+    return '<button class="quiz-btn" onclick="window.prevQuizStep()"' +
+      (enabled ? '' : ' disabled') + '>Back</button>';
+  }
+
+  function renderQuestion() {
+    var q = state.quiz.questions[state.index];
+    var chosen = state.answers[state.index];
+    var html = '';
+
+    html += '<p class="section-label">' + esc(state.quiz.audience) + '</p>';
+    html += '<p class="quiz-question-text">' + esc(q.text) + '</p>';
+    html += '<div class="quiz-options-list">';
+    q.options.forEach(function (opt, i) {
+      var sel = (chosen && chosen.optionIndex === i) ? ' selected' : '';
+      html += '<div class="quiz-option' + sel + '" role="button" tabindex="0" ' +
+        'onclick="window.selectQuizOption(' + i + ')" ' +
+        'onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();window.selectQuizOption(' + i + ');}">' +
+        esc(opt.text) + '</div>';
+    });
+    html += '</div>';
+    html += '<div class="quiz-nav">' + backButtonHtml(state.index > 0) +
+      '<span style="font-size:.9rem;color:var(--text-muted);">Question ' +
+      (state.index + 1) + ' of ' + state.quiz.questions.length + '</span></div>';
+
+    el('quiz-content').innerHTML = html;
+    setProgress();
+  }
+
+  function renderOptional() {
+    var o = state.quiz.optional;
+    var html = '';
+    html += '<p class="section-label">' + esc(state.quiz.audience) + '</p>';
+    html += '<p class="quiz-question-text">' + esc(o.text) + '</p>';
+    html += '<p style="font-size:.92rem;color:var(--text-muted);margin-top:-1rem;margin-bottom:1.25rem;">' + esc(o.note) + '</p>';
+    html += '<div class="quiz-options-list">';
+    o.options.forEach(function (opt, i) {
+      var sel = state.optionalPanels.indexOf(opt.panel) > -1 ? ' selected' : '';
+      html += '<div class="quiz-option' + sel + '" role="checkbox" tabindex="0" aria-checked="' +
+        (sel ? 'true' : 'false') + '" ' +
+        'onclick="window.toggleOptionalPanel(' + i + ')" ' +
+        'onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();window.toggleOptionalPanel(' + i + ');}">' +
+        esc(opt.text) + '</div>';
+    });
+    html += '</div>';
+    html += '<div class="quiz-nav">' + backButtonHtml(true) +
+      '<button class="quiz-btn" style="background:var(--accent-gold);border-color:var(--accent-gold);color:var(--primary-navy);" onclick="window.showQuizResults()">See my result</button></div>';
+
+    el('quiz-content').innerHTML = html;
+    setProgress();
+  }
+
+  function renderTieBreak(tied) {
+    var tb = state.quiz.tieBreaker;
+    var opts = tb.options.filter(function (o) { return tied.indexOf(o.mapping) > -1; });
+    var html = '';
+    html += '<p class="section-label">One more question</p>';
+    html += '<p class="quiz-question-text">' + esc(tb.text) + '</p>';
+    html += '<div class="quiz-options-list">';
+    opts.forEach(function (opt) {
+      html += '<div class="quiz-option" role="button" tabindex="0" ' +
+        'onclick="window.resolveTie(\'' + opt.mapping + '\')" ' +
+        'onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();window.resolveTie(\'' + opt.mapping + '\');}">' +
+        esc(opt.text) + '</div>';
+    });
+    html += '</div>';
+    html += '<div class="quiz-nav">' + backButtonHtml(true) + '<span></span></div>';
+    el('quiz-content').innerHTML = html;
+    setProgress();
+  }
+
+  function renderCurrent() {
+    if (state.phase === 'questions') return renderQuestion();
+    if (state.phase === 'optional') return renderOptional();
+  }
+
+  /* ------------------------------------------------------------------------
+     6. RESULT RENDERING
+     ------------------------------------------------------------------------ */
+
+  function tally() {
+    var counts = {};
+    state.answers.forEach(function (a) {
+      if (!a || !a.mapping) return;       // unscored options are skipped
+      counts[a.mapping] = (counts[a.mapping] || 0) + 1;
+    });
+    return counts;
+  }
+
+  function topKeys(counts) {
+    var max = -1, keys = [];
+    Object.keys(counts).forEach(function (k) {
+      if (counts[k] > max) { max = counts[k]; keys = [k]; }
+      else if (counts[k] === max) { keys.push(k); }
+    });
+    return keys;
+  }
+
+  function totalPoints() {
+    return state.answers.reduce(function (sum, a) {
+      return sum + (a && typeof a.score === 'number' ? a.score : 0);
+    }, 0);
+  }
+
+  function bandFor(points) {
+    var bands = state.quiz.bands;
+    for (var i = 0; i < bands.length; i++) {
+      if (points >= bands[i].min && points <= bands[i].max) return bands[i];
     }
-};
+    return bands[bands.length - 1];
+  }
 
-window.showResults = function() {
-    document.getElementById('quiz-progress-bar').style.width = '100%';
+  function panelsHtml() {
+    var keys = state.optionalPanels.slice();
+    // panels triggered by an unscored in-question option
+    state.answers.forEach(function (a) {
+      if (a && a.panel && keys.indexOf(a.panel) === -1) keys.push(a.panel);
+    });
+    if (!keys.length) return '';
+    var html = '<div style="margin:1.75rem 0;">';
+    keys.forEach(function (k) {
+      var p = PANELS[k];
+      if (!p) return;
+      html += '<div style="background:var(--accent-gold-light);border-left:4px solid var(--accent-gold);border-radius:0 8px 8px 0;padding:1.15rem 1.25rem;margin-bottom:1rem;">' +
+        '<h4 style="margin-bottom:.5rem;font-size:1.05rem;">' + esc(p.title) + '</h4>' +
+        p.body + '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
 
-    // Calculate result based on most frequent mapping
-    const counts = {};
-    userAnswers.forEach(m => counts[m] = (counts[m] || 0) + 1);
-    const winningMapping = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
-    
-    // Find result that matches the mapping (e.g., "L", "S", "Impact")
-    const result = currentQuiz.results.find(r => 
-        r.profile.includes(`(${winningMapping})`) || r.profile.includes(winningMapping)
-    ) || currentQuiz.results[0];
+  function listHtml(title, items) {
+    if (!items || !items.length) return '';
+    var html = '<h3 style="font-size:1.2rem;margin-top:1.75rem;">' + esc(title) + '</h3><ul style="padding-left:1.25rem;display:flex;flex-direction:column;gap:.5rem;">';
+    items.forEach(function (i) { html += '<li>' + i + '</li>'; });
+    return html + '</ul>';
+  }
 
-    document.getElementById('quiz-content').innerHTML = `
-        <div class="result-profile">${result.profile}</div>
-        <div class="result-description">${result.description}</div>
-        <div class="result-insight">
-            ${result.research_insight.split('\n\n').map(p => `<p>${p}</p>`).join('')}
-        </div>
-        ${result.quotes.map(q => `<blockquote class="result-quote">"${q}"<br><cite>— Rick Detweiler</cite></blockquote>`).join('')}
-        <div class="quiz-nav">
-            <button class="quiz-btn" onclick="window.initQuiz('${currentQuiz.audience}')">Retake Quiz</button>
-            <button class="quiz-btn quiz-btn-next" onclick="window.closeQuiz()">Close</button>
-        </div>
-    `;
-};
+  function resultBlockHtml(r, opts) {
+    opts = opts || {};
+    var html = '';
+    html += '<p class="section-label">Your result</p>';
+    html += '<h2 class="result-profile">' + esc(r.profile) + '</h2>';
+    html += '<p class="result-description">' + esc(r.lead) + '</p>';
 
-window.closeQuiz = function() {
-    document.getElementById('quiz-overlay').classList.remove('active');
-};
+    if (!opts.skipPanels) html += panelsHtml();
 
-// ============================================
-// 4. UI INITIALIZATION (Keep inside Listener)
-// ============================================
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('✅ main.js UI Loaded');
+    html += '<div class="result-insight"><h3 style="font-size:1.2rem;">What the research found</h3>';
+    (r.research || []).forEach(function (p) { html += '<p>' + p + '</p>'; });
+    html += '</div>';
 
-    // Hamburger Menu Logic
-    const menuToggle = document.getElementById('mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
-    if (menuToggle && navLinks) {
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+    html += listHtml('Ask these out loud', r.ask);
+    html += listHtml('Check it without asking anyone', r.check);
+
+    if (r.tryThis) {
+      html += '<div style="background:var(--bg-surface-alt);border-left:4px solid var(--primary-navy);padding:1.15rem 1.25rem;margin:1.75rem 0;">' +
+        '<strong style="color:var(--primary-navy);">Try this one thing:</strong><p style="margin:.5rem 0 0;">' + r.tryThis + '</p></div>';
+    }
+
+    // Collapsed by default, per the phone-first rules
+    if (r.otherResearch) {
+      html += '<details class="accordion-item"><summary>Other research agrees</summary>' +
+        '<div class="accordion-content"><p>' + r.otherResearch + '</p></div></details>';
+    }
+
+    if (r.quotes && r.quotes.length) {
+      html += '<blockquote class="result-quote">' + esc(r.quotes[0].text) +
+        '<cite>\u2014 ' + esc(r.quotes[0].cite) + '</cite></blockquote>';
+      if (r.quotes.length > 1) {
+        html += '<details class="accordion-item"><summary>In their own words</summary><div class="accordion-content">';
+        r.quotes.slice(1).forEach(function (q) {
+          html += '<blockquote class="result-quote">' + esc(q.text) +
+            '<cite>\u2014 ' + esc(q.cite) + '</cite></blockquote>';
         });
+        html += '</div></details>';
+      }
+    }
+    return html;
+  }
+
+  function meaningfulLifeHtml() {
+    return '<details class="accordion-item"><summary>A meaningful life in a world of change</summary>' +
+      '<div class="accordion-content">' +
+      '<p>Americans now in their early forties had already held an average of <strong>9.4 jobs by age 38</strong>, about twenty years into their working lives, according to the Bureau of Labor Statistics. The World Economic Forum expects nearly 40% of the skills used at work to change by 2030.</p>' +
+      '<p>In the study behind this site, the same experiences were linked to higher adult income <em>and</em> to leadership, civic involvement, continued learning, cultural involvement and fulfillment. What lasts is not the first credential. It is the capacity to keep learning.</p>' +
+      '</div></details>';
+  }
+
+  function howToReadHtml() {
+    return '<details class="accordion-item"><summary>How to read these numbers</summary>' +
+      '<div class="accordion-content"><p>A figure such as "24% more likely" compares two groups. If 57% of one group reports a higher income against 46% of another, the first group\u2019s rate is 124% of the second. Statisticians call this the incident risk ratio, and the increase expressed as a percentage is the percent relative effect.</p>' +
+      '<p>The study interviewed people once and asked them to look back. It shows that these experiences and these outcomes <strong>go together</strong>. It cannot prove that one causes the other. <a href="the-research.html">Read the full methodology.</a></p></div></details>';
+  }
+
+  function renderResults() {
+    state.phase = 'results';
+    var q = state.quiz;
+    var html = '';
+
+    if (q.scoring === 'points') {
+      var pts = totalPoints();
+      var band = bandFor(pts);
+      html += '<p style="font-size:.9rem;color:var(--text-muted);margin-bottom:.25rem;">Score: ' + pts + ' of 10</p>';
+      html += resultBlockHtml(band);
+    } else if (q.scoring === 'outcome') {
+      var key = state.tieWinner || topKeys(tally())[0];
+      html += resultBlockHtml(q.results[key]);
+    } else { // plurality
+      var tied = topKeys(tally());
+      if (tied.length > 1) {
+        html += '<p class="section-label">Your result</p>';
+        html += '<p style="font-size:1.05rem;color:var(--text-charcoal);margin-bottom:1.5rem;">Your answers split evenly. Both of these describe you, so both are below.</p>';
+        html += panelsHtml();
+        tied.forEach(function (k, i) {
+          if (i > 0) html += '<hr style="margin:2.5rem 0;border:none;border-top:1px solid var(--border-muted);">';
+          html += resultBlockHtml(q.results[k], { skipPanels: true });
+        });
+      } else {
+        html += resultBlockHtml(q.results[tied[0]]);
+      }
     }
 
-    // Accordion Logic
-    const accordionButtons = document.querySelectorAll('.accordion-button');
-    accordionButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const isExpanded = button.getAttribute('aria-expanded') === 'true';
-            button.setAttribute('aria-expanded', !isExpanded);
-            const panel = document.getElementById(button.getAttribute('aria-controls'));
-            if (panel) panel.setAttribute('data-open', !isExpanded);
-        });
+    html += meaningfulLifeHtml();
+    html += howToReadHtml();
+
+    html += '<div class="quiz-nav" style="margin-top:2rem;">' +
+      '<button class="quiz-btn" onclick="window.retakeQuiz()">Retake</button>' +
+      '<button class="quiz-btn" style="background:var(--primary-navy);color:#fff;" onclick="window.closeQuizModal()">Close and use the tool</button>' +
+      '</div>';
+
+    el('quiz-content').innerHTML = html;
+    el('quiz-content').scrollTop = 0;
+    var modal = el('quiz-modal');
+    if (modal) modal.scrollTop = 0;
+    setProgress();
+  }
+
+  /* ------------------------------------------------------------------------
+     7. GLOBAL WINDOW BINDINGS
+     Inline onclick handlers in the HTML depend on these names.
+     ------------------------------------------------------------------------ */
+
+  window.initQuiz = function (audienceName) {
+    var quiz = QUIZ_DATA[audienceName];
+    if (!quiz) {
+      console.warn('[WCIRF] No quiz found for audience: "' + audienceName + '". Check the data-audience attribute.');
+      return;
+    }
+    ensureQuizDom();
+    state.audience = audienceName;
+    state.quiz = quiz;
+    state.phase = 'questions';
+    state.index = 0;
+    state.answers = [];
+    state.optionalPanels = [];
+    state.tieWinner = null;
+    state.advancing = false;
+
+    var overlay = el('quiz-overlay');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    renderCurrent();
+  };
+
+  window.selectQuizOption = function (optionIndex) {
+    if (state.advancing) return;
+    var q = state.quiz.questions[state.index];
+    var opt = q.options[optionIndex];
+
+    state.answers[state.index] = {
+      optionIndex: optionIndex,
+      mapping: (typeof opt.mapping === 'undefined') ? null : opt.mapping,
+      score: (typeof opt.score === 'number') ? opt.score : null,
+      panel: opt.panel || null
+    };
+
+    // visual confirmation, then auto-advance
+    var nodes = document.querySelectorAll('#quiz-content .quiz-option');
+    for (var i = 0; i < nodes.length; i++) nodes[i].classList.remove('selected');
+    if (nodes[optionIndex]) nodes[optionIndex].classList.add('selected');
+
+    state.advancing = true;
+    setTimeout(function () {
+      state.advancing = false;
+      if (state.index < state.quiz.questions.length - 1) {
+        state.index++;
+        renderQuestion();
+      } else if (state.quiz.optional) {
+        state.phase = 'optional';
+        renderOptional();
+      } else {
+        window.showQuizResults();
+      }
+    }, CONFIG.AUTO_ADVANCE_MS);
+  };
+
+  window.toggleOptionalPanel = function (i) {
+    var key = state.quiz.optional.options[i].panel;
+    var pos = state.optionalPanels.indexOf(key);
+    if (pos > -1) state.optionalPanels.splice(pos, 1);
+    else state.optionalPanels.push(key);
+    renderOptional();
+  };
+
+  window.prevQuizStep = function () {
+    if (state.phase === 'results') {
+      state.phase = state.quiz.optional ? 'optional' : 'questions';
+      if (state.phase === 'optional') return renderOptional();
+      state.index = state.quiz.questions.length - 1;
+      return renderQuestion();
+    }
+    if (state.phase === 'tiebreak') {
+      state.phase = state.quiz.optional ? 'optional' : 'questions';
+      if (state.phase === 'optional') return renderOptional();
+      state.index = state.quiz.questions.length - 1;
+      return renderQuestion();
+    }
+    if (state.phase === 'optional') {
+      state.phase = 'questions';
+      state.index = state.quiz.questions.length - 1;
+      return renderQuestion();
+    }
+    if (state.index > 0) { state.index--; renderQuestion(); }
+  };
+
+  window.showQuizResults = function () {
+    // Outcome quizzes with three or more tied outcomes get a bonus question.
+    if (state.quiz.scoring === 'outcome' && !state.tieWinner) {
+      var tied = topKeys(tally());
+      if (tied.length >= 3 && state.quiz.tieBreaker) {
+        state.phase = 'tiebreak';
+        return renderTieBreak(tied);
+      }
+      if (tied.length === 2 && state.quiz.tieBreaker) {
+        state.phase = 'tiebreak';
+        return renderTieBreak(tied);
+      }
+    }
+    renderResults();
+  };
+
+  window.resolveTie = function (mapping) {
+    state.tieWinner = mapping;
+    renderResults();
+  };
+
+  window.retakeQuiz = function () {
+    var a = state.audience;
+    window.closeQuizModal();
+    setTimeout(function () { window.initQuiz(a); }, 180);
+  };
+
+  window.closeQuizModal = function () {
+    var overlay = el('quiz-overlay');
+    if (overlay) overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  /* Legacy aliases, so older markup keeps working */
+  window.closeQuiz = window.closeQuizModal;
+  window.selectOption = function (mappingOrIndex, index) {
+    window.selectQuizOption(typeof index === 'number' ? index : mappingOrIndex);
+  };
+  window.nextStep = function () { /* auto-advance replaces this */ };
+  window.prevStep = window.prevQuizStep;
+  window.showResults = window.showQuizResults;
+  window.renderStep = function () { renderCurrent(); };
+
+  /* ------------------------------------------------------------------------
+     8. NAVIGATION, DROPDOWNS, ACCORDIONS
+     ------------------------------------------------------------------------ */
+
+  function initNav() {
+    var toggle = el('mobile-menu');
+    var links = document.querySelector('.nav-links');
+    if (!toggle || !links) return;
+
+    function setIcon(open) {
+      var icon = toggle.querySelector('i');
+      if (!icon) return;
+      icon.className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    }
+
+    function toggleMenu() {
+      var open = links.classList.toggle('active');
+      setIcon(open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.addEventListener('click', toggleMenu);
+    toggle.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); }
     });
 
-    // Close quiz on overlay click
-    const overlay = document.getElementById('quiz-overlay');
-    if (overlay) {
-        overlay.addEventListener('click', (e) => {
-            if (e.target.id === 'quiz-overlay') window.closeQuiz();
-        });
-    }
-     // ============================================
-    // AUTO-POPUP LOGIC
-    // ============================================
-    const autoTriggerBtn = document.querySelector('.quiz-trigger-btn');
-    
-    if (autoTriggerBtn) {
-        const audience = autoTriggerBtn.getAttribute('data-audience');
-        console.log("🎯 Auto-popup found audience:", audience);
-        
-        if (audience) {
-            const hasSeenPopup = sessionStorage.getItem(`seen_quiz_${audience}`);
-            
-            if (!hasSeenPopup) {
-                setTimeout(() => {
-                    console.log("🚀 Auto-launching quiz for:", audience);
-                    sessionStorage.setItem(`seen_quiz_${audience}`, 'true');
-                    initQuiz(audience);
-                }, 1000);
-            } else {
-                console.log("👋 User has already seen this quiz today, skipping auto-popup");
-            }
-        } else {
-            console.warn("⚠️ Quiz button found but missing data-audience attribute!");
+    // Touch-friendly dropdown
+    var dropdowns = document.querySelectorAll('.dropdown');
+    Array.prototype.forEach.call(dropdowns, function (dd) {
+      var btn = dd.querySelector('.dropbtn');
+      if (!btn) return;
+      btn.addEventListener('click', function (e) {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          var open = dd.classList.toggle('active');
+          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         }
-    } else {
-        console.warn("⚠️ No .quiz-trigger-btn found on this page");
+      });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function (e) {
+      if (!links.contains(e.target) && !toggle.contains(e.target)) {
+        if (links.classList.contains('active')) {
+          links.classList.remove('active');
+          setIcon(false);
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+        Array.prototype.forEach.call(dropdowns, function (dd) { dd.classList.remove('active'); });
+      }
+    });
+
+    // Reset on resize back to desktop
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 768) {
+        links.classList.remove('active');
+        setIcon(false);
+        Array.prototype.forEach.call(dropdowns, function (dd) { dd.classList.remove('active'); });
+      }
+    });
+  }
+
+  function initAccordions() {
+    // Native <details> handles open/close. This only keeps ARIA honest.
+    var items = document.querySelectorAll('details.accordion-item');
+    Array.prototype.forEach.call(items, function (d) {
+      var s = d.querySelector('summary');
+      if (!s) return;
+      s.setAttribute('aria-expanded', d.open ? 'true' : 'false');
+      d.addEventListener('toggle', function () {
+        s.setAttribute('aria-expanded', d.open ? 'true' : 'false');
+      });
+    });
+  }
+
+  function initModalDismiss() {
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        var overlay = el('quiz-overlay');
+        if (overlay && overlay.classList.contains('active')) window.closeQuizModal();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      var overlay = el('quiz-overlay');
+      if (overlay && e.target === overlay) window.closeQuizModal();
+    });
+  }
+
+  /* ------------------------------------------------------------------------
+     9. TOOL HANDLERS: PRINT, COPY, AUTOSAVE
+     ------------------------------------------------------------------------ */
+
+  // Replaces live form fields with their typed values so they survive printing.
+  function freezeClone(node) {
+    var clone = node.cloneNode(true);
+    var liveInputs = node.querySelectorAll('input, select, textarea');
+    var cloneInputs = clone.querySelectorAll('input, select, textarea');
+    for (var i = 0; i < liveInputs.length; i++) {
+      var live = liveInputs[i], c = cloneInputs[i];
+      if (!c) continue;
+      var val = '';
+      if (live.tagName === 'SELECT') {
+        val = live.options[live.selectedIndex] ? live.options[live.selectedIndex].text : '';
+      } else {
+        val = live.value || '';
+      }
+      var span = document.createElement('span');
+      span.textContent = val || '\u2014';
+      span.style.cssText = 'display:inline-block;min-width:60px;border-bottom:1px solid #999;padding:2px 4px;font-weight:600;';
+      c.parentNode.replaceChild(span, c);
     }
-});
+    // remove buttons from the printed version
+    var btns = clone.querySelectorAll('button, .btn, .gold-btn, .navy-btn');
+    Array.prototype.forEach.call(btns, function (b) { b.parentNode && b.parentNode.removeChild(b); });
+    return clone;
+  }
+
+  window.printToolReport = function (elementId) {
+    var node = el(elementId);
+    if (!node) { window.print(); return; }
+    var clone = freezeClone(node);
+    var w = window.open('', '_blank', 'width=900,height=700');
+    if (!w) { window.print(); return; }
+    w.document.write(
+      '<!DOCTYPE html><html><head><meta charset="utf-8"><title>' +
+      esc(document.title) + '</title>' +
+      '<style>' +
+      'body{font-family:Georgia,"Times New Roman",serif;color:#111;margin:32px;line-height:1.5;}' +
+      'h1,h2,h3,h4{font-family:Georgia,serif;color:#1b365d;}' +
+      'table{width:100%;border-collapse:collapse;margin:16px 0;}' +
+      'th,td{border:1px solid #999;padding:8px;text-align:left;vertical-align:top;font-size:12px;}' +
+      'th{background:#f1f3f6;}' +
+      '.section-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#8a6d1f;}' +
+      'footer{margin-top:28px;font-size:11px;color:#555;border-top:1px solid #ccc;padding-top:10px;}' +
+      '</style></head><body>'
+    );
+    w.document.write(clone.innerHTML);
+    w.document.write(
+      '<footer>What College Is Really For \u2014 based on interviews with 1,000 college graduates, ages 25 to 65. ' +
+      'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs</em> (MIT Press, 2021).</footer></body></html>'
+    );
+    w.document.close();
+    w.focus();
+    setTimeout(function () { w.print(); }, 350);
+  };
+
+  window.copyToolToClipboard = function (elementId) {
+    var node = el(elementId);
+    if (!node) return;
+    var clone = freezeClone(node);
+    var text = (clone.innerText || clone.textContent || '').replace(/\n{3,}/g, '\n\n').trim();
+    function done(ok) {
+      var btn = node.querySelector('[onclick*="copyToolToClipboard"]');
+      if (btn) {
+        var orig = btn.innerHTML;
+        btn.innerHTML = ok ? 'Copied' : 'Copy failed';
+        setTimeout(function () { btn.innerHTML = orig; }, 1800);
+      }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(true); } catch (err) { done(false); }
+      document.body.removeChild(ta);
+    }
+  };
+
+  // Keeps typed answers if someone reloads or comes back later.
+  function initToolAutosave() {
+    if (!CONFIG.TOOL_AUTOSAVE) return;
+    var page = location.pathname.split('/').pop() || 'index.html';
+    var tools = document.querySelectorAll('[id$="-tool"]');
+    Array.prototype.forEach.call(tools, function (tool) {
+      var fields = tool.querySelectorAll('input, select, textarea');
+      Array.prototype.forEach.call(fields, function (f, i) {
+        var key = CONFIG.STORAGE_PREFIX + page + '_' + tool.id + '_' + i;
+        try {
+          var saved = localStorage.getItem(key);
+          if (saved !== null && saved !== '') f.value = saved;
+        } catch (e) { /* storage blocked, ignore */ }
+        f.addEventListener('input', function () {
+          try { localStorage.setItem(key, f.value); } catch (e) {}
+        });
+        f.addEventListener('change', function () {
+          try { localStorage.setItem(key, f.value); } catch (e) {}
+        });
+      });
+    });
+  }
+
+  window.clearToolData = function (toolId) {
+    var page = location.pathname.split('/').pop() || 'index.html';
+    var tool = el(toolId);
+    if (!tool) return;
+    var fields = tool.querySelectorAll('input, select, textarea');
+    Array.prototype.forEach.call(fields, function (f, i) {
+      f.value = '';
+      if (f.tagName === 'SELECT') f.selectedIndex = 0;
+      try { localStorage.removeItem(CONFIG.STORAGE_PREFIX + page + '_' + toolId + '_' + i); } catch (e) {}
+    });
+  };
+
+  /* ------------------------------------------------------------------------
+     10. BOOTSTRAP
+     ------------------------------------------------------------------------ */
+  document.addEventListener('DOMContentLoaded', function () {
+    initNav();
+    initAccordions();
+    initModalDismiss();
+    initToolAutosave();
+
+    // Validate every trigger button against the data store, and log mismatches.
+    var triggers = document.querySelectorAll('.quiz-trigger-btn');
+    Array.prototype.forEach.call(triggers, function (btn) {
+      var aud = btn.getAttribute('data-audience');
+      if (aud && !QUIZ_DATA[aud]) {
+        console.warn('[WCIRF] data-audience "' + aud + '" has no matching quiz in main.js.');
+      }
+      if (!btn.getAttribute('onclick') && aud) {
+        btn.addEventListener('click', function () { window.initQuiz(aud); });
+      }
+    });
+
+    // Optional, off by default.
+    if (CONFIG.AUTO_POPUP && triggers.length) {
+      var audience = triggers[0].getAttribute('data-audience');
+      if (audience && QUIZ_DATA[audience]) {
+        try {
+          if (!sessionStorage.getItem('seen_quiz_' + audience)) {
+            setTimeout(function () {
+              window.initQuiz(audience);
+              try { sessionStorage.setItem('seen_quiz_' + audience, '1'); } catch (e) {}
+            }, CONFIG.AUTO_POPUP_DELAY_MS);
+          }
+        } catch (e) { /* storage blocked, skip */ }
+      }
+    }
+  });
+
+  // Exposed for debugging in the console
+  window.WCIRF = { data: QUIZ_DATA, panels: PANELS, state: state, config: CONFIG };
+
+})();

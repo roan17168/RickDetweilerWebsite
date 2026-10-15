@@ -15,7 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/avif" href="assets/images/favicon.avif">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -43,9 +44,9 @@
         <a href="about.html">About</a>
       </nav>
       
-      <div class="mobile-toggle" id="mobile-menu" aria-label="Toggle navigation" role="button" tabindex="0">
+      <button class="mobile-toggle" id="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false">
         <i class="fa-solid fa-bars"></i>
-      </div>
+      </button>
     </div>
   </header>
 
@@ -248,8 +249,8 @@
 
   <!-- Modal Container Placeholder for Quiz -->
   <div id="quiz-overlay">
-    <div id="quiz-modal">
-      <button class="quiz-close" onclick="window.closeQuizModal()">&times;</button>
+    <div id="quiz-modal" role="dialog" aria-modal="true" aria-label="Quiz">
+      <button class="quiz-close" aria-label="Close quiz" onclick="window.closeQuizModal()">&times;</button>
       <div class="quiz-progress-container">
         <div id="quiz-progress-bar"></div>
       </div>
@@ -257,6 +258,6 @@
     </div>
   </div>
 
-  <script src="main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

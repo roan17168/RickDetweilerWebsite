@@ -15,7 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/avif" href="assets/images/favicon.avif">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -43,9 +44,9 @@
         <a href="about.html" class="active">About</a>
       </nav>
       
-      <div class="mobile-toggle" id="mobile-menu" aria-label="Toggle navigation" role="button" tabindex="0">
+      <button class="mobile-toggle" id="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false">
         <i class="fa-solid fa-bars"></i>
-      </div>
+      </button>
     </div>
   </header>
 
@@ -61,6 +62,9 @@
 
       <!-- Biography Section -->
       <section style="margin-top: 2rem;">
+        <figure style="margin:0 0 1.75rem;">
+          <img src="assets/images/richard-detweiler.webp" alt="Portrait of Richard A. Detweiler" width="280" height="350" style="width:140px;border-radius:var(--radius-card);box-shadow:var(--shadow-subtle);">
+        </figure>
         <p>Richard A. Detweiler, known to colleagues and students as Rick, is a social psychologist, a former professor and college president, and a researcher whose work asks a plain question: <strong>which parts of college still matter decades later?</strong></p>
 
         <p>Rick is Managing Director of <strong>HigherEdImpact</strong>, a nonprofit he founded to help institutions use evidence to fulfill their educational missions. He is President Emeritus of the Great Lakes Colleges Association (GLCA) and of Hartwick College. At the GLCA he founded the Global Liberal Arts Alliance, a partnership of 30 universities in 16 countries.</p>
@@ -100,6 +104,7 @@
       <section id="book" style="margin-top: 3.5rem; background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 2.25rem; box-shadow: var(--shadow-subtle);">
         <span class="section-label">The Book</span>
         <h2>The Evidence Liberal Arts Needs</h2>
+        <img src="assets/images/book-cover.jpg" alt="Cover of The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment" width="237" height="360" style="width:140px;margin:0 0 1rem;">
         <p style="font-style: italic; color: var(--secondary-navy); margin-bottom: 1rem;">Lives of Consequence, Inquiry, and Accomplishment (MIT Press, 2021)</p>
         
         <p>Named by <em>Forbes</em> as one of the best higher education books of 2021, this book provides the first comprehensive empirical study examining how specific college experiences relate to leadership, civic involvement, continued learning, cultural involvement, fulfillment, and personal success decades after graduation.</p>
@@ -148,6 +153,6 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

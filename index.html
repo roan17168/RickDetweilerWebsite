@@ -15,7 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/avif" href="assets/images/favicon.avif">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -43,9 +44,9 @@
         <a href="about.html">About</a>
       </nav>
       
-      <div class="mobile-toggle" id="mobile-menu" aria-label="Toggle navigation" role="button" tabindex="0">
+      <button class="mobile-toggle" id="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false">
         <i class="fa-solid fa-bars"></i>
-      </div>
+      </button>
     </div>
   </header>
 
@@ -56,14 +57,14 @@
       <p class="hero-subhead">
         We asked 1,000 graduates, ages 25 to 65, about their college years and about their lives now. Which college they attended and what they majored in mattered less than what they experienced there.
       </p>
-      <div class="quiz-prompt-pill">
-        Who are you? Take a two-minute quiz and get the questions worth asking.
-      </div>
+      <a class="quiz-prompt-pill" href="#decision-hub">
+        Choose a perspective to start a two-minute quiz and get questions worth asking.
+      </a>
     </div>
   </section>
 
   <!-- 6-Card Decision Hub Grid -->
-  <main class="decision-hub-section">
+  <main class="decision-hub-section" id="decision-hub">
     <div class="container">
       <div class="decision-hub-grid">
         
@@ -176,7 +177,7 @@
     <div class="container">
       <span class="section-label">Evidence-Based Results</span>
       <h2>Six long-term life outcomes</h2>
-      <p>The study tracked how these specific college experiences linked to six measurable aspects of adult life decades after graduation:</p>
+      <p>The study examined how specific college experiences were linked to six measurable aspects of graduates' adult lives:</p>
       
       <div class="outcomes-grid">
         <div class="outcome-box">
@@ -252,6 +253,6 @@
     </div>
   </footer>
 
-  <script src="main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

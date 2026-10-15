@@ -15,7 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/avif" href="assets/images/favicon.avif">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -43,9 +44,9 @@
         <a href="about.html">About</a>
       </nav>
       
-      <div class="mobile-toggle" id="mobile-menu" aria-label="Toggle navigation" role="button" tabindex="0">
+      <button class="mobile-toggle" id="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false">
         <i class="fa-solid fa-bars"></i>
-      </div>
+      </button>
     </div>
   </header>
 
@@ -167,15 +168,22 @@
           <strong>How to use it:</strong> Write your finalists across the top. Star your quiz result row. Gather evidence for each row and rate: Strong, Mixed, Weak, or Don't know yet.
         </p>
 
-        <div class="table-container" style="margin-top: 1.5rem;">
-          <table class="responsive-data-table" id="scorecard-table">
+        <div class="scorecard-tabs" role="group" aria-label="Choose a college to view">
+          <button class="btn btn-outline" type="button" data-scorecard-col="1" aria-pressed="true"><span>College 1</span></button>
+          <button class="btn btn-outline" type="button" data-scorecard-col="2" aria-pressed="false"><span>College 2</span></button>
+          <button class="btn btn-outline" type="button" data-scorecard-col="3" aria-pressed="false"><span>College 3</span></button>
+          <button class="btn btn-outline" type="button" data-scorecard-col="4" aria-pressed="false"><span>College 4</span></button>
+          <button class="btn btn-outline" type="button" id="scorecard-compare" aria-expanded="false">See all four side by side (for printing)</button>
+        </div>
+        <div class="table-container scorecard-table-container" style="margin-top: 1.5rem;">
+          <table class="responsive-data-table" id="scorecard-table" data-active-col="1">
             <thead>
               <tr>
                 <th style="width: 35%;">Experience &amp; Measure</th>
-                <th style="width: 16%;" data-label="College 1"><input type="text" placeholder="College #1" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
-                <th style="width: 16%;" data-label="College 2"><input type="text" placeholder="College #2" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
-                <th style="width: 16%;" data-label="College 3"><input type="text" placeholder="College #3" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
-                <th style="width: 16%;" data-label="College 4"><input type="text" placeholder="College #4" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
+                <th style="width: 16%;" data-label="College 1"><input data-scorecard-name="1" aria-label="Name of college 1" type="text" placeholder="College #1" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
+                <th style="width: 16%;" data-label="College 2"><input data-scorecard-name="2" aria-label="Name of college 2" type="text" placeholder="College #2" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
+                <th style="width: 16%;" data-label="College 3"><input data-scorecard-name="3" aria-label="Name of college 3" type="text" placeholder="College #3" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
+                <th style="width: 16%;" data-label="College 4"><input data-scorecard-name="4" aria-label="Name of college 4" type="text" placeholder="College #4" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
               </tr>
             </thead>
             <tbody>
@@ -286,8 +294,8 @@
 
   <!-- Modal Container Placeholder for Quiz -->
   <div id="quiz-overlay">
-    <div id="quiz-modal">
-      <button class="quiz-close" onclick="window.closeQuizModal()">&times;</button>
+    <div id="quiz-modal" role="dialog" aria-modal="true" aria-label="Quiz">
+      <button class="quiz-close" aria-label="Close quiz" onclick="window.closeQuizModal()">&times;</button>
       <div class="quiz-progress-container">
         <div id="quiz-progress-bar"></div>
       </div>
@@ -295,6 +303,6 @@
     </div>
   </div>
 
-  <script src="main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>

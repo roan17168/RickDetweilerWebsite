@@ -662,58 +662,58 @@
       audience: 'College Leaders',
       scoring: 'plurality',
       intro: {
-        heading: 'What is your institution actually optimizing for?',
+        heading: 'Your mission statement makes a promise. Does your budget keep it?',
         text: 'Five questions. Two minutes. Answer as your institution behaves, not as it describes itself.'
       },
       questions: [
         {
           id: 'l1',
-          text: 'When enrollment pressure and educational practice conflict, what usually wins?',
+          text: 'When you make the case to your board or donors, what do you lead with?',
           options: [
-            { text: 'Enrollment. We follow demand and add programs.', mapping: 'Market-First' },
-            { text: 'Mission. We hold the curriculum and make the case.', mapping: 'Mission-First' },
-            { text: 'The student experience. We protect contact hours and class size.', mapping: 'Experience-First' }
+            { text: 'Job placement and starting salaries.', mapping: 'Market' },
+            { text: 'Our mission and the kind of graduates we aim to produce.', mapping: 'Mission' },
+            { text: 'What students experience here day to day.', mapping: 'Experience' }
           ]
         },
         {
           id: 'l2',
-          text: 'What does your board ask about most often?',
+          text: 'If you had to cut 5% next year, what would be protected last?',
           options: [
-            { text: 'Net tuition revenue, discount rate and market position.', mapping: 'Market-First' },
-            { text: 'Mission fulfillment and academic distinctiveness.', mapping: 'Mission-First' },
-            { text: 'Retention, engagement and what students actually experience.', mapping: 'Experience-First' }
+            { text: 'Enrollment marketing and new programs with demand.', mapping: 'Market' },
+            { text: 'The programs most tied to our identity.', mapping: 'Mission' },
+            { text: 'Faculty time with students and small classes.', mapping: 'Experience' }
           ]
         },
         {
           id: 'l3',
-          text: 'How are faculty rewarded for time spent with students outside class?',
+          text: 'What do tenure and promotion reward most in practice?',
           options: [
-            { text: 'They are not. It is invisible in workload and promotion.', mapping: 'Market-First' },
-            { text: 'It is named in our values but not in our criteria.', mapping: 'Mission-First' },
-            { text: 'It is counted in workload, review or promotion.', mapping: 'Experience-First' }
+            { text: 'Course load and enrollments.', mapping: 'Market' },
+            { text: 'Research and teaching as each department defines them.', mapping: 'Mission' },
+            { text: 'Teaching plus out-of-class mentoring and involvement with students.', mapping: 'Experience' }
           ]
         },
         {
           id: 'l4',
-          text: 'What do you know about your graduates?',
+          text: 'What do you measure and report about graduates?',
           options: [
-            { text: 'First-destination placement and early salary.', mapping: 'Market-First' },
-            { text: 'Anecdotes, award winners and advancement relationships.', mapping: 'Mission-First' },
-            { text: 'Survey data at ten and twenty years, including what they experienced here.', mapping: 'Experience-First' }
+            { text: 'First-job placement and salary.', mapping: 'Market' },
+            { text: 'Stories of notable alumni.', mapping: 'Mission' },
+            { text: 'What students experienced, and how alumni are doing years later.', mapping: 'Experience' }
           ]
         },
         {
           id: 'l5',
-          text: 'In your last major curricular decision, what drove it?',
+          text: 'How much of a student\u2019s degree is designed to be taken outside the major?',
           options: [
-            { text: 'Projected demand for a new credential.', mapping: 'Market-First' },
-            { text: 'Faculty governance and disciplinary coherence.', mapping: 'Mission-First' },
-            { text: 'Evidence about what students experience and whether they finish.', mapping: 'Experience-First' }
+            { text: 'Most often less than a third. Major requirements dominate, even where an accreditor does not require it.', mapping: 'Market' },
+            { text: 'About a third, mostly through a general education checklist.', mapping: 'Mission' },
+            { text: 'Half or more by design, or, in licensed programs, breadth built into the major through courses outside the major, ethics, writing and connections among fields.', mapping: 'Experience' }
           ]
         }
       ],
       results: {
-        'Market-First': {
+        'Market': {
           profile: 'Market first',
           lead: 'Your institution responds to demand. That keeps the doors open. The risk is that the practices linked to graduates\u2019 lives are exactly the ones that are hardest to count, and therefore first to be cut.',
           research: [
@@ -731,7 +731,7 @@
           tryThis: 'Add one retention line to the next program proposal template: what does this program do for students who are already here?',
           otherResearch: 'Vincent Tinto found students persist when connected to both the academic and the social life of an institution. George Kuh found high-impact practices tied to better grades and second-year return, with the largest benefits for low-income and underrepresented students. Every student who stays is tuition you do not have to replace.'
         },
-        'Mission-First': {
+        'Mission': {
           profile: 'Mission first',
           lead: 'Your institution leads with what it believes. The evidence can turn that belief into something measurable, which is what boards and legislators increasingly require.',
           research: [
@@ -748,7 +748,7 @@
           tryThis: 'Pick one mission promise and commit to reporting a number against it at the next board meeting.',
           otherResearch: 'Gallup and Purdue, surveying 30,000 graduates, found that only 3% strongly agreed they had had all six key supportive and hands-on experiences in college. The promise is common; delivery is not.'
         },
-        'Experience-First': {
+        'Experience': {
           profile: 'Experience first',
           lead: 'You already manage what the study says matters. The useful next question is coverage: which students get it, and which do not.',
           research: [
@@ -988,13 +988,85 @@
     answers: [],          // { mapping, score, optionIndex, panel }
     optionalPanels: [],
     tieWinner: null,
-    advancing: false
+    advancing: false,
+    advanceTimer: null
   };
+  var quizReturnFocus = null;
 
   function el(id) { return document.getElementById(id); }
 
   function esc(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function tiedResultsHtml(keys, message) {
+    var html = '<p class="section-label">Your results</p>' +
+      '<p style="font-size:1.05rem;color:var(--text-charcoal);margin-bottom:1.5rem;">' + esc(message) + '</p>' +
+      panelsHtml();
+    keys.forEach(function (key, i) {
+      if (i > 0) html += '<hr style="margin:2.5rem 0;border:none;border-top:1px solid var(--border-muted);">';
+      html += resultBlockHtml(state.quiz.results[key], { skipPanels: true });
+    });
+    return html;
+  }
+
+  function honestyHtml() {
+    return '<p class="quiz-honesty">This study looked at graduates\u2019 adult lives and the college experiences linked to life outcomes. The results held for graduates of all types of colleges, big and small, private and public, prestigious and not. The Research page explains what the study can and cannot show.</p>';
+  }
+
+  function quizSummaryText() {
+    var q = state.quiz;
+    if (!q) return '';
+    var keys;
+    if (q.scoring === 'points') {
+      keys = [bandFor(totalPoints())];
+    } else if (q.scoring === 'outcome') {
+      keys = state.tieWinner ? [q.results[state.tieWinner]] : topKeys(tally()).map(function (key) { return q.results[key]; });
+    } else {
+      keys = topKeys(tally()).map(function (key) { return q.results[key]; });
+    }
+
+    var lines = ['What College Is Really For — ' + q.audience];
+    state.answers.forEach(function (answer, index) {
+      var question = q.questions[index];
+      if (!answer || !question) return;
+      lines.push('', question.text, 'Answer: ' + question.options[answer.optionIndex].text);
+    });
+    if (state.tieWinner && q.tieBreaker) {
+      var tieOption = q.tieBreaker.options.find(function (option) { return option.mapping === state.tieWinner; });
+      if (tieOption) lines.push('', q.tieBreaker.text, 'Answer: ' + tieOption.text);
+    }
+    keys.forEach(function (result) {
+      if (!result) return;
+      lines.push('', result.profile, result.lead);
+      (result.ask || []).forEach(function (item) { lines.push('Question: ' + item); });
+      (result.check || []).forEach(function (item) { lines.push('Check: ' + item); });
+      if (result.tryThis) lines.push('Try this one thing: ' + result.tryThis);
+    });
+    lines.push('', 'This study looked at graduates\u2019 adult lives and the college experiences linked to life outcomes. Read The Research page for what the study can and cannot show.');
+    return lines.join('\n');
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).catch(function () {
+        return fallbackCopy(text);
+      });
+    }
+    return Promise.resolve(fallbackCopy(text));
+  }
+
+  function fallbackCopy(text) {
+    var textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    var copied = false;
+    try { copied = document.execCommand('copy'); } catch (error) { copied = false; }
+    document.body.removeChild(textarea);
+    return copied ? Promise.resolve() : Promise.reject(new Error('Clipboard access was denied.'));
   }
 
   /* ------------------------------------------------------------------------
@@ -1009,7 +1081,7 @@
     overlay.innerHTML =
       '<div id="quiz-modal" role="dialog" aria-modal="true" aria-label="Quiz">' +
         '<button class="quiz-close" aria-label="Close quiz" onclick="window.closeQuizModal()">&times;</button>' +
-        '<div class="quiz-progress-container"><div id="quiz-progress-bar"></div></div>' +
+        '<div class="quiz-progress-container"><div id="quiz-progress-bar" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div></div>' +
         '<div id="quiz-content"></div>' +
       '</div>';
     document.body.appendChild(overlay);
@@ -1033,6 +1105,11 @@
     if (!bar) return;
     var pct = Math.round((completedSteps() / totalSteps()) * 100);
     bar.style.width = Math.min(100, Math.max(0, pct)) + '%';
+    bar.setAttribute('role', 'progressbar');
+    bar.setAttribute('aria-label', 'Quiz progress');
+    bar.setAttribute('aria-valuemin', '0');
+    bar.setAttribute('aria-valuemax', '100');
+    bar.setAttribute('aria-valuenow', String(pct));
   }
 
   function backButtonHtml(enabled) {
@@ -1047,10 +1124,12 @@
 
     html += '<p class="section-label">' + esc(state.quiz.audience) + '</p>';
     html += '<p class="quiz-question-text">' + esc(q.text) + '</p>';
+    html += '<p class="quiz-instruction">Pick the answer that is true for you, even if it is not the one you think you should pick.</p>';
     html += '<div class="quiz-options-list">';
     q.options.forEach(function (opt, i) {
       var sel = (chosen && chosen.optionIndex === i) ? ' selected' : '';
       html += '<div class="quiz-option' + sel + '" role="button" tabindex="0" ' +
+        'aria-pressed="' + (sel ? 'true' : 'false') + '" ' +
         'onclick="window.selectQuizOption(' + i + ')" ' +
         'onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();window.selectQuizOption(' + i + ');}">' +
         esc(opt.text) + '</div>';
@@ -1062,6 +1141,7 @@
 
     el('quiz-content').innerHTML = html;
     setProgress();
+    focusFirstQuizControl();
   }
 
   function renderOptional() {
@@ -1085,6 +1165,7 @@
 
     el('quiz-content').innerHTML = html;
     setProgress();
+    focusFirstQuizControl();
   }
 
   function renderTieBreak(tied) {
@@ -1104,6 +1185,12 @@
     html += '<div class="quiz-nav">' + backButtonHtml(true) + '<span></span></div>';
     el('quiz-content').innerHTML = html;
     setProgress();
+    focusFirstQuizControl();
+  }
+
+  function focusFirstQuizControl() {
+    var control = el('quiz-content') && el('quiz-content').querySelector('.quiz-option, .quiz-actions button');
+    if (control) control.focus();
   }
 
   function renderCurrent() {
@@ -1131,6 +1218,17 @@
       else if (counts[k] === max) { keys.push(k); }
     });
     return keys;
+  }
+
+  function shuffleOptions(options) {
+    var shuffled = options.slice();
+    for (var i = shuffled.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var option = shuffled[i];
+      shuffled[i] = shuffled[j];
+      shuffled[j] = option;
+    }
+    return shuffled;
   }
 
   function totalPoints() {
@@ -1226,7 +1324,7 @@
   function howToReadHtml() {
     return '<details class="accordion-item"><summary>How to read these numbers</summary>' +
       '<div class="accordion-content"><p>A figure such as "24% more likely" compares two groups. If 57% of one group reports a higher income against 46% of another, the first group\u2019s rate is 124% of the second. Statisticians call this the incident risk ratio, and the increase expressed as a percentage is the percent relative effect.</p>' +
-      '<p>The study interviewed people once and asked them to look back. It shows that these experiences and these outcomes <strong>go together</strong>. It cannot prove that one causes the other. <a href="the-research.html">Read the full methodology.</a></p></div></details>';
+      '<p>The study interviewed people once and asked them to look back. It shows an association between experiences and outcomes, not a causal relationship. <a href="the-research.html">Read the full methodology.</a></p></div></details>';
   }
 
   function renderResults() {
@@ -1240,18 +1338,16 @@
       html += '<p style="font-size:.9rem;color:var(--text-muted);margin-bottom:.25rem;">Score: ' + pts + ' of 10</p>';
       html += resultBlockHtml(band);
     } else if (q.scoring === 'outcome') {
-      var key = state.tieWinner || topKeys(tally())[0];
-      html += resultBlockHtml(q.results[key]);
+      var outcomeKeys = state.tieWinner ? [state.tieWinner] : topKeys(tally());
+      if (outcomeKeys.length > 1) {
+        html += tiedResultsHtml(outcomeKeys, 'Your answers split evenly. Both of these results describe what you want from college.');
+      } else {
+        html += resultBlockHtml(q.results[outcomeKeys[0]]);
+      }
     } else { // plurality
       var tied = topKeys(tally());
       if (tied.length > 1) {
-        html += '<p class="section-label">Your result</p>';
-        html += '<p style="font-size:1.05rem;color:var(--text-charcoal);margin-bottom:1.5rem;">Your answers split evenly. Both of these describe you, so both are below.</p>';
-        html += panelsHtml();
-        tied.forEach(function (k, i) {
-          if (i > 0) html += '<hr style="margin:2.5rem 0;border:none;border-top:1px solid var(--border-muted);">';
-          html += resultBlockHtml(q.results[k], { skipPanels: true });
-        });
+        html += tiedResultsHtml(tied, 'Your answers split evenly. Each of these results describes a priority your institution holds.');
       } else {
         html += resultBlockHtml(q.results[tied[0]]);
       }
@@ -1259,9 +1355,12 @@
 
     html += meaningfulLifeHtml();
     html += howToReadHtml();
+    html += honestyHtml();
 
-    html += '<div class="quiz-nav" style="margin-top:2rem;">' +
-      '<button class="quiz-btn" onclick="window.retakeQuiz()">Retake</button>' +
+    html += '<div class="quiz-actions" style="margin-top:2rem;">' +
+      '<button class="quiz-btn" onclick="window.retakeQuiz()">Retake the quiz</button>' +
+      '<button class="quiz-btn" onclick="window.copyQuizQuestions(this)">Copy my questions</button>' +
+      '<button class="quiz-btn" onclick="window.emailQuizQuestions()">Email this to me</button>' +
       '<button class="quiz-btn" style="background:var(--primary-navy);color:#fff;" onclick="window.closeQuizModal()">Close and use the tool</button>' +
       '</div>';
 
@@ -1270,6 +1369,7 @@
     var modal = el('quiz-modal');
     if (modal) modal.scrollTop = 0;
     setProgress();
+    focusFirstQuizControl();
   }
 
   /* ------------------------------------------------------------------------
@@ -1285,14 +1385,25 @@
     }
     ensureQuizDom();
     state.audience = audienceName;
-    state.quiz = quiz;
+    state.quiz = Object.assign({}, quiz, {
+      questions: quiz.questions.map(function (question) {
+        return Object.assign({}, question, { options: shuffleOptions(question.options) });
+      })
+    });
+    if (quiz.tieBreaker) {
+      state.quiz.tieBreaker = Object.assign({}, quiz.tieBreaker, {
+        options: shuffleOptions(quiz.tieBreaker.options)
+      });
+    }
     state.phase = 'questions';
     state.index = 0;
     state.answers = [];
     state.optionalPanels = [];
     state.tieWinner = null;
     state.advancing = false;
+    state.advanceTimer = null;
 
+    quizReturnFocus = document.activeElement;
     var overlay = el('quiz-overlay');
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1313,12 +1424,19 @@
 
     // visual confirmation, then auto-advance
     var nodes = document.querySelectorAll('#quiz-content .quiz-option');
-    for (var i = 0; i < nodes.length; i++) nodes[i].classList.remove('selected');
-    if (nodes[optionIndex]) nodes[optionIndex].classList.add('selected');
+    for (var i = 0; i < nodes.length; i++) {
+      nodes[i].classList.remove('selected');
+      nodes[i].setAttribute('aria-pressed', 'false');
+    }
+    if (nodes[optionIndex]) {
+      nodes[optionIndex].classList.add('selected');
+      nodes[optionIndex].setAttribute('aria-pressed', 'true');
+    }
 
     state.advancing = true;
-    setTimeout(function () {
+    state.advanceTimer = setTimeout(function () {
       state.advancing = false;
+      state.advanceTimer = null;
       if (state.index < state.quiz.questions.length - 1) {
         state.index++;
         renderQuestion();
@@ -1340,6 +1458,11 @@
   };
 
   window.prevQuizStep = function () {
+    if (state.advanceTimer !== null) {
+      clearTimeout(state.advanceTimer);
+      state.advanceTimer = null;
+      state.advancing = false;
+    }
     if (state.phase === 'results') {
       state.phase = state.quiz.optional ? 'optional' : 'questions';
       if (state.phase === 'optional') return renderOptional();
@@ -1368,10 +1491,6 @@
         state.phase = 'tiebreak';
         return renderTieBreak(tied);
       }
-      if (tied.length === 2 && state.quiz.tieBreaker) {
-        state.phase = 'tiebreak';
-        return renderTieBreak(tied);
-      }
     }
     renderResults();
   };
@@ -1388,9 +1507,34 @@
   };
 
   window.closeQuizModal = function () {
+    if (state.advanceTimer !== null) {
+      clearTimeout(state.advanceTimer);
+      state.advanceTimer = null;
+      state.advancing = false;
+    }
     var overlay = el('quiz-overlay');
     if (overlay) overlay.classList.remove('active');
     document.body.style.overflow = '';
+    if (quizReturnFocus && document.contains(quizReturnFocus)) quizReturnFocus.focus();
+  };
+
+  window.copyQuizQuestions = function (button) {
+    copyText(quizSummaryText()).then(function () {
+      if (button) {
+        var previousText = button.textContent;
+        button.textContent = 'Copied';
+        setTimeout(function () { button.textContent = previousText; }, 1800);
+      }
+    }, function (error) {
+      console.error('[WCIRF] Could not copy quiz results.', error);
+      if (button) button.textContent = 'Copy failed';
+    });
+  };
+
+  window.emailQuizQuestions = function () {
+    var subject = 'My college questions from What College Is Really For';
+    window.location.href = 'mailto:?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(quizSummaryText());
   };
 
   /* Legacy aliases, so older markup keeps working */
@@ -1414,8 +1558,12 @@
 
     function setIcon(open) {
       var icon = toggle.querySelector('i');
-      if (!icon) return;
-      icon.className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+      if (icon) {
+        icon.className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+        return;
+      }
+      var symbol = toggle.querySelector('span[aria-hidden="true"]');
+      if (symbol) symbol.textContent = open ? '\u00d7' : '\u2630';
     }
 
     function toggleMenu() {
@@ -1426,9 +1574,6 @@
 
     toggle.setAttribute('aria-expanded', 'false');
     toggle.addEventListener('click', toggleMenu);
-    toggle.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMenu(); }
-    });
 
     // Touch-friendly dropdown
     var dropdowns = document.querySelectorAll('.dropdown');
@@ -1442,7 +1587,28 @@
           btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         }
       });
+      dd.addEventListener('mouseenter', function () {
+        if (window.innerWidth > 768) btn.setAttribute('aria-expanded', 'true');
+      });
+      dd.addEventListener('mouseleave', function () {
+        if (window.innerWidth > 768) btn.setAttribute('aria-expanded', 'false');
+      });
+      dd.addEventListener('focusin', function () {
+        btn.setAttribute('aria-expanded', 'true');
+      });
+      dd.addEventListener('focusout', function (e) {
+        if (!dd.contains(e.relatedTarget)) {
+          btn.setAttribute('aria-expanded', 'false');
+          if (window.innerWidth <= 768) dd.classList.remove('active');
+        }
+      });
     });
+
+    function closeDropdown(dd) {
+      dd.classList.remove('active');
+      var btn = dd.querySelector('.dropbtn');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
 
     // Close on outside click
     document.addEventListener('click', function (e) {
@@ -1452,7 +1618,7 @@
           setIcon(false);
           toggle.setAttribute('aria-expanded', 'false');
         }
-        Array.prototype.forEach.call(dropdowns, function (dd) { dd.classList.remove('active'); });
+        Array.prototype.forEach.call(dropdowns, closeDropdown);
       }
     });
 
@@ -1461,7 +1627,7 @@
       if (window.innerWidth > 768) {
         links.classList.remove('active');
         setIcon(false);
-        Array.prototype.forEach.call(dropdowns, function (dd) { dd.classList.remove('active'); });
+        Array.prototype.forEach.call(dropdowns, closeDropdown);
       }
     });
   }
@@ -1479,11 +1645,71 @@
     });
   }
 
+  function initScorecardTabs() {
+    var table = el('scorecard-table');
+    var container = document.querySelector('.scorecard-table-container');
+    var compare = el('scorecard-compare');
+    var tabs = document.querySelectorAll('[data-scorecard-col]');
+    if (!table || !container || !compare || !tabs.length) return;
+
+    Array.prototype.forEach.call(tabs, function (tab) {
+      tab.addEventListener('click', function () {
+        table.setAttribute('data-active-col', tab.getAttribute('data-scorecard-col'));
+        table.removeAttribute('data-show-all');
+        container.classList.remove('scorecard-compare-mode');
+        compare.setAttribute('aria-expanded', 'false');
+        Array.prototype.forEach.call(tabs, function (item) {
+          item.setAttribute('aria-pressed', item === tab ? 'true' : 'false');
+        });
+      });
+    });
+
+    var collegeNameInputs = table.querySelectorAll('[data-scorecard-name]');
+    Array.prototype.forEach.call(collegeNameInputs, function (input) {
+      function updateTabName() {
+        var tab = document.querySelector('[data-scorecard-col="' + input.getAttribute('data-scorecard-name') + '"] span');
+        if (tab) tab.textContent = input.value.trim() || 'College ' + input.getAttribute('data-scorecard-name');
+      }
+      input.addEventListener('input', updateTabName);
+      input.addEventListener('change', updateTabName);
+      updateTabName();
+    });
+
+    compare.addEventListener('click', function () {
+      var showAll = table.getAttribute('data-show-all') !== 'true';
+      if (showAll) {
+        table.setAttribute('data-show-all', 'true');
+        container.classList.add('scorecard-compare-mode');
+      } else {
+        table.removeAttribute('data-show-all');
+        container.classList.remove('scorecard-compare-mode');
+      }
+      compare.setAttribute('aria-expanded', showAll ? 'true' : 'false');
+    });
+  }
+
   function initModalDismiss() {
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
         var overlay = el('quiz-overlay');
         if (overlay && overlay.classList.contains('active')) window.closeQuizModal();
+        return;
+      }
+      if (e.key === 'Tab') {
+        var overlay = el('quiz-overlay');
+        var modal = el('quiz-modal');
+        if (!overlay || !overlay.classList.contains('active') || !modal) return;
+        var controls = modal.querySelectorAll('button:not([disabled]), a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex="0"]');
+        if (!controls.length) {
+          e.preventDefault();
+          modal.focus();
+        } else if (e.shiftKey && document.activeElement === controls[0]) {
+          e.preventDefault();
+          controls[controls.length - 1].focus();
+        } else if (!e.shiftKey && document.activeElement === controls[controls.length - 1]) {
+          e.preventDefault();
+          controls[0].focus();
+        }
       }
     });
     document.addEventListener('click', function (e) {
@@ -1563,16 +1789,7 @@
         setTimeout(function () { btn.innerHTML = orig; }, 1800);
       }
     }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () { done(true); }, function () { done(false); });
-    } else {
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); done(true); } catch (err) { done(false); }
-      document.body.removeChild(ta);
-    }
+    copyText(text).then(function () { done(true); }, function () { done(false); });
   };
 
   // Keeps typed answers if someone reloads or comes back later.
@@ -1618,6 +1835,7 @@
     initAccordions();
     initModalDismiss();
     initToolAutosave();
+    initScorecardTabs();
 
     // Validate every trigger button against the data store, and log mismatches.
     var triggers = document.querySelectorAll('.quiz-trigger-btn');

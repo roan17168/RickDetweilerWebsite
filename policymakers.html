@@ -127,72 +127,83 @@
           <table class="responsive-data-table">
             <thead>
               <tr>
-                <th style="width: 30%;">Measure</th>
-                <th style="width: 35%;">Why It Matters</th>
-                <th style="width: 20%;">Collected in State?</th>
-                <th style="width: 15%;">Priority (1–5)</th>
+                <th style="width: 24%;">Measure</th>
+                <th style="width: 28%;">Why it matters</th>
+                <th style="width: 14%;">Collected? (Yes / Partly / No)</th>
+                <th style="width: 18%;">Who could collect it</th>
+                <th style="width: 10%;">Priority (1–5)</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td data-label="Measure"><strong>1. Earnings 10 years after graduation</strong></td>
-                <td data-label="Why It Matters">Early advantages by major fade; breadth predicts career earnings.</td>
+                <td data-label="Measure"><strong>Earnings and employment ten years after graduation</strong></td>
+                <td data-label="Why it matters">Early advantages by major fade; in most cases, major was unrelated to longer-term success.</td>
                 <td data-label="State Status">
-                  <select style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                  <select aria-label="Whether ten-year earnings are collected" style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                    <option value="" selected disabled>Choose</option>
                     <option>Yes</option>
                     <option>Partly</option>
                     <option>No</option>
                   </select>
                 </td>
-                <td data-label="Priority"><input type="number" min="1" max="5" value="1" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Who could collect it"><input aria-label="Who could collect ten-year earnings" type="text" placeholder="Agency, institutions, survey partner" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Priority"><input aria-label="Priority for ten-year earnings" type="number" min="1" max="5" placeholder="1–5" style="width: 100%; padding: 0.35rem;"></td>
               </tr>
               <tr>
-                <td data-label="Measure"><strong>2. Share of credits outside major</strong></td>
-                <td data-label="Why It Matters">&gt;50% breadth linked to 24% higher income (33% for low-income).</td>
+                <td data-label="Measure"><strong>Share of credits taken outside the major</strong></td>
+                <td data-label="Why it matters">Graduates who took more than half their courses outside the major were 24% more likely to report a higher income; 33% for graduates from lower-income families.</td>
                 <td data-label="State Status">
-                  <select style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                  <select aria-label="Whether credits outside the major are collected" style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                    <option value="" selected disabled>Choose</option>
                     <option>Yes</option>
                     <option>Partly</option>
                     <option>No</option>
                   </select>
                 </td>
-                <td data-label="Priority"><input type="number" min="1" max="5" value="2" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Who could collect it"><input aria-label="Who could collect credits outside the major" type="text" placeholder="Agency, institutions, survey partner" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Priority"><input aria-label="Priority for credits outside the major" type="number" min="1" max="5" placeholder="1–5" style="width: 100%; padding: 0.35rem;"></td>
               </tr>
               <tr>
-                <td data-label="Measure"><strong>3. Share of students with a mentor</strong></td>
-                <td data-label="Why It Matters">Graduates with a lasting mentor were 26% more likely to be leaders.</td>
+                <td data-label="Measure"><strong>Share of students with a mentor</strong></td>
+                <td data-label="Why it matters">Graduates with a lasting mentor were 26% more likely to be leaders.</td>
                 <td data-label="State Status">
-                  <select style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                  <select aria-label="Whether student mentoring is measured" style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                    <option value="" selected disabled>Choose</option>
                     <option>Yes</option>
                     <option>Partly</option>
                     <option>No</option>
                   </select>
                 </td>
-                <td data-label="Priority"><input type="number" min="1" max="5" value="3" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Who could collect it"><input aria-label="Who could collect student mentoring" type="text" placeholder="Agency, institutions, survey partner" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Priority"><input aria-label="Priority for student mentoring" type="number" min="1" max="5" placeholder="1–5" style="width: 100%; padding: 0.35rem;"></td>
               </tr>
               <tr>
-                <td data-label="Measure"><strong>4. Student engagement survey (NSSE)</strong></td>
-                <td data-label="Why It Matters">Engagement predicts degree completion and workforce persistence.</td>
+                <td data-label="Measure"><strong>Student engagement survey results</strong></td>
+                <td data-label="Why it matters">What students do in college matters more than where they enroll, and engagement is linked to finishing.</td>
                 <td data-label="State Status">
-                  <select style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                  <select aria-label="Whether student engagement survey results are collected" style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                    <option value="" selected disabled>Choose</option>
                     <option>Yes</option>
                     <option>Partly</option>
                     <option>No</option>
                   </select>
                 </td>
-                <td data-label="Priority"><input type="number" min="1" max="5" value="4" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Who could collect it"><input aria-label="Who could collect engagement survey results" type="text" placeholder="Agency, institutions, survey partner" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Priority"><input aria-label="Priority for engagement survey results" type="number" min="1" max="5" placeholder="1–5" style="width: 100%; padding: 0.35rem;"></td>
               </tr>
               <tr>
-                <td data-label="Measure"><strong>5. Alumni civic involvement (giving/volunteering)</strong></td>
-                <td data-label="Why It Matters">Direct measure of civic ROI and community contributions.</td>
+                <td data-label="Measure"><strong>Alumni civic involvement: volunteering and giving</strong></td>
+                <td data-label="Why it matters">A direct measure of public return.</td>
                 <td data-label="State Status">
-                  <select style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                  <select aria-label="Whether alumni civic involvement is collected" style="width: 100%; padding: 0.35rem; border: 1px solid #cbd5e1; border-radius: 4px;">
+                    <option value="" selected disabled>Choose</option>
                     <option>Yes</option>
                     <option>Partly</option>
                     <option>No</option>
                   </select>
                 </td>
-                <td data-label="Priority"><input type="number" min="1" max="5" value="5" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Who could collect it"><input aria-label="Who could collect alumni civic involvement" type="text" placeholder="Agency, institutions, survey partner" style="width: 100%; padding: 0.35rem;"></td>
+                <td data-label="Priority"><input aria-label="Priority for alumni civic involvement" type="number" min="1" max="5" placeholder="1–5" style="width: 100%; padding: 0.35rem;"></td>
               </tr>
             </tbody>
           </table>
@@ -202,9 +213,14 @@
         <div style="background: var(--bg-surface-alt); border-left: 4px solid var(--primary-navy); padding: 1.25rem; margin-top: 1.75rem;">
           <h4 style="margin-bottom: 0.5rem; color: var(--primary-navy);">Model Legislative Report Request Language:</h4>
           <p style="font-family: var(--font-serif); font-size: 0.95rem; font-style: italic; margin-bottom: 0;">
-            "The [Higher Education Agency] shall report to the [Committee] by [Date], for each public institution: (a) median earnings of graduates ten years after completion, using state wage records; (b) the share of graduates who completed more than half of their credits outside their major; and (c) results of student engagement surveys on faculty contact outside class, alongside existing completion and early-earnings data."
+            "The [agency] shall report to the [committee] by [date], for each public institution: (a) median earnings of graduates ten years after completion, using state wage records; (b) the share of graduates who completed more than half of their credits outside their major; and (c) results of a student engagement survey on students' contact with faculty outside class, alongside the completion and earnings data already reported. Existing records and surveys shall be used wherever possible."
           </p>
         </div>
+
+        <label for="brief-request"><strong>Our request</strong></label>
+        <textarea id="brief-request" rows="3" style="width: 100%; margin: 0.5rem 0 1rem;">We ask [agency or system] to report [measure] for [institutions or sector] by [date], alongside the completion and early-earnings data already reported, so that the state can see the long-term return on its investment.</textarea>
+
+        <p><strong>For a hearing or floor statement:</strong> "A first job is a floor, not a ceiling. Graduates who studied widely and had professors who knew them earned more, led more and gave more decades later, and the gains were largest for students from families with little money. We should keep holding colleges to the floor, and start measuring the rest."</p>
 
         <!-- Tool Action Row (Item 1 Enhancement) -->
         <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap;">
@@ -234,6 +250,19 @@
           The World Economic Forum expects nearly 40% of the skills used at work to change by 2030.<sup>[50]</sup> Measuring and funding educational practices that build adaptability protects the public's investment.
         </p>
       </section>
+
+      <details class="accordion-item">
+        <summary>Sources and notes</summary>
+        <div class="accordion-content" style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;">
+          <p><strong>[29]</strong> Richard A. Detweiler, <em>The Evidence Liberal Arts Needs</em> (MIT Press, 2021), p. 162.<br>
+          <strong>[30]</strong> Detweiler, <em>The Evidence Liberal Arts Needs</em>, p. 162.<br>
+          <strong>[31]</strong> George D. Kuh, <em>High-Impact Educational Practices</em> (AAC&amp;U, 2008).<br>
+          <strong>[45]</strong> U.S. Department of Education, “Fact Sheet: Trump Administration Implements Accountability Provisions of Working Families Tax Cuts Act,” June 29, 2026.<br>
+          <strong>[47]</strong> College Transparency Act, S. 2511, 119th Congress (introduced July 29, 2025).<br>
+          <strong>[48]</strong> National Center for Education Statistics, <em>Baccalaureate and Beyond Longitudinal Study</em>.<br>
+          <strong>[50]</strong> World Economic Forum, <em>The Future of Jobs Report 2025</em> (2025).</p>
+        </div>
+      </details>
 
       <!-- Next Steps Navigation -->
       <section style="margin-top: 3.5rem; border-top: 1px solid var(--border-muted); padding-top: 2rem;">

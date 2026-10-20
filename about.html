@@ -53,47 +53,48 @@
   <main class="container" style="padding: 3.5rem 0 5rem;">
     <div class="reading-container">
       
-      <span class="section-label">About the Author</span>
-      <h1>Richard A. Detweiler</h1>
-      
-      <p style="font-size: 1.2rem; font-weight: 500; color: var(--primary-navy); margin-bottom: 2rem;">
-        Social psychologist, college president emeritus, and researcher asking what parts of college still matter decades later.
-      </p>
-
       <!-- Biography Section -->
-      <section style="margin-top: 2rem;">
-        <figure style="margin:0 0 1.75rem;">
-          <img src="assets/images/richard-detweiler.webp" alt="Portrait of Richard A. Detweiler" width="280" height="350" style="width:140px;border-radius:var(--radius-card);box-shadow:var(--shadow-subtle);">
+      <section class="author-intro" aria-labelledby="author-name">
+        <figure class="author-portrait">
+          <img src="assets/images/richard-detweiler.webp" alt="Richard A. Detweiler" width="280" height="350">
+          <figcaption>Richard A. Detweiler</figcaption>
         </figure>
-        <p>Richard A. Detweiler, known to colleagues and students as Rick, is a social psychologist, a former professor and college president, and a researcher whose work asks a plain question: <strong>which parts of college still matter decades later?</strong></p>
+        <div class="author-bio">
+          <span class="section-label">About the Author</span>
+          <h1 id="author-name">Richard A. Detweiler</h1>
+          <p class="author-standfirst">
+            Social psychologist, college president emeritus, and researcher asking what parts of college still matter decades later.
+          </p>
+          <p>Richard A. Detweiler, known to colleagues and students as Rick, is a social psychologist, a former professor and college president, and a researcher whose work asks a plain question: <strong>which parts of college still matter decades later?</strong></p>
 
-        <p>Rick is Managing Director of <strong>HigherEdImpact</strong>, a nonprofit he founded to help institutions use evidence to fulfill their educational missions. He is President Emeritus of the Great Lakes Colleges Association (GLCA) and of Hartwick College. At the GLCA he founded the Global Liberal Arts Alliance, a partnership of 30 universities in 16 countries.</p>
+          <p>Rick is Managing Director of <strong>HigherEdImpact</strong>, a nonprofit he founded to help institutions use evidence to fulfill their educational missions. He is President Emeritus of the Great Lakes Colleges Association (GLCA) and of Hartwick College. At the GLCA he founded the Global Liberal Arts Alliance, a partnership of 30 universities in 16 countries.</p>
 
-        <p>Early in his career at Drew University, he led the first initiative to provide a computer to every student at a liberal arts institution, a commitment he continued as President of Hartwick College. His book, <em>The Evidence Liberal Arts Needs</em>, was named by <em>Forbes</em> as one of the best higher education books of 2021. It reports a landmark study linking specific college experiences to how graduates' lives turn out.</p>
+          <p>Early in his career at Drew University, he led the first initiative to provide a computer to every student at a liberal arts institution, a commitment he continued as President of Hartwick College. His book, <em>The Evidence Liberal Arts Needs</em>, was named by <em>Forbes</em> as one of the best higher education books of 2021. It reports a landmark study linking specific college experiences to how graduates' lives turn out.</p>
 
-        <p>Rick speaks at colleges and universities and advises presidents and boards in the United States and abroad.</p>
+          <p>Rick speaks at colleges and universities and advises presidents and boards in the United States and abroad.</p>
+        </div>
       </section>
 
       <!-- Career Milestones -->
       <section style="margin-top: 3.5rem;">
         <h2>Career milestones</h2>
-        <div style="display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.5rem;">
-          <div style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
+        <div class="career-list" style="display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.5rem;">
+          <div class="career-card" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
             <strong>Managing Director, HigherEdImpact</strong>
             <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">Helping higher education leaders and boards align operations and educational delivery with empirical evidence.</p>
           </div>
 
-          <div style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
+          <div class="career-card" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
             <strong>President Emeritus, Great Lakes Colleges Association (GLCA)</strong>
             <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">Led the consortium of 13 historic Midwestern liberal arts colleges; established the Global Liberal Arts Alliance spanning 30 institutions worldwide.</p>
           </div>
 
-          <div style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
+          <div class="career-card" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
             <strong>President Emeritus, Hartwick College</strong>
             <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">Pioneered technology integration and undergraduate experiential learning frameworks.</p>
           </div>
 
-          <div style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
+          <div class="career-card" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
             <strong>Vice President &amp; Professor of Psychology, Drew University</strong>
             <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">Led the Computer Initiative, making Drew the first liberal arts institution in the nation to provide personal computers to all incoming students.</p>
           </div>
@@ -110,7 +111,7 @@
         <p>Named by <em>Forbes</em> as one of the best higher education books of 2021, this book provides the first comprehensive empirical study examining how specific college experiences relate to leadership, civic involvement, continued learning, cultural involvement, fulfillment, and personal success decades after graduation.</p>
 
         <div style="margin-top: 1.75rem;">
-          <a href="https://mitpress.mit.edu/9780262046169/the-evidence-liberal-arts-needs/" target="_blank" rel="noopener noreferrer" class="gold-btn">
+          <a href="https://mitpress.mit.edu/9780262543101/the-evidence-liberal-arts-needs/" target="_blank" rel="noopener noreferrer" class="gold-btn">
             Get the Book at MIT Press <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left: 0.5rem; font-size: 0.85rem;"></i>
           </a>
         </div>

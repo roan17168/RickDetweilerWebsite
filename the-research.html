@@ -51,7 +51,20 @@
   </header>
 
   <main class="container" style="padding: 3.5rem 0 5rem;">
-    <div class="reading-container">
+    <div class="longform-layout">
+      <nav class="page-index" aria-label="On this page">
+        <ol>
+          <li><a href="#study-method" aria-label="How the study was done" title="How the study was done"><span class="page-index-label">How the study was done</span></a></li>
+          <li><a href="#what-measured" aria-label="What was measured" title="What was measured"><span class="page-index-label">What was measured</span></a></li>
+          <li><a href="#findings" aria-label="What it found" title="What it found"><span class="page-index-label">What it found</span></a></li>
+          <li><a href="#study-limits" aria-label="What it cannot show" title="What it cannot show"><span class="page-index-label">What it cannot show</span></a></li>
+          <li><a href="#related-research" aria-label="Other research" title="Other research"><span class="page-index-label">Other research</span></a></li>
+          <li><a href="#why-it-matters" aria-label="Why this matters now" title="Why this matters now"><span class="page-index-label">Why this matters now</span></a></li>
+          <li><a href="#citation" aria-label="Citation" title="Citation"><span class="page-index-label">Citation</span></a></li>
+          <li><a href="#research-notes" aria-label="Notes and references" title="Notes and references"><span class="page-index-label">Notes &amp; references</span></a></li>
+        </ol>
+      </nav>
+      <div class="reading-container">
       
       <span class="section-label">Methodology & Evidence</span>
       <h1>Where this comes from</h1>
@@ -59,7 +72,7 @@
       <p>Everything on this site starts from one study, reported in Richard A. Detweiler's <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021). Here is how it was done and what it can and cannot tell you.</p>
 
       <!-- Section 1: How the Study Was Done -->
-      <section style="margin-top: 3rem;">
+      <section id="study-method" style="margin-top: 3rem;">
         <h2>How the study was done</h2>
         <ul style="padding-left: 1.25rem; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
           <li><strong>Who:</strong> Interviews with 1,000 college graduates from every kind of American college and university.</li>
@@ -84,7 +97,7 @@
       </section>
 
       <!-- Section 2: What Was Measured -->
-      <section style="margin-top: 3.5rem;">
+      <section id="what-measured" style="margin-top: 3.5rem;">
         <h2>What was measured</h2>
         
         <p><strong>Six long-term life outcomes:</strong></p>
@@ -131,7 +144,7 @@
       </section>
 
       <!-- Section 3: What It Found (Graphic G1) -->
-      <section style="margin-top: 3.5rem;">
+      <section id="findings" style="margin-top: 3.5rem;">
         <h2>What it found</h2>
         
         <p><strong>How to read these numbers:</strong> A figure such as "24% more likely" compares two groups. For example, if 57% of one group reports a higher income compared with 46% of another, the first group's rate is 124% of the second group's (57 divided by 46). Statisticians call this the <em>incident risk ratio</em>, and the increase expressed as a percentage (24%) is called the <em>percent relative effect</em>. All reported effects are statistically significant at the $p < .05$ level or better; most are significant at $p < .001$.</p>
@@ -152,7 +165,7 @@
         </div>
 
         <!-- Graphic G1: Breadth and Income Chart -->
-        <div style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.5rem; margin: 2rem 0; box-shadow: var(--shadow-subtle);">
+        <div class="data-display bar-chart" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.5rem; margin: 2rem 0; box-shadow: var(--shadow-subtle);">
           <div style="font-weight: 700; color: var(--primary-navy); margin-bottom: 1rem;">
             Graphic G1: Greater Likelihood of Higher Adult Income from Broad Study (&gt;50% outside major)
           </div>
@@ -188,13 +201,13 @@
       </section>
 
       <!-- Section 4: What It Cannot Show -->
-      <section style="margin-top: 3.5rem;">
+      <section id="study-limits" style="margin-top: 3.5rem;">
         <h2>What it cannot show</h2>
         <p>The study interviewed people once and asked them to look back. It could not do a true experiment by assigning people to colleges at random. It shows an association between these experiences and outcomes, not a causal relationship. The book takes up this question directly and compares the findings with other widely cited and respected research.</p>
       </section>
 
       <!-- Section 5: Table 17 Corroborating Research Matrix -->
-      <section style="margin-top: 3.5rem;">
+      <section id="related-research" style="margin-top: 3.5rem;">
         <h2>Other research points the same way</h2>
         
         <div class="table-container">
@@ -248,7 +261,7 @@
       </section>
 
       <!-- Section 6: Why This Matters Now -->
-      <section style="margin-top: 3.5rem;">
+      <section id="why-it-matters" style="margin-top: 3.5rem;">
         <h2>Why this matters now</h2>
         <p>Education in the liberal arts tradition has always aimed at the common good: lives that are good for the people living them and good for the society around them. This study shows what that looks like in practice. The experiences it examined were linked not only to graduates' income and careers but to their leadership, civic involvement, continued learning, cultural lives and fulfillment.</p>
         
@@ -256,7 +269,7 @@
       </section>
 
       <!-- Section 7: Citation Block -->
-      <section style="margin-top: 3.5rem; background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 2rem;">
+      <section id="citation" style="margin-top: 3.5rem; background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 2rem;">
         <span class="section-label">Citation</span>
         <h3>Cite the book</h3>
         <p style="font-family: var(--font-serif); font-size: 1.05rem; margin-bottom: 0.5rem;">
@@ -266,7 +279,7 @@
       </section>
 
       <!-- Collapsible Endnotes List -->
-      <section style="margin-top: 3.5rem;">
+      <section id="research-notes" style="margin-top: 3.5rem;">
         <details class="accordion-item">
           <summary>Notes & Endnote References [105–107]</summary>
           <div class="accordion-content" style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;">
@@ -277,6 +290,7 @@
         </details>
       </section>
 
+      </div>
     </div>
   </main>
 

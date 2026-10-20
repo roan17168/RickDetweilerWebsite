@@ -1581,17 +1581,17 @@
       var btn = dd.querySelector('.dropbtn');
       if (!btn) return;
       btn.addEventListener('click', function (e) {
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth <= 900) {
           e.preventDefault();
           var open = dd.classList.toggle('active');
           btn.setAttribute('aria-expanded', open ? 'true' : 'false');
         }
       });
       dd.addEventListener('mouseenter', function () {
-        if (window.innerWidth > 768) btn.setAttribute('aria-expanded', 'true');
+        if (window.innerWidth > 900) btn.setAttribute('aria-expanded', 'true');
       });
       dd.addEventListener('mouseleave', function () {
-        if (window.innerWidth > 768) btn.setAttribute('aria-expanded', 'false');
+        if (window.innerWidth > 900) btn.setAttribute('aria-expanded', 'false');
       });
       dd.addEventListener('focusin', function () {
         btn.setAttribute('aria-expanded', 'true');
@@ -1599,7 +1599,7 @@
       dd.addEventListener('focusout', function (e) {
         if (!dd.contains(e.relatedTarget)) {
           btn.setAttribute('aria-expanded', 'false');
-          if (window.innerWidth <= 768) dd.classList.remove('active');
+          if (window.innerWidth <= 900) dd.classList.remove('active');
         }
       });
     });
@@ -1624,11 +1624,32 @@
 
     // Reset on resize back to desktop
     window.addEventListener('resize', function () {
-      if (window.innerWidth > 768) {
+      if (window.innerWidth > 900) {
         links.classList.remove('active');
         setIcon(false);
         Array.prototype.forEach.call(dropdowns, closeDropdown);
       }
+    });
+  }
+
+  function initPageIndex() {
+    var links = document.querySelectorAll('.page-index a[href^="#"]');
+    if (!links.length || !('IntersectionObserver' in window)) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        Array.prototype.forEach.call(links, function (link) {
+          link.removeAttribute('aria-current');
+        });
+        var activeLink = document.querySelector('.page-index a[href="#' + entry.target.id + '"]');
+        if (activeLink) activeLink.setAttribute('aria-current', 'location');
+      });
+    }, { rootMargin: '-25% 0px -65% 0px' });
+
+    Array.prototype.forEach.call(links, function (link) {
+      var target = document.getElementById(link.getAttribute('href').slice(1));
+      if (target) observer.observe(target);
     });
   }
 
@@ -1832,6 +1853,7 @@
      ------------------------------------------------------------------------ */
   document.addEventListener('DOMContentLoaded', function () {
     initNav();
+    initPageIndex();
     initAccordions();
     initModalDismiss();
     initToolAutosave();

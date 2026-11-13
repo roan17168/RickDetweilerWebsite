@@ -161,7 +161,9 @@ const header = fs.readFileSync(path.join(ROOT, 'src/partials/header.html'), 'utf
 const footer = fs.readFileSync(path.join(ROOT, 'src/partials/footer.html'), 'utf8');
 const navOk = header.indexOf('<a href="counselors.html" data-nav="counselors">I\'m a counselor</a>') !== -1;
 const navDisabled = header.indexOf('data-nav="counselors" data-unbuilt') !== -1 || header.indexOf('nav-soon') !== -1;
-const footerOk = footer.indexOf('<a href="counselors.html">For Counselors</a>') !== -1;
+// The shared footer carries the informational links and contact line; the seven perspectives
+// live in the header menu, so there is no per-audience footer link to require.
+const footerOk = footer.indexOf('Understanding College') !== -1 && footer.indexOf('Detweiler@higheredimpact.org') !== -1;
 
 const report = {
   copy: { checked: expected.length, missing: missing },
@@ -185,6 +187,6 @@ const report = {
 };
 
 console.log(JSON.stringify(report, null, 2));
-if (missing.length || h1Count !== 1 || duplicateIds.length || inlineStyles || placeholders || sectionCount !== 8 || printButtons !== 2 || handoutRows !== 7 || glossaryTerms !== 19 || brokenLinks.length || !navOk || navDisabled || !footerOk) {
+if (missing.length || h1Count !== 1 || duplicateIds.length || inlineStyles || placeholders || sectionCount !== 9 || printButtons !== 2 || handoutRows !== 7 || glossaryTerms !== 19 || brokenLinks.length || !navOk || navDisabled || !footerOk) {
   process.exitCode = 1;
 }

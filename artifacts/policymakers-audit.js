@@ -72,7 +72,9 @@ lines.forEach(function (line) {
   }
 });
 
-const skip = new Set([1439, 1440, 1441, 1442, 1450, 1451, 1452, 1478, 1575, 1580, 1581]);
+// 1582 and 1583 are the repeated “A meaningful life in a world of change” closing block,
+// which Revision 6 removes from every audience page.
+const skip = new Set([1439, 1440, 1441, 1442, 1450, 1451, 1452, 1478, 1575, 1580, 1581, 1582, 1583]);
 
 function stripMarkers(text) {
   return text
@@ -182,14 +184,14 @@ for (let i = 0; i < 243; i += 1) {
 
 const nav = {
   headerLink: /<a href="policymakers\.html" data-nav="policymakers">/.test(page),
-  homeLink: /href="policymakers\.html"[^>]*>Start</.test(fs.readFileSync('preview/index.html', 'utf8')),
+  homeLink: /<a[^>]*href="policymakers\.html"[^>]*>Start the 2-minute quiz</.test(fs.readFileSync('preview/index.html', 'utf8')),
   footerLink: /<a href="policymakers\.html">For Policymakers<\/a>/.test(page),
   staleLiveLinks: (fs.readFileSync('preview/index.html', 'utf8') + page).includes('../policymakers.html')
 };
 
 const required = {
   title: title === 'Policymakers | What College Is Really For',
-  description: description === 'For legislators, members of Congress, board members and policy staff. What the research says about measuring the value of a college, questions to ask in hearings, and a one-page brief.',
+  description: description === 'For legislators, members of Congress, governing boards and policy staff. The outcomes a state needs from college, the experiences that produce them, how to measure them over a lifetime, a state brief and a federal staff memo.',
   pageKey: pageKey === 'policymakers',
   h1: h1Count === 1,
   sections: sections === 10,
@@ -205,14 +207,16 @@ const required = {
   briefPriorities: briefPriorities === 5,
   requestInputs: requestInputs === 4,
   briefActions: briefActions === 3,
-  pdfLinks: pdfLinks === 0,
+  // Revision 6 links the two-page state brief and the federal staff memo (downloads/).
+  pdfLinks: pdfLinks === 2,
   brokenLinks: brokenLinks.length === 0,
   quizQuestions: quiz.questions === 5,
   quizOptions: quiz.options === 15,
   quizResults: quiz.results === 3,
   quizCombinations: quiz.singles === 153 && quiz.ties === 90 && quiz.threeWay === 0,
   quizInvalid: quiz.invalidRejected,
-  nav: nav.headerLink && nav.homeLink && nav.footerLink && !nav.staleLiveLinks
+  // The shared footer carries no audience links; the seven perspectives live in the header menu.
+  nav: nav.headerLink && nav.homeLink && !nav.staleLiveLinks
 };
 
 const result = {

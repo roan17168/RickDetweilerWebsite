@@ -166,7 +166,8 @@ const nav = {
 
 const required = {
   title: title === 'Understanding College | What College Is Really For',
-  description: description === 'How American colleges differ, where the liberal arts idea came from, why rankings and prestige are weak guides, and how to choose by evidence instead.',
+  // Revision 6 (paragraph 1787) replaces the earlier search description.
+  description: description === 'How American colleges differ, where the liberal arts idea came from, what prestige and rankings do and don\u2019t tell you, and how to choose by evidence.',
   pageKey: pageKey === 'understanding',
   h1: h1Count === 1,
   h2: h2Count === 12,

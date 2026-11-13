@@ -717,6 +717,10 @@
       var key = RESULT_TO_ROW[outcome];
       if (key) self.state.stars[key] = true;
     });
+    var note = document.querySelector('[data-scorecard-prefill]');
+    if (note && outcomes && outcomes.length) {
+      note.textContent = 'Your top result, ' + outcomes.join(' and ') + ', is starred below.';
+    }
   };
 
   Scorecard.prototype.bind = function () {
@@ -858,8 +862,9 @@
       '<div class="scorecard-actions">' +
       '<button class="btn btn-primary" type="button" data-scorecard-print>Print</button>' +
       '<button class="btn btn-outline" type="button" data-scorecard-copy>Copy text</button>' +
+      '<button class="btn btn-outline" type="button" data-scorecard-pdf>Download as PDF</button>' +
       '<button class="btn btn-outline" type="button" data-scorecard-email>Email it to me</button>' +
-      '<button class="btn btn-outline scorecard-clear" type="button" data-scorecard-clear>Clear scorecard</button>' +
+      '<button class="btn btn-outline scorecard-clear" type="button" data-scorecard-clear>Reset</button>' +
       '<p class="scorecard-status" data-scorecard-status aria-live="polite"></p>' +
       '</div>';
 
@@ -949,7 +954,10 @@
       return;
     }
 
-    if (button.hasAttribute('data-scorecard-print')) {
+    if (button.hasAttribute('data-scorecard-print') || button.hasAttribute('data-scorecard-pdf')) {
+      if (button.hasAttribute('data-scorecard-pdf')) {
+        this.setStatus('Choose “Save as PDF” as the printer in the dialog.');
+      }
       document.body.classList.add('printing-scorecard');
       window.print();
       window.setTimeout(function () {

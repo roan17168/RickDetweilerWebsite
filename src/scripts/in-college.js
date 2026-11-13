@@ -407,6 +407,7 @@
     var result = scored.result;
     var action = result.action.replace(/^This semester\.\s*/, '');
     this.phase = 'results';
+    writeStored('wcirf_in_college_result_v1', JSON.stringify({ result: result.key, values: scored.values }));
 
     var copyText = result.heading + '\n\nQuestions worth asking yourself:\n' + result.questions.map(function (question) {
       return '- ' + question;

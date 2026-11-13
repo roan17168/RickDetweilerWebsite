@@ -34,7 +34,7 @@ expect('Choosing sidebar sources links', count(choosing, /Sources for this page/
 expect('Choosing embedded scorecard', count(choosing, /data-scorecard-app/g), 0);
 expect('Scorecard tool shell', count(scorecardTool, /data-scorecard-app/g), 1);
 expect('Scorecard print wording', count(scorecardTool, /use Print to print the page/g), 1);
-expect('Scorecard invented PDF label', count(scorecardTool, /Download as PDF/g), 0);
+expect('Scorecard tool page', count(scorecardTool, /data-scorecard-app/g), 1);
 
 const inCollege = html('in-college.html');
 expect('In College practice cards', count(inCollege, /class="[^"]*\bpractice-card(?:\s|")/g), 5);
@@ -60,7 +60,10 @@ expect('Leaders survey lists', count(leaders, /class="leaders-survey-list"/g), 2
 const counselors = html('counselors.html');
 expect('Counselor tables', count(counselors, /<table/g), 4);
 expect('Counselor glossary terms', count(counselors, /<dt>/g), 19);
-expect('Counselor sections', count(counselors, /class="[^"]*\bcounselors-section\b/g), 8);
+expect('Counselor sections', count(counselors, /class="[^"]*\bcounselors-section\b/g), 9);
+expect('Counselor quiz mount', count(counselors, /data-counselors-quiz/g), 1);
+expect('Counselor quiz skip link', count(counselors, /Skip the quiz and go to the recommendations/g), 1);
+expect('Counselor kit download', count(counselors, /downloads\/counselor-kit\.pdf/g), 3);
 expect('Counselor glossary disclosure', count(counselors, /class="counselors-glossary-more" data-mobile-close open/g), 1);
 
 const policymakers = html('policymakers.html');
@@ -96,6 +99,32 @@ let closingDisclosures = 0;
   closingDisclosures += count(html(name), /class="closing-more" data-mobile-close open/g);
 });
 expect('Closing block removed', closingDisclosures, 0);
+
+const semesterPlan = html('tools/semester-plan.html');
+expect('Semester plan tool shell', count(semesterPlan, /data-tool-key="wcirf_tool_semester_plan_v1"/g), 1);
+expect('Semester plan move rows', count(semesterPlan, /data-tool-row-label=/g), 3);
+
+const selfAudit = html('tools/course-self-audit.html');
+expect('Self-audit tool shell', count(selfAudit, /data-tool-key="wcirf_tool_course_self_audit_v1"/g), 1);
+expect('Self-audit practice rows', count(selfAudit, /data-tool-row-label=/g), 5);
+
+const checklistTool = html('tools/leaders-checklist.html');
+expect('Checklist tool shell', count(checklistTool, /data-tool-key="wcirf_tool_leaders_checklist_v1"/g), 1);
+expect('Checklist tool rows', count(checklistTool, /data-tool-row-label=/g), 8);
+
+const policyTool = html('tools/policy-brief.html');
+expect('Policy brief tool shell', count(policyTool, /data-tool-key="wcirf_tool_policy_brief_v1"/g), 1);
+expect('Policy brief measure rows', count(policyTool, /data-tool-row-label=/g), 5);
+expect('Policy brief request field', count(policyTool, /data-tool-field="request"/g), 1);
+
+['tools/semester-plan.html', 'tools/course-self-audit.html', 'tools/leaders-checklist.html', 'tools/policy-brief.html', 'tools/college-scorecard.html']
+  .forEach(function (file) {
+    const source = html(file);
+    if (file === 'tools/college-scorecard.html') return;
+    ['data-tool-print', 'data-tool-copy', 'data-tool-pdf', 'data-tool-reset'].forEach(function (control) {
+      if (source.indexOf(control) === -1) failures.push(file + ': missing ' + control);
+    });
+  });
 
 const about = html('about.html');
 expect('About milestones', count(about, /<dt>/g), 7);

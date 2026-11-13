@@ -1,0 +1,179 @@
+window.WCIRF_COUNSELORS = {
+  "quiz": {
+    "intro": {
+      "label": "Quiz",
+      "heading": "What&rsquo;s your counseling instinct?",
+      "lead": "Five questions, plus one optional about your setting. Two minutes. There are no wrong answers; every approach here helps students."
+    },
+    "instruction": "Pick the answer that is truest for you, even if it is not the one you think you should pick.",
+    "questions": [
+      {
+        "id": "moment",
+        "text": "A student you've worked with for two years gets in. Which moment stays with you?",
+        "options": [
+          { "text": "The family realizing they could actually afford it.", "value": "door-opener" },
+          { "text": "The student getting into a college they thought was out of reach.", "value": "matchmaker" },
+          { "text": "The student explaining why that college fits who they want to be.", "value": "guide" },
+          { "text": "Hearing a year later that they're still there and doing well.", "value": "finisher" }
+        ]
+      },
+      {
+        "id": "spring",
+        "text": "What frustrates you most each spring?",
+        "options": [
+          { "text": "Students who never filed the FAFSA.", "value": "door-opener" },
+          { "text": "Strong students who applied only to safe choices.", "value": "matchmaker" },
+          { "text": "Students choosing by brand name or where their friends are going.", "value": "guide" },
+          { "text": "Students choosing places where students like them rarely finish.", "value": "finisher" }
+        ]
+      },
+      {
+        "id": "hour",
+        "text": "If you had one more hour with every senior, you'd spend it on:",
+        "options": [
+          { "text": "Aid forms and net price calculators.", "value": "door-opener" },
+          { "text": "Building a list with some real reaches on it.", "value": "matchmaker" },
+          { "text": "Asking what they want their life to look like at 30.", "value": "guide" },
+          { "text": "Checking graduation rates and support for students like them.", "value": "finisher" }
+        ]
+      },
+      {
+        "id": "number",
+        "text": "Which number would you most want your school to report?",
+        "options": [
+          { "text": "The share of seniors who enroll anywhere after high school.", "value": "door-opener" },
+          { "text": "The share attending colleges that match their academic record.", "value": "matchmaker" },
+          { "text": "The share who can say why they chose their college.", "value": "guide" },
+          { "text": "The share still enrolled in their second year of college.", "value": "finisher" }
+        ]
+      },
+      {
+        "id": "need",
+        "text": "What do families most need from you?",
+        "options": [
+          { "text": "Proof that college is possible for them.", "value": "door-opener" },
+          { "text": "Permission to aim higher.", "value": "matchmaker" },
+          { "text": "Help hearing what their child actually wants.", "value": "guide" },
+          { "text": "Honest information about who finishes where.", "value": "finisher" }
+        ]
+      }
+    ],
+    "optional": {
+      "text": "One more, if you like. What is your setting? Pick all that fit.",
+      "note": "Not scored. It adds advice for your setting to your result.",
+      "options": [
+        { "text": "My caseload is over 350 students", "advice": "caseload" },
+        { "text": "Many of my students are first in their families to go to college", "advice": "first" },
+        { "text": "I work at an independent or private school", "advice": "independent" },
+        { "text": "I work for a college access program or independently", "advice": "access" }
+      ]
+    },
+    "tieBreak": {
+      "text": "A senior has been admitted to two affordable colleges. Which question do you ask first?",
+      "options": [
+        { "text": "\u201cWhich one can your family pay for all four years?\u201d", "value": "door-opener" },
+        { "text": "\u201cWhich one will challenge you the most?\u201d", "value": "matchmaker" },
+        { "text": "\u201cWhich one fits who you want to become?\u201d", "value": "guide" },
+        { "text": "\u201cAt which one do students like you finish?\u201d", "value": "finisher" }
+      ]
+    },
+    "results": [
+      {
+        "key": "door-opener",
+        "heading": "The Door Opener",
+        "lead": "You measure success by whether every student gets to an affordable next step after high school. That matters most for the students the study found had the most to gain.",
+        "research": "The experiences linked to good adult lives (professors who knew them, room to explore, classes that made them think, being part of something) can be found at every kind of college, including affordable ones close to home. Over a long career, graduates from lower-income families who studied broadly were 72% more likely to report greater success and 75% more likely to report a higher income, and those who had been part of an authentic learning community were 64% more likely to report greater success.",
+        "researchNote": 2,
+        "seeAll": true,
+        "questions": [
+          "\u201cOf the colleges you can afford, where will a professor know your name by the end of the first year?\u201d",
+          "\u201cWhich of these colleges has a group you'd show up for every week?\u201d"
+        ],
+        "tryThis": "When a family compares aid offers, add one question to the net price, such as \u201cWhere will our child get a mentor?\u201d",
+        "kit": "the family handout and the first-in-the-family steps.",
+        "deepDive": "George Kuh found that high-impact practices such as first-year seminars, undergraduate research and service learning benefited low-income and underrepresented students most.",
+        "deepDiveNote": 5
+      },
+      {
+        "key": "matchmaker",
+        "heading": "The Matchmaker",
+        "lead": "You push students to aim as high as their record allows. The evidence agrees that students should aim high, and suggests what \u201chigh\u201d should mean.",
+        "research": "For most graduates, the earnings advantage of a more selective college was small once their own abilities were taken into account (Dale and Krueger).",
+        "researchNote": 3,
+        "researchAfter": "Raj Chetty, David Deming and John Friedman found that attending an Ivy-Plus college rather than a flagship public university did increase a student's chances of reaching the top 1% of earners and of working at a prestigious finance or consulting firm, and Ivy-Plus graduates were overrepresented among Fortune 500 chief executives.",
+        "researchAfterNote": 4,
+        "researchLast": "However, 88.4% of those CEOs did not attend an Ivy-Plus college, and graduating from one had little effect on average earnings. In this study, what students experienced mattered more than where they went: graduates made to examine their own arguments were about two and a half times as likely to report highly fulfilled lives.",
+        "seeAll": false,
+        "questions": [
+          "\u201cWhich of these colleges will challenge you the most, in class and out?\u201d",
+          "\u201cWhere will you get to do real research or a big project by junior year?\u201d"
+        ],
+        "tryThis": "Add one \u201cexperience reach\u201d to each strong student's list: a college known for close faculty contact and student research, whatever its ranking.",
+        "kit": "the student handout's six questions.",
+        "deepDive": "Stacy Dale and Alan Krueger tracked earnings for more than 20 years; the effect of a more selective college remained for Black and Hispanic students and for students whose parents had less education.",
+        "deepDiveNote": 3
+      },
+      {
+        "key": "guide",
+        "heading": "The Guide",
+        "lead": "You start with who the student wants to become. That is exactly where the research says to start.",
+        "research": "Graduates who led, gave back, kept learning and found their lives fulfilling were more likely to have had professors who knew them, room to explore, and classes that made them think. An authentic learning community, professors and students involved with one another outside class, was linked to all six adult outcomes. Major was unrelated to long-term success.",
+        "seeAll": true,
+        "afterSeeAll": "Students who know what they want college to do for them can look for those experiences anywhere.",
+        "questions": [
+          "\u201cWhat do you want to be true of your life at 30?\u201d",
+          "\u201cWhich of these colleges would help you become that person?\u201d"
+        ],
+        "tryThis": "Have students take the Choosing a College quiz before your first meeting and bring their result.",
+        "kit": "the 30-minute group session plan.",
+        "deepDive": "William Damon's research at Stanford found only about one in five young people had found a purpose they were committed to; most were still looking. College is where many find it.",
+        "deepDiveNote": 6
+      },
+      {
+        "key": "finisher",
+        "heading": "The Finisher",
+        "lead": "You care whether students stay and graduate, not just whether they enroll. The experiences linked to finishing are the same ones linked to good lives after college.",
+        "research": "Vincent Tinto found that students persist when they are connected to both the academic and the social life of a college.",
+        "researchNote": 7,
+        "researchLast": "Gregory Walton and colleagues found that helping new students see that worries about belonging are common and pass improved grades and raised first-year completion, most at colleges that gave students real chances to belong. In this study, an authentic learning community (close involvement with professors and other students outside class) was the experience most consistently linked to every adult outcome measured.",
+        "researchAfterNote": 8,
+        "questions": [
+          "\u201cWhat share of students like you graduate here?\u201d",
+          "\u201cWho would notice in the first six weeks if you were struggling?\u201d",
+          "\u201cWhat would you be part of there every week?\u201d"
+        ],
+        "tryThis": "For each student's top choice, look up the four- and six-year graduation rates for Pell Grant recipients, and talk about it together.",
+        "term": {
+          "term": "Pell Grants",
+          "definition": "Pell Grants are federal grants for students from lower-income families."
+        },
+        "kit": "the \u201cCan't visit?\u201d handout, which includes how to find graduation rates.",
+        "deepDive": "Gallup and Purdue found that only 3% of 30,000 graduates had all six key supportive and hands-on college experiences.",
+        "deepDiveNote": 9
+      }
+    ],
+    "advice": [
+      {
+        "key": "caseload",
+        "heading": "With a big caseload",
+        "text": "You may have little time with each senior; indeed, the national average is 372 students per counselor. Use the 30-minute group session in the kit to run the student quiz with a group, and give every student the five-questions handout. Save one-on-one time for the families who need it most.",
+        "note": 10
+      },
+      {
+        "key": "first",
+        "heading": "With first-generation students",
+        "text": "Start with the first-in-the-family steps and the family handout. Tell families plainly that the posted price is rarely the real price, and that the experiences that matter most can be found at affordable colleges close to home."
+      },
+      {
+        "key": "independent",
+        "heading": "At an independent or private school",
+        "text": "Your families often arrive focused on selectivity. The prestige pull-out on this page sets out what the research says, on both sides. Use the Matchmaker and Guide questions to shift the conversation to what students will experience."
+      },
+      {
+        "key": "access",
+        "heading": "In a college access program or independent practice",
+        "text": "Use the Choosing a College quiz as an intake tool, and the College Scorecard, with its write-in rows, to keep each student's list tied to what they said they want."
+      }
+    ]
+  }
+};

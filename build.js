@@ -211,9 +211,64 @@ const siteNotes = {
   'in-college': [],
   parents: [],
   faculty: [],
-  counselors: [],
+  counselors: [
+    {
+      n: 1,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021); findings in chapters 6 to 8 and appendix 5.'
+    },
+    {
+      n: 2,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs</em> (MIT Press, 2021), pp. 162&ndash;166 and figures A5.6a to A5.6d; liberal arts colleges, pp. 191&ndash;192.'
+    },
+    {
+      n: 3,
+      text: 'Stacy Dale and Alan B. Krueger, &ldquo;Estimating the Effects of College Characteristics over the Career Using Administrative Earnings Data,&rdquo; <em>Journal of Human Resources</em> 49, no. 2 (2014): 323&ndash;358.'
+    },
+    {
+      n: 4,
+      text: 'Raj Chetty, David J. Deming and John N. Friedman, &ldquo;Diversifying Society&rsquo;s Leaders? The Causal Effects of Admission to Highly Selective Private Colleges,&rdquo; NBER Working Paper No. 31492 (July 2023).'
+    },
+    {
+      n: 5,
+      text: 'George D. Kuh, <em>High-Impact Educational Practices: What They Are, Who Has Access to Them, and Why They Matter</em> (AAC&amp;U, 2008).'
+    },
+    {
+      n: 6,
+      text: 'William Damon, <em>The Path to Purpose: How Young People Find Their Calling in Life</em> (Free Press, 2008).'
+    },
+    {
+      n: 7,
+      text: 'Vincent Tinto, <em>Leaving College: Rethinking the Causes and Cures of Student Attrition</em>, 2nd ed. (University of Chicago Press, 1993).'
+    },
+    {
+      n: 8,
+      text: 'Gregory M. Walton, Mary C. Murphy, Christine Logel and others, &ldquo;Where and with whom does a brief social-belonging intervention promote progress in college?&rdquo; <em>Science</em> 380 (2023): 499&ndash;505.'
+    },
+    {
+      n: 9,
+      text: 'Gallup and Purdue University, <em>Great Jobs, Great Lives: The 2014 Gallup-Purdue Index Report</em> (2014).'
+    },
+    {
+      n: 10,
+      text: 'American School Counselor Association, student-to-school-counselor ratio, 2024&ndash;25 (372 to 1; recommended 250 to 1).'
+    }
+  ],
   'college-leaders': [],
   policymakers: [],
+  'course-self-audit': [
+    {
+      n: 1,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021); findings in chapters 6 to 8 and appendix 5.'
+    }
+  ],
+  'policy-brief': [
+    {
+      n: 1,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021); findings in chapters 6 to 8 and appendix 5.'
+    }
+  ],
+  'leaders-checklist': [],
+  'semester-plan': [],
   understanding: [],
   foundation: []
 };
@@ -240,8 +295,8 @@ const pages = [
   {
     file: 'what-matters.html',
     page: 'what-matters',
-    title: 'What Matters in College | What College Is Really For',
-    description: 'Which college experiences were linked to six long-term outcomes, shown as an accessible chart and table.',
+    title: 'What Matters in College: All the Findings | What College Is Really For',
+    description: 'Every substantial finding from interviews with 1,000 college graduates: which college experiences were linked to leadership, civic involvement, continued learning, cultural involvement, fulfillment and success decades later.',
     body: 'what-matters.html',
     chart: chartHtml,
     notes: siteNotes['what-matters']
@@ -250,7 +305,7 @@ const pages = [
     file: 'the-research.html',
     page: 'research',
     title: 'The Research | What College Is Really For',
-    description: 'How the study behind this site was done, what it found, what it cannot show, and how it fits with other research on college.',
+    description: 'How the study behind this site was done (sample, measures, analysis and controls), what it found, what it cannot show, and how it fits with other research on college.',
     body: 'the-research.html',
     notes: siteNotes.research
   },
@@ -265,6 +320,42 @@ const pages = [
     notes: []
   },
   {
+    file: 'tools/semester-plan.html',
+    page: 'in-college',
+    title: 'One-Semester Plan | What College Is Really For',
+    description: 'Turn the five moves into three specific moves for this semester, with target dates and check-ins. Fill it in, save it in your browser, and print it.',
+    body: 'tools/semester-plan.html',
+    scripts: ['tools.js'],
+    notes: siteNotes['semester-plan']
+  },
+  {
+    file: 'tools/course-self-audit.html',
+    page: 'faculty',
+    title: 'Course Self-Audit | What College Is Really For',
+    description: 'Look at one course you teach against the five practices in the study, and commit to one or two changes for next term. For your own reflection.',
+    body: 'tools/course-self-audit.html',
+    scripts: ['tools.js'],
+    notes: siteNotes['course-self-audit']
+  },
+  {
+    file: 'tools/leaders-checklist.html',
+    page: 'leaders',
+    title: 'Eight-Practice Checklist | What College Is Really For',
+    description: 'See how many students get each of the eight practices, who owns each one, and what improving it would cost. Built for deans, chairs and trustees.',
+    body: 'tools/leaders-checklist.html',
+    scripts: ['tools.js'],
+    notes: siteNotes['leaders-checklist']
+  },
+  {
+    file: 'tools/policy-brief.html',
+    page: 'policymakers',
+    title: 'Policy Brief Generator | What College Is Really For',
+    description: 'Build a formal legislative report request or committee briefing on long-term higher education outcomes, with model language and hearing questions.',
+    body: 'tools/policy-brief.html',
+    scripts: ['tools.js'],
+    notes: siteNotes['policy-brief']
+  },
+  {
     file: 'choosing-a-college.html',
     page: 'choosing',
     title: 'Choosing a College | What College Is Really For',
@@ -277,7 +368,7 @@ const pages = [
     file: 'in-college.html',
     page: 'in-college',
     title: 'In College | What College Is Really For',
-    description: 'A two-minute check for college students: which experiences linked to a good life after college you already have, and one small move for each of the rest.',
+    description: 'A two-minute check for college students. See which parts of college that last you already have, and plan the rest, one semester at a time.',
     body: 'in-college.html',
     scripts: ['in-college-data.js', 'in-college.js'],
     notes: siteNotes['in-college']
@@ -286,7 +377,7 @@ const pages = [
     file: 'parents.html',
     page: 'parents',
     title: 'Parents | What College Is Really For',
-    description: 'For parents of students choosing college. What college really costs, what to do and when, and the questions to ask colleges and your own child.',
+    description: 'For parents. What you hope college will give your child for the rest of their life, what it will really cost, and the questions to ask colleges and your child.',
     body: 'parents.html',
     scripts: ['parents-data.js', 'parents.js'],
     notes: siteNotes.parents
@@ -295,7 +386,7 @@ const pages = [
     file: 'faculty.html',
     page: 'faculty',
     title: 'Faculty | What College Is Really For',
-    description: 'For college faculty. A two-minute self-check on the teaching practices linked to graduates\u2019 lives decades later, with questions for your own courses.',
+    description: 'For professors, instructors and adjunct faculty, in person or online. Five teaching practices linked to graduates\u2019 lives decades later, mentoring that counts in a research career, a course self-audit and a workshop kit.',
     body: 'faculty.html',
     scripts: ['faculty-data.js', 'faculty.js'],
     notes: siteNotes.faculty
@@ -304,7 +395,7 @@ const pages = [
     file: 'college-leaders.html',
     page: 'leaders',
     title: 'College Leaders | What College Is Really For',
-    description: 'For presidents, provosts, deans and trustees: a two-minute check on whether budget, incentives and messaging support the experiences linked to graduates\u2019 lives.',
+    description: 'For presidents, provosts, deans, chairs and trustees: check whether budgets, incentives and measures support the student experiences linked to graduates\u2019 lives, at every kind of institution.',
     body: 'college-leaders.html',
     scripts: ['college-leaders-data.js', 'college-leaders.js'],
     notes: siteNotes['college-leaders']
@@ -312,17 +403,17 @@ const pages = [
   {
     file: 'counselors.html',
     page: 'counselors',
-    title: 'For Counselors | What College Is Really For',
-    description: 'A free counselor kit for school counselors and college advisers: the study in one page, student and family handouts, a 30-minute group session and first-in-family steps.',
+    title: 'Counselors | What College Is Really For',
+    description: 'For high school counselors, college access advisers and independent counselors. A two-minute quiz on how you help students choose, questions that work with any student, and a free counselor kit.',
     body: 'counselors.html',
-    scripts: ['counselors.js'],
+    scripts: ['counselors-data.js', 'counselors.js'],
     notes: siteNotes.counselors
   },
   {
     file: 'policymakers.html',
     page: 'policymakers',
     title: 'Policymakers | What College Is Really For',
-    description: 'For legislators, Congress, board members and policy staff: what the research says about measuring the value of college, questions for hearings, and a one-page brief.',
+    description: 'For legislators, members of Congress, governing boards and policy staff. The outcomes a state needs from college, the experiences that produce them, how to measure them over a lifetime, a state brief and a federal staff memo.',
     body: 'policymakers.html',
     scripts: ['policymakers-data.js', 'policymakers.js'],
     notes: siteNotes.policymakers
@@ -331,7 +422,7 @@ const pages = [
     file: 'understanding-college.html',
     page: 'understanding',
     title: 'Understanding College | What College Is Really For',
-    description: 'How American colleges differ, where the liberal arts idea came from, why rankings and prestige are weak guides, and how to choose by evidence instead.',
+    description: 'How American colleges differ, where the liberal arts idea came from, what prestige and rankings do and don\u2019t tell you, and how to choose by evidence.',
     body: 'understanding-college.html',
     scripts: ['understanding.js'],
     notes: siteNotes.understanding
@@ -339,8 +430,8 @@ const pages = [
   {
     file: 'about.html',
     page: 'about',
-    title: 'About Richard A. Detweiler | What College Is Really For',
-    description: 'Richard A. Detweiler is a social psychologist, former college president and author of The Evidence Liberal Arts Needs (MIT Press, 2021).',
+    title: 'About | What College Is Really For',
+    description: 'About HigherEdImpact, the 501(c)(3) nonprofit that publishes What College Is Really For, and its Managing Director, Richard A. Detweiler, author of The Evidence Liberal Arts Needs.',
     body: 'about.html',
     notes: siteNotes.about
   },
@@ -348,7 +439,7 @@ const pages = [
     file: 'privacy.html',
     page: 'privacy',
     title: 'Privacy | What College Is Really For',
-    description: 'What this site stores in your browser, what it does not collect, and how to reach us.',
+    description: 'How What College Is Really For handles your information: no accounts, no personal information collected, quiz answers kept on your own device.',
     body: 'privacy.html',
     notes: siteNotes.privacy
   },
@@ -421,7 +512,7 @@ pages.forEach(function (page) {
     console.log('built preview/' + page.file);
 });
 
-const cssFiles = ['fonts.css', 'tokens.css', 'base.css', 'layout.css', 'components.css', 'pages.css', 'in-college.css', 'parents.css', 'faculty.css', 'college-leaders.css', 'counselors.css', 'policymakers.css', 'understanding.css'];
+const cssFiles = ['fonts.css', 'tokens.css', 'base.css', 'layout.css', 'components.css', 'pages.css', 'in-college.css', 'parents.css', 'faculty.css', 'college-leaders.css', 'counselors.css', 'policymakers.css', 'understanding.css', 'tools.css'];
 const css = cssFiles.map(function (file) { return read(path.join('styles', file)); }).join('\n');
 fs.writeFileSync(path.join(OUT, 'styles.css'), css);
 console.log('built preview/styles.css');
@@ -465,8 +556,22 @@ console.log('built preview/scripts/college-leaders-data.js');
 fs.copyFileSync(path.join(SRC, 'scripts', 'college-leaders.js'), path.join(OUT, 'scripts', 'college-leaders.js'));
 console.log('built preview/scripts/college-leaders.js');
 
+const counselorsData = read('data/counselors.json');
+fs.writeFileSync(path.join(OUT, 'scripts', 'counselors-data.js'), 'window.WCIRF_COUNSELORS = ' + counselorsData.trim() + ';\n');
+console.log('built preview/scripts/counselors-data.js');
+
 fs.copyFileSync(path.join(SRC, 'scripts', 'counselors.js'), path.join(OUT, 'scripts', 'counselors.js'));
 console.log('built preview/scripts/counselors.js');
+
+fs.copyFileSync(path.join(SRC, 'scripts', 'tools.js'), path.join(OUT, 'scripts', 'tools.js'));
+console.log('built preview/scripts/tools.js');
+
+const downloadsSource = path.join(SRC, 'downloads');
+if (fs.existsSync(downloadsSource)) {
+  fs.cpSync(downloadsSource, path.join(OUT, 'downloads'), { recursive: true });
+  const downloadFiles = fs.readdirSync(downloadsSource).filter(function (name) { return /\.pdf$/i.test(name); });
+  console.log('copied preview/downloads (' + downloadFiles.length + ' PDFs)');
+}
 
 const policymakersData = read('data/policymakers.json');
 fs.writeFileSync(path.join(OUT, 'scripts', 'policymakers-data.js'), 'window.WCIRF_POLICYMAKERS = ' + policymakersData.trim() + ';\n');

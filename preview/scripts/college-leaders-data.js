@@ -1,0 +1,93 @@
+window.WCIRF_LEADERS = {
+  "quiz": {
+    "questions": [
+      {
+        "id": "case",
+        "text": "When you make the case to your board or donors, what do you lead with?",
+        "options": [
+          { "text": "Job placement and starting salaries.", "value": "market" },
+          { "text": "Our mission and the kind of graduates we aim to produce.", "value": "mission" },
+          { "text": "What students experience here day to day.", "value": "experience" }
+        ]
+      },
+      {
+        "id": "cut",
+        "text": "If you had to cut 5% next year, what would be protected last?",
+        "options": [
+          { "text": "Enrollment marketing and new programs with demand.", "value": "market" },
+          { "text": "The programs most tied to our identity.", "value": "mission" },
+          { "text": "Faculty time with students and small classes.", "value": "experience" }
+        ]
+      },
+      {
+        "id": "reward",
+        "text": "What do tenure and promotion reward most in practice?",
+        "options": [
+          { "text": "Course load and enrollments.", "value": "market" },
+          { "text": "Research and teaching as each department defines them.", "value": "mission" },
+          { "text": "Teaching plus out-of-class mentoring and involvement with students.", "value": "experience" }
+        ]
+      },
+      {
+        "id": "measure",
+        "text": "What do you measure and report about graduates?",
+        "options": [
+          { "text": "First-job placement and salary.", "value": "market" },
+          { "text": "Stories of notable alumni.", "value": "mission" },
+          { "text": "What students experienced, and how alumni are doing years later.", "value": "experience" }
+        ]
+      },
+      {
+        "id": "breadth",
+        "text": "How much of a student's degree is designed to be taken outside the major?",
+        "options": [
+          { "text": "Most often less than a third. Major requirements dominate, even where an accreditor does not require it.", "value": "market" },
+          { "text": "About a third, mostly through a general education checklist.", "value": "mission" },
+          { "text": "Half or more by design, or, in licensed programs such as nursing and engineering, breadth built into the major through requirements for courses outside the major and through ethics, writing and courses that connect fields.", "value": "experience" }
+        ]
+      }
+    ],
+    "results": [
+      {
+        "key": "market",
+        "heading": "Market-first",
+        "lead": "Your institution's choices follow enrollment and employment signals. That keeps the doors open. The risk is competing on first-job outcomes, where specialized programs will always look better in year one.",
+        "research": "In the study, major was unrelated to longer-term success, and the first-job advantage of specialized preparation faded. Breadth of study and close involvement with faculty were what related to success over time. Graduates who took more than half their courses outside their major were 24% more likely to report a higher income as adults, and 33% more likely if they came from lower-income families. That is a market argument you are not yet using.",
+        "questions": [
+          "What do you know about your graduates at ten and twenty years, and who is responsible for finding out?",
+          "Does your budget support or reward faculty time with students outside class?",
+          "How much of a degree here is outside the major, and has that share been shrinking?",
+          "Does your marketing show how students' life goals connect to long-term outcomes, or does it emphasize what most colleges advertise: jobs, income and social life?"
+        ],
+        "action": "Survey alumni ten and twenty or more years out with questions on their adult lives: not only success, but also civic involvement, leadership, further education, cultural involvement and personal fulfillment."
+      },
+      {
+        "key": "mission",
+        "heading": "Mission-first",
+        "lead": "Your institution knows what it stands for and says so well. The open question is whether students experience it, and whether you could show that they do.",
+        "research": "The outcomes named in most mission statements were linked to specific experiences: professors who know students, conversation outside class, mentoring, breadth of study, engaging teaching, and involvement in the college community. Graduates who had a college mentor with a lasting impact were 26% more likely to be leaders as adults. Where most professors knew students' first names, graduates were 67% more likely to describe their lives as highly fulfilled. A mission is delivered through those experiences or not at all.",
+        "questions": [
+          "For each outcome in our mission, which student experiences deliver it, and what share of students get them?",
+          "What share of seniors can name a faculty mentor?",
+          "Do promotion criteria reward the in-class and out-of-class involvement with students that your mission depends on?",
+          "Which students are least likely to experience a real educational community, one that includes out-of-class time with professors, mentors and other students as well as class: commuters, transfers, working students?"
+        ],
+        "action": "Add three questions to your senior survey: Do your professors know you by name? Did you have a mentor? Did you often talk with faculty outside class about non-course related topics?"
+      },
+      {
+        "key": "experience",
+        "heading": "Experience-first",
+        "lead": "Your institution organizes itself around what students experience. The evidence supports that choice. The work is to protect it under budget pressure and to prove it to people outside.",
+        "research": "Graduates who took small discussion classes in their first two years were 25% more likely to keep learning actively as adults. The book notes that many of these practices cost little in new money. They rest on how faculty and staff spend their time, how requirements are written, and how teaching is done. But faculty time is the largest cost a college has, so the real question is what faculty are asked to stop doing. Costs rise when the institution asks faculty to do all of this on top of everything they did before. The checklist below marks which practices are budget neutral, which need time or money moved from elsewhere, and which need new investment.",
+        "questions": [
+          "What have we asked faculty to stop doing so that they can spend time with students?",
+          "Does out-of-class involvement with students depend on a few staff roles, or is that responsibility widely shared among faculty and staff?",
+          "Can we show a legislator, a parent or a donor objective evidence of student involvement, together with what the research says about its effect on life outcomes?",
+          "Are these experiences reaching every student, or mainly the ones who seek them out?",
+          "Are internships and long projects built into requirements, or left to students to find?"
+        ],
+        "action": "Measure what share of your students have each of the experiences in the checklist below, and report it to your board. Publish it once you can show where you stand and what you are doing about it."
+      }
+    ]
+  }
+};

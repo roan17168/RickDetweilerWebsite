@@ -1,0 +1,37 @@
+{
+  "title": "The big picture",
+  "subtitle": "Which college experiences were linked to each long-term outcome",
+  "groups": [
+    {
+      "label": "Life of consequence",
+      "outcomes": ["Leadership", "Civic involvement"]
+    },
+    {
+      "label": "Life of inquiry",
+      "outcomes": ["Continued learning", "Cultural involvement"]
+    },
+    {
+      "label": "Life of accomplishment",
+      "outcomes": ["Fulfillment", "Personal success (long term)"]
+    }
+  ],
+  "bands": [
+    {
+      "label": "Content: what is studied",
+      "rows": [
+        { "label": "A major not tied to one occupation", "values": [null, null, 29, 36, 44, null] },
+        { "label": "Span of study (breadth)", "values": [null, null, 29, 42, 59, 53] },
+        { "label": "Intellectual skills", "values": [null, null, 37, 40, 66, null] }
+      ]
+    },
+    {
+      "label": "Context: how it is studied",
+      "rows": [
+        { "label": "Engaging teaching", "values": [null, null, 29, 25, 33, null] },
+        { "label": "Larger perspectives", "values": [28, null, 42, 22, null, null] },
+        { "label": "An authentic learning community", "values": [25, 26, 31, 40, 46, 32] }
+      ]
+    }
+  ],
+  "note": "Each circle shows how much more likely graduates with more of that college experience were to have the outcome than graduates with less of it. All shown findings are statistically significant (p < .05), at least a 20% difference, and consistent across three age groups. A small grey dot means no substantial link. Personal success: long-term findings for graduates established in their careers; for span of study, taking more than half of one's courses outside the major. Source: Detweiler, The Evidence Liberal Arts Needs, appendix 5."
+}

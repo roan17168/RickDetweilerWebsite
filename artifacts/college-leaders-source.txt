@@ -1,0 +1,393 @@
+PARAGRAPHS (table-inclusive indices)
+1200: College Leaders
+1201: Page title: College Leaders | What College Is Really For
+1202: Search description: For presidents, provosts, deans, directors and trustees. A two-minute check on whether budget, incentives and messaging support the college experiences linked to graduates' lives.
+1203: Landing
+1204: Label: For college leaders
+1205: Heading: Your mission statement makes a promise. Does your budget keep it?
+1206: An analysis of the mission statements of 241 colleges found them promising much the same things: leaders, engaged citizens, lifelong learners, fulfilled and successful people. Interviews with 1,000 graduates show which experiences are linked to those outcomes. Many of them cost little. All of them depend on what the institution rewards. And they matter most for the students who arrive with the least: in the study, several of the links were strongest for graduates from lower-income families.
+1207: Button: Check your priorities
+1208: 5 questions. Two minutes. Answer for how your institution behaves, not how it describes itself.
+1209: What you get
+1210: Your result. What your institution's choices currently put first.
+1211: Questions to take to your cabinet, board and faculty leadership.
+1212: A checklist of the low-cost practices the research supports.
+1213: Quiz
+1214: When you make the case to your board or donors, what do you lead with?
+1215: Job placement and starting salaries.   → Market
+1216: Our mission and the kind of graduates we aim to produce.   → Mission
+1217: What students experience here day to day.   → Experience
+1218: If you had to cut 5% next year, what would be protected last?
+1219: Enrollment marketing and new programs with demand.   → Market
+1220: The programs most tied to our identity.   → Mission
+1221: Faculty time with students and small classes.   → Experience
+1222: What do tenure and promotion reward most in practice?
+1223: Course load and enrollments.   → Market
+1224: Research and teaching as each department defines them.   → Mission
+1225: Teaching plus out-of-class mentoring and involvement with students.   → Experience
+1226: What do you measure and report about graduates?
+1227: First-job placement and salary.   → Market
+1228: Stories of notable alumni.   → Mission
+1229: What students experienced, and how alumni are doing years later.   → Experience
+1230: How much of a student's degree is designed to be taken outside the major?
+1231: Most often less than a third. Major requirements dominate, even where an accreditor does not require it.   → Market
+1232: About a third, mostly through a general education checklist.   → Mission
+1233: Half or more by design, or, in licensed programs such as nursing and engineering, breadth built into the major through requirements for courses outside the major and through ethics, writing and courses that connect fields.   → Experience
+1234: Note: Scoring: the type chosen most often is the result. On a two-way tie, show both.
+1235: Result: Market-first
+1236: Your institution's choices follow enrollment and employment signals. That keeps the doors open. The risk is competing on first-job outcomes, where specialized programs will always look better in year one.
+1237: What the research says to you. In the study, major was unrelated to longer-term success, and the first-job advantage of specialized preparation faded. Breadth of study and close involvement with faculty were what related to success over time. Graduates who took more than half their courses outside their major were 24% more likely to report a higher income as adults, and 33% more likely if they came from lower-income families. That is a market argument you are not yet using.
+1238: Essential questions
+1239: What do you know about your graduates at ten and twenty years, and who is responsible for finding out?
+1240: Does your budget support or reward faculty time with students outside class?
+1241: How much of a degree here is outside the major, and has that share been shrinking?
+1242: Does your marketing show how students' life goals connect to long-term outcomes, or does it emphasize what most colleges advertise: jobs, income and social life?
+1243: This year. Survey alumni ten and twenty or more years out with questions on their adult lives: not only success, but also civic involvement, leadership, further education, cultural involvement and personal fulfillment.
+1244: Result: Mission-first
+1245: Your institution knows what it stands for and says so well. The open question is whether students experience it, and whether you could show that they do.
+1246: What the research says to you. The outcomes named in most mission statements were linked to specific experiences: professors who know students, conversation outside class, mentoring, breadth of study, engaging teaching, and involvement in the college community. Graduates who had a college mentor with a lasting impact were 26% more likely to be leaders as adults. Where most professors knew students' first names, graduates were 67% more likely to describe their lives as highly fulfilled. A mission is delivered through those experiences or not at all.
+1247: Essential questions
+1248: For each outcome in our mission, which student experiences deliver it, and what share of students get them?
+1249: What share of seniors can name a faculty mentor?
+1250: Do promotion criteria reward the in-class and out-of-class involvement with students that your mission depends on?
+1251: Which students are least likely to experience a real educational community, one that includes out-of-class time with professors, mentors and other students as well as class: commuters, transfers, working students?
+1252: This year. Add three questions to your senior survey: Do your professors know you by name? Did you have a mentor? Did you often talk with faculty outside class about non-course related topics?
+1253: Result: Experience-first
+1254: Your institution organizes itself around what students experience. The evidence supports that choice. The work is to protect it under budget pressure and to prove it to people outside.
+1255: What the research says to you. Graduates who took small discussion classes in their first two years were 25% more likely to keep learning actively as adults. The book notes that many of these practices cost little in new money. They rest on how faculty and staff spend their time, how requirements are written, and how teaching is done. But faculty time is the largest cost a college has, so the real question is what faculty are asked to stop doing. Costs rise when the institution asks faculty to do all of this on top of everything they did before. The checklist below marks which practices are budget neutral, which need time or money moved from elsewhere, and which need new investment.
+1256: Essential questions
+1257: What have we asked faculty to stop doing so that they can spend time with students?
+1258: Does out-of-class involvement with students depend on a few staff roles, or is that responsibility widely shared among faculty and staff?
+1259: Can we show a legislator, a parent or a donor objective evidence of student involvement, together with what the research says about its effect on life outcomes?
+1260: Are these experiences reaching every student, or mainly the ones who seek them out?
+1261: Are internships and long projects built into requirements, or left to students to find?
+1262: This year. Measure what share of your students have each of the experiences in the checklist below, and report it to your board. Publish it once you can show where you stand and what you are doing about it.
+1263: The retention case (shown under every result)
+1264: The experiences linked to graduates' lives are also linked to whether students stay. Vincent Tinto found that students are more likely to persist when they are connected to both the academic and the social life of the institution. George Kuh found that first-year seminars, learning communities, undergraduate research, service learning and similar practices were tied to better grades and to students returning for a second year, with the largest benefits for underrepresented, low-income and less-prepared students. Every student who stays is a student who can graduate, and tuition the institution does not have to replace.
+1265: Other research (shown under every result)
+1266: Alexander Astin studied about 25,000 students at 309 institutions. He found the peer group to be the single most powerful influence on students' development, with interaction with faculty next, and found that a heavy institutional emphasis on research can be associated with lower student satisfaction and weaker development.
+1267: Ernest Pascarella and Patrick Terenzini, reviewing decades of research, concluded that differences between colleges explain less than what students do once enrolled. Engagement is the lever.
+1268: Vincent Tinto found that students are more likely to stay when they are connected to both the academic and the social life of the institution. The experiences that are linked to good lives later are also the ones that keep students enrolled now.
+1269: Gallup-Purdue found that only 3% of graduates strongly agreed that they had had all six of the key supportive and hands-on experiences in college.
+1270: It has been done (shown under every result)
+1271: Heading: It has been done, at every kind of institution
+1272: George Kuh and colleagues studied 20 colleges and universities whose graduation rates and student engagement were higher than predicted for the students they enrolled. They included research universities, regional universities, liberal arts colleges and historically Black universities. Three examples from their study:
+1273: A liberal arts college: Ursinus College. Every first-year student took a two-semester Common Intellectual Experience course. Students lived near classmates from their section, some classes met in the residence halls, and advising was shared by teams of faculty and staff.
+1274: A research university: the University of Kansas. The university made undergraduate teaching a visible priority, with awards and rewards for good teaching, faculty "ambassadors" linked to its teaching center, and most undergraduate courses were kept at 30 students or fewer.
+1275: A small college: Alverno College. Student affairs staff worked as partners in learning, with outcomes for life outside class defined to match the abilities the college expects every graduate to develop.
+1276: Other institutions in the study included the University of Michigan, George Mason University, the University of Texas at El Paso, Fayetteville State University and Winston-Salem State University. What the twenty shared was not wealth or selectivity but six conditions: a mission that is lived, not only stated; an unshakeable focus on student learning; clearly marked pathways to success; a habit of continuous improvement; campus settings adapted for learning; and shared responsibility for educational quality.
+1277: These examples describe the institutions in the early 2000s, when those studies were done.
+1278: Note: Examples are as described in Student Success in College (2005). Please check the details against the book before publishing, or replace them with institutions you know.
+1279: Institutional checklist (tool)
+1280: Heading: Eight practices, many of which cost little in new money
+1281: What it's for. The checklist estimates how many of your students actually get the experiences the research links to graduates' lives, names who owns each one, and sets one next step for each. Most of these practices depend more on how time and requirements are arranged than on new money.
+1282: Who should complete it. A small group works best: the chief academic officer, the chief student affairs officer, the head of institutional research and someone from finance. Allow one meeting to gather data and one to complete the form.
+1283: How to use it
+1284: Gather the data first. Possible sources for each row are listed below. Where you have no data, say so: "unknown" is a finding. For the row on course practices, sample rather than review every course: for example, one section from each department, or NSSE items alone.
+1285: Estimate the share of students who get each experience, as a percentage. If you can, break it out for commuters, transfers, part-time and first-generation students, who are often least likely to get them.
+1286: Rate each practice on this scale:
+1287: Widespread: most students get it, roughly three-quarters or more.
+1288: Uneven: some do, often depending on major or on a few people.
+1289: Rare: few students get it, roughly a quarter or fewer.
+1290: Unknown: no reliable data.
+1291: Name an owner. One office or person responsible for each practice, not a committee.
+1292: Mark the cost. Is the next step budget neutral, a reallocation of time or money, a policy change, or a new investment? The table below gives the usual answer for each practice.
+1293: Choose one next step and a date for each practice.
+1294: Report the results to your board once a year, alongside enrollment and placement figures, and repeat the checklist annually. Share them publicly once you can show where you stand and what you are doing about it.
+1295: Using it for accreditation. Accreditors ask institutions to show that students achieve the outcomes the institution promises. The checklist, the three senior-survey questions in the Mission-first result and the alumni survey below can all serve as evidence in a self-study or assessment plan.
+1296: Note: The rating thresholds above are a suggested starting point, not standards from the study. Adjust them as you prefer.
+1297: Where to find the data
+1298: Practice
+1299: Possible data sources
+1300: Usual cost of improving it
+1301: Faculty and staff spend time with students outside class
+1302: National Survey of Student Engagement (student-faculty interaction items); senior survey
+1303: Prioritizing and reallocating faculty and staff time
+1304: Every student has at least one mentor
+1305: Senior survey ("Did you have a mentor?"); advising records
+1306: Reallocation; investment where advising loads are high
+1307: Major requirements leave room for broad study
+1308: Registrar degree audits; catalog review of major credit requirements
+1309: Policy change; usually budget neutral
+1310: Most courses use discussion, writing and open-ended problems
+1311: NSSE; a sample of syllabi; class size data
+1312: Mostly budget neutral (teaching development); investment if class sizes must fall
+1313: Students complete an internship, research project or other substantial experience beyond the classroom
+1314: Registrar and career office records; NSSE items on high-impact practices
+1315: Investment for paid placements and supervision
+1316: Students regularly work with others whose backgrounds and views differ
+1317: NSSE items on discussions with diverse others; residence and activity participation
+1318: Mostly budget neutral (course, residence and activity design)
+1319: First-year courses are taught by faculty with the time and a place to know students
+1320: Registrar and human resources data on who teaches first-year sections; office space and paid time for part-time faculty
+1321: Reallocation or investment
+1322: We know how alumni are doing ten and twenty years out
+1323: The alumni survey below
+1324: Modest investment
+1326: The form
+1327: Practice
+1328: Share of students (%)
+1329: Rating
+1330: Owner
+1331: Cost of next step
+1332: Next step and date
+1333: Faculty and staff spend time with students outside class
+1339: Every student has at least one mentor
+1345: Major requirements leave room for broad study
+1351: Most courses use discussion, writing and open-ended problems
+1357: Students complete an internship, research project or other substantial experience beyond the classroom
+1363: Students regularly work with others whose backgrounds and views differ
+1369: First-year courses are taught by faculty with the time and a place to know students
+1375: We know how alumni are doing ten and twenty years out
+1382: Groups least likely to get these experiences here:
+1383: The two practices we will act on first:
+1384: Copy the checklist · Email this to me · Print
+1385: Note: "Major requirements leave room for broad study" means half the degree outside the major or, in licensed programs such as nursing and engineering, breadth built into the major through ethics, writing and courses that connect fields.
+1386: Board summary (one page)
+1387: Heading: For your board: one page
+1388: What the research shows
+1389: Graduates who had a college mentor with a lasting impact were 26% more likely to be leaders as adults.
+1390: Graduates who took more than half their courses outside their major were 24% more likely to report a higher income, and 33% more likely if they came from lower-income families.
+1391: The same experiences are linked to students staying and graduating, and they matter most for students who arrive with the least.
+1392: What it means for us: ________
+1393: Five indicators we will track
+1394: Share of seniors who can name a faculty or staff mentor.
+1395: Share of students who frequently talk with faculty outside class.
+1396: Share of each degree that is courses outside the major, by major.
+1397: Share of students who complete an internship, research project or other substantial experience.
+1398: First-to-second-year retention, by student group.
+1399: Alumni outcomes at ten and twenty years are added as the alumni survey is run.
+1400: What it will cost: budget neutral ________ · reallocation ________ · new investment ________
+1401: What we ask of the board: ________
+1402: A message for legislators and donors
+1403: Use or adapt:
+1404: "A graduate's first-year earnings tell you about a first job, not a working life. Americans now hold nine or more jobs by their late thirties, and employers say the skills they weigh most in hiring are communication, problem-solving and adaptability. Studies that follow graduates for decades find that the earnings advantage of attending a famous college fades, and that what students experience in college, professors who know them, a mentor, broad study and teaching that makes them think, is linked to how their lives turn out. Those experiences matter most for students from families with little money. We are measuring how many of our students get them, and we are working to make sure every student does. [Your request.]"
+1405: Alumni survey (template)
+1406: What it's for. A short survey of alumni ten and twenty or more years after graduation, covering the six adult outcomes in the study and the college experiences linked to them.
+1407: Note: These questions are modeled on the kinds of questions the study asked, not its exact wording. Adapt them to your institution and test them before use. Commercial alumni surveys also exist.
+1408: Adult life
+1409: Leadership. In the past five years, have you led a team, organization, project or group at work or in your community?
+1410: Civic involvement. Did you vote in the most recent national election? In the past year, about how many hours did you volunteer? About what share of your income did you give to charities or causes?
+1411: Continued learning. In the past year, have you taken a course, earned a credential, or read or studied regularly to learn something new?
+1412: Cultural involvement. In the past year, how often did you attend concerts, theater, museums or talks, or read about or discuss the arts and ideas?
+1413: Fulfillment. How meaningful and satisfying is your life today?
+1414: Personal success. What is your current position level, from entry level to owner or chief executive? What is your household income, in broad bands?
+1415: College experiences
+1416: Did you have a college mentor whose influence has lasted?
+1417: Did most of your professors know you by name?
+1418: How often did you talk with professors outside class, about coursework and about other things?
+1419: About what share of your courses were outside your major?
+1420: How often did your classes involve discussion, writing, and questions with no single right answer?
+1421: Sample promotion and tenure language
+1422: Use or adapt in faculty review criteria:
+1423: "Teaching includes a faculty member's work with students outside class: advising and mentoring, supervising research and creative projects, and supporting students' learning beyond the course. Candidates should describe this work and its results, for example the number of students mentored, projects supervised and what students went on to do, and reviewers should weigh it as part of teaching, not as service."
+1424: For enrollment and admissions leaders (shown under every result)
+1425: Families will ask harder questions. The student and parent pages of this site suggest questions for visits and calls: who does the talking in class, what a first-year student can be in charge of, how many professors will know a student by name, and the graduation rate for students who receive Pell Grants. Prepare tour guides and counselors with specific, recent stories. On the student scorecard, a website claim alone counts as "Don't know yet."
+1426: Families will expect plain talk about price. The site tells families that published prices are rarely what they pay, and that they may ask for an aid offer to be reviewed. Be ready to explain your aid clearly.
+1427: The retention case funds this work. The same practices that are linked to graduates' lives are linked to students staying. Use the retention case above with your budget committee.
+1428: Citing the research. Cite it as Richard A. Detweiler, The Evidence Liberal Arts Needs (MIT Press, 2021).
+1429: A meaningful life in a world of change (shown under every result)
+1430: Nearly every college mission statement promises more than employment: leaders, citizens, lifelong learners, people who live with purpose. That is the oldest promise of American higher education, an education for the common good that serves both the graduate and society. Public confidence in that promise is fragile. In 2026, 38% of Americans said they had a great deal or quite a lot of confidence in higher education, down from 42% a year earlier. This study gives you evidence to keep the promise and to show it: the experiences linked to graduates' income are the same ones linked to their leadership, civic involvement, continued learning and fulfillment. Your graduates will live through constant change: Americans now in their early forties had already held an average of 9.4 jobs by age 38, about twenty years into their working lives, according to the Bureau of Labor Statistics. The World Economic Forum expects nearly 40% of the skills used at work to change by 2030, and projects that new jobs and lost jobs together will equal 22% of today's jobs. An institution that aligns its mission, budget, promotion criteria and reporting with those experiences prepares graduates for a whole life, and gives the public a reason to trust it again.
+1431: You've reached the end of the College Leaders section
+1432: What to do next
+1433: Work through the checklist with your cabinet, using the instructions with it, and take the one-page board summary to your board.
+1434: Share the Faculty section with academic leaders and department chairs. Its self-audit turns these practices into course-level steps.
+1435: See how policymakers are being asked to think. The Policymakers section proposes measures that may soon be asked of you.
+1436: Understand the bigger picture. Understanding College sets out the history and the case against measuring colleges by prestige.
+1437: See the evidence. The Research gives the findings, their limits and other studies.
+
+TABLES
+
+TABLE 1
+  1: Decision || Recommendation
+  2: Site name || What College Is Really For
+  3: Menu || Home, Choosing a College, In College, Parents, Faculty, College Leaders, Policymakers, Understanding College, The Research, About
+  4: Standard description of the study || Based on interviews with 1,000 college graduates, ages 25 to 65, from every kind of college.
+  5: Names of the six outcomes || Leadership, Civic Involvement, Continued Learning, Cultural Involvement, Fulfillment, Personal Success
+  6: Wording for the book's "authentic learning community" || Involvement with faculty and other students outside class. Never "a college where people knew them," which suggests a sociable personality.
+  7: Causal language || "linked to," "related to," "more likely." Never "proves," "causes" or "guarantees."
+
+TABLE 2
+  1: Card title || Question on the card || Button
+  2: I'm choosing a college || What do I want college to do for me, and which colleges can do it? || Start
+  3: I'm in college || Am I getting the experiences that last? || Start
+  4: I'm a parent || How do we pay for it, and what should it buy? || Start
+  5: I teach || Which parts of my teaching will still matter to students in thirty years? || Start
+  6: I lead a college || Do our budget and incentives protect what changes students' lives? || Start
+  7: I make policy || How should we measure what a college is worth? || Start
+
+TABLE 3
+  1: Rating || What it means
+  2: Strong || A current student gave you a specific, recent example, or you saw it yourself.
+  3: Mixed || There's some evidence, or it depends on the major or program, or students disagreed.
+  4: Weak || Students couldn't give an example, or what you found suggests it's rare.
+  5: Don't know yet || You haven't found real evidence. A website claim alone stays here.
+
+TABLE 4
+  1: Question || Where to find out || #1 || #2 || #3 || #4
+  2: Can my family afford all four years, after grants and scholarships? || The college's net price calculator; College Scorecard (cost by family income); your scholarship or financial aid offer ||  ||  ||  || 
+  3: Do students like me finish here, in four years? || College Scorecard; College Navigator; ask admissions for the graduation rate of Pell Grant recipients ||  ||  ||  || 
+  4: Will I feel safe, supported and like I belong? || Current students; campus support offices; your own visit ||  ||  ||  || 
+  5: Do they have what I might study, with room to change my mind? || Course catalog; admissions ||  ||  ||  || 
+
+TABLE 5
+  1: Row || What to find out || Where to look or who to ask || #1 || #2 || #3 || #4
+  2: Professors and students outside class (counts for every result) || Do professors know students and spend time with them outside class? || Ask a student: "Is there a professor who knows you well?" ||  ||  ||  || 
+  3: Leadership || Do students get real responsibility early? || Club and team pages: are first- and second-year students in charge? ||  ||  ||  || 
+  4: Civic Involvement || Do classes and programs work with the community over time? || Service office; news page; ask a student what they've worked on ||  ||  ||  || 
+  5: Continued Learning || Is there room to study outside the major, in small discussion classes? || Graduation requirements; first-year course list ||  ||  ||  || 
+  6: Cultural Involvement || Will I study and spend time with ideas, arts and people unlike me? || Required courses; events calendar; study-abroad numbers ||  ||  ||  || 
+  7: Fulfillment || Will someone help me think about what I want, not just which classes I need? || Ask how advisers are assigned; course descriptions ||  ||  ||  || 
+  8: Personal Success || Are internships and big projects common, paid or funded, and supported early? || Outcomes page; career office; ask a student when they first went ||  ||  ||  || 
+
+TABLE 6
+  1:  || #1 || #2 || #3 || #4
+  2: Number of Strongs (starred rows first) ||  ||  ||  || 
+  3: The best example I heard ||  ||  ||  || 
+  4: What worries me ||  ||  ||  || 
+
+TABLE 7
+  1: Move || Card || My choice (be specific) || First step and the words I'll use || Date || Small version if I'm short on time
+  2: Move 1 ||  ||  ||  ||  || 
+  3: Move 2 ||  ||  ||  ||  || 
+  4: Move 3 ||  ||  ||  ||  || 
+
+TABLE 8
+  1: Move || Did it happen? || What got in the way || What I'll change
+  2: Move 1 ||  ||  || 
+  3: Move 2 ||  ||  || 
+  4: Move 3 ||  ||  || 
+
+TABLE 9
+  1: Practice || Evidence to look at
+  2: I know students' names || How many names did I know by week four? By midterm?
+  3: I talk with students outside class || How many students did I talk with one-to-one this term, about anything beyond a grade?
+  4: Students do most of the talking and thinking in class || In a typical class meeting, how many minutes are students talking, arguing or working on problems?
+  5: Assignments have no single right answer || How many assignments could two strong students answer differently and both do well?
+  6: Students examine their own arguments || How often must students state the strongest objection to their own answer?
+  7: Optional: the big questions || Does the course ever ask what is right, what matters, or what the subject means for people's lives?
+  8: Optional: what students say || What did students answer to the two midterm questions in step 7?
+
+TABLE 10
+  1: Practice || What happens now (evidence) || Rating || Constraint, if any || One change for next term || How I'll know it worked
+  2: I know students' names ||  ||  ||  ||  || 
+  3: I talk with students outside class ||  ||  ||  ||  || 
+  4: Students do most of the talking and thinking ||  ||  ||  ||  || 
+  5: Assignments have no single right answer ||  ||  ||  ||  || 
+  6: Students examine their own arguments ||  ||  ||  ||  || 
+  7: Optional: the big questions ||  ||  ||  ||  || 
+
+TABLE 11
+  1: Practice || Possible data sources || Usual cost of improving it
+  2: Faculty and staff spend time with students outside class || National Survey of Student Engagement (student-faculty interaction items); senior survey || Prioritizing and reallocating faculty and staff time
+  3: Every student has at least one mentor || Senior survey ("Did you have a mentor?"); advising records || Reallocation; investment where advising loads are high
+  4: Major requirements leave room for broad study || Registrar degree audits; catalog review of major credit requirements || Policy change; usually budget neutral
+  5: Most courses use discussion, writing and open-ended problems || NSSE; a sample of syllabi; class size data || Mostly budget neutral (teaching development); investment if class sizes must fall
+  6: Students complete an internship, research project or other substantial experience beyond the classroom || Registrar and career office records; NSSE items on high-impact practices || Investment for paid placements and supervision
+  7: Students regularly work with others whose backgrounds and views differ || NSSE items on discussions with diverse others; residence and activity participation || Mostly budget neutral (course, residence and activity design)
+  8: First-year courses are taught by faculty with the time and a place to know students || Registrar and human resources data on who teaches first-year sections; office space and paid time for part-time faculty || Reallocation or investment
+  9: We know how alumni are doing ten and twenty years out || The alumni survey below || Modest investment
+
+TABLE 12
+  1: Practice || Share of students (%) || Rating || Owner || Cost of next step || Next step and date
+  2: Faculty and staff spend time with students outside class ||  ||  ||  ||  || 
+  3: Every student has at least one mentor ||  ||  ||  ||  || 
+  4: Major requirements leave room for broad study ||  ||  ||  ||  || 
+  5: Most courses use discussion, writing and open-ended problems ||  ||  ||  ||  || 
+  6: Students complete an internship, research project or other substantial experience beyond the classroom ||  ||  ||  ||  || 
+  7: Students regularly work with others whose backgrounds and views differ ||  ||  ||  ||  || 
+  8: First-year courses are taught by faculty with the time and a place to know students ||  ||  ||  ||  || 
+  9: We know how alumni are doing ten and twenty years out ||  ||  ||  ||  || 
+
+TABLE 13
+  1: Measure || Why it matters || Collected in our state? (Yes, Partly, No) || Who could collect it || Priority (1 to 5)
+  2: Earnings and employment ten years after graduation || Early advantages by major fade; in most cases major was unrelated to longer-term success ||  ||  || 
+  3: Share of credits taken outside the major || Graduates who took more than half their courses outside the major were 24% more likely to report a higher income; 33% for lower-income graduates ||  ||  || 
+  4: Share of students with a mentor || Graduates with a lasting mentor were 26% more likely to be leaders ||  ||  || 
+  5: Student engagement survey results || What students do in college matters more than where they enroll, and engagement is linked to finishing ||  ||  || 
+  6: Alumni civic involvement: volunteering and giving || A direct measure of public return ||  ||  || 
+
+TABLE 14
+  1: Kind || What it is || Built mainly to || Worth knowing
+  2: Community college || Two-year public college, open to nearly everyone, low cost || Start a degree, train for a local career, or transfer to a four-year college || Small classes are common. Most students commute and many work, so life outside class takes effort to find.
+  3: Liberal arts college || Smaller four-year college, usually residential, primarily undergraduate || Teach undergraduates broadly, in close contact with professors || Fewer majors than a university. Emphasis on the total educational community. Professors are rewarded for the quality of their teaching and out-of-class involvement with students; a moderate emphasis on research.
+  4: Regional or comprehensive university || Mid-sized public or private university with bachelor's and master's programs || Educate the region's teachers, nurses, managers and other professionals || Generally teaching-centered, often with more working and transfer students. Classes may be smaller, so professors can get to know students. Because many students work and commute, experiences outside class take deliberate planning by the university and by students.
+  5: Research university || Large university with doctoral programs, laboratories and professional schools || Produce new knowledge as well as teach || Many courses and majors. Professors balance teaching with research and graduate training, and large introductory courses often use teaching assistants. Honors colleges and smaller programs can offer a close community inside the large university.
+  6: Specialized college || Art, music, engineering, health sciences, business, religious study, military academies || Prepare students deeply for one field || The choice of major is largely made before arriving.
+  7: Career and for-profit college || Programs aimed at a specific job, often short and often online || Deliver a credential quickly || Outcomes vary widely. Check completion rates and debt.
+
+TABLE 15
+  1:  || Part || In practice
+  2: What is studied (content) || Not tied to one occupation || A major in a field of knowledge, not a job title
+  3:  || The full span of knowledge || Substantial study outside the major; seeing how fields connect
+  4:  || Intellectual skills || Writing, reasoning, information seeking, working on questions with no single right answer
+  5: How it is studied (context) || Engaging teaching || Discussion, seminars, students doing the thinking
+  6:  || Larger perspectives || Serious contact with people and ideas unlike one's own
+  7:  || An educational community || Faculty, students and staff involved with one another outside class as well as in it
+
+TABLE 16
+  1: Life of || Outcome || Examples of what was asked
+  2: Consequence || Leadership || Leading organizations and groups
+  3: Consequence || Civic Involvement || Giving, volunteering, voting
+  4: Inquiry || Continued Learning || Continuing to read, study and learn
+  5: Inquiry || Cultural Involvement || Taking part in arts, ideas and culture
+  6: Accomplishment || Fulfillment || Describing life as meaningful and satisfying
+  7: Accomplishment || Personal Success || Position and income
+
+TABLE 17
+  1: Type || Experience || Examples
+  2: What you study || A major not tied to one occupation || Majors not designed for a specific occupation, unlike fields such as engineering, accounting and nursing
+  3: What you study || Breadth || More than half of courses outside the major; humanities; big human questions in most classes
+  4: What you study || Intellectual skills || Writing papers; questions with no single right answer; examining your own arguments
+  5: How you study || Engaging teaching || Discussion, seminars, smaller classes
+  6: How you study || Larger perspectives || Talking about justice, rights and values; contact with people of different beliefs and cultures
+  7: How you study || Involvement with faculty and students outside class (the book's "authentic learning community") || Talking with faculty outside class about academic and non-academic subjects; professors who know your name; a mentor with lasting influence; clubs, teams and campus activism; living on campus
+
+TABLE 18
+  1: Researcher || Study || What it adds
+  2: Alexander Astin || What Matters in College? (1993). About 25,000 students at 309 institutions. || The peer group is the single most powerful influence on students' development, and interaction with faculty is next. Involvement drives results.
+  3: Ernest Pascarella and Patrick Terenzini || How College Affects Students (1991, 2005). Reviews of decades of studies. || What students do in college matters more than which college they attend.
+  4: Richard Light || Making the Most of College (2001). Interviews with Harvard undergraduates over many years. || Students who do best get to know faculty, study in groups, write a great deal, and learn from classmates unlike themselves, mostly outside class.
+  5: Vincent Tinto || Leaving College (1987, 1993). || Students stay when they are connected to both the academic and the social life of a college.
+  6: Gallup and Purdue University || Great Jobs, Great Lives (2014). 30,000 graduates. || Caring professors, a mentor, a long project, an applied internship and deep involvement are tied to later engagement at work and well-being.
+  7: Scott Freeman and colleagues || "Active Learning Increases Student Performance in Science, Engineering, and Mathematics," Proceedings of the National Academy of Sciences (2014). Review of 225 studies. || Students in traditional lectures were about one and a half times as likely to fail as students in classes that used active learning, and exam scores rose by about 6%.
+  8: George Kuh || High-Impact Educational Practices (AAC&U, 2008). || First-year seminars, writing-intensive courses, undergraduate research, service learning and similar practices were tied to better grades and to students returning for a second year. Underrepresented, low-income and less-prepared students benefited most, and were the least likely to take part.
+  9: National Survey of Student Engagement || High-impact practices || Effort, faculty and peer interaction, learning beyond the classroom, and work across difference mark the experiences that matter most.
+
+TABLE 19
+  1: No. || Page and place || What the photo shows || Alt text
+  2: P1 || Home, below the headline, above the audience cards || A student and a professor in conversation outside a classroom, in a hallway or office doorway. Both engaged, candid, not looking at the camera. || A student talks with a professor in a campus hallway.
+  3: P2 || Choosing a College, landing || Two or three high school students on a campus visit, talking with a current student. Candid, not posed. || High school students talk with a current student during a campus visit.
+  4: P3 || In College, landing || A student talking with a professor in an office or hallway, or at a lab bench. || A college student and a professor talk in the professor's office.
+  5: P4 || Parents, landing || A parent and teenager looking at a laptop together at a kitchen table, or walking on a campus. || A parent and teenager look at college information together on a laptop.
+  6: P5 || Faculty, landing || A seminar table mid-discussion, with the professor listening rather than lecturing. || Students discuss a reading around a seminar table while their professor listens.
+  7: P6 || College Leaders, landing || Faculty and students working together at a table, or a busy campus common area in use. || Faculty and students work together at a table.
+  8: P7 || Policymakers, landing || Graduates at work in a community setting, such as a clinic, a classroom, a town meeting or a nonprofit office. || A college graduate leads a community meeting.
+  9: P8 || Understanding College, opening || Three small photos side by side: a community college, a state university and a small residential college, each with students in view. || Three campuses: a community college, a large state university and a small residential college.
+  10: P9 || About the Author, opening || A portrait of Richard A. Detweiler. || Portrait of Richard A. Detweiler.
+  11: P10 || About the Author, "The book" || The cover of The Evidence Liberal Arts Needs. || Cover of The Evidence Liberal Arts Needs by Richard A. Detweiler, MIT Press.
+
+TABLE 20
+  1: No. || Page and place || What it shows || Type || Source line under the chart
+  2: G1 || The Research, "What it found," beside finding 4 || Graduates who took more than half their courses outside their major were more likely to report a higher income: 24% overall, 33% from lower-income families, 34% with lower entrance test scores. || Three horizontal bars, labeled directly || Detweiler, The Evidence Liberal Arts Needs, p. 162
+  3: G2 || Understanding College, "One idea, refined over millennia and nearly four centuries old in America" || 1636 Harvard founded; 1810 Prussian model appears; 1828 Yale Report; 1862 Morrill Act; 1876 Johns Hopkins. || Horizontal timeline with five points || Detweiler, The Evidence Liberal Arts Needs, ch. 3
+  4: G3 || Understanding College, "The case for the liberal arts college" || "My professors care about me as a person": 45% at colleges with fewer than 5,000 students, 24% at larger institutions. || Two horizontal bars, labeled directly || Gallup, 2019, as cited in Detweiler, p. 191
+  5: G4 || Understanding College, "What employers say" || Skills employers weigh most in hiring: communication 64%, problem-solving 62%, adaptability 60%. || Three horizontal bars, labeled directly || GMAC Corporate Recruiters Survey 2026
+  6: G5 || Home, "Six outcomes" || One simple line icon for each outcome: Leadership, Civic Involvement, Continued Learning, Cultural Involvement, Fulfillment, Personal Success. || Six icons, one style, one color || None needed
+  7: G6 || Every "A meaningful life in a world of change" block || The figure "9.4 jobs" set large, with the line "already held by age 38 by Americans now in their early forties." || Large number, not a chart || Bureau of Labor Statistics
+
+TABLE 21
+  1: Draft site said || Revised text says || Why
+  2: "Tracing the lives of 1,000 graduates over 50 years"; "tracked 1,000 graduates over 40 years"; "longitudinal" || "Interviews with 1,000 college graduates, ages 25 to 65" || The book describes a single round of interviews with three age groups
+  3: "A landmark study proving…"; "empirical proof"; "data to prove it" || "linked to," "related to," "more likely" || The book is careful about cause and effect
+  4: "Up to 34% more [income] for those from lower-income backgrounds" || "24% more likely to report a higher income; 33% for graduates from lower-income families" || 34% is the figure for lower entrance test scores; these are probabilities, not income amounts
+  5: "59% more likely to live a life of inquiry" || "59% more likely to report fulfilled lives" || The 59% figure is for fulfillment
+  6: "Twice as likely to be engaged in their work" credited to Detweiler || Credited to Gallup-Purdue || The book cites it from Gallup-Purdue
+  7: "Small class sizes" listed first among predictors || Discussion, seminars and smaller classes, as one of several teaching practices || Matches the book's emphasis
+  8: "Altruism" (the book) and "Contribution" (earlier drafts) for the second outcome || "Civic Involvement"; student result "The Community Builder" || The outcome was measured by voting, volunteering and donating to nonprofits
+  9: Claims about starting businesses, entrepreneurship, social services and retraining || Removed || Not found in the book
+  10: AI and automation sections || Removed || The study does not address AI
+  11: "Must be supplemented or replaced by indicators of longer-term life outcomes" (quotation) || Paraphrased: "longer-term value to the individual and to society" || The book's wording differs from the quotation on the site
+  12: Results that congratulated every quiz-taker || A written result for every answer type || Honest results are more useful and more credible
+  13: "Liberal arts graduates surpass their peers in income by mid-career" || "Major was unrelated to longer-term success; breadth was related to higher income" || The book reports the effect of breadth, not of institution type
+  14: "95% of mission statements focus on Altruism, Continued Learning, and Leadership" || "An analysis of the mission statements of 241 colleges found them promising much the same things" || I could not confirm the 95% claim as worded

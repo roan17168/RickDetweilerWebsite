@@ -1,0 +1,164 @@
+PARAGRAPHS (full-document indices)
+1439: Policymakers
+1440: Page title: Policymakers | What College Is Really For
+1441: Search description: For legislators, members of Congress, board members and policy staff. What the research says about measuring the value of a college, questions to ask in hearings, and a one-page brief.
+1442: Landing
+1443: Label: For legislators and policymakers
+1444: Heading: How should government measure what a college is worth?
+1445: State and federal accountability systems count enrollment, completion and earnings in the first years after college. Those measures set a floor: no student, and no taxpayer, should pay for a program that leaves graduates worse off. But a floor is not a ceiling. Interviews with 1,000 graduates found that what students experienced in college is linked to how their lives went ten, twenty and forty years later, including their income, leadership, civic involvement, and continued learning.
+1446: Three things worth knowing
+1447: Major matters only in the short term. The educational experience matters in both the short and the long term. Specialized preparation helped graduates get their first jobs, and that advantage faded. Over a career, major was unrelated to success in most cases. Graduates who took more than half their courses outside their major were 24% more likely to report a higher income as adults.
+1448: The students who benefit most get these experiences least. Among graduates from lower-income families, the same experience was linked to a 33% greater likelihood of higher income. Other research finds that low-income, first-generation and underrepresented students gain the most from close contact with faculty and similar practices, and are the least likely to have it.
+1449: Most of what matters most for life impact is not expensive. The experiences in question are professors who know students, a mentor, room for courses outside the major and involvement in campus life. They cost faculty time and planning more than buildings, and they are also linked to students finishing college, which governments already pay for.
+1450: Buttons: Questions to ask · One-page brief · In Washington
+1451: Find your emphasis (optional). 5 questions, two minutes. Most policymakers hold all three priorities in the quiz; your answers show which one you lead with and tailor the questions you get.
+1452: Button: Take the quiz
+1453: What you get
+1454: Questions to ask in hearings and of system leaders.
+1455: A one-page brief on measuring long-term outcomes, with language for a report request and a hearing.
+1456: What the study covers, and what it does not.
+1457: Quiz
+1458: What is the most important return on public spending for higher education?
+1459: Filling workforce needs.   → Workforce
+1460: Engaged, responsible citizens.   → Civic
+1461: An economy that can adapt over the long run.   → Resilience
+1462: How should the quality of a college be judged?
+1463: By what graduates earn in their first years.   → Workforce
+1464: By how many graduates are civically involved, volunteer, give, and lead in their communities.   → Civic
+1465: By how graduates are doing, in success and in involvement, twenty years on.   → Resilience
+1466: Which skills should public money favor?
+1467: Technical skills employers are asking for now.   → Workforce
+1468: The skills of citizenship: reasoning, civil debate and working with people who disagree.   → Civic
+1469: The ability to learn new things as jobs change.   → Resilience
+1470: What is the bigger risk to your state or the country?
+1471: Not enough trained workers for current industries.   → Workforce
+1472: Declining trust and participation in civic life.   → Civic
+1473: Workers and employers unable to adapt to change.   → Resilience
+1474: A college asks for funding. What do you want to see first?
+1475: Placement rates and employer demand.   → Workforce
+1476: Evidence of graduates' contribution to their communities.   → Civic
+1477: Evidence of graduates' progress over a career.   → Resilience
+1478: Note: Scoring: the type chosen most often is the result. On a two-way tie, show both. A "Skip to the questions" link sits under the quiz heading and goes straight to the results page with all three sets of questions.
+1479: Result: Workforce first
+1480: You want public money to lead to jobs. Constituents expect that, and it is a fair test.
+1481: What the research says to you. Major matters for the first job. Starting salaries differ widely by field, and in this study specialized preparation helped graduates get started. The advantage faded. Over a career, major was unrelated to success in most cases. Graduates who took more than half their courses outside their major were 24% more likely to report a higher income as adults, and 33% more likely if they came from lower-income families. Career preparation and broad study are not rivals. The strongest combination is a career-ready major with plenty of room left for courses outside it.
+1482: Questions to ask
+1483: What do we know about our graduates' earnings and employment at ten and twenty years, not only the first few?
+1484: Do our funding formulas reward programs for early outcomes only?
+1485: When credit requirements have been reduced, do students have room for courses outside their major?
+1486: Which students have least access to broad study and faculty contact, and are they the ones, such as students from lower-income families, first-generation students and students from racial and ethnic minority groups, who would benefit most?
+1487: Try this one thing. Ask your state's higher education agency to report earnings ten and twenty years after graduation beside the early-earnings figures it already reports. Many states can do this with wage records they already hold.
+1488: Result: Civic first
+1489: You see colleges as part of what holds a community together. The study measured that directly.
+1490: What the research says to you. Graduates were asked how much they give, how much they volunteer and whether they vote. Graduates who were closely involved with faculty and other students outside class were 56% more likely to give a larger share of their income and 42% more likely to volunteer more time. Voting was not linked to these experiences; giving and volunteering were. What graduates majored in made little difference.
+1491: The study also asked how often graduates had talked in college with people whose values, beliefs and backgrounds differed from their own. Those who often did were 26% more likely to be leaders as adults and 38% more likely to keep learning actively. These are the habits civic education aims to build: reasoning, civil disagreement and working with people who see things differently.
+1492: Questions to ask
+1493: Does any measure in our accountability system capture civic outcomes?
+1494: Are the experiences linked to civic life, such as mentoring, campus involvement and conversations with people who disagree, available at commuter and part-time-serving institutions?
+1495: What have recent budget decisions done to faculty time with students?
+1496: Do students on our campuses hear, and engage with, the strongest arguments on more than one side of contested questions?
+1497: Try this one thing. Ask institutions to report what share of students say a professor or staff member mentored them, using a question from a student engagement survey they already give.
+1498: Result: Resilience first
+1499: You are thinking about the economy your state and the country will have in twenty years, not this year's openings. The study speaks most directly to this view.
+1500: What the research says to you. The study interviewed graduates about ten, twenty and forty years out of college. Breadth of study, intellectual challenge, and involvement with faculty and other students were linked to continued learning, to leadership, and to success over time. For example, graduates whose studies spanned many fields were 29% more likely to keep learning actively as adults. The book argues that first-job income, now widely used as a sign of quality, should be supplemented by indicators of longer-term value to the individual and to society.
+1501: Questions to ask
+1502: Which of our measures would tell us whether graduates can adapt?
+1503: Do our policies encourage breadth of study, or squeeze it out?
+1504: Are we funding the things that are cheap and effective, such as faculty time with students, or only the things that are easy to count?
+1505: What would it take to follow a sample of graduates for twenty years?
+1506: Try this one thing. Commission a ten- and twenty-year alumni outcomes survey for the public system, using questions that already exist, or link graduates' records to state wage data.
+1507: The completion case (shown under every result)
+1508: Governments already pay for completion. The experiences linked to long-term outcomes are linked to finishing college too. Vincent Tinto's research found that students who are connected to faculty and to other students are more likely to stay. George Kuh found that first-year seminars, writing-intensive courses, undergraduate research and similar practices were tied to better grades and to students returning for a second year, and that low-income, first-generation and underrepresented students benefited most but were the least likely to take part. Every student who stays protects the tuition, state aid and federal aid already spent on them.
+1509: What the study covers, and what it does not (shown under every result)
+1510: Who was interviewed. 1,000 people with bachelor's degrees, ages 25 to 65, interviewed once by telephone. Six hundred came from a nationally representative sample of graduates; 400 more came from the alumni of twelve liberal arts colleges, added so that graduates with many of these experiences would be well represented. The findings held within both groups.
+1511: Different kinds of students. The links held across gender, race and ethnicity, entrance test scores and family income. Graduates of color were 11% of the sample, so findings for specific groups are less precise.
+1512: Who is not covered. The study did not include students who left college without a degree, students who attended only a community college, or adults who returned to finish a degree later. For those students, research on persistence (Tinto) and on high-impact practices (Kuh), and community college engagement surveys, are better guides.
+1513: Cause. The study shows that these experiences and outcomes go together, and other research affirms these findings. The Research page explains the checks the book made.
+1514: Other research (shown under every result)
+1515: Ernest Pascarella and Patrick Terenzini, reviewing decades of research on college impact, concluded that what students do in college matters more than which college they attend. Measures of student engagement tell a state more than rankings or selectivity.
+1516: Vincent Tinto's research on why students leave found that students who are connected to faculty and peers are more likely to finish.
+1517: Alexander Astin's study of about 25,000 students at 309 institutions found that student involvement, with peers and with faculty, drove development more than institutional type or resources.
+1518: Gallup and Purdue University's survey of 30,000 graduates concluded that what students did in college, and how they experienced it, related more strongly to their later work and well-being than where they went.
+1519: In Washington (shown under every result)
+1520: The federal floor. Under the 2025 federal budget law, a program loses eligibility for federal Direct Loans if, in two of three years, its graduates' median earnings four years after completion are below those of working adults aged 25 to 34 with only a high school diploma. The Department of Education will first calculate the test in early 2027. But it measures only the first years of a working life.
+1521: Four ways to add the long view
+1522: Data that follows graduates longer. Federal law bars the Department of Education from keeping a database of individual student records, so federal earnings data come mostly from the first years after college. The College Transparency Act, introduced in the Senate in July 2025 with sponsors from both parties, would create a secure student-level data system that could report outcomes over longer periods.
+1523: Fund the experiences. Federal Work-Study pays for campus jobs that put students beside the same people every week. TRIO programs and the McNair Scholars Program pay for mentoring and undergraduate research for low-income and first-generation students. These are the experiences the research links to long-term outcomes.
+1524: Answer the cause question. This study could not prove cause; a study that follows students from entry can. Federal surveys such as Baccalaureate and Beyond already follow graduates for about ten years. Adding questions about faculty contact, breadth of study and civic life would let them test these findings.
+1525: Count what students experience. Ask that federal reporting or accreditation reviews include a measure of student engagement beside earnings and completion.
+1526: Questions for hearings
+1527: How will we know whether programs that pass the four-year earnings test serve graduates well at ten and twenty years?
+1528: Do any federal data show how many students have a faculty mentor or take courses outside their major?
+1529: Which federal programs pay for faculty contact, mentoring and campus involvement for low-income students, and what is happening to their funding?
+1530: One-page brief (tool)
+1531: Heading: Five measures to add to early-earnings data
+1532: What it's for. The brief helps you find out what your state already measures about college outcomes, decide which longer-term measures to ask for, and put the request on one page for an agency, a committee or a system board.
+1533: When to use it. Before a budget hearing, a performance-funding review, or a meeting with your state's higher education agency or system office.
+1534: How to use it
+1535: Ask what is already collected. Your state's higher education agency or system office can tell you. Many states link college records to state wage records through a statewide longitudinal data system, which can show earnings ten years out. Many public colleges also give a student engagement survey, such as the National Survey of Student Engagement or, at community colleges, the Community College Survey of Student Engagement, which asks how often students talk with faculty outside class.
+1536: Mark each measure Yes, Partly or No.
+1537: Note who could collect it. The agency, the institutions, or a survey partner.
+1538: Choose your priorities. Pick one or two measures to ask for first. Earnings at ten years and share of students with a mentor are often the easiest to start. Define "mentor" with an existing survey question, such as Gallup's "I had a mentor who encouraged me to pursue my goals and dreams," so colleges report the same thing.
+1539: Fill in the request at the bottom of the form.
+1540: Use the questions from your result in the hearing or meeting.
+1541: Follow up in writing with the brief attached, and ask when the first report will be available.
+1542: The form
+1543: Measure
+1544: Why it matters
+1545: Collected in our state? (Yes, Partly, No)
+1546: Who could collect it
+1547: Priority (1 to 5)
+1548: Earnings and employment ten years after graduation
+1549: Early advantages by major fade; in most cases major was unrelated to longer-term success
+1550: 
+1551: 
+1552: 
+1553: Share of credits taken outside the major
+1554: Graduates who took more than half their courses outside the major were 24% more likely to report a higher income; 33% for lower-income graduates
+1555: 
+1556: 
+1557: 
+1558: Share of students with a mentor
+1559: Graduates with a lasting mentor were 26% more likely to be leaders
+1560: 
+1561: 
+1562: 
+1563: Student engagement survey results
+1564: What students do in college matters more than where they enroll, and engagement is linked to finishing
+1565: 
+1566: 
+1567: 
+1568: Alumni civic involvement: volunteering and giving
+1569: A direct measure of public return
+1570: 
+1571: 
+1572: 
+1573: 
+1574: Our request
+1575: We ask [agency or system] to report [measure] for [institutions or sector] by [date], alongside the completion and early-earnings data already reported, so that the state can see the long-term return on its investment.
+1576: Language for a report request (adapt to your state)
+1577: "The [agency] shall report to the [committee] by [date], for each public institution: (a) median earnings of graduates ten years after completion, using state wage records; (b) the share of graduates who completed more than half of their credits outside their major; and (c) results of a student engagement survey on students' contact with faculty outside class, alongside the completion and earnings data already reported. Existing records and surveys shall be used wherever possible."
+1578: For a hearing or floor statement
+1579: "A first job is a floor, not a ceiling. Graduates who studied widely and had professors who knew them earned more, led more and gave more decades later, and the gains were largest for students from families with little money. We should keep holding colleges to the floor, and start measuring the rest."
+1580: Copy the brief · Email this to me · Print · Download the two-page leave-behind (PDF)
+1581: Note: The two-page leave-behind is a print version of "Three things worth knowing," the completion case, "What the study covers," the five measures and the report-request language, with endnotes.
+1582: A meaningful life in a world of change (shown under every result)
+1583: Whether you lead with the workforce, civic life or long-term resilience, the public return on college comes over a graduate's forty years, not the first one. The study found that the same experiences serve all three. They were linked to higher income over a career, to leadership, giving and volunteering in communities, and to the continued learning that lets people adapt. Change is constant: Americans now in their early forties had already held an average of 9.4 jobs by age 38, about twenty years into their working lives, according to the Bureau of Labor Statistics. The World Economic Forum expects nearly 40% of the skills used at work to change by 2030, and projects that new jobs and lost jobs together will equal 22% of today's jobs. Colleges that prepare graduates to succeed, to lead and to contribute deliver the full public return: self-supporting workers, engaged citizens and an economy that can renew itself. Measures and funding that reward those outcomes, as well as first-job placement, protect the public's investment.
+1584: You've reached the end of the Policymakers section
+1585: What to do next
+1586: Fill in the one-page brief using the instructions with it, and send it to your state's higher education agency or bring it to a hearing.
+1587: In Congress? Use "In Washington" for the federal floor, data and programs.
+1588: See the institutional side. The College Leaders section shows what colleges can do, often at little cost.
+1589: Understand the bigger picture. Understanding College explains the types of institutions and why rankings and first-job earnings are weak measures of value.
+1590: See the evidence. The Research gives the findings, how the study was done, its limits and other studies.
+1591: 
+
+TABLES
+
+TABLE 13
+  Measure || Why it matters || Collected in our state? (Yes, Partly, No) || Who could collect it || Priority (1 to 5)
+  Earnings and employment ten years after graduation || Early advantages by major fade; in most cases major was unrelated to longer-term success ||  ||  || 
+  Share of credits taken outside the major || Graduates who took more than half their courses outside the major were 24% more likely to report a higher income; 33% for lower-income graduates ||  ||  || 
+  Share of students with a mentor || Graduates with a lasting mentor were 26% more likely to be leaders ||  ||  || 
+  Student engagement survey results || What students do in college matters more than where they enroll, and engagement is linked to finishing ||  ||  || 
+  Alumni civic involvement: volunteering and giving || A direct measure of public return ||  ||  || 

@@ -1,0 +1,309 @@
+PARAGRAPHS 91-366
+[91] Heading2: Closing
+[92] : Heading: The college matters. What happens there matters more.
+[93] : These findings held across every type of college and student in the study.
+[94] : A meaningful life in a world of change. The oldest purpose of American college is also the most practical: an education for the common good. It helps each graduate build a good life, with work that pays and work worth doing, and it prepares each graduate to give back as a leader, a neighbor and a citizen. In the study behind this site, the two went together: the same experiences were linked to higher income and to leadership, volunteering, continued learning and a fulfilled life. And the world keeps changing. Americans now in their early forties had already held an average of 9.4 jobs by age 38, about twenty years into their working lives, according to the Bureau of Labor Statistics. The World Economic Forum expects nearly 40% of the skills used at work to change by 2030, and projects that new jobs and lost jobs together will equal 22% of today's jobs. An education that teaches people to learn, to think and to work with others prepares them for all of it, and for a life that matters to them and to the people around them.
+[95] : Button: Find your questions
+[96] : 
+[97] Heading1: Choosing a College
+[98] : Note: This pathway is rewritten for a 16-to-19-year-old reader. Quiz answers are short and in their own words. Each result gives one plain finding with one rounded number, a graduate's own words from the book, questions that are easy to say out loud, and ways to find out without asking anyone. Exact figures stay on The Research page.
+[99] : Page title: Choosing a College | What College Is Really For
+[100] : Search description: A one-minute quiz for high school students. Find out what you want most from college and get the questions to ask on campus visits.
+[101] Heading2: Landing
+[102] : Label: For students choosing a college
+[103] : Heading: Rankings can't tell you what college will do for you.
+[104] : Majors, price, location, dorms. They all matter. None of them tell you who you'll be at 28 or in the years that follow. Start with what you want out of college, then find the schools that can deliver it.
+[105] : Button: Take the quiz
+[106] : 5 questions, plus one optional. About a minute. No sign-up, no wrong answers.
+[107] : What you get
+[108] ListParagraph: Your result. What your answers say you want most from college.
+[109] ListParagraph: Questions to ask. Easy to say, hard to dodge.
+[110] ListParagraph: Ways to check without asking anyone. Things to look up or notice.
+[111] ListParagraph: A scorecard. Compare your finalists on what students really experience.
+[112] : What college really costs
+[113] : Heading: The price on the website is not the price you'll pay.
+[114] : Most students pay less than the published price, often much less. At private nonprofit colleges, 9 in 10 first-year students get grants from the college itself, and on average those grants cover more than half of the published tuition. Some colleges with high published prices cost students from lower-income families less than a public university does. You can find your real price before you apply.
+[115] ListParagraph: Net price calculator. Every college must post one on its website. Enter your family's information and it estimates what you would pay after grants. Search for the college's name and "net price calculator."
+[116] ListParagraph: College Scorecard (collegescorecard.ed.gov), from the US Department of Education. It shows each college's average yearly cost for families at your income level, and how many of its students graduate.
+[117] ListParagraph: Federal Student Aid: the FAFSA (studentaid.gov/h/apply-for-aid/fafsa). This is where you fill out the federal financial aid form that colleges use. It is needed for most grants, work-study jobs and loans.
+[118] : First in your family to go to college?
+[119] : You're not behind. Many students figure this out without anyone at home who has done it. These five steps matter most:
+[120] ListParagraph: Talk to your school counselor this year. Say: "I want to go to college, and I'm the first in my family. What should I be doing now?" Counselors expect this question.
+[121] ListParagraph: Try three net price calculators, including at least one private college you assumed was too expensive.
+[122] ListParagraph: Ask about fee waivers. If money is tight, you can usually apply to colleges and take the SAT or ACT for free. Your counselor can request the waivers.
+[123] ListParagraph: File the FAFSA (the federal student aid form) in the fall of your senior year. It opens each fall for the next school year. File early, because some aid runs out.
+[124] ListParagraph: Keep every path open. Starting at a community college and transferring to a four-year college is a real path. So is a four-year college close to home. The questions on this site work for all of them.
+[125] : Can't visit? Most colleges offer virtual tours and online information sessions, and many will put you in touch with a current student by email or video. Some colleges pay travel costs for lower-income students to visit; search for the college's name and "fly-in program."
+[126] : Note: Placement: "What college really costs" sits directly under the landing headline, before "What you get," so it is the first thing a student sees after the headline. "First in your family" follows "What you get." Both also appear in short form as panels on the result page when a student picks them in the optional quiz question.
+[127] Heading2: Quiz
+[128] ListParagraph: You're 28. What would make you think, "I'm doing well"?
+[129] ListParagraph: I'm in charge of something that matters.   → Leadership
+[130] ListParagraph: I'm still learning new things and getting better at them.   → Continued Learning
+[131] ListParagraph: People in my community are better off because of what I do.   → Civic Involvement
+[132] ListParagraph: My life is full of music, art, ideas, travel and people from everywhere.   → Cultural Involvement
+[133] ListParagraph: I know what I care about, and I'm living that way.   → Fulfillment
+[134] ListParagraph: Good job with good money.   → Personal Success
+[135] ListParagraph: Which of these has made you feel most alive?
+[136] ListParagraph: Getting a group to pull something off.   → Leadership
+[137] ListParagraph: Going deep on something just because I wanted to know.   → Continued Learning
+[138] ListParagraph: Helping someone who really needed it.   → Civic Involvement
+[139] ListParagraph: A book, film, song, place or person that changed how I see things.   → Cultural Involvement
+[140] ListParagraph: A late-night talk about what life is for.   → Fulfillment
+[141] ListParagraph: Getting really good at something hard.   → Personal Success
+[142] ListParagraph: Which professor would you want most?
+[143] ListParagraph: One who trusts me to lead or run something.   → Leadership
+[144] ListParagraph: One who makes me rethink things I was sure about.   → Continued Learning
+[145] ListParagraph: One who shows me how to use what I learn to help people.   → Civic Involvement
+[146] ListParagraph: One who opens up art, ideas and places I'd never have found.   → Cultural Involvement
+[147] ListParagraph: One who knows me and asks what I really want.   → Fulfillment
+[148] ListParagraph: One who teaches me real skills and opens doors.   → Personal Success
+[149] ListParagraph: Pick one superpower for life after college.
+[150] ListParagraph: Getting people to follow me toward a goal.   → Leadership
+[151] ListParagraph: Learning anything fast, whatever changes.   → Continued Learning
+[152] ListParagraph: Bringing people together to fix a problem.   → Civic Involvement
+[153] ListParagraph: Feeling at home with any idea, culture or kind of person.   → Cultural Involvement
+[154] ListParagraph: Staying true to myself under pressure.   → Fulfillment
+[155] ListParagraph: Figuring out how things work and getting ahead.   → Personal Success
+[156] ListParagraph: What scares you most about picking the wrong college?
+[157] ListParagraph: Being a number in a crowd where I can't make a mark.   → Leadership
+[158] ListParagraph: Learning things that may be out of date in ten years.   → Continued Learning
+[159] ListParagraph: Four years in a bubble, cut off from the real world.   → Civic Involvement
+[160] ListParagraph: A narrow program with no room for anything creative or new.   → Cultural Involvement
+[161] ListParagraph: Graduating with a degree and no idea what I want.   → Fulfillment
+[162] ListParagraph: Finishing without the skills or contacts to support myself.   → Personal Success
+[163] : One more, if you like (optional, not scored): What else is on your mind? Pick all that fit.
+[164] ListParagraph: How we'll pay for it   → Panel: Paying for it
+[165] ListParagraph: Being the first in my family to go   → Panel: First in your family
+[166] ListParagraph: Feeling like I belong, and finishing   → Panel: Belonging and finishing
+[167] ListParagraph: Getting in   → Panel: Getting in
+[168] ListParagraph: What if I don't get my first choice?   → Panel: Not your first choice
+[169] ListParagraph: None of these
+[170] : Note: This question does not affect the result. Each answer chosen adds its panel, below, at the top of the result page. It answers the fears both student readers said the quiz missed: cost, being the first to go, belonging, getting in and not getting a first choice.
+[171] : Bonus question (shown only when three or more outcomes tie; lists only the tied answers): One more. It's a free Saturday at college. Where are you?
+[172] ListParagraph: Organizing the thing everyone else shows up to.   → Leadership
+[173] ListParagraph: Chasing a question no teacher assigned.   → Continued Learning
+[174] ListParagraph: Volunteering or working on a community project.   → Civic Involvement
+[175] ListParagraph: At a concert, exhibit, film or talk.   → Cultural Involvement
+[176] ListParagraph: In a long conversation about life with people I trust.   → Fulfillment
+[177] ListParagraph: At an internship, a job, or building my portfolio.   → Personal Success
+[178] : Note: Scoring: the outcome chosen most often is the result. A two-way tie shows both results. Answer order is shuffled on every question.
+[179] Heading2: Result: The Leader (Leadership)
+[180] : You want to be the person people count on when something needs to get done.
+[181] : What the research found. Graduates who became leaders had something in common: professors who took an interest in them outside class. Graduates who had a college mentor with a lasting impact were 26% more likely to be leaders as adults. What they majored in made no real difference.
+[182] : What that looks like at a college
+[183] ListParagraph: Professors who know students by name and talk with them outside class.
+[184] ListParagraph: Students who get to run things: clubs, teams, projects, campus jobs.
+[185] ListParagraph: Students with different backgrounds and views who work together.
+[186] : A graduate says
+[187] : "Each student has value; students are not just a number. The faculty and staff get to know you by name."
+[188] : David, nonprofit leader and state legislator
+[189] : Ask out loud
+[190] ListParagraph: Ask a student: "Is there a professor who's pushed you to do something bigger than you planned?"
+[191] ListParagraph: Ask a student: "In your classes, who does most of the talking, the professor or the students?"
+[192] ListParagraph: Ask admissions: "What can a first-year student be in charge of here?"
+[193] ListParagraph: Ask admissions: "How do first-years end up talking with professors outside class?"
+[194] : Or find out without asking
+[195] ListParagraph: Look at the clubs on the college's website or social accounts. Are any first- or second-year students in charge?
+[196] ListParagraph: Sit in on a class if the college offers it. Count how many students speak.
+[197] : Other research agrees. Alexander Astin followed about 25,000 students at 309 colleges. He found that the people around you shape you more than anything else in college, with time spent with professors close behind.
+[198] : Try this one thing. On your next visit, ask one student to name a professor who changed what they thought they could do.
+[199] Heading2: Result: The Community Builder (Civic Involvement)
+[200] : You want what you learn to matter to someone besides you.
+[201] : What the research found. The study checked whether graduates vote, volunteer and give to causes. Graduates who had been closely involved with professors and other students outside class were 42% more likely to volunteer more as adults, and 56% more likely to give a larger share of their income. Their major made little difference.
+[202] : What that looks like at a college
+[203] ListParagraph: Courses that work with real community groups, beyond reading about them.
+[204] ListParagraph: Service that lasts a semester or more, so trust has time to build.
+[205] ListParagraph: Students who live and work with people unlike themselves.
+[206] : A graduate says
+[207] : "…college provided more than a degree—it provided me with knowledge, purpose, and a sense of civic responsibility."
+[208] : John, former state senator and member of Congress
+[209] : Ask out loud
+[210] ListParagraph: Ask a student: "Have you worked on something that helped people off campus? What was it?"
+[211] ListParagraph: Ask a student: "Is service here mostly one-day events, or can you stick with one thing?"
+[212] ListParagraph: Ask admissions: "Which classes work with community groups?"
+[213] ListParagraph: Ask a student: "How often do you work with people who see the world differently from you?"
+[214] : Or find out without asking
+[215] ListParagraph: Search the college's news page for "community partner." Are students doing the work, or posing for the photo?
+[216] ListParagraph: Check whether the service office lists programs that run all year.
+[217] : Other research agrees. When Richard Light interviewed Harvard students, they said most of what they learned from people different from themselves happened outside class, in residence halls and shared activities.
+[218] : Try this one thing. Ask a college for one example of a project where students did useful work with a community and had to learn from the people they were helping.
+[219] Heading2: Result: The Lifelong Learner (Continued Learning)
+[220] : You want to keep learning all your life, so you can keep up in an ever-changing world of knowledge, challenge and opportunity.
+[221] : What the research found. Graduates who took small discussion classes in their first two years were 25% more likely to keep learning actively as adults. Studying well outside their major was linked to continued learning too.
+[222] : What that looks like at a college
+[223] ListParagraph: Room to take classes that have nothing to do with your major.
+[224] ListParagraph: Small first-year classes where students do the talking. Colleges call these seminars.
+[225] ListParagraph: Assignments where you argue a position, get comments, and try again.
+[226] : A graduate says
+[227] : "My college experience, from the first day, became one of constant discovery about myself, the world we live in, and how one can use one's education to work for changes that improve the lives of others."
+[228] : Pilar, founder of a microfinance organization
+[229] : Ask out loud
+[230] ListParagraph: Ask a student: "What class got you into something you never expected to like?"
+[231] ListParagraph: Ask a student: "Do tests here mostly ask you to remember things, or to figure things out?"
+[232] ListParagraph: Ask admissions: "Can I take a small discussion class in my first year?"
+[233] ListParagraph: Ask admissions: "How much of my schedule can be outside my major?"
+[234] : Or find out without asking
+[235] ListParagraph: Look up the first-year course list. How many classes have 20 or fewer students?
+[236] ListParagraph: Read the graduation requirements. How many courses are yours to choose?
+[237] : Other research agrees. Gallup-Purdue surveyed 30,000 graduates. Having a professor who made them excited about learning was one of a handful of experiences tied to doing well at work and in life later.
+[238] : Try this one thing. Find one class you'd take even though it has nothing to do with your career plan.
+[239] Heading2: Result: The Cultural Explorer (Cultural Involvement)
+[240] : You want college to make your world bigger: more ideas, art, history, places and kinds of people.
+[241] : What the research found. Graduates who took discussion classes in their first two years were 37% more likely to keep arts, ideas and other cultures closely in their lives as adults. Spending real time with people from other cultures and beliefs was linked to it too.
+[242] : What that looks like at a college
+[243] ListParagraph: Classes in literature, history, art, philosophy and languages that everyone takes, not only majors. Colleges call these the humanities.
+[244] ListParagraph: Talks, concerts, films and exhibits that ordinary students go to.
+[245] ListParagraph: Study abroad and arts programs that students can afford.
+[246] : A graduate says
+[247] : "The faculty members with whom I interacted nurtured in me a true love for the world of ideas."
+[248] : Larry, professor of language and culture
+[249] : Ask out loud
+[250] ListParagraph: Ask a student: "What's something you saw or heard here that you'd never have found at home?"
+[251] ListParagraph: Ask a student: "Do regular students go to the talks and shows, or just the same few?"
+[252] ListParagraph: Ask admissions: "Will I take classes across art, history, science and other fields, or can I skip most of them?"
+[253] ListParagraph: Ask admissions: "Can most students afford to study abroad?"
+[254] : Or find out without asking
+[255] ListParagraph: Read the student newspaper. What do students write about besides sports and parties?
+[256] ListParagraph: Look up what share of students study abroad. Most colleges publish it.
+[257] : Other research agrees. The National Survey of Student Engagement counts real contact with people different from yourself, and learning that goes beyond the classroom, among the experiences that do students the most good.
+[258] : Try this one thing. Look at a college's events calendar for a normal week. Pick three you'd want to go to, then ask a student if people really show up.
+[259] Heading2: Result: The Meaning Seeker (Fulfillment)
+[260] : You want a life that feels like yours: work and people you care about, and a sense of why.
+[261] : What the research found. Graduates who talked about big questions of right, wrong and meaning in most of their classes were 59% more likely to describe their lives as highly fulfilled, whatever they majored in. When professors made students test their own arguments, they were 149% more likely, about two and a half times as likely.
+[262] : What that looks like at a college
+[263] ListParagraph: Classes in every subject that ask what's right and what matters.
+[264] ListParagraph: Professors who ask you to find the weak spot in your own argument.
+[265] ListParagraph: An adviser, the person who helps you plan your courses, who also asks what you want from life.
+[266] : A graduate says
+[267] : "Although earning a degree was satisfying, benefits that I had not foreseen were even more fulfilling: a heightened awareness of the world outside family, friends, and community…"
+[268] : Annis, author of more than twenty books
+[269] : Ask out loud
+[270] ListParagraph: Ask a student: "Is there an adult here who knows what you care about, not just what you're studying?"
+[271] ListParagraph: Ask a student: "Do your classes ever get into what's right or what matters?"
+[272] ListParagraph: Ask a student: "What happens here when people disagree?"
+[273] ListParagraph: Ask admissions: "Does my adviser help with more than picking classes?"
+[274] : Or find out without asking
+[275] ListParagraph: Read a few course descriptions outside your likely major. Do any ask a question you'd want to argue about?
+[276] ListParagraph: Find out how advisers are assigned. Is it one person for four years, or a different office each time?
+[277] : Other research agrees. Gallup-Purdue found that graduates who had a professor who cared about them as a person, and a mentor who encouraged their goals, saw their odds of thriving later in life more than double.
+[278] : Try this one thing. On a visit, ask a student to tell you about one professor, coach, adviser or staff member who really knows them. Listen for a specific story.
+[279] Heading2: Result: The Career Builder (Personal Success)
+[280] : You want college to lead somewhere: a good job, your own money, and a career that keeps growing.
+[281] : What the research found. Here is the surprise, and it matters most for students from families without much money. In the study, a graduate's major had nothing to do with long-term success. Graduates from lower-income families who took more than half their classes outside their major were 33% more likely to report a higher income. Across all graduates the figure was 24%.
+[282] : What that looks like at a college
+[283] ListParagraph: Room to take plenty of classes outside your major and still finish on time. You can still choose nursing, business or engineering; make sure you also take courses outside it. That is what paid off later.
+[284] ListParagraph: Internships and big projects that most students do, with pay or funding.
+[285] ListParagraph: Career help that starts in the first year.
+[286] : A graduate says
+[287] : "…my liberal arts education did not prepare me for one particular job or profession; it prepared me for any that I would choose once I truly found my passion."
+[288] : Deborah, senior officer of a major corporation
+[289] : Ask out loud
+[290] ListParagraph: Ask admissions: "How many students do an internship, and are they paid?"
+[291] ListParagraph: Ask admissions: "Can I take a lot of classes outside my major and still graduate in four years?"
+[292] ListParagraph: Ask a student: "When did you first talk to the career office?"
+[293] ListParagraph: Ask a student: "Have you met graduates or employers through the college?"
+[294] : Or find out without asking
+[295] ListParagraph: Search for the college's "outcomes" page. Does it show where graduates are years later, or only at graduation or six months?
+[296] ListParagraph: Look at the required course list for a major you like. How much room is left over?
+[297] : Other research agrees. Gallup-Purdue found that an internship that used what students learned in class, and a project lasting a semester or more, were both tied to doing better at work after college.
+[298] : Try this one thing. Ask a college for a real example of a graduate whose path changed after the first job, and what part of college helped them adapt.
+[299] Heading2: Panels from the optional question (shown at the top of the result when chosen)
+[300] : Paying for it. The price on a college's website is not what most students pay. Find your real price before you rule a college out: try its net price calculator, and look up its average cost for families at your income on College Scorecard (collegescorecard.ed.gov). The FAFSA, at studentaid.gov, is the form that decides most grants. See "What college really costs" on the Choosing a College page.
+[301] : First in your family. You're not behind. Many students figure this out without anyone at home who has done it. Start with the five steps in "First in your family to go to college?" on the Choosing a College page, beginning with a conversation with your school counselor.
+[302] : Belonging and finishing. Feeling connected, in class and out, is one of the biggest reasons students stay and finish. Ask a college: "What happens for first-year students in their first six weeks?" "Is there a program or group for first-generation students?" And ask admissions for the graduation rate of students who receive Pell Grants, the federal grants for lower-income students. Colleges report it to the government.
+[303] : Getting in. Apply to a balanced list: two or three colleges where you are likely to be admitted and can afford to go, several in the middle, and a few reaches. Your counselor can help you sort them. Many good colleges admit most of the students who apply, and the experiences on this site can be found at all kinds of colleges.
+[304] : Not your first choice. Many students don't end up at their first choice, and they do well. In the study behind this site, what graduates experienced in college was linked to how their lives turned out, and those experiences were found at every kind of college. When decisions arrive, use your scorecard. Then read the In College section: it is a plan for getting those experiences wherever you go.
+[305] Heading2: Words colleges use (shown under every result)
+[306] ListParagraph: Major: the subject you study most.
+[307] ListParagraph: Seminar: a small class built on discussion.
+[308] ListParagraph: Humanities: literature, history, philosophy, languages and the arts.
+[309] ListParagraph: Adviser: the person who helps you choose courses and plan.
+[310] ListParagraph: Mentor: an adult who takes a lasting interest in you and your goals.
+[311] ListParagraph: Office hours: set times when a professor is available to any student, no appointment needed.
+[312] ListParagraph: Internship: a short job in a field you're considering.
+[313] Heading2: Before you fall for a campus (shown under every result)
+[314] : Dealbreakers first
+[315] ListParagraph: Can my family and I afford this through graduation, after grants and scholarships?
+[316] ListParagraph: Does it have what I might study, with room to change my mind?
+[317] ListParagraph: Do students like me finish here? (Research on why students leave college by Vincent Tinto finds that feeling connected, in class and out, is a big part of finishing.)
+[318] ListParagraph: Will I feel safe, supported and like I belong?
+[319] ListParagraph: Are housing, health, disability and advising services good enough for what I need?
+[320] : Good signs at any college
+[321] ListParagraph: Professors know students and talk with them outside class.
+[322] ListParagraph: In class, students speak, write, argue and solve problems.
+[323] ListParagraph: You have room to study outside your major.
+[324] ListParagraph: Students work with people who think and live differently.
+[325] ListParagraph: You get to do real things: research, projects, internships, performances, service.
+[326] ListParagraph: Learning keeps going after class ends.
+[327] : At a large or highly selective university, also ask
+[328] ListParagraph: Who teaches first-year courses: professors, or graduate students?
+[329] ListParagraph: How hard is it to get into small seminars in the first two years?
+[330] ListParagraph: Can first- and second-year students do research with a professor?
+[331] ListParagraph: Is there an honors college or residential college that gives you a smaller community inside the big one?
+[332] : The experiences on this page can be found at famous universities too. These questions help you find where they happen.
+[333] : Looks impressive, proves little
+[334] ListParagraph: Rankings and prestige. They measure reputation. They can't tell you if a professor will know who you are and will help you figure out who you want to be — and to start becoming it.
+[335] ListParagraph: Dorms, food, gym, a gorgeous campus. You'll live there, so they count. But a great student center or great athletic facilities isn't a great education.
+[336] ListParagraph: A huge list of majors and clubs. On the website isn't the same as students using it.
+[337] ListParagraph: Faculty who are nationally recognized scholars. Ask what professors and students do together.
+[338] ListParagraph: First-job salary. Perhaps useful, but short-sighted. It says little about 10, 20 or 30 years out, about either salary or whether you are doing work you care about.
+[339] ListParagraph: "Transformative." "Innovative." "Student-centered." Those are claims. Ask a student for an example.
+[340] Heading2: Scorecard (tool)
+[341] : Heading: Your college scorecard
+[342] : What it's for. The scorecard turns your visits, calls and research into one page you can compare. It records what you found out about each college, not what the college says about itself.
+[343] : When to use it. After you take the quiz, and once you have two to four finalists. Fill it in as you go: after reading a college's website, after a visit or virtual tour, after talking with a current student.
+[344] Heading3: How to use it
+[345] ListParagraph: Write your finalists across the top. Up to four colleges, in columns #1 to #4. (Make more copies if you want to compare more colleges.)
+[346] ListParagraph: Star your result. Put a star next to the row for your top result from the quiz. If you had two top results, star both. Starred rows count most when you compare.
+[347] ListParagraph: Check the dealbreakers first. These are pass or fail. If a college fails one, it is probably out, however well it does on the rest.
+[348] ListParagraph: Gather evidence for each row. Each row tells you where to look and what to ask. You can use any of three kinds of evidence:
+[349] ListParagraph: Look it up. The college's website, course catalog, student newspaper, events calendar and outcomes page.
+[350] ListParagraph: Ask. A current student is the best source. Admissions staff are useful for facts like requirements and costs.
+[351] ListParagraph: Watch. On a visit, sit in on a class, walk through the student center on a weekday, read the bulletin boards.
+[352] ListParagraph: Rate each row using the scale below. Leave it as "Don't know yet" until you have real evidence.
+[353] ListParagraph: Write down the best example you heard. One sentence per college. Specific stories are what you'll remember later.
+[354] ListParagraph: Compare. Look at the dealbreakers first, then your starred rows, then everything else. Count the Strongs, but read the examples too.
+[355] Heading3: The rating scale
+[356] : 
+[357] Heading3: The form
+[358] : Write the name of each finalist at the top of its column, #1 to #4, and use the same order in every part.
+[359] : Part 1: Dealbreakers (pass or fail)
+[360] : 
+[361] : Part 2: What students really experience (rate each)
+[362] : 
+[363] : Part 3: What I'll remember
+[364] : 
+[365] : My leading choice right now, and why:
+[366] : On the site, the scorecard saves on your device. Use Copy or Email to keep a copy, or print the page.
+
+TABLES 3-6
+
+===== TABLE 3 =====
+Rating || What it means
+Strong || A current student gave you a specific, recent example, or you saw it yourself.
+Mixed || There's some evidence, or it depends on the major or program, or students disagreed.
+Weak || Students couldn't give an example, or what you found suggests it's rare.
+Don't know yet || You haven't found real evidence. A website claim alone stays here.
+
+===== TABLE 4 =====
+Question || Where to find out || #1 || #2 || #3 || #4
+Can my family afford all four years, after grants and scholarships? || The college's net price calculator; College Scorecard (cost by family income); your scholarship or financial aid offer ||  ||  ||  || 
+Do students like me finish here, in four years? || College Scorecard; College Navigator; ask admissions for the graduation rate of Pell Grant recipients ||  ||  ||  || 
+Will I feel safe, supported and like I belong? || Current students; campus support offices; your own visit ||  ||  ||  || 
+Do they have what I might study, with room to change my mind? || Course catalog; admissions ||  ||  ||  || 
+
+===== TABLE 5 =====
+Row || What to find out || Where to look or who to ask || #1 || #2 || #3 || #4
+Professors and students outside class (counts for every result) || Do professors know students and spend time with them outside class? || Ask a student: "Is there a professor who knows you well?" ||  ||  ||  || 
+Leadership || Do students get real responsibility early? || Club and team pages: are first- and second-year students in charge? ||  ||  ||  || 
+Civic Involvement || Do classes and programs work with the community over time? || Service office; news page; ask a student what they've worked on ||  ||  ||  || 
+Continued Learning || Is there room to study outside the major, in small discussion classes? || Graduation requirements; first-year course list ||  ||  ||  || 
+Cultural Involvement || Will I study and spend time with ideas, arts and people unlike me? || Required courses; events calendar; study-abroad numbers ||  ||  ||  || 
+Fulfillment || Will someone help me think about what I want, not just which classes I need? || Ask how advisers are assigned; course descriptions ||  ||  ||  || 
+Personal Success || Are internships and big projects common, paid or funded, and supported early? || Outcomes page; career office; ask a student when they first went ||  ||  ||  || 
+
+===== TABLE 6 =====
+ || #1 || #2 || #3 || #4
+Number of Strongs (starred rows first) ||  ||  ||  || 
+The best example I heard ||  ||  ||  || 
+What worries me ||  ||  ||  || 

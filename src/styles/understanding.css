@@ -1,0 +1,867 @@
+/* Understanding College */
+.understanding-hero {
+  padding: clamp(2.8rem, 6vw, 5.5rem) 0 clamp(2.2rem, 4vw, 3.5rem);
+  border-bottom: 1px solid var(--border);
+}
+
+.understanding-hero h1 {
+  max-width: 20ch;
+  font-size: clamp(2.35rem, 4.8vw, 4.2rem);
+  letter-spacing: -0.015em;
+}
+
+.understanding-hero .lede {
+  max-width: 58rem;
+  margin-top: var(--s-5);
+}
+
+.understanding-contents {
+  padding: var(--s-4) 0;
+  background: var(--surface-alt);
+  border-bottom: 1px solid var(--border);
+}
+
+.understanding-toc {
+  max-width: 68rem;
+}
+
+.understanding-toc .section-label {
+  margin-bottom: var(--s-2);
+}
+
+.understanding-toc ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem 1.5rem;
+  padding-left: 1.2rem;
+  margin: 0;
+}
+
+.understanding-toc li {
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.understanding-toc li::marker {
+  color: var(--gold-dark);
+}
+
+.understanding-toc a {
+  color: var(--navy);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.understanding-toc a:hover {
+  border-bottom-color: var(--gold);
+}
+
+.understanding-toc a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.understanding-section {
+  padding: clamp(2.5rem, 5vw, 4.5rem) 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.understanding-alt {
+  background: var(--surface-alt);
+}
+
+.understanding-reading {
+  max-width: 58rem;
+}
+
+.understanding-section h2 {
+  margin-top: 0;
+}
+
+.understanding-section h3 {
+  margin-top: var(--s-5);
+}
+
+.understanding-plain {
+  padding: var(--s-3) var(--s-4);
+  margin: var(--s-3) 0 var(--s-5);
+  background: var(--gold-pale);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.understanding-callout {
+  padding: var(--s-4);
+  margin: var(--s-5) 0 0;
+  background: var(--surface-alt);
+  border-left: 4px solid var(--navy);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.understanding-alt .understanding-callout {
+  background: var(--surface);
+}
+
+.understanding-callout p {
+  margin: 0;
+}
+
+.understanding-table-wrap {
+  overflow-x: auto;
+  margin: var(--s-4) 0 var(--s-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.understanding-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.understanding-table th,
+.understanding-table td {
+  padding: var(--s-3);
+  border-top: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.understanding-table thead th {
+  color: var(--navy);
+  background: var(--gold-pale);
+  border-top: 0;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: bottom;
+}
+
+.understanding-table tbody th {
+  color: var(--navy);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.understanding-table tbody tr:first-child th,
+.understanding-table tbody tr:first-child td {
+  border-top: 0;
+}
+
+.understanding-kinds-table th:nth-child(1) {
+  width: 16%;
+}
+
+.understanding-kinds-table th:nth-child(2) {
+  width: 23%;
+}
+
+.understanding-kinds-table th:nth-child(3) {
+  width: 21%;
+}
+
+.understanding-kinds-table th:nth-child(4) {
+  width: 40%;
+}
+
+.understanding-context-table .understanding-group th {
+  padding-top: var(--s-4);
+  padding-bottom: var(--s-2);
+  color: var(--gold-dark);
+  background: var(--gold-pale);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.understanding-context-table .understanding-group:first-child th {
+  border-top: 0;
+}
+
+.understanding-context-table td:first-child {
+  width: 34%;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.understanding-quote-block {
+  max-width: 58rem;
+  padding: var(--s-4) var(--s-5);
+  margin: var(--s-4) 0;
+  background: var(--surface);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.understanding-alt .understanding-quote-block {
+  background: var(--surface);
+}
+
+.understanding-quote-block p {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.understanding-attribution {
+  margin-top: var(--s-3);
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+.understanding-timeline {
+  max-width: 68rem;
+  padding: var(--s-4);
+  margin: var(--s-5) 0 var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.understanding-timeline-list {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--s-3);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.understanding-timeline-list li {
+  position: relative;
+  padding-top: var(--s-4);
+  border-top: 3px solid var(--gold);
+}
+
+.understanding-timeline-list li::before {
+  position: absolute;
+  top: -7px;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  background: var(--navy);
+  border: 2px solid var(--surface);
+  border-radius: 50%;
+  content: "";
+}
+
+.understanding-year {
+  display: block;
+  color: var(--gold-dark);
+  font-family: var(--font-sans);
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.understanding-timeline-list strong {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--navy);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.understanding-timeline figcaption {
+  margin-top: var(--s-3);
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.understanding-history {
+  margin-top: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.understanding-history summary {
+  padding: var(--s-3) var(--s-4);
+  color: var(--navy);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.understanding-history summary:hover {
+  color: var(--gold-dark);
+}
+
+.understanding-history summary:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+}
+
+.understanding-history[open] summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.understanding-history-body {
+  max-width: 58rem;
+  padding: var(--s-4);
+}
+
+.understanding-history-body p {
+  margin: 0 0 var(--s-4);
+}
+
+.understanding-history-body p:last-child {
+  margin-bottom: 0;
+}
+
+.understanding-mistakes {
+  display: grid;
+  gap: var(--s-3);
+  padding-left: 1.2rem;
+  margin: var(--s-3) 0 var(--s-5);
+}
+
+.understanding-mistakes li {
+  line-height: 1.65;
+}
+
+.understanding-mistakes li::marker {
+  color: var(--gold-dark);
+}
+
+.understanding-odds {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-3);
+  padding: 0;
+  margin: var(--s-4) 0 var(--s-5);
+  list-style: none;
+}
+
+.understanding-odds li {
+  padding: var(--s-4);
+  background: var(--surface-alt);
+  border-top: 3px solid var(--gold);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.understanding-odds strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--navy);
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  line-height: 1.3;
+}
+
+.understanding-chart {
+  padding: var(--s-4);
+  margin: var(--s-5) 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.understanding-chart-title {
+  margin: 0 0 var(--s-4);
+  color: var(--navy);
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.understanding-bars {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.understanding-bar-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.3rem;
+  color: var(--navy);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.understanding-bar-meta strong {
+  color: var(--gold-dark);
+  white-space: nowrap;
+}
+
+.understanding-bar-track {
+  height: 24px;
+  overflow: hidden;
+  background: var(--surface-alt);
+  border-radius: var(--radius-pill);
+}
+
+.understanding-bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  border-radius: var(--radius-pill);
+}
+
+.understanding-bar-45 {
+  width: 45%;
+}
+
+.understanding-bar-24 {
+  width: 24%;
+}
+
+.understanding-bar-64 {
+  width: 64%;
+}
+
+.understanding-bar-62 {
+  width: 62%;
+}
+
+.understanding-bar-60 {
+  width: 60%;
+}
+
+.understanding-chart figcaption {
+  margin-top: var(--s-3);
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.understanding-chart-data {
+  margin-top: var(--s-2);
+  font-size: 0.82rem;
+}
+
+.understanding-chart-data summary {
+  color: var(--gold-dark);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.understanding-chart-data table {
+  width: 100%;
+  margin-top: var(--s-2);
+  border-collapse: collapse;
+}
+
+.understanding-chart-data th,
+.understanding-chart-data td {
+  padding: 0.4rem 0.5rem;
+  border-top: 1px solid var(--border);
+  text-align: left;
+}
+
+.understanding-chart-data th {
+  color: var(--navy);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.understanding-quotes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin: var(--s-5) 0;
+}
+
+.understanding-quotes figure {
+  padding: var(--s-4);
+  margin: 0;
+  background: var(--surface-alt);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.understanding-quotes blockquote {
+  margin: 0;
+}
+
+.understanding-quotes blockquote p {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.understanding-quotes figcaption {
+  margin-top: var(--s-3);
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.understanding-quotes figcaption em {
+  color: inherit;
+}
+
+.understanding-research {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-3);
+  margin: var(--s-4) 0 var(--s-5);
+}
+
+.understanding-research article {
+  padding: var(--s-4);
+  background: var(--surface-alt);
+  border-top: 3px solid var(--navy);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+
+.understanding-research h3 {
+  margin: 0 0 var(--s-2);
+  font-size: 1.02rem;
+  line-height: 1.35;
+}
+
+.understanding-research p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.understanding-misconceptions {
+  display: grid;
+  gap: var(--s-3);
+  padding: 0;
+  margin: var(--s-4) 0 0;
+  list-style: none;
+  counter-reset: misconception;
+}
+
+.understanding-misconceptions li {
+  position: relative;
+  padding: var(--s-4) var(--s-4) var(--s-4) 4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  line-height: 1.65;
+}
+
+.understanding-misconceptions li::before {
+  position: absolute;
+  top: 0.95rem;
+  left: 1.2rem;
+  color: var(--gold-dark);
+  content: counter(misconception);
+  counter-increment: misconception;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.understanding-questions {
+  display: grid;
+  gap: var(--s-3);
+  padding: 0;
+  margin: var(--s-4) 0 var(--s-5);
+  list-style: none;
+  counter-reset: question;
+}
+
+.understanding-questions li {
+  position: relative;
+  padding: var(--s-3) var(--s-4) var(--s-3) 3.6rem;
+  background: var(--gold-pale);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.understanding-questions li::before {
+  position: absolute;
+  top: var(--s-3);
+  left: var(--s-4);
+  color: var(--gold-dark);
+  content: counter(question);
+  counter-increment: question;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.understanding-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.8rem;
+  align-items: baseline;
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--border);
+  font-size: 0.88rem;
+}
+
+.understanding-links span {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.understanding-links a {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.understanding-links .understanding-link-sep {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.understanding-closing {
+  padding: clamp(3rem, 6vw, 5rem) 0;
+  background: var(--navy);
+}
+
+.understanding-closing .section-label {
+  color: var(--gold-pale);
+}
+
+.understanding-closing h2 {
+  max-width: 16ch;
+  margin-top: var(--s-2);
+  color: #fff;
+}
+
+.understanding-closing-lede {
+  max-width: 58rem;
+  margin-top: var(--s-4);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.04rem;
+}
+
+.understanding-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-5);
+  margin: var(--s-6) 0;
+}
+
+.understanding-step {
+  padding-top: var(--s-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.understanding-step-number {
+  color: var(--gold-pale);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.understanding-step h3 {
+  margin: 0.45rem 0 0.6rem;
+  color: #fff;
+  font-size: 1.08rem;
+  line-height: 1.4;
+}
+
+.understanding-step p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.understanding-final {
+  max-width: 58rem;
+  margin: var(--s-6) 0 0;
+  color: #fff;
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+@media (max-width: 1000px) {
+  .understanding-toc ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .understanding-odds,
+  .understanding-research,
+  .understanding-quotes,
+  .understanding-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .understanding-hero h1 {
+    max-width: none;
+  }
+
+  .understanding-toc ol {
+    grid-template-columns: 1fr;
+  }
+
+  .understanding-table-wrap {
+    overflow: visible;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .understanding-table,
+  .understanding-table tbody,
+  .understanding-table tr,
+  .understanding-table th,
+  .understanding-table td {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .understanding-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .understanding-table tbody tr {
+    padding: var(--s-4);
+    margin-bottom: var(--s-3);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .understanding-table tbody th,
+  .understanding-table tbody td {
+    padding: 0;
+    border: 0;
+  }
+
+  .understanding-table tbody th[scope="row"] {
+    padding-bottom: var(--s-3);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--s-3);
+    font-family: var(--font-serif);
+    font-size: 1.02rem;
+  }
+
+  .understanding-table tbody td {
+    margin-top: var(--s-3);
+  }
+
+  .understanding-table tbody td::before {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--muted);
+    content: attr(data-label);
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .understanding-table tbody tr.understanding-group {
+    padding: 0;
+    margin: var(--s-4) 0 var(--s-2);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .understanding-table tbody tr.understanding-group th {
+    padding: var(--s-2) 0;
+    border-bottom: 2px solid var(--gold);
+    color: var(--gold-dark);
+    background: transparent;
+    font-size: 0.72rem;
+  }
+
+  .understanding-table tbody tr.understanding-group + tr {
+    margin-top: 0;
+  }
+
+  .understanding-context-table td:first-child {
+    width: 100%;
+  }
+
+  .understanding-timeline-list {
+    grid-template-columns: 1fr;
+    gap: var(--s-3);
+  }
+
+  .understanding-timeline-list li {
+    padding: 0 0 var(--s-2) var(--s-4);
+    border-top: 0;
+    border-left: 3px solid var(--gold);
+  }
+
+  .understanding-timeline-list li::before {
+    top: 0.15rem;
+    left: -7px;
+  }
+
+  .understanding-timeline-list strong {
+    margin-top: 0.2rem;
+  }
+
+  .understanding-history-body {
+    padding: var(--s-3);
+  }
+
+  .understanding-quote-block {
+    padding: var(--s-4);
+  }
+
+  .understanding-chart {
+    padding: var(--s-3);
+  }
+
+  .understanding-bar-track {
+    height: 20px;
+  }
+
+  .understanding-quotes figure {
+    padding: var(--s-3);
+  }
+
+  .understanding-misconceptions li {
+    padding: var(--s-3) var(--s-3) var(--s-3) 3.4rem;
+  }
+
+  .understanding-misconceptions li::before {
+    top: 0.8rem;
+    left: 0.9rem;
+  }
+
+  .understanding-questions li {
+    padding: var(--s-3) var(--s-3) var(--s-3) 3rem;
+  }
+
+  .understanding-questions li::before {
+    left: var(--s-3);
+  }
+
+  .understanding-step {
+    padding-top: var(--s-3);
+  }
+
+  .understanding-final {
+    margin-top: var(--s-5);
+  }
+}

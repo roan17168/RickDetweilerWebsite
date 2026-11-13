@@ -1,7 +1,7 @@
 # RickDetweilerWebsite
 # What College Is Really For
 
-A static, multi-page site built with HTML, CSS and vanilla JavaScript. There is no build step or package installation.
+A static, multi-page site built with HTML, CSS and vanilla JavaScript. The live root pages have no build step or package installation. The Revision 6 preview in `preview/` is assembled by a small, zero-dependency Node script.
 
 ## Run locally
 
@@ -12,6 +12,19 @@ python3 -m http.server 8000
 ```
 
 Open <http://localhost:8000/>. Use a local server rather than opening an HTML file directly so relative assets, navigation and browser storage behave as they do when hosted.
+
+## Revision 6 preview (in progress)
+
+The new site is being built in `src/` and assembled into `preview/`. It does not replace the live root pages yet.
+
+```sh
+node build.js
+python3 -m http.server 8000
+```
+
+Open <http://localhost:8000/preview/>. The build has no dependencies. Source pages are in `src/pages`, shared partials in `src/partials`, styles in `src/styles`, chart data in `src/data`, and the chart, menu and notes behaviour in `src/scripts`. Edit `src/`, not `preview/`; the build copies assets and concatenates the CSS each time.
+
+The build plan and current phase status live in `PHASES.md`. `preview/index.html` is the Home page, `preview/what-matters.html` is the one-chart evidence overview with its accessible table, sources and limits, `preview/the-research.html` is the Research page, `preview/choosing-a-college.html` is the Choosing a College page with its quiz (the scorecard is the separate `preview/tools/college-scorecard.html` tool page), `preview/in-college.html` is the In College page with its check and semester plan, `preview/parents.html` is the Parents page with its cost guidance and quiz, `preview/faculty.html` is the Faculty page with its practice cards and course self-audit, `preview/college-leaders.html` is the College Leaders page with its quiz, institutional checklist, board summary, message, alumni survey and sample promotion language, `preview/counselors.html` is the printable Counselor Kit with student and family handouts, first-in-family steps, a group session, a glossary and links, `preview/policymakers.html` is the Policymakers page with its optional emphasis quiz and one-page brief, `preview/understanding-college.html` is the long-form Understanding College guide with its college-type table, history, charts and ten-minute checklist, `preview/about.html` is Richard A. Detweiler's biography with his career milestones, the book and contact details, `preview/privacy.html` describes what the site stores in the browser and what it does not collect, `preview/404.html` is the not-found page, and `preview/foundation.html` is the design-system reference, not part of the final site (it is marked `noindex`). The Choosing data lives in `src/data/choosing.json`, the In College data lives in `src/data/in-college.json`, the Parents data lives in `src/data/parents.json`, the Faculty data lives in `src/data/faculty.json`, the College Leaders data lives in `src/data/college-leaders.json`, and the Policymakers data lives in `src/data/policymakers.json`; the build emits each as a `preview/scripts/` data file for the browser.
 
 ## Site files
 
@@ -24,4 +37,18 @@ Open <http://localhost:8000/>. Use a local server rather than opening an HTML fi
 
 ## Quick checks
 
-Run `node --check js/main.js` after changing the JavaScript. Then check the navigation, all six audience quizzes, mobile menu and scorecard on a narrow screen, and test form save/reset/copy/print from the relevant pages.
+Run `node --check js/main.js` after changing the legacy JavaScript. For the preview, run `node build.js`, then check the navigation, chart table, notes panel and mobile menu at narrow and wide widths. On the Choosing page, check all six quiz results, the two-way tie, the always-available tie-break, optional panels, saved result, share/copy/email/print and retake. On the separate College Scorecard tool page (`preview/tools/college-scorecard.html`), check the tabs, ratings, stars, compare view, saved data, leading choice, copy/email and print. On the In College page, check all three result bands, the optional version priorities, card sorting/opening, the first-generation shortcut, plan save/reload, and copy/email/print. On the Parents page, check all three results, both two-way ties, the question-4 “not sure” panel, optional panels, and the mobile collapsed sections. On the Faculty page, check all three result bands, practice-card sorting, each optional settings variant, and the course self-audit copy/email/print controls. On the College Leaders page, check all three results, every two-way tie, the eight checklist rows, the board summary, the alumni survey and the checklist copy/email/print controls. On the Policymakers page, check all three results, the two-way ties, the show-all view, the five-measure brief, and its copy/email/print controls. On the Counselors page, check the eight sections, all four tables, the glossary, the internal and external links, and the print layout. On the Understanding College page, check the six college types, the timeline and full-history toggle, the content/context table, the G3/G4 charts and their number tables, the quotation grid, and the section links. The live legacy pages still need their six audience quizzes, scorecard and form save/reset/copy/print tested from the relevant pages. For the preview QA pass, run `node artifacts/qa-audit.js` after `node build.js`; it checks links, anchors, headings, labels, tables and ids across every built page. The cross-phase checks are `node artifacts/spec-audit.js` (every 12 October source paragraph against the built copy; it predates Revision 6, so it is historical, not Revision 6 acceptance), `node artifacts/feature-audit.js` (every phase's feature inventory), `node artifacts/quiz-audit.js` (every answer path in all six quizzes) and `node artifacts/data-html-audit.js` (the allowlist for HTML embedded in the JSON content files). `node artifacts/qa-audit.js` also checks cross-page fragments, `aria-current` values and the native sources dialog. `node artifacts/rev6-audit.js` checks the mechanically verifiable Revision 6 requirements, and `node artifacts/seo-audit.js` checks titles, descriptions, canonicals, sharing cards, structured data, `sitemap.xml` and `robots.txt`.
+
+### Handoff for the remaining Revision 6 content
+
+The four unnamed tool pages, six PDF downloads and the Counselors quiz are specified but absent from the repository. The brief for building them in a chat that has the attachments is in [artifacts/handoff/README.md](artifacts/handoff/README.md).
+
+### Search optimization
+
+Titles and descriptions live in the `pages` array in `build.js` (the Home and Choosing pair match Revision 6 word for word). Canonical URLs, `og:url`, the sharing image, JSON-LD structured data and `sitemap.xml` need the production origin, so set it once:
+
+```bash
+SITE_URL=https://your-domain.org node build.js
+```
+
+or put the same address in `url` in `src/data/site.json`. With no origin configured the build skips those absolute-URL tags, deletes any stale `sitemap.xml`, and still writes `robots.txt`. Share-card image and alt text are set in `src/data/site.json`. `node artifacts/spec-audit.js` still lists what the superseded 12 October source cannot find, but it is historical: it exits 0 unless run with `--strict`. The optional browser pass is `artifacts/browser-audit.mjs` (Playwright installed outside the project; see the file header). Revision 6 status and blocked inputs are recorded in `artifacts/revision-6-input-ledger.md`, and the full fix instruction set is `artifacts/revision-6-master-fix-prompt.md`.

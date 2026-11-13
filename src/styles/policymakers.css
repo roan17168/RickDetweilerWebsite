@@ -1,0 +1,536 @@
+/* Policymakers */
+.policymakers-hero .choosing-hero-copy h1 {
+  max-width: 18ch;
+}
+
+.policymakers-hero .choosing-hero-copy p {
+  max-width: 58rem;
+}
+
+.policymakers-quiz-section {
+  background: var(--surface-alt);
+}
+
+.policymakers-skip {
+  display: inline-block;
+  padding: 0;
+  margin-top: var(--s-2);
+  background: none;
+  border: 0;
+  color: var(--gold-dark);
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  cursor: pointer;
+}
+
+.policymakers-skip:hover {
+  color: var(--navy);
+}
+
+.policymakers-skip:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.policymakers-things-section {
+  background: var(--surface);
+}
+
+.policymakers-things {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin-top: var(--s-5);
+}
+
+.policymakers-thing {
+  padding: var(--s-4);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+}
+
+.policymakers-thing h3 {
+  margin: 0 0 var(--s-2);
+  color: var(--navy);
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+
+.policymakers-thing p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.policymakers-results .result-profile {
+  max-width: 24ch;
+  margin-bottom: var(--s-2);
+  font-size: clamp(1.55rem, 3vw, 2.2rem);
+}
+
+.policymakers-results .result-description {
+  margin-bottom: var(--s-4);
+}
+
+.policymakers-results .result-research {
+  padding: var(--s-4);
+  margin-bottom: var(--s-4);
+  background: var(--surface);
+  border-left: 3px solid var(--navy);
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.policymakers-results .result-research p {
+  margin: 0;
+}
+
+.policymakers-results .result-research p + p {
+  margin-top: var(--s-3);
+}
+
+.policymakers-results h4 {
+  margin-top: var(--s-4);
+  margin-bottom: var(--s-2);
+  font-size: 1rem;
+}
+
+.policymakers-results .result-try {
+  margin-top: var(--s-4);
+}
+
+.policymakers-results .result-try p {
+  margin: 0;
+}
+
+.policymakers-result + .policymakers-result {
+  padding-top: var(--s-5);
+  margin-top: var(--s-5);
+  border-top: 1px solid var(--border);
+}
+
+.policymakers-tie-note {
+  max-width: 58rem;
+  margin-bottom: var(--s-4);
+  color: var(--gold-dark);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.policymakers-results .quiz-actions {
+  margin-top: var(--s-5);
+}
+
+.policymakers-shared {
+  background: var(--surface);
+}
+
+.policymakers-shared + .policymakers-shared {
+  border-top: 1px solid var(--border);
+}
+
+.policymakers-shared p {
+  max-width: 58rem;
+}
+
+.policymakers-washington {
+  background: var(--surface-alt);
+}
+
+.policymakers-washington > .container > p {
+  max-width: 58rem;
+}
+
+.policymakers-washington-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin: var(--s-4) 0 var(--s-6);
+}
+
+.policymakers-washington-item {
+  padding: var(--s-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.policymakers-washington-item h4 {
+  margin: 0 0 var(--s-2);
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+.policymakers-washington-item p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+
+.policymakers-hearing-questions {
+  display: grid;
+  gap: var(--s-3);
+  max-width: 58rem;
+  padding-left: 1.2rem;
+  margin: var(--s-3) 0 0;
+}
+
+.policymakers-hearing-questions li {
+  line-height: 1.65;
+}
+
+.policymakers-hearing-questions li::marker {
+  color: var(--gold-dark);
+}
+
+.policymakers-brief-section {
+  background: var(--surface);
+}
+
+.policymakers-brief-intro p {
+  max-width: 58rem;
+}
+
+.policymakers-brief-steps {
+  max-width: 58rem;
+}
+
+.policymakers-brief-steps ol {
+  display: grid;
+  gap: var(--s-3);
+  padding-left: 1.2rem;
+  margin: var(--s-3) 0 var(--s-6);
+}
+
+.policymakers-brief-steps li {
+  line-height: 1.65;
+}
+
+.policymakers-brief-steps li::marker {
+  color: var(--gold-dark);
+}
+
+.policymakers-brief-tool {
+  max-width: 78rem;
+  margin-top: var(--s-4);
+}
+
+.policymakers-form-table-wrap {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.policymakers-form-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.policymakers-form-table thead th {
+  padding: var(--s-2);
+  color: var(--navy);
+  background: var(--gold-pale);
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: bottom;
+}
+
+.policymakers-form-table tbody th,
+.policymakers-form-table tbody td {
+  padding: var(--s-2);
+  border-top: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.policymakers-form-table tbody th {
+  width: 22%;
+  color: var(--navy);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.policymakers-form-table tbody td {
+  width: 19.5%;
+}
+
+.policymakers-form-table input,
+.policymakers-form-table select {
+  width: 100%;
+  min-width: 0;
+}
+
+.policymakers-request {
+  padding: var(--s-4);
+  margin-top: var(--s-4);
+  background: var(--gold-pale);
+  border: 1px solid rgba(183, 141, 52, 0.35);
+  border-radius: var(--radius-sm);
+}
+
+.policymakers-request h3 {
+  margin-top: 0;
+}
+
+.policymakers-request-sentence {
+  max-width: 72rem;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  line-height: 2;
+}
+
+.policymakers-request-sentence input {
+  display: inline-block;
+  width: 12rem;
+  max-width: 100%;
+  padding: 0.1rem 0.25rem;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--gold-dark);
+  border-radius: 0;
+  color: var(--navy);
+  font: inherit;
+}
+
+.policymakers-request-sentence input:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  background: var(--surface);
+}
+
+.policymakers-quote {
+  max-width: 68rem;
+  padding: var(--s-4) var(--s-5);
+  margin: var(--s-3) 0 0;
+  background: var(--surface-alt);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.policymakers-quote p {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.policymakers-brief-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  padding-top: var(--s-4);
+  margin-top: var(--s-5);
+  border-top: 1px solid var(--border);
+}
+
+.policymakers-status {
+  flex-basis: 100%;
+  min-height: 1.2em;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.policymakers-closing {
+  background: var(--navy);
+}
+
+.policymakers-end {
+  background: var(--surface-alt);
+}
+
+.policymakers-next {
+  display: grid;
+  gap: var(--s-3);
+  max-width: 58rem;
+  padding-left: 1.2rem;
+  margin: var(--s-4) 0 0;
+}
+
+.policymakers-next li {
+  line-height: 1.65;
+}
+
+.policymakers-next li::marker {
+  color: var(--gold-dark);
+}
+
+.policymakers-next a {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+@media (max-width: 1000px) {
+  .policymakers-form-table {
+    min-width: 64rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .policymakers-things,
+  .policymakers-washington-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .policymakers-hero .choosing-hero-copy h1 {
+    max-width: none;
+  }
+
+  .policymakers-thing {
+    padding: var(--s-3);
+  }
+
+  .policymakers-form-table-wrap {
+    overflow: visible;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .policymakers-form-table,
+  .policymakers-form-table tbody,
+  .policymakers-form-table tr,
+  .policymakers-form-table th,
+  .policymakers-form-table td {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .policymakers-form-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .policymakers-form-table tbody tr {
+    padding: var(--s-4);
+    margin-bottom: var(--s-3);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .policymakers-form-table tbody th,
+  .policymakers-form-table tbody td {
+    padding: 0;
+    border: 0;
+  }
+
+  .policymakers-form-table tbody th {
+    padding-bottom: var(--s-3);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--s-3);
+    font-family: var(--font-serif);
+    font-size: 1.02rem;
+  }
+
+  .policymakers-form-table tbody td {
+    margin-top: var(--s-3);
+  }
+
+  .policymakers-form-table tbody td::before {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--muted);
+    content: attr(data-label);
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .policymakers-request {
+    padding: var(--s-3);
+  }
+
+  .policymakers-request-sentence {
+    line-height: 2.1;
+  }
+
+  .policymakers-request-sentence input {
+    width: 100%;
+    margin: 0.15rem 0;
+  }
+
+  .policymakers-quote {
+    padding: var(--s-4);
+  }
+
+  .policymakers-results .quiz-actions .btn {
+    width: 100%;
+  }
+}
+
+@media print {
+  @page {
+    margin: 0.6in;
+  }
+
+  body.printing-policymakers-brief .site-header,
+  body.printing-policymakers-brief .site-footer,
+  body.printing-policymakers-brief main > * {
+    display: none !important;
+  }
+
+  body.printing-policymakers-brief main > .policymakers-brief-section {
+    display: block !important;
+  }
+
+  body.printing-policymakers-brief .policymakers-brief-section {
+    padding: 0;
+    background: #fff;
+  }
+
+  body.printing-policymakers-brief .policymakers-brief-section .section-label,
+  body.printing-policymakers-brief .policymakers-brief-section .policymakers-brief-intro,
+  body.printing-policymakers-brief .policymakers-brief-section .policymakers-brief-steps,
+  body.printing-policymakers-brief .policymakers-brief-section .policymakers-brief-actions {
+    display: none !important;
+  }
+
+  body.printing-policymakers-brief .policymakers-brief-section .container {
+    width: 100%;
+    max-width: none;
+  }
+
+  body.printing-policymakers-brief .policymakers-form-table {
+    font-size: 0.76rem;
+  }
+
+  body.printing-policymakers-brief .policymakers-form-table tbody tr,
+  body.printing-policymakers-brief .policymakers-request,
+  body.printing-policymakers-brief .policymakers-quote {
+    break-inside: avoid;
+  }
+
+  body.printing-policymakers-brief .policymakers-request-sentence {
+    line-height: 1.9;
+  }
+
+  body.printing-policymakers-brief .policymakers-quote {
+    background: #fff;
+  }
+}

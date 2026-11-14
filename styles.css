@@ -10016,3 +10016,511 @@ table.scorecard-table thead th {
     gap: clamp(1.5rem, 3.5vw, 3rem);
   }
 }
+
+/* ==========================================================================
+   Editorial pass: brand, navigation, reading rhythm, author path
+   ========================================================================== */
+
+/* brand lockup: name over a small program line, like a masthead */
+.brand {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 0.6rem;
+  align-items: center;
+  line-height: 1.1;
+}
+
+.brand-name {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+
+.brand-tag {
+  font-family: var(--font-serif);
+  font-size: 0.68rem;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  color: var(--gold-dark);
+}
+
+.brand::before {
+  grid-row: 1 / span 2;
+  width: 0.26rem;
+  height: 2.35rem;
+  border-radius: 2px;
+}
+
+/* navigation: dropdown becomes a small card */
+.nav-dropdown-menu {
+  padding: 0.4rem;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
+  border-radius: 0 0 10px 10px;
+  background: #fff;
+  box-shadow: 0 18px 36px rgba(27, 54, 93, 0.16);
+}
+
+.nav-dropdown-menu a {
+  padding: 0.6rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--navy-soft);
+}
+
+.nav-dropdown-menu a:hover,
+.nav-dropdown-menu a:focus-visible {
+  background: var(--gold-pale);
+  color: var(--navy);
+}
+
+/* buttons: primary actions read as confident small caps */
+.btn-primary,
+.btn-gold {
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.btn-outline {
+  font-weight: 600;
+}
+
+/* reading rhythm */
+.lede {
+  font-size: 1.12rem;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.section-intro {
+  max-width: 44rem;
+  margin: 0 0 1.6rem;
+  color: var(--muted);
+  font-size: 1.03rem;
+  line-height: 1.7;
+}
+
+h1,
+h2 {
+  text-wrap: balance;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+a {
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+blockquote {
+  margin: 1.75rem 0;
+  padding: 0.2rem 0 0.2rem 1.25rem;
+  border-left: 3px solid var(--gold);
+  font-family: var(--font-serif);
+  font-size: 1.32rem;
+  line-height: 1.5;
+  color: var(--navy);
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* pull quotes and standfirsts share one voice */
+.about-tagline,
+.home-book-citation {
+  font-family: var(--font-serif);
+}
+
+/* ---------------------------------------------------------------- author page */
+
+.about-hero {
+  padding-top: clamp(2.5rem, 5vw, 4.25rem);
+  padding-bottom: clamp(2.25rem, 4vw, 3.5rem);
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+
+.about-hero h1 {
+  font-size: clamp(2.4rem, 4.4vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+}
+
+.about-tagline {
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  color: var(--gold-dark);
+}
+
+.about-hero .lede {
+  max-width: 36rem;
+  margin-top: 0.9rem;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  line-height: 1.5;
+  color: var(--navy-soft);
+}
+
+.about-hero .portrait {
+  position: relative;
+  margin: 0;
+  padding: 10px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
+  box-shadow: 0 18px 34px rgba(27, 54, 93, 0.14);
+}
+
+.about-hero .portrait img {
+  display: block;
+  border-radius: 1px;
+  filter: saturate(0.96);
+}
+
+.about-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.75rem 0 0;
+  padding: 1.2rem 0 0;
+  list-style: none;
+  border-top: 1px solid var(--border);
+}
+
+.about-facts li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--gold);
+}
+
+.about-facts strong {
+  font-family: var(--font-serif);
+  font-size: 1.12rem;
+  color: var(--navy);
+  line-height: 1.2;
+}
+
+.about-facts span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.about-section {
+  padding: clamp(2.5rem, 4.5vw, 4rem) 0;
+}
+
+.about-section h2 {
+  font-size: clamp(1.7rem, 2.8vw, 2.2rem);
+}
+
+#milestones {
+  background: linear-gradient(180deg, #ffffff 0%, #faf7f0 100%);
+}
+
+/* career path: a gold line with phase labels and dot markers */
+.milestones {
+  position: relative;
+  display: block;
+  margin: 2rem 0 0;
+  padding: 0 0 0 2.9rem;
+  border: 0;
+  counter-reset: milestone;
+}
+
+.milestones::before {
+  content: "";
+  position: absolute;
+  left: 1rem;
+  top: 0.7rem;
+  bottom: 1.2rem;
+  width: 2px;
+  background: linear-gradient(180deg, var(--gold) 0%, rgba(212, 175, 55, 0.2) 100%);
+}
+
+.milestones dt {
+  position: relative;
+  padding: 1.55rem 0 0;
+  border-top: 0;
+  counter-increment: milestone;
+  font-family: var(--font-serif);
+  font-size: clamp(1.16rem, 1.9vw, 1.36rem);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--navy);
+  max-width: 40rem;
+}
+
+.milestones dt::before {
+  display: block;
+  margin-bottom: 0.32rem;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+}
+
+.milestones dt::after {
+  content: "";
+  position: absolute;
+  left: -2.15rem;
+  top: 1.95rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 5px #fbf8f1;
+}
+
+.milestones dd {
+  max-width: 40rem;
+  margin: 0;
+  padding: 0.3rem 0 1.55rem;
+  border-top: 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.milestones dd:last-of-type {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+@media (max-width: 760px) {
+  .about-facts {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .about-hero .portrait {
+    max-width: 240px;
+  }
+
+  .milestones {
+    padding-left: 2.1rem;
+  }
+
+  .milestones::before {
+    left: 0.55rem;
+  }
+
+  .milestones dt::after {
+    left: -1.9rem;
+    top: 1.9rem;
+    width: 0.7rem;
+    height: 0.7rem;
+  }
+}
+
+/* path labels follow the milestone order */
+.milestones dt:nth-of-type(1)::before { content: "Foundations"; }
+.milestones dt:nth-of-type(2)::before { content: "College leadership"; }
+.milestones dt:nth-of-type(3)::before { content: "Consortium leadership"; }
+.milestones dt:nth-of-type(4)::before { content: "Global alliance"; }
+.milestones dt:nth-of-type(5)::before { content: "Scholarship"; }
+.milestones dt:nth-of-type(6)::before { content: "National service"; }
+.milestones dt:nth-of-type(7)::before { content: "Today"; }
+
+
+/* author path: heading stays beside the path on wide screens */
+@media (min-width: 1000px) {
+  #milestones .about-reading {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.35fr);
+    grid-template-rows: auto 1fr;
+    gap: 0.9rem clamp(2rem, 4vw, 4rem);
+    max-width: none;
+  }
+
+  #milestones .path-intro {
+    position: sticky;
+    top: 6rem;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: start;
+  }
+
+  #milestones h2 {
+    margin: 0.4rem 0 1rem;
+    font-size: clamp(2rem, 3vw, 2.6rem);
+  }
+
+  #milestones .section-intro {
+    margin: 0;
+    max-width: 24rem;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  #milestones .milestones {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin: 0;
+  }
+}
+
+/* ==========================================================================
+   Wayfinding: card numbers, section rules, anchor offsets
+   ========================================================================== */
+
+/* sticky header should never cover a linked heading */
+[id] {
+  scroll-margin-top: 96px;
+}
+
+/* numbered perspectives, so the eye can count its way across the page */
+.home-audiences .container {
+  counter-reset: audience;
+}
+
+.home-audiences .audience-card {
+  counter-increment: audience;
+}
+
+.home-audiences .audience-card::before {
+  content: counter(audience, decimal-leading-zero);
+  position: absolute;
+  top: 1.05rem;
+  right: 1.1rem;
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--gold-dark);
+}
+
+.home-audiences .audience-card {
+  position: relative;
+}
+
+/* interior sections open with a short gold rule */
+.choosing-section > .container > h2::before {
+  content: "";
+  display: block;
+  width: 2.4rem;
+  height: 2px;
+  margin-bottom: 0.75rem;
+  background: var(--gold);
+}
+
+.choosing-section > .container > h2 {
+  font-size: clamp(1.6rem, 2.5vw, 2.05rem);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+/* links that carry the reader onward */
+.home-study-links a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* pull-outs read as margin notes */
+.pullout {
+  background: #fff;
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.pullout .section-label {
+  color: var(--gold-dark);
+}
+
+/* skip links sit inside the container and look intentional */
+.quiz-skip {
+  margin-top: 1rem;
+}
+
+.quiz-skip a {
+  color: var(--gold-dark);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.5);
+}
+
+.quiz-skip a:hover {
+  color: var(--navy);
+  border-bottom-color: var(--gold);
+}
+
+/* long-form guide opens each chapter with the same gold rule */
+.understanding-section > .container > h2::before {
+  content: "";
+  display: block;
+  width: 2.4rem;
+  height: 2px;
+  margin-bottom: 0.75rem;
+  background: var(--gold);
+}
+
+/* quiz intro: a compact navy card, not a stretched empty column */
+.choosing-quiz-shell:has(.choosing-quiz-intro) .choosing-quiz-intro {
+  align-self: start;
+  border-radius: 10px;
+}
+
+.choosing-quiz-shell:has(.choosing-quiz-intro) .quiz-skip {
+  grid-column: 2;
+  margin-top: 0.35rem;
+}
+
+@media (max-width: 900px) {
+  .choosing-quiz-shell:has(.choosing-quiz-intro) .quiz-skip {
+    grid-column: 1;
+  }
+}
+
+/* tighten chapter rules against their headings */
+.understanding-section > .container > h2::before,
+.choosing-section > .container > h2::before {
+  margin-bottom: 0.55rem;
+}
+
+.choosing-quiz-shell .quiz-skip {
+  text-align: left;
+}
+
+/* keep the masthead on one line while the full nav is still shown */
+@media (min-width: 1025px) and (max-width: 1180px) {
+  .brand {
+    flex-shrink: 0;
+  }
+
+  .brand-name {
+    font-size: 1.06rem;
+    white-space: nowrap;
+  }
+
+  .brand-tag {
+    display: none;
+  }
+
+  .primary-nav {
+    gap: 0.85rem;
+  }
+
+  .primary-nav > a,
+  .nav-dropdown-toggle {
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+  }
+}

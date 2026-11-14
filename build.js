@@ -5,7 +5,7 @@ const path = require('path');
 
 const ROOT = __dirname;
 const SRC = path.join(ROOT, 'src');
-const OUT = path.join(ROOT, 'preview');
+const OUT = ROOT; // GitHub Pages serves the repository root
 
 function read(relative) {
   return fs.readFileSync(path.join(SRC, relative), 'utf8');
@@ -418,68 +418,68 @@ pages.forEach(function (page) {
     var outputPath = path.join(OUT, page.file);
     fs.mkdirSync(path.dirname(outputPath), { recursive: true });
     fs.writeFileSync(outputPath, html);
-    console.log('built preview/' + page.file);
+    console.log('built ' + page.file);
 });
 
 const cssFiles = ['fonts.css', 'tokens.css', 'base.css', 'layout.css', 'components.css', 'pages.css', 'in-college.css', 'parents.css', 'faculty.css', 'college-leaders.css', 'counselors.css', 'policymakers.css', 'understanding.css'];
 const css = cssFiles.map(function (file) { return read(path.join('styles', file)); }).join('\n');
 fs.writeFileSync(path.join(OUT, 'styles.css'), css);
-console.log('built preview/styles.css');
+console.log('built styles.css');
 
 fs.mkdirSync(path.join(OUT, 'scripts'), { recursive: true });
 fs.copyFileSync(path.join(SRC, 'scripts', 'ui.js'), path.join(OUT, 'scripts', 'ui.js'));
-console.log('built preview/scripts/ui.js');
+console.log('built scripts/ui.js');
 
 const choosingData = read('data/choosing.json');
 fs.writeFileSync(path.join(OUT, 'scripts', 'choosing-data.js'), 'window.WCIRF_CHOOSING = ' + choosingData.trim() + ';\n');
-console.log('built preview/scripts/choosing-data.js');
+console.log('built scripts/choosing-data.js');
 
 fs.copyFileSync(path.join(SRC, 'scripts', 'choosing.js'), path.join(OUT, 'scripts', 'choosing.js'));
-console.log('built preview/scripts/choosing.js');
+console.log('built scripts/choosing.js');
 
 const inCollegeData = read('data/in-college.json');
 fs.writeFileSync(path.join(OUT, 'scripts', 'in-college-data.js'), 'window.WCIRF_IN_COLLEGE = ' + inCollegeData.trim() + ';\n');
-console.log('built preview/scripts/in-college-data.js');
+console.log('built scripts/in-college-data.js');
 
 fs.copyFileSync(path.join(SRC, 'scripts', 'in-college.js'), path.join(OUT, 'scripts', 'in-college.js'));
-console.log('built preview/scripts/in-college.js');
+console.log('built scripts/in-college.js');
 
 const parentsData = read('data/parents.json');
 fs.writeFileSync(path.join(OUT, 'scripts', 'parents-data.js'), 'window.WCIRF_PARENTS = ' + parentsData.trim() + ';\n');
-console.log('built preview/scripts/parents-data.js');
+console.log('built scripts/parents-data.js');
 
 fs.copyFileSync(path.join(SRC, 'scripts', 'parents.js'), path.join(OUT, 'scripts', 'parents.js'));
-console.log('built preview/scripts/parents.js');
+console.log('built scripts/parents.js');
 
 const facultyData = read('data/faculty.json');
 fs.writeFileSync(path.join(OUT, 'scripts', 'faculty-data.js'), 'window.WCIRF_FACULTY = ' + facultyData.trim() + ';\n');
-console.log('built preview/scripts/faculty-data.js');
+console.log('built scripts/faculty-data.js');
 
 fs.copyFileSync(path.join(SRC, 'scripts', 'faculty.js'), path.join(OUT, 'scripts', 'faculty.js'));
-console.log('built preview/scripts/faculty.js');
+console.log('built scripts/faculty.js');
 
 const collegeLeadersData = read('data/college-leaders.json');
 fs.writeFileSync(path.join(OUT, 'scripts', 'college-leaders-data.js'), 'window.WCIRF_LEADERS = ' + collegeLeadersData.trim() + ';\n');
-console.log('built preview/scripts/college-leaders-data.js');
+console.log('built scripts/college-leaders-data.js');
 
 fs.copyFileSync(path.join(SRC, 'scripts', 'college-leaders.js'), path.join(OUT, 'scripts', 'college-leaders.js'));
-console.log('built preview/scripts/college-leaders.js');
+console.log('built scripts/college-leaders.js');
 
 fs.copyFileSync(path.join(SRC, 'scripts', 'counselors.js'), path.join(OUT, 'scripts', 'counselors.js'));
-console.log('built preview/scripts/counselors.js');
+console.log('built scripts/counselors.js');
 
 const policymakersData = read('data/policymakers.json');
 fs.writeFileSync(path.join(OUT, 'scripts', 'policymakers-data.js'), 'window.WCIRF_POLICYMAKERS = ' + policymakersData.trim() + ';\n');
-console.log('built preview/scripts/policymakers-data.js');
+console.log('built scripts/policymakers-data.js');
 
 fs.copyFileSync(path.join(SRC, 'scripts', 'policymakers.js'), path.join(OUT, 'scripts', 'policymakers.js'));
-console.log('built preview/scripts/policymakers.js');
+console.log('built scripts/policymakers.js');
 
 fs.copyFileSync(path.join(SRC, 'scripts', 'understanding.js'), path.join(OUT, 'scripts', 'understanding.js'));
-console.log('built preview/scripts/understanding.js');
+console.log('built scripts/understanding.js');
 
 fs.cpSync(path.join(SRC, 'assets'), path.join(OUT, 'assets'), { recursive: true });
-console.log('copied preview/assets');
+console.log('copied assets');
 
 const sitemapPages = pages.filter(function (page) { return !page.robots; });
 if (siteUrl) {
@@ -488,7 +488,7 @@ if (siteUrl) {
   });
   const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls.join('\n') + '\n</urlset>\n';
   fs.writeFileSync(path.join(OUT, 'sitemap.xml'), sitemap);
-  console.log('built preview/sitemap.xml (' + sitemapPages.length + ' pages)');
+  console.log('built sitemap.xml (' + sitemapPages.length + ' pages)');
 } else {
   const staleSitemap = path.join(OUT, 'sitemap.xml');
   if (fs.existsSync(staleSitemap)) fs.unlinkSync(staleSitemap);
@@ -497,4 +497,4 @@ if (siteUrl) {
 
 const robots = 'User-agent: *\nAllow: /\nDisallow: /foundation.html\n' + (siteUrl ? '\nSitemap: ' + absoluteUrl('sitemap.xml') + '\n' : '');
 fs.writeFileSync(path.join(OUT, 'robots.txt'), robots);
-console.log('built preview/robots.txt');
+console.log('built robots.txt');

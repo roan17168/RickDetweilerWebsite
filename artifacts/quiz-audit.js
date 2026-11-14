@@ -6,13 +6,13 @@ const ROOT = path.join(__dirname, '..');
 global.window = global;
 
 function load(name) {
-  const file = path.join(ROOT, 'preview', 'scripts', name);
+  const file = path.join(ROOT, 'scripts', name);
   delete require.cache[require.resolve(file)];
   return require(file);
 }
 
 ['choosing', 'parents', 'in-college', 'faculty', 'college-leaders', 'policymakers'].forEach(function (name) {
-  require(path.join(ROOT, 'preview', 'scripts', name + '-data.js'));
+  require(path.join(ROOT, 'scripts', name + '-data.js'));
 });
 const data = {
   choosing: global.WCIRF_CHOOSING,

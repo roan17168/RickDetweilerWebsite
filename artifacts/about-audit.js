@@ -7,7 +7,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const PREVIEW = path.join(ROOT, 'preview');
+const PREVIEW = path.join(ROOT, '');
 
 const fails = [];
 const notes = [];

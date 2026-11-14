@@ -4,171 +4,204 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1b365d">
-  <title>About the Author | What College Is Really For</title>
-  <meta name="description" content="Biography of Richard A. Detweiler, social psychologist, former college president, managing director of HigherEdImpact, and author of The Evidence Liberal Arts Needs.">
+  <meta name="color-scheme" content="light">
+  <title>About Richard A. Detweiler | What College Is Really For</title>
+  <meta name="description" content="Richard A. Detweiler is a social psychologist, former college president and author of The Evidence Liberal Arts Needs (MIT Press, 2021).">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta property="og:title" content="About Richard A. Detweiler | What College Is Really For">
+  <meta property="og:description" content="Richard A. Detweiler is a social psychologist, former college president and author of The Evidence Liberal Arts Needs (MIT Press, 2021).">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="What College Is Really For">
+  <meta property="og:locale" content="en_US">
   
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Richard A. Detweiler | What College Is Really For">
+  <meta name="twitter:description" content="Richard A. Detweiler is a social psychologist, former college president and author of The Evidence Liberal Arts Needs (MIT Press, 2021).">
   
-  <!-- Google Fonts: Lora (Serif) & Inter (Sans-serif) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
   
-  <link rel="icon" type="image/avif" href="assets/images/favicon.avif">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preload" href="assets/fonts/lora-700-normal-7.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-400-normal-2.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="assets/favicon-512.png" sizes="512x512" type="image/png">
+  <link rel="icon" href="assets/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
 
-  <!-- Shared Global Header -->
-  <header class="site-header">
-    <div class="nav-container">
-      <a href="index.html" class="brand-logo">What College Is Really For</a>
-      
-      <nav class="nav-links">
-        <div class="dropdown">
-          <button class="dropbtn" aria-haspopup="true" aria-expanded="false">
-            Perspectives <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="choosing-a-college.html">Choosing a College</a>
-            <a href="in-college.html">In College</a>
-            <a href="parents.html">Parents</a>
-            <a href="faculty.html">Faculty</a>
-            <a href="college-leaders.html">College Leaders</a>
-            <a href="policymakers.html">Policymakers</a>
-          </div>
+<body data-page="about">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="nav-shell">
+    <a class="brand" href="index.html">
+      <span class="brand-name">What College Is Really For</span>
+    </a>
+
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="perspectives-menu">
+          Menu: Perspectives
+          <svg class="chevron" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M1 1.5 6 6.5l5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="nav-dropdown-menu" id="perspectives-menu">
+          <a href="choosing-a-college.html" data-nav="choosing">I'm choosing a college</a>
+          <a href="in-college.html" data-nav="in-college">I'm in college</a>
+          <a href="parents.html" data-nav="parents">I'm a parent</a>
+          <a href="counselors.html" data-nav="counselors">I'm a counselor</a>
+          <a href="faculty.html" data-nav="faculty">I teach</a>
+          <a href="college-leaders.html" data-nav="leaders">I lead a college</a>
+          <a href="policymakers.html" data-nav="policymakers">I make policy</a>
         </div>
-        <a href="understanding-college.html">Understanding College</a>
-        <a href="the-research.html">The Research</a>
-        <a href="about.html" class="active">About</a>
-      </nav>
-      
-      <button class="mobile-toggle" id="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+      </div>
+      <a href="understanding-college.html" data-nav="understanding">Understanding College</a>
+      <a href="what-matters.html" data-nav="what-matters">What Matters in College</a>
+      <a href="the-research.html" data-nav="research">The Research</a>
+      <a href="about.html" data-nav="about">About</a>
+    </nav>
+
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+<section class="about-hero container">
+  <figure class="portrait">
+    <picture>
+      <source srcset="assets/images/detweiler-portrait.webp" type="image/webp">
+      <img src="assets/images/detweiler-portrait.jpg" alt="Portrait of Richard A. Detweiler." width="1000" height="1089">
+    </picture>
+  </figure>
+  <div>
+    <span class="section-label">About the author</span>
+    <h1>Richard A. Detweiler</h1>
+    <p class="about-tagline">Social psychologist &middot; Higher education leader &middot; Author</p>
+    <p class="lede">For more than five decades, Rick Detweiler has worked to move the conversation about college from belief to evidence.</p>
+  </div>
+</section>
+
+<section class="about-section" id="biography">
+  <div class="container">
+    <div class="about-reading">
+      <h2>Biography</h2>
+      <p>Richard A. Detweiler, known to colleagues and students as Rick, is a social psychologist, a former professor and college president, and a researcher whose work asks a plain question: which parts of college still matter decades later?</p>
+      <p>Rick is Managing Director of HigherEdImpact, a nonprofit he founded to help institutions use evidence to fulfill their educational missions. He is President Emeritus of the Great Lakes Colleges Association and of Hartwick College. At the GLCA he founded the Global Liberal Arts Alliance, a partnership of 30 universities in 16 countries.</p>
+      <p>Early in his career at Drew University, he led the first initiative to provide a computer to every student at a liberal arts institution, a commitment he continued as President of Hartwick College. His book, <em>The Evidence Liberal Arts Needs</em>, was named by <em>Forbes</em> as one of the best higher education books of 2021. It reports a large study linking specific college experiences to how graduates&rsquo; lives turn out.</p>
+      <p>Rick speaks at colleges and universities and advises presidents and boards in the United States and abroad.</p>
+
+      <div class="about-study">
+        <h3>About the author and the study</h3>
+        <p>The author is a graduate of a liberal arts college and of a major research university. He led liberal arts organizations for many years. The study included graduates of every kind of college&mdash;big and small, private and public, selective and non-selective, research and liberal arts and comprehensive, regional and national&mdash;and its findings held across all of them.</p>
+      </div>
+
+      <p><button class="btn btn-outline btn-small" type="button" data-notes-open>Sources for this page</button></p>
     </div>
-  </header>
+  </div>
+</section>
 
-  <main class="container" style="padding: 3.5rem 0 5rem;">
-    <div class="reading-container">
-      
-      <!-- Biography Section -->
-      <section class="author-intro" aria-labelledby="author-name">
-        <figure class="author-portrait">
-          <img src="assets/images/richard-detweiler.webp" alt="Richard A. Detweiler" width="280" height="350">
-          <figcaption>Richard A. Detweiler</figcaption>
-        </figure>
-        <div class="author-bio">
-          <span class="section-label">About the Author</span>
-          <h1 id="author-name">Richard A. Detweiler</h1>
-          <p class="author-standfirst">
-            Social psychologist, college president emeritus, and researcher asking what parts of college still matter decades later.
-          </p>
-          <p>Richard A. Detweiler, known to colleagues and students as Rick, is a social psychologist, a former professor and college president, and a researcher whose work asks a plain question: <strong>which parts of college still matter decades later?</strong></p>
+<section class="about-section" id="milestones">
+  <div class="container">
+    <div class="about-reading">
+      <h2>Career milestones</h2>
+      <dl class="milestones">
+        <dt>President Emeritus, Great Lakes Colleges Association</dt>
+        <dd>Led the consortium of liberal arts colleges for 14 years.</dd>
 
-          <p>Rick is Managing Director of <strong>HigherEdImpact</strong>, a nonprofit he founded to help institutions use evidence to fulfill their educational missions. He is President Emeritus of the Great Lakes Colleges Association (GLCA) and of Hartwick College. At the GLCA he founded the Global Liberal Arts Alliance, a partnership of 30 universities in 16 countries.</p>
+        <dt>President Emeritus, Hartwick College</dt>
+        <dd>Served as the college&rsquo;s eighth president.</dd>
 
-          <p>Early in his career at Drew University, he led the first initiative to provide a computer to every student at a liberal arts institution, a commitment he continued as President of Hartwick College. His book, <em>The Evidence Liberal Arts Needs</em>, was named by <em>Forbes</em> as one of the best higher education books of 2021. It reports a landmark study linking specific college experiences to how graduates' lives turn out.</p>
+        <dt>Founder, HigherEdImpact</dt>
+        <dd>A nonprofit that turns research into practical steps for college leaders and policymakers.</dd>
 
-          <p>Rick speaks at colleges and universities and advises presidents and boards in the United States and abroad.</p>
-        </div>
-      </section>
+        <dt>Founder, Global Liberal Arts Alliance</dt>
+        <dd>30 institutions in 16 countries.</dd>
 
-      <!-- Career Milestones -->
-      <section style="margin-top: 3.5rem;">
-        <h2>Career milestones</h2>
-        <div class="career-list" style="display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.5rem;">
-          <div class="career-card" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
-            <strong>Managing Director, HigherEdImpact</strong>
-            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">Helping higher education leaders and boards align operations and educational delivery with empirical evidence.</p>
-          </div>
+        <dt>Author, <em>The Evidence Liberal Arts Needs</em> (MIT Press, 2021)</dt>
+        <dd>A <em>Forbes</em> best higher education book of 2021.</dd>
 
-          <div class="career-card" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
-            <strong>President Emeritus, Great Lakes Colleges Association (GLCA)</strong>
-            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">Led the consortium of 13 historic Midwestern liberal arts colleges; established the Global Liberal Arts Alliance spanning 30 institutions worldwide.</p>
-          </div>
+        <dt>Distinguished Fellow, Council on Library and Information Resources</dt>
+        <dd>Also served as interim president.</dd>
 
-          <div class="career-card" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
-            <strong>President Emeritus, Hartwick College</strong>
-            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">Served as Hartwick College's 10th president.</p>
-          </div>
+        <dt>PhD in Social Psychology</dt>
+        <dd>Princeton University.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
 
-          <div class="career-card" style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
-            <strong>Vice President &amp; Professor of Psychology, Drew University</strong>
-            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">Led the Computer Initiative, making Drew the first liberal arts institution in the nation to provide personal computers to all incoming students.</p>
-          </div>
-
-          <div style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
-            <strong>Founder, Global Liberal Arts Alliance</strong>
-            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">A partnership of 30 institutions in 16 countries.</p>
-          </div>
-
-          <div style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
-            <strong>Distinguished Fellow, Council on Library and Information Resources</strong>
-            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">Also served as interim president.</p>
-          </div>
-
-          <div style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.25rem;">
-            <strong>Education and service</strong>
-            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">PhD in Social Psychology from Princeton University; Peace Corps volunteer and trainer in the Eastern Caroline Islands.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- The Book Section -->
-      <section id="book" style="margin-top: 3.5rem; background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 2.25rem; box-shadow: var(--shadow-subtle);">
-        <span class="section-label">The Book</span>
-        <h2>The Evidence Liberal Arts Needs</h2>
-        <img src="assets/images/book-cover.jpg" alt="Cover of The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment" width="237" height="360" style="width:140px;margin:0 0 1rem;">
-        <p style="font-style: italic; color: var(--secondary-navy); margin-bottom: 1rem;">Lives of Consequence, Inquiry, and Accomplishment (MIT Press, 2021)</p>
-        
+<section class="about-section" id="book">
+  <div class="container">
+    <h2>The book</h2>
+    <div class="book-band">
+      <img src="assets/images/book-cover.jpg" alt="Cover of The Evidence Liberal Arts Needs by Richard A. Detweiler, MIT Press." width="711" height="1080" loading="lazy">
+      <div>
+        <h3>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</h3>
         <p>Based on interviews with 1,000 college graduates, ages 25 to 65, the book examines how specific college experiences relate to leadership, civic involvement, continued learning, cultural involvement, fulfillment and success in adult life. Its central finding is that what students experience in college often matters more than what they major in.</p>
-
-        <div style="margin-top: 1.75rem;">
-          <a href="https://mitpress.mit.edu/9780262543101/the-evidence-liberal-arts-needs/" target="_blank" rel="noopener noreferrer" class="gold-btn">
-            Get the Book at MIT Press <i class="fa-solid fa-arrow-up-right-from-square" style="margin-left: 0.5rem; font-size: 0.85rem;"></i>
-          </a>
-        </div>
-      </section>
-
-      <!-- Contact Section -->
-      <section id="contact" style="margin-top: 3.5rem; text-align: center; padding: 2.5rem; background: var(--bg-surface-alt); border-radius: var(--radius-card); border: 1px solid var(--border-muted);">
-        <h2>Speaking &amp; Advising</h2>
-        <p style="max-width: 600px; margin: 0 auto 1.5rem;">
-          Rick speaks at colleges, universities, and conferences, and advises institutional leaders and boards on evidence-based educational strategies.
-        </p>
-        <a href="mailto:Detweiler@higheredimpact.org" class="navy-btn" style="max-width: 100%; overflow-wrap: anywhere; text-align: center;">
-          <i class="fa-solid fa-envelope" style="margin-right: 0.5rem;"></i> Detweiler@higheredimpact.org
-        </a>
-      </section>
-
+        <a class="btn btn-primary" href="https://mitpress.mit.edu/9780262543101/the-evidence-liberal-arts-needs" target="_blank" rel="noopener">Get the book</a>
+      </div>
     </div>
-  </main>
+  </div>
+</section>
 
-  <!-- Shared Global Footer -->
-  <footer class="site-footer">
-    <div class="container footer-content">
-      <div class="footer-title">What College Is Really For</div>
-      <p class="footer-citation">
-        Based on interviews with 1,000 college graduates, ages 25 to 65, from every kind of college. Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021).
-      </p>
-      <nav class="footer-nav">
+<section class="about-section" id="contact">
+  <div class="container">
+    <div class="about-reading">
+      <h2>Contact</h2>
+      <p>For speaking and advising: <a href="mailto:Detweiler@higheredimpact.org">Detweiler@higheredimpact.org</a></p>
+      <p><a class="btn btn-gold" href="mailto:Detweiler@higheredimpact.org?subject=HigherEdImpact%20inquiry">Email Rick Detweiler</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="about-section">
+  <div class="container">
+    <p class="small muted">Portrait courtesy of Richard A. Detweiler. Book cover: MIT Press, 2021.</p>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="footer-name">What College Is Really For</p>
+        <p>A public education program of <strong>HigherEdImpact</strong>, a 501(c)(3) nonprofit organization (EIN 87-2050100). No sign-up, no advertising.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
         <a href="understanding-college.html">Understanding College</a>
+        <a href="what-matters.html">What Matters in College</a>
         <a href="the-research.html">The Research</a>
-        <a href="about.html">About the Author</a>
-        <a href="about.html#book">Get the Book</a>
-        <a href="about.html#contact">Contact</a>
+        <a href="about.html">About HigherEdImpact</a>
+        <a href="about.html#book">The Book</a>
+        <a href="privacy.html">Privacy</a>
       </nav>
-      <p class="footer-contact">
-        Contact: <a href="mailto:Detweiler@higheredimpact.org">Detweiler@higheredimpact.org</a>
-      </p>
-      <p class="footer-copy">
-        &copy; 2026 Richard A. Detweiler. All rights reserved.
-      </p>
     </div>
-  </footer>
 
-  <script src="js/main.js"></script>
+    <p class="footer-cite">Based on interviews with 1,000 college graduates, ages 25 to 65, from every kind of college, reported in Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021).</p>
+
+    <div class="footer-meta">
+      <p>HigherEdImpact &middot; 18670 Nixon Ave., West Linn, Oregon 97068 &middot; <a href="mailto:Detweiler@higheredimpact.org">Detweiler@higheredimpact.org</a> &middot; <a href="https://higheredimpact.org/">higheredimpact.org</a></p>
+      <p>&copy; 2026 HigherEdImpact. Research findings &copy; Richard A. Detweiler.</p>
+    </div>
+  </div>
+</footer>
+
+<dialog class="notes-panel" id="notes-panel" aria-labelledby="notes-title">
+  <div class="notes-header">
+    <div>
+      <span class="section-label">Sources</span>
+      <h2 id="notes-title">Sources for this page</h2>
+    </div>
+    <button class="notes-close" type="button" data-notes-close aria-label="Close sources">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <ol class="notes-list">
+    <li id="note-1">Michael T. Nietzel, “The Best Higher Education Books of 2021,” <em>Forbes</em>, December 1, 2021.</li>
+<li id="note-2">Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021).</li>
+  </ol>
+</dialog>
+
+<script src="scripts/ui.js"></script>
+
 </body>
 </html>

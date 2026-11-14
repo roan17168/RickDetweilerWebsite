@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const source = fs.readFileSync('artifacts/policymakers-source.txt', 'utf8');
-const page = fs.readFileSync('preview/policymakers.html', 'utf8');
+const page = fs.readFileSync('policymakers.html', 'utf8');
 const data = JSON.parse(fs.readFileSync('src/data/policymakers.json', 'utf8'));
 const api = require('../src/scripts/policymakers.js');
 
@@ -147,7 +147,7 @@ hrefs.forEach(function (href) {
   }
   const file = href.split('#')[0];
   if (!file) return;
-  const target = path.resolve('preview', file);
+  const target = path.resolve('.', file);
   if (!fs.existsSync(target)) brokenLinks.push(href);
 });
 
@@ -182,9 +182,9 @@ for (let i = 0; i < 243; i += 1) {
 
 const nav = {
   headerLink: /<a href="policymakers\.html" data-nav="policymakers">/.test(page),
-  homeLink: /href="policymakers\.html"[^>]*>Start</.test(fs.readFileSync('preview/index.html', 'utf8')),
+  homeLink: /href="policymakers\.html"[^>]*>Start</.test(fs.readFileSync('index.html', 'utf8')),
   footerLink: /<a href="policymakers\.html">For Policymakers<\/a>/.test(page),
-  staleLiveLinks: (fs.readFileSync('preview/index.html', 'utf8') + page).includes('../policymakers.html')
+  staleLiveLinks: (fs.readFileSync('index.html', 'utf8') + page).includes('../policymakers.html')
 };
 
 const required = {

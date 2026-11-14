@@ -5,7 +5,7 @@ const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
 const source = fs.readFileSync(path.join(ROOT, 'artifacts/college-leaders-source.txt'), 'utf8');
-const page = fs.readFileSync(path.join(ROOT, 'preview/college-leaders.html'), 'utf8');
+const page = fs.readFileSync(path.join(ROOT, 'college-leaders.html'), 'utf8');
 const data = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/college-leaders.json'), 'utf8'));
 const engine = require(path.join(ROOT, 'src/scripts/college-leaders.js'));
 
@@ -178,7 +178,7 @@ links.forEach(function (link) {
   if (/^(#|https?:|mailto:|data:|tel:)/.test(link)) return;
   const clean = link.split('#')[0].split('?')[0];
   if (!clean) return;
-  const resolved = path.resolve(path.join(ROOT, 'preview'), clean);
+  const resolved = path.resolve(path.join(ROOT, ''), clean);
   if (!fs.existsSync(resolved)) brokenLinks.push(link);
 });
 

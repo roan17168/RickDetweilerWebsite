@@ -60,7 +60,7 @@ exists and is linked.
 
 1. Place the final PDFs in `src/downloads/` with lower-case hyphens, e.g.
    `parent-checklist.pdf`.
-2. Copy them to `preview/downloads/` in `build.js` (`fs.cpSync`), and log the count.
+2. Copy them to `downloads/` in `build.js` (`fs.cpSync`), and log the count.
 3. Link them from the owning page and from the matching tool page where Rev6 says so, with
    `<a href="…" download>` and descriptive link text.
 4. Keep the existing on-page print controls; they are not a substitute for the PDF link and the
@@ -69,7 +69,7 @@ exists and is linked.
 6. Add `artifacts/downloads-audit.js`: six files exist, each is a valid PDF header (`%PDF-`), each
    is linked from at least one page, no 404s, no link labelled “Download as PDF” without a file.
 
-Gate: six files in `preview/downloads/`, every link resolves, audit passes, `seo-audit` still
+Gate: six files in `downloads/`, every link resolves, audit passes, `seo-audit` still
 passes (PDFs are not pages and must not appear in `sitemap.xml`).
 
 ## Phase 4 — Alignment and handover (2–3 hours)

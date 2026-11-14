@@ -1,13 +1,13 @@
-// Browser audit for the Revision 6 preview.
+// Browser audit for the built site.
 // Requires Playwright installed outside the project (this repository has no dependencies):
 //   mkdir -p /tmp/pw && cd /tmp/pw && npm i playwright && npx playwright install chromium
 // ESM resolution ignores NODE_PATH, so copy this file next to the install and run it there:
 //   cd /path/to/repo && python3 -m http.server 8321 &
 //   cp artifacts/browser-audit.mjs /tmp/pw/audit.mjs && cd /tmp/pw && node audit.mjs
-// The suite expects the preview to be served under /preview/ on port 8321 and exits non-zero on any FAIL.
+// The suite expects the built site to be served from the repository root on port 8321 and exits non-zero on any FAIL.
 import { chromium } from 'playwright';
 
-const BASE = 'http://127.0.0.1:8321/preview/';
+const BASE = 'http://127.0.0.1:8321/';
 const PAGES = ['index.html', 'what-matters.html', 'the-research.html', 'choosing-a-college.html', 'tools/college-scorecard.html',
   'in-college.html', 'parents.html', 'faculty.html', 'college-leaders.html', 'counselors.html', 'policymakers.html',
   'understanding-college.html', 'about.html', 'privacy.html', '404.html', 'foundation.html'];

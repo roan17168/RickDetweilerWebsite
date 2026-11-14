@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, 'preview');
+const OUT = path.join(ROOT, '');
 const site = JSON.parse(fs.readFileSync(path.join(ROOT, 'src', 'data', 'site.json'), 'utf8'));
 let siteUrl = String(process.env.SITE_URL || site.url || '').replace(/\/+$/, '');
 if (!siteUrl) {
@@ -35,11 +35,12 @@ function ok(message) { pass++; console.log('PASS  ' + message); }
 function bad(message) { fail++; console.log('FAIL  ' + message); }
 function warn(message) { note++; console.log('NOTE  ' + message); }
 
+const SKIP_DIRS = ['src', 'artifacts', 'assets', 'scripts', 'css', 'js', 'node_modules', '.git', '.github', 'preview'];
 function walk(dir, list) {
   fs.readdirSync(dir, { withFileTypes: true }).forEach(function (entry) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
-      if (entry.name === 'assets' || entry.name === 'scripts') return;
+      if (SKIP_DIRS.indexOf(entry.name) !== -1) return;
       walk(full, list);
     } else if (entry.name.endsWith('.html')) {
       list.push(full);

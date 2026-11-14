@@ -4,267 +4,578 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1b365d">
+  <meta name="color-scheme" content="light">
   <title>In College | What College Is Really For</title>
-  <meta name="description" content="A two-minute check for current college students. Find out which experiences that last you have so far, and get a one-semester plan to build the rest.">
+  <meta name="description" content="A two-minute check for college students: which experiences linked to a good life after college you already have, and one small move for each of the rest.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta property="og:title" content="In College | What College Is Really For">
+  <meta property="og:description" content="A two-minute check for college students: which experiences linked to a good life after college you already have, and one small move for each of the rest.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="What College Is Really For">
+  <meta property="og:locale" content="en_US">
   
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="In College | What College Is Really For">
+  <meta name="twitter:description" content="A two-minute check for college students: which experiences linked to a good life after college you already have, and one small move for each of the rest.">
   
-  <!-- Google Fonts: Lora (Serif) & Inter (Sans-serif) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
   
-  <link rel="icon" type="image/avif" href="assets/images/favicon.avif">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preload" href="assets/fonts/lora-700-normal-7.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-400-normal-2.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="assets/favicon-512.png" sizes="512x512" type="image/png">
+  <link rel="icon" href="assets/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
 
-  <!-- Shared Global Header -->
-  <header class="site-header">
-    <div class="nav-container">
-      <a href="index.html" class="brand-logo">What College Is Really For</a>
-      
-      <nav class="nav-links">
-        <div class="dropdown">
-          <button class="dropbtn" aria-haspopup="true" aria-expanded="false">
-            Perspectives <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="choosing-a-college.html">Choosing a College</a>
-            <a href="in-college.html" class="active">In College</a>
-            <a href="parents.html">Parents</a>
-            <a href="faculty.html">Faculty</a>
-            <a href="college-leaders.html">College Leaders</a>
-            <a href="policymakers.html">Policymakers</a>
-          </div>
-        </div>
-        <a href="understanding-college.html">Understanding College</a>
-        <a href="the-research.html">The Research</a>
-        <a href="about.html">About</a>
-      </nav>
-      
-      <button class="mobile-toggle" id="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-    </div>
-  </header>
+<body data-page="in-college">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="nav-shell">
+    <a class="brand" href="index.html">
+      <span class="brand-name">What College Is Really For</span>
+    </a>
 
-  <main class="container" style="padding: 3.5rem 0 5rem;">
-    <div class="reading-container">
-      
-      <span class="section-label">For Current College Students</span>
-      <h1>Am I getting the experiences that last?</h1>
-      
-      <p style="font-size: 1.15rem; color: var(--text-charcoal); line-height: 1.6;">
-        Class is the required part of college. The research says the part that shapes your life mostly happens around it: professors who know you, courses outside your major, discussions that make you think, and campus involvement.
-      </p>
-
-      <!-- Quiz Trigger Callout -->
-      <div style="background: var(--bg-surface); border: 1.5px solid var(--accent-gold); border-radius: var(--radius-card); padding: 1.75rem; margin: 2rem 0; text-align: center; box-shadow: var(--shadow-subtle);">
-        <h3 style="margin-bottom: 0.5rem;">Check Your College Habits</h3>
-        <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-          5 questions, plus one optional. Two minutes. Find out what you have so far and what's missing.
-        </p>
-        <button class="gold-btn quiz-trigger-btn" 
-                data-audience="In College" 
-                onclick="window.initQuiz('In College')">
-          Take the Quiz
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="perspectives-menu">
+          Menu: Perspectives
+          <svg class="chevron" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M1 1.5 6 6.5l5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
+        <div class="nav-dropdown-menu" id="perspectives-menu">
+          <a href="choosing-a-college.html" data-nav="choosing">I'm choosing a college</a>
+          <a href="in-college.html" data-nav="in-college">I'm in college</a>
+          <a href="parents.html" data-nav="parents">I'm a parent</a>
+          <a href="counselors.html" data-nav="counselors">I'm a counselor</a>
+          <a href="faculty.html" data-nav="faculty">I teach</a>
+          <a href="college-leaders.html" data-nav="leaders">I lead a college</a>
+          <a href="policymakers.html" data-nav="policymakers">I make policy</a>
+        </div>
+      </div>
+      <a href="understanding-college.html" data-nav="understanding">Understanding College</a>
+      <a href="what-matters.html" data-nav="what-matters">What Matters in College</a>
+      <a href="the-research.html" data-nav="research">The Research</a>
+      <a href="about.html" data-nav="about">About</a>
+    </nav>
+
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+<section class="choosing-hero in-college-hero">
+  <div class="container">
+    <div class="choosing-hero-grid">
+      <div class="choosing-hero-copy">
+        <div class="hero-rule"></div>
+        <span class="section-label">For students in college now</span>
+        <h1>You picked the college. Now pick the experience.</h1>
+        <p class="lede">Graduates who did well later had five things in common during college. None depends on your major. Whether you&rsquo;re at a small college, a big university, or fitting college around work and a commute, each one has a version for you.</p>
+        <div class="choosing-hero-actions">
+          <a class="btn btn-primary" href="#check">Check my five</a>
+          <p class="choosing-hero-note">5 questions, plus one optional. Two minutes. Answer for this year as it is, not as you planned it.</p>
+        </div>
       </div>
 
-      <!-- The Five Action Cards -->
-      <section style="margin-top: 3.5rem;">
-        <span class="section-label">Five High-Impact Habits</span>
-        <h2>The five moves that matter most</h2>
-        <p>These links held for every kind of major, engineering and professional majors included, and were strongest for students from lower-income backgrounds.</p>
+      <aside class="choosing-get-card" aria-labelledby="what-you-get-title">
+        <span class="section-label">Start here</span>
+        <h2 id="what-you-get-title">What you get</h2>
+        <ul class="choosing-list">
+          <li>Where you stand on each of the five.</li>
+          <li>One small move for each, with the words to say.</li>
+          <li>A one-semester plan with three moves.</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
 
-        <!-- Card 1: Time with Professors -->
-        <article style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-subtle);">
-          <h3>1. Time with a professor outside class</h3>
-          <p><strong>What the research found:</strong> Graduates with a mentor were <strong>26% more likely</strong> to be leaders as adults. Talking with professors outside class about non-academic topics was linked to higher income, volunteering, and fulfillment.</p>
-          <p><strong>Start small:</strong> Go to office hours once with a real question: <em>"Can you help me understand one thing from Tuesday's lecture?"</em></p>
-          <details class="accordion-item" style="margin-top: 1rem;">
-            <summary>Adaptations for your situation</summary>
-            <div class="accordion-content">
-              <p><strong>At a big university:</strong> Start with your TA; they are often the bridge to the professor. Go to office hours in the first weeks of the term before lines form.</p>
-              <p><strong>Short on time / commuter:</strong> Stay two minutes after class or email a thoughtful question. Ask for a 5-minute video check-in.</p>
-              <p><strong>Already doing this?</strong> Ask a professor to supervise an independent study or research project.</p>
-            </div>
-          </details>
-        </article>
+<section class="choosing-section choosing-quiz-section in-college-check" id="check" aria-labelledby="check-title">
+  <div class="container">
+    <div class="choosing-quiz-shell">
+      <div class="choosing-quiz-intro">
+        <span class="section-label">Quiz</span>
+        <h2 id="check-title">A two-minute check</h2>
+        <p>5 questions, plus one optional. Two minutes. Answer for this year as it is, not as you planned it.</p>
+      </div>
+      <div class="choosing-quiz" data-check-app>
+        <noscript><p>The check needs JavaScript. The five cards below still work; the plan form can be filled in, but its save, copy, email and print buttons need JavaScript.</p></noscript>
+      </div>
+    </div>
+  </div>
+      <p class="quiz-skip"><a href="#practices">Skip the quiz and go to the recommendations</a></p>
+</section>
 
-        <!-- Card 2: Broad Study Outside Major -->
-        <article style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-subtle);">
-          <h3>2. Taking courses well outside your major</h3>
-          <p><strong>What the research found:</strong> Taking more than half of courses outside the major was linked to a <strong>24% greater likelihood of higher income</strong> (and <strong>33%</strong> for graduates from lower-income families). Major was unrelated to long-term success.</p>
-          <p><strong>Start small:</strong> Save one elective slot next semester for a subject you are genuinely curious about.</p>
-          <details class="accordion-item" style="margin-top: 1rem;">
-            <summary>Adaptations for your situation</summary>
-            <p><strong>In set-requirement majors (e.g. engineering, nursing):</strong> Use your required general education electives deliberately rather than treating them as a checklist.</p>
-          </details>
-        </article>
+<section class="choosing-section in-college-practices" id="practices" aria-labelledby="practices-title">
+  <div class="container">
+    <span class="section-label">The five practices</span>
+    <h2 id="practices-title">The five cards</h2>
+    <p>These links held for every kind of major, engineering and other professional majors included, when students had the experiences. And several were strongest for graduates who grew up with less money.</p>
+    <p class="practice-method-note">Lines marked &ldquo;Why it helps now&rdquo; are practical advice, not findings from the study.</p>
 
-        <!-- Card 3: Argue Both Sides -->
-        <article style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-subtle);">
-          <h3>3. Classes where you examine your own arguments</h3>
-          <p><strong>What the research found:</strong> Graduates whose professors made them examine the strengths and weaknesses of their own views were <strong>149% more likely</strong> to report fulfilled lives.</p>
-          <p><strong>Start small:</strong> In your next paper or problem set, add one paragraph that begins: <em>"The strongest argument against my view is..."</em></p>
-        </article>
-
-        <!-- Card 4: Campus Involvement -->
-        <article style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-subtle);">
-          <h3>4. Being part of something on campus</h3>
-          <p><strong>What the research found:</strong> Graduates closely involved with faculty and other students outside class were <strong>56% more likely</strong> to give a larger share of their income and <strong>42% more likely</strong> to volunteer more as adults.</p>
-          <p><strong>Start small:</strong> Pick one student group, campus job, lab, or volunteer project and show up consistently every week.</p>
-        </article>
-
-        <!-- Card 5: Real Conversations Across Difference -->
-        <article style="background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 1.75rem; margin-bottom: 1.5rem; box-shadow: var(--shadow-subtle);">
-          <h3>5. Real conversations with people different from you</h3>
-          <p><strong>What the research found:</strong> Spending time with peers from different cultures and beliefs was linked to cultural involvement and lifelong curiosity.</p>
-          <p><strong>Start small:</strong> Have lunch or work on a group project with a classmate whose background or perspective is unfamiliar to you.</p>
-        </article>
-      </section>
-
-      <!-- When College Gets Hard (Collapsible) -->
-      <section style="margin-top: 2rem;">
-        <details class="accordion-item">
-          <summary>When college gets hard: Three things to do first</summary>
-          <div class="accordion-content">
-            <p>If you're failing a class, overwhelmed by work, or wondering if you should drop out:</p>
-            <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
-              <li><strong>Tell one professor or adviser immediately:</strong> Say: <em>"I'm struggling this term and I don't want to fall behind. What are my options?"</em> They deal with this every week.</li>
-              <li><strong>Use tutoring and academic support:</strong> Tutoring is free at almost every college. Students who use it are the ones who finish.</li>
-              <li><strong>Protect your credits:</strong> Dropping one class before the deadline is far better than failing three. Talk to financial aid before withdrawing.</li>
-            </ol>
+    <div class="practice-grid" data-practice-list>
+      <details class="practice-card" data-practice-key="professor">
+        <summary>
+          <span class="practice-number">1.</span>
+          <span class="practice-title" role="heading" aria-level="3">Time with a professor outside class</span>
+        </summary>
+        <div class="practice-card-body">
+          <p><strong>What the research found.</strong> Graduates who had a college mentor with a lasting impact were 26% more likely to be leaders as adults. Among graduates late in their careers, the link between these relationships and success was strongest for those who grew up with less money.</p>
+          <p><strong>Why it helps now.</strong> Professors and teaching assistants are how students get help in time to pass a hard course. A professor who knows your work can also write a real recommendation and point you to research, jobs and people.</p>
+          <p class="result-quote-label">A graduate says</p>
+          <blockquote class="result-quote">
+            <p>&ldquo;&hellip;the professors were accessible and could share valuable insights. They also recognized my passion for medicine, so they directed me toward appropriate research opportunities and work experiences.&rdquo;</p>
+            <cite>Angela, trauma surgeon and director of a surgical residency</cite>
+          </blockquote>
+          <p class="practice-start"><strong>Start small.</strong> Office hours are set times when a professor is in their office for any student. No appointment needed, and no problem needed either. Go once with a real question: &ldquo;Can you help me understand one thing from Tuesday&rsquo;s class?&rdquo; Next time, try: &ldquo;I liked last week&rsquo;s topic. What should I read next?&rdquo;</p>
+          <div class="practice-variant" data-variant="big">
+            <p><strong>At a big university.</strong> Start with your teaching assistant; TAs are often the way to the professor. Go to office hours in the first weeks of the term, when there is no line. Look for the small classes, such as first-year seminars, honors sections and writing courses, where professors learn names.</p>
           </div>
-        </details>
-      </section>
-
-      <!-- INTERACTIVE TOOL: ONE-SEMESTER ACTION PLAN -->
-      <section id="plan-tool" style="margin-top: 4rem; background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 2.25rem; box-shadow: var(--shadow-subtle);">
-        <span class="section-label">Interactive Tool</span>
-        <h2>Your One-Semester Plan</h2>
-        <p><strong>What it's for:</strong> Turn the five cards into three specific moves for this semester, with target dates and check-ins.</p>
-
-        <div class="table-container" style="margin-top: 1.5rem;">
-          <table class="responsive-data-table">
-            <thead>
-              <tr>
-                <th style="width: 15%;">Move</th>
-                <th style="width: 25%;">Card Chosen</th>
-                <th style="width: 35%;">My Choice &amp; First Step</th>
-                <th style="width: 25%;">Target Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Move"><strong>Move 1</strong></td>
-                <td data-label="Card"><input type="text" placeholder="e.g. Card 1: Office Hours" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="Action"><input type="text" placeholder="Dr. Rivera, Bio 110: Ask about immune lecture" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="Date"><input type="text" placeholder="By Sept 26" style="width: 100%; padding: 0.35rem;"></td>
-              </tr>
-              <tr>
-                <td data-label="Move"><strong>Move 2</strong></td>
-                <td data-label="Card"><input type="text" placeholder="e.g. Card 2: Broad Elective" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="Action"><input type="text" placeholder="Register for Intro to Ethics" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="Date"><input type="text" placeholder="During registration" style="width: 100%; padding: 0.35rem;"></td>
-              </tr>
-              <tr>
-                <td data-label="Move"><strong>Move 3</strong></td>
-                <td data-label="Card"><input type="text" placeholder="e.g. Card 4: Campus Group" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="Action"><input type="text" placeholder="Join student newspaper staff" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="Date"><input type="text" placeholder="By Oct 10" style="width: 100%; padding: 0.35rem;"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Tool Action Row (Item 1 Enhancement) -->
-        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap;">
-          <button class="navy-btn" onclick="window.printToolReport('plan-tool')">
-            <i class="fa-solid fa-print" style="margin-right: 0.5rem;"></i> Print
-          </button>
-          <button class="btn btn-outline" onclick="window.copyToolToClipboard('plan-tool')">
-            <i class="fa-solid fa-copy" style="margin-right: 0.5rem;"></i> Copy Text
-          </button>
-          <button class="btn btn-outline" style="color: #c53030; border-color: #feb2b2;" onclick="window.clearToolData('plan-tool')">
-            <i class="fa-solid fa-rotate-left" style="margin-right: 0.5rem;"></i> Reset Form
-          </button>
-        </div>
-      </section>
-
-      <!-- Universal Closing Callout: A Meaningful Life in a World of Change -->
-      <section class="meaningful-life-block">
-        <div class="stat-callout-g6">
-          <span class="stat-big-number">9.4</span>
-          <span class="stat-big-caption">jobs already held by age 38 by Americans now in their early forties.</span>
-        </div>
-        <h3 style="margin-bottom: 0.5rem;">A meaningful life in a world of change</h3>
-        <p>
-          College is more than getting through classes to get a job. It's where you find out what you care about, who you want to become and what you have to give. Graduates in this study who got to know professors, studied widely, were pushed to think and got involved were more likely, decades later, to earn more, to lead, to volunteer, to keep learning and to say their lives felt fulfilled.
-        </p>
-        <p style="margin-bottom: 0;">
-          The World Economic Forum expects nearly 40% of the skills used at work to change by 2030.<sup>[7]</sup> What lasts is the person college helps you become.
-        </p>
-      </section>
-
-      <details class="accordion-item">
-        <summary>Sources and notes</summary>
-        <div class="accordion-content" style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;">
-          <p><strong>[7]</strong> World Economic Forum, <em>The Future of Jobs Report 2025</em> (2025).</p>
+          <div class="practice-variant" data-variant="short">
+            <p><strong>Short on time?</strong> Email the same question, or stay two minutes after class. Many professors also hold office hours by video.</p>
+          </div>
+          <div class="practice-variant" data-variant="already">
+            <p><strong>Already doing this?</strong> Ask one professor to be involved with something that interests you: a project, a research question or an independent study.</p>
+          </div>
+          <p class="practice-other"><strong>Other research agrees.</strong> Richard Light, after years of interviewing Harvard undergraduates, gave students one piece of advice above others: get to know one faculty member reasonably well each semester.</p>
         </div>
       </details>
 
-      <!-- Next Steps Navigation -->
-      <section style="margin-top: 3.5rem; border-top: 1px solid var(--border-muted); padding-top: 2rem;">
-        <h4>Where to go next:</h4>
-        <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li>Put two dates in your calendar: a midterm check-in and an end-of-term look back.</li>
-          <li>Show your plan to your adviser or a professor you trust and ask what they'd add.</li>
-          <li>See <a href="understanding-college.html">Understanding College</a> to learn why breadth pays off.</li>
-          <li>Review <a href="the-research.html">The Research</a> for the study behind the five cards.</li>
-        </ol>
-      </section>
+      <details class="practice-card" data-practice-key="courses">
+        <summary>
+          <span class="practice-number">2.</span>
+          <span class="practice-title" role="heading" aria-level="3">Courses outside your major</span>
+        </summary>
+        <div class="practice-card-body">
+          <p><strong>What the research found.</strong> Graduates who took more than half their courses outside their major were 24% more likely to report a higher income as adults, and 33% more likely if they came from lower-income families. Major had nothing to do with long-term success.</p>
+          <p><strong>Why it helps now.</strong> It&rsquo;s the cheapest way to find out what you&rsquo;re good at before you commit to a path.</p>
+          <p class="result-quote-label">A graduate says</p>
+          <blockquote class="result-quote">
+            <p>&ldquo;&hellip;a well-rounded liberal arts education prepared and enabled me to quickly adapt and transition to other career options.&rdquo;</p>
+            <cite>Theressa, physician</cite>
+          </blockquote>
+          <p class="practice-start"><strong>Start small.</strong> At your next registration, choose one course only because it sounds interesting.</p>
+          <div class="practice-variant" data-variant="requirements">
+            <p><strong>Engineering, nursing or another program with set requirements?</strong> Use whatever electives you have on something far from your field, or sit in on one lecture. The links in the study held for engineering students too, when they had these experiences.</p>
+          </div>
+          <div class="practice-variant" data-variant="already">
+            <p><strong>Already doing this?</strong> Look for a course that connects two of your interests, or a minor far from your major.</p>
+          </div>
+        </div>
+      </details>
 
-    </div>
-  </main>
+      <details class="practice-card" data-practice-key="thinking">
+        <summary>
+          <span class="practice-number">3.</span>
+          <span class="practice-title" role="heading" aria-level="3">Classes that make you think</span>
+        </summary>
+        <div class="practice-card-body">
+          <p><strong>What the research found.</strong> Graduates whose professors made them examine the strengths and weaknesses of their own arguments were 149% more likely to describe their lives as highly fulfilled: about two and a half times as likely.</p>
+          <p><strong>Why it helps now.</strong> These are the classes that give you something to say in an interview.</p>
+          <p class="result-quote-label">A graduate says</p>
+          <blockquote class="result-quote">
+            <p>&ldquo;&hellip;taught me three critical things that have made all the difference: How to Learn, How to Think, and How to Communicate.&rdquo;</p>
+            <cite>Deborah, senior officer of a major corporation, on her professors</cite>
+          </blockquote>
+          <p class="practice-start"><strong>Start small.</strong> In your next paper, add one paragraph that begins: &ldquo;The strongest argument against my view is&hellip;&rdquo;</p>
+          <div class="practice-variant" data-variant="science">
+            <p><strong>In science, math or engineering.</strong> On your next problem set or design, add one line: &ldquo;Where could this go wrong?&rdquo; Or explain why your approach is better than another one that also works.</p>
+          </div>
+          <div class="practice-variant" data-variant="big">
+            <p><strong>At a big university.</strong> When a course offers a choice of sections, discussion groups or labs, take the smaller one, and speak at least once each week.</p>
+          </div>
+        </div>
+      </details>
 
-  <!-- Shared Global Footer -->
-  <footer class="site-footer">
-    <div class="container footer-content">
-      <div class="footer-title">What College Is Really For</div>
-      <p class="footer-citation">
-        Based on interviews with 1,000 college graduates, ages 25 to 65, from every kind of college. Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021).
-      </p>
-      <nav class="footer-nav">
-        <a href="understanding-college.html">Understanding College</a>
-        <a href="the-research.html">The Research</a>
-        <a href="about.html">About the Author</a>
-        <a href="about.html#book">Get the Book</a>
-        <a href="about.html#contact">Contact</a>
-      </nav>
-      <p class="footer-contact">
-        Contact: <a href="mailto:Detweiler@higheredimpact.org">Detweiler@higheredimpact.org</a>
-      </p>
-      <p class="footer-copy">
-        &copy; 2026 Richard A. Detweiler. All rights reserved.
-      </p>
-    </div>
-  </footer>
+      <details class="practice-card" data-practice-key="involvement">
+        <summary>
+          <span class="practice-number">4.</span>
+          <span class="practice-title" role="heading" aria-level="3">Being part of something on campus</span>
+        </summary>
+        <div class="practice-card-body">
+          <p><strong>What the research found.</strong> Graduates who took an active part in campus organizations were 35% more likely to volunteer more as adults. Leading or joining campus groups was also linked to leadership and fulfillment later in life.</p>
+          <p><strong>Why it helps now.</strong> It&rsquo;s where most students find their people.</p>
+          <p class="result-quote-label">A graduate says</p>
+          <blockquote class="result-quote">
+            <p>&ldquo;In retrospect, I probably developed most of my leadership and crisis management skills as a dorm resident assistant.&rdquo;</p>
+            <cite>Angela, trauma surgeon</cite>
+          </blockquote>
+          <p class="practice-start"><strong>Start small.</strong> Go to one meeting of one group and ask: &ldquo;What do you need help with?&rdquo;</p>
+          <div class="practice-variant" data-variant="big">
+            <p><strong>At a big university.</strong> Pick two: one group connected to your field, such as a design team or a professional society, and one that has nothing to do with it.</p>
+          </div>
+          <div class="practice-variant" data-variant="work">
+            <p><strong>If you work or commute.</strong> An on-campus job puts you beside the same people every week. Ask the student employment office, and ask the financial aid office whether you have work-study, a federal program that pays for campus jobs. A regular study group works too. One hour in the same place beats five separate events.</p>
+          </div>
+          <div class="practice-variant" data-variant="already">
+            <p><strong>Already doing a lot?</strong> Do fewer things more deeply. Lead one group rather than attending four.</p>
+          </div>
+          <p class="practice-other"><strong>Other research agrees.</strong> Alexander Astin&rsquo;s study of about 25,000 students found that the more students put into college, in and out of class, the more they got from it.</p>
+        </div>
+      </details>
 
-  <!-- Modal Container Placeholder for Quiz -->
-  <div id="quiz-overlay">
-    <div id="quiz-modal" role="dialog" aria-modal="true" aria-label="Quiz">
-      <button class="quiz-close" aria-label="Close quiz" onclick="window.closeQuizModal()">&times;</button>
-      <div class="quiz-progress-container">
-        <div id="quiz-progress-bar"></div>
-      </div>
-      <div id="quiz-content"></div>
+      <details class="practice-card" data-practice-key="conversations">
+        <summary>
+          <span class="practice-number">5.</span>
+          <span class="practice-title" role="heading" aria-level="3">Real conversations with people who see things differently</span>
+        </summary>
+        <div class="practice-card-body">
+          <p><strong>What the research found.</strong> Graduates who often talked with people whose values and backgrounds differed from their own were 38% more likely to keep learning actively as adults, and 26% more likely to be leaders.</p>
+          <p><strong>Why it helps now.</strong> Every job involves working with people who see things differently.</p>
+          <p class="result-quote-label">A graduate says</p>
+          <blockquote class="result-quote">
+            <p>&ldquo;[I] learned to interact with students of all socioeconomic, racial, and ethnic backgrounds.&rdquo;</p>
+            <cite>A graduate interviewed for the study</cite>
+          </blockquote>
+          <p class="practice-start"><strong>Start small.</strong> Ask a classmate: &ldquo;How did you come to see it that way?&rdquo; Then listen for five minutes before you answer.</p>
+          <div class="practice-variant" data-variant="risky">
+            <p><strong>When disagreement feels risky.</strong> Choose a setting where it is expected: a class discussion, a debate or dialogue group, or a project team that agrees on ground rules first.</p>
+          </div>
+          <div class="practice-variant" data-variant="short">
+            <p><strong>Short on time?</strong> Do it inside a class discussion or group project you already have.</p>
+          </div>
+        </div>
+      </details>
     </div>
   </div>
+</section>
 
-  <script src="js/main.js"></script>
+<details class="hard-disclosure" id="when-college-gets-hard">
+  <summary>
+    <span class="container hard-summary-inner">
+      <span class="section-label">If you need help</span>
+      <span class="hard-title" id="hard-title" role="heading" aria-level="2">When college gets hard</span>
+      <span class="hard-open-label">Open this section</span>
+    </span>
+  </summary>
+  <div class="hard-body">
+    <div class="container">
+      <p>The cards above are about getting more out of college. Sometimes the job is getting through it. The same people, professors, advisers and staff, are how most students do.</p>
+      <div class="hard-grid">
+        <article class="hard-item">
+          <h3>Struggling in a class.</h3>
+          <p>Go to the professor or teaching assistant the first week you feel lost, not the week before the exam. Find the tutoring or learning center. It is usually free, and most students who use it are not failing.</p>
+        </article>
+        <article class="hard-item">
+          <h3>Keeping your financial aid.</h3>
+          <p>Federal aid requires &ldquo;satisfactory academic progress&rdquo;: usually a minimum grade point average and finishing enough of the credits you attempt. Renew the FAFSA every year. If your grades or your family&rsquo;s situation change, talk with the financial aid office early.</p>
+        </article>
+        <article class="hard-item">
+          <h3>Money or family emergencies.</h3>
+          <p>Many colleges have emergency grants, food pantries or short-term loans. Ask the dean of students office.</p>
+        </article>
+        <article class="hard-item">
+          <h3>Feeling like you don&rsquo;t belong.</h3>
+          <p>Many students feel this, especially in the first year. Look for a first-generation student group or a mentoring program; they exist to help with exactly this.</p>
+        </article>
+        <article class="hard-item">
+          <h3>Stress, anxiety or feeling low.</h3>
+          <p>The counseling center is usually free for students. If you are in crisis, call or text 988 to reach the 988 Suicide and Crisis Lifeline.</p>
+        </article>
+        <article class="hard-item">
+          <h3>Thinking of leaving.</h3>
+          <p>Talk with an adviser or a dean first. A lighter course load or a leave of absence can keep your options open, while leaving without a plan can mean losing aid and still owing loans.</p>
+        </article>
+      </div>
+    </div>
+  </div>
+</details>
+
+<section class="choosing-section in-college-questions" id="questions-students-ask" aria-labelledby="questions-title">
+  <div class="container">
+    <span class="section-label">Real questions</span>
+    <h2 id="questions-title">Questions students ask</h2>
+
+    <div class="student-questions">
+      <details class="student-question">
+        <summary><span role="heading" aria-level="3">&ldquo;What are you going to do with that?&rdquo;</span></summary>
+        <div class="student-answer">
+          <p>If you are studying history, philosophy or another field without one obvious job, here is the answer. Employers say the skills they weigh most in hiring are communication (64%), problem-solving (62%) and adaptability (60%). A major prepares you for a field. These experiences prepare you for the world of change.</p>
+        </div>
+      </details>
+
+      <details class="student-question">
+        <summary><span role="heading" aria-level="3">&ldquo;Why not let AI write it?&rdquo;</span></summary>
+        <div class="student-answer">
+          <p>Software can write a paragraph arguing against your view in seconds. The research is about what happens when you do it yourself: graduates whose professors made them examine the strengths and weaknesses of their own arguments were 149% more likely to describe their lives as highly fulfilled. Use AI the way your professor allows, and do the thinking yourself.</p>
+        </div>
+      </details>
+
+      <details class="student-question">
+        <summary><span role="heading" aria-level="3">&ldquo;Can I afford an internship?&rdquo;</span></summary>
+        <div class="student-answer">
+          <p>Ask the career office whether the college funds unpaid or low-paid internships and research. Many do. Paid research positions and campus jobs in your field count too.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="choosing-section in-college-plan-section" id="semester-plan" aria-labelledby="plan-title">
+  <div class="container">
+    <div class="plan-shell">
+      <span class="section-label">The plan</span>
+      <h2 id="plan-title">My three moves this semester</h2>
+      <p><strong>What it&rsquo;s for.</strong> The plan turns your result into three small, specific actions for this semester, and gives you two moments to check how they went.</p>
+      <p>Starting mid-semester? That&rsquo;s fine. Do one move now and plan the other two for next term.</p>
+      <p><strong>When to use it.</strong> Right after you take the check, ideally in the first month of a semester. It takes about ten minutes.</p>
+
+      <h3>How to use it</h3>
+      <ol class="choosing-steps">
+        <li>Look at your result. Find your two lowest cards. Your moves should come mostly from those.</li>
+        <li>Choose any three moves from the five cards, or write your own. Be specific. Not &ldquo;talk to a professor&rdquo; but &ldquo;Dr. Rivera, Biology 110.&rdquo; Not &ldquo;join something&rdquo; but &ldquo;the Tuesday tutoring group.&rdquo; A teaching assistant, adviser or staff member who knows your work counts as the person you talk with; at a big university, a TA is often the way to a professor.</li>
+        <li>Write your first step. The very first thing you&rsquo;ll do, and the words you&rsquo;ll use. Each card&rsquo;s &ldquo;Start small&rdquo; line gives you a script.</li>
+        <li>Set a date. When the first step will happen. Earlier is better: most of these are easier in the first weeks of a term.</li>
+        <li>Write the small version. If work, a commute or a hard week gets in the way, what&rsquo;s the smallest version you can still do? Each card&rsquo;s &ldquo;Short on time?&rdquo; line helps.</li>
+        <li>Check in at midterm. Did it happen? What got in the way? Change the move if you need to. A smaller move you do beats a bigger one you don&rsquo;t.</li>
+        <li>Look back at the end of the semester. What did you get from each move? What would you do next? Then retake the check before next semester and choose your next three.</li>
+      </ol>
+
+      <form class="plan-form" data-plan-form novalidate>
+        <div class="plan-move-grid">
+          <fieldset class="plan-move">
+            <legend>Move 1</legend>
+            <div class="field">
+              <label for="plan-card-1">Card</label>
+              <select id="plan-card-1" data-plan-field="moves.0.card">
+                <option value="">Choose a card</option>
+                <option value="professor">1. Time with a professor outside class</option>
+                <option value="courses">2. Courses outside your major</option>
+                <option value="thinking">3. Classes that make you think</option>
+                <option value="involvement">4. Being part of something on campus</option>
+                <option value="conversations">5. Real conversations with people who see things differently</option>
+                <option value="own">My own</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="plan-choice-1">My choice (be specific)</label>
+              <textarea id="plan-choice-1" rows="2" data-plan-field="moves.0.choice"></textarea>
+            </div>
+            <div class="field">
+              <label for="plan-step-1">First step and the words I&rsquo;ll use</label>
+              <textarea id="plan-step-1" rows="3" data-plan-field="moves.0.step"></textarea>
+            </div>
+            <div class="field">
+              <label for="plan-date-1">Date</label>
+              <input id="plan-date-1" type="date" data-plan-field="moves.0.date">
+            </div>
+            <div class="field">
+              <label for="plan-small-1">Small version if I&rsquo;m short on time</label>
+              <textarea id="plan-small-1" rows="2" data-plan-field="moves.0.small"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="plan-move">
+            <legend>Move 2</legend>
+            <div class="field">
+              <label for="plan-card-2">Card</label>
+              <select id="plan-card-2" data-plan-field="moves.1.card">
+                <option value="">Choose a card</option>
+                <option value="professor">1. Time with a professor outside class</option>
+                <option value="courses">2. Courses outside your major</option>
+                <option value="thinking">3. Classes that make you think</option>
+                <option value="involvement">4. Being part of something on campus</option>
+                <option value="conversations">5. Real conversations with people who see things differently</option>
+                <option value="own">My own</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="plan-choice-2">My choice (be specific)</label>
+              <textarea id="plan-choice-2" rows="2" data-plan-field="moves.1.choice"></textarea>
+            </div>
+            <div class="field">
+              <label for="plan-step-2">First step and the words I&rsquo;ll use</label>
+              <textarea id="plan-step-2" rows="3" data-plan-field="moves.1.step"></textarea>
+            </div>
+            <div class="field">
+              <label for="plan-date-2">Date</label>
+              <input id="plan-date-2" type="date" data-plan-field="moves.1.date">
+            </div>
+            <div class="field">
+              <label for="plan-small-2">Small version if I&rsquo;m short on time</label>
+              <textarea id="plan-small-2" rows="2" data-plan-field="moves.1.small"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="plan-move">
+            <legend>Move 3</legend>
+            <div class="field">
+              <label for="plan-card-3">Card</label>
+              <select id="plan-card-3" data-plan-field="moves.2.card">
+                <option value="">Choose a card</option>
+                <option value="professor">1. Time with a professor outside class</option>
+                <option value="courses">2. Courses outside your major</option>
+                <option value="thinking">3. Classes that make you think</option>
+                <option value="involvement">4. Being part of something on campus</option>
+                <option value="conversations">5. Real conversations with people who see things differently</option>
+                <option value="own">My own</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="plan-choice-3">My choice (be specific)</label>
+              <textarea id="plan-choice-3" rows="2" data-plan-field="moves.2.choice"></textarea>
+            </div>
+            <div class="field">
+              <label for="plan-step-3">First step and the words I&rsquo;ll use</label>
+              <textarea id="plan-step-3" rows="3" data-plan-field="moves.2.step"></textarea>
+            </div>
+            <div class="field">
+              <label for="plan-date-3">Date</label>
+              <input id="plan-date-3" type="date" data-plan-field="moves.2.date">
+            </div>
+            <div class="field">
+              <label for="plan-small-3">Small version if I&rsquo;m short on time</label>
+              <textarea id="plan-small-3" rows="2" data-plan-field="moves.2.small"></textarea>
+            </div>
+          </fieldset>
+        </div>
+
+        <h3>Midterm check-in</h3>
+        <div class="plan-check-grid">
+          <fieldset class="plan-check">
+            <legend>Move 1</legend>
+            <div class="field">
+              <label for="plan-mid-happened-1">Did it happen?</label>
+              <select id="plan-mid-happened-1" data-plan-field="midterm.0.happened">
+                <option value="">Choose</option>
+                <option value="Yes">Yes</option>
+                <option value="Partly">Partly</option>
+                <option value="No">No</option>
+                <option value="Not yet">Not yet</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="plan-mid-obstacle-1">What got in the way</label>
+              <textarea id="plan-mid-obstacle-1" rows="2" data-plan-field="midterm.0.obstacle"></textarea>
+            </div>
+            <div class="field">
+              <label for="plan-mid-change-1">What I&rsquo;ll change</label>
+              <textarea id="plan-mid-change-1" rows="2" data-plan-field="midterm.0.change"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="plan-check">
+            <legend>Move 2</legend>
+            <div class="field">
+              <label for="plan-mid-happened-2">Did it happen?</label>
+              <select id="plan-mid-happened-2" data-plan-field="midterm.1.happened">
+                <option value="">Choose</option>
+                <option value="Yes">Yes</option>
+                <option value="Partly">Partly</option>
+                <option value="No">No</option>
+                <option value="Not yet">Not yet</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="plan-mid-obstacle-2">What got in the way</label>
+              <textarea id="plan-mid-obstacle-2" rows="2" data-plan-field="midterm.1.obstacle"></textarea>
+            </div>
+            <div class="field">
+              <label for="plan-mid-change-2">What I&rsquo;ll change</label>
+              <textarea id="plan-mid-change-2" rows="2" data-plan-field="midterm.1.change"></textarea>
+            </div>
+          </fieldset>
+
+          <fieldset class="plan-check">
+            <legend>Move 3</legend>
+            <div class="field">
+              <label for="plan-mid-happened-3">Did it happen?</label>
+              <select id="plan-mid-happened-3" data-plan-field="midterm.2.happened">
+                <option value="">Choose</option>
+                <option value="Yes">Yes</option>
+                <option value="Partly">Partly</option>
+                <option value="No">No</option>
+                <option value="Not yet">Not yet</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="plan-mid-obstacle-3">What got in the way</label>
+              <textarea id="plan-mid-obstacle-3" rows="2" data-plan-field="midterm.2.obstacle"></textarea>
+            </div>
+            <div class="field">
+              <label for="plan-mid-change-3">What I&rsquo;ll change</label>
+              <textarea id="plan-mid-change-3" rows="2" data-plan-field="midterm.2.change"></textarea>
+            </div>
+          </fieldset>
+        </div>
+
+        <h3>End-of-semester look back</h3>
+        <div class="field">
+          <label for="plan-look-difference">Which move made the biggest difference, and why?</label>
+          <textarea id="plan-look-difference" rows="3" data-plan-field="lookback.difference"></textarea>
+        </div>
+        <div class="field">
+          <label for="plan-look-people">Who do I know now that I didn&rsquo;t know at the start of the semester?</label>
+          <textarea id="plan-look-people" rows="3" data-plan-field="lookback.people"></textarea>
+        </div>
+        <div class="field">
+          <label for="plan-look-next">What will my three moves be next semester?</label>
+          <textarea id="plan-look-next" rows="3" data-plan-field="lookback.next"></textarea>
+        </div>
+
+        <aside class="plan-example">
+          <p><strong>Example (one row, filled in):</strong> Move 1, card 1, time with a professor: Dr. Rivera, Biology 110. First step: go to Thursday office hours and say, &ldquo;Can you help me understand one thing from Tuesday&rsquo;s lecture on the immune system?&rdquo; Date: by September 26. Small version: email the same question.</p>
+        </aside>
+
+        <div class="plan-actions">
+          <button class="btn btn-outline" type="button" data-plan-copy>Copy my plan</button>
+          <button class="btn btn-outline" type="button" data-plan-email>Email this to me</button>
+          <button class="btn btn-primary" type="button" data-plan-print>Print</button>
+          <button class="btn btn-outline plan-clear" type="button" data-plan-clear>Clear plan</button>
+          <p class="plan-status" data-plan-status aria-live="polite"></p>
+        </div>
+        <p class="plan-save-note">Saved on this device. No account needed.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="choosing-section in-college-end" aria-labelledby="end-title">
+  <div class="container">
+    <span class="section-label">Where this leaves you</span>
+    <h2 id="end-title">You&rsquo;ve reached the end of In College</h2>
+    <h3>What to do next</h3>
+    <ul class="in-college-next">
+      <li>Fill in your plan for this semester, using the instructions with it.</li>
+      <li>Put two dates in your calendar: a check-in at midterm and a look back at the end of the semester.</li>
+      <li>Show your plan to your adviser or a professor you trust, and ask what they would add.</li>
+      <li>Understand the bigger picture. <a href="understanding-college.html">Understanding College</a> explains why American colleges ask you to study broadly, and why it pays off later.</li>
+      <li>See the evidence. <a href="the-research.html">The Research</a> explains the study behind the five cards.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="footer-name">What College Is Really For</p>
+        <p>A public education program of <strong>HigherEdImpact</strong>, a 501(c)(3) nonprofit organization (EIN 87-2050100). No sign-up, no advertising.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="understanding-college.html">Understanding College</a>
+        <a href="what-matters.html">What Matters in College</a>
+        <a href="the-research.html">The Research</a>
+        <a href="about.html">About HigherEdImpact</a>
+        <a href="about.html#book">The Book</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </div>
+
+    <p class="footer-cite">Based on interviews with 1,000 college graduates, ages 25 to 65, from every kind of college, reported in Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021).</p>
+
+    <div class="footer-meta">
+      <p>HigherEdImpact &middot; 18670 Nixon Ave., West Linn, Oregon 97068 &middot; <a href="mailto:Detweiler@higheredimpact.org">Detweiler@higheredimpact.org</a> &middot; <a href="https://higheredimpact.org/">higheredimpact.org</a></p>
+      <p>&copy; 2026 HigherEdImpact. Research findings &copy; Richard A. Detweiler.</p>
+    </div>
+  </div>
+</footer>
+
+
+<script src="scripts/ui.js"></script>
+<script src="scripts/in-college-data.js"></script>
+<script src="scripts/in-college.js"></script>
 </body>
 </html>

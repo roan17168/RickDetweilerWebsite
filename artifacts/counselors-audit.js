@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const page = fs.readFileSync(path.join(ROOT, 'preview/counselors.html'), 'utf8');
+const page = fs.readFileSync(path.join(ROOT, 'counselors.html'), 'utf8');
 
 function decode(text) {
   return text
@@ -154,7 +154,7 @@ links.forEach(function (link) {
   if (/^(#|https?:|mailto:|data:|tel:)/.test(link)) return;
   const clean = link.split('#')[0].split('?')[0];
   if (!clean) return;
-  if (!fs.existsSync(path.resolve(path.join(ROOT, 'preview'), clean))) brokenLinks.push(link);
+  if (!fs.existsSync(path.resolve(path.join(ROOT, ''), clean))) brokenLinks.push(link);
 });
 
 const header = fs.readFileSync(path.join(ROOT, 'src/partials/header.html'), 'utf8');

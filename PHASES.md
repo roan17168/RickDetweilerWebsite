@@ -14,9 +14,9 @@ When the user says **“start next phase”**:
 2. Find the first phase whose status is **NEXT** or **IN PROGRESS**. Do not skip a blocked phase without saying so.
 3. Read that phase’s exact source paragraphs in `What_College_Is_Really_For_Revised_Site_Text_2026-10-12_2.docx` (ranges below) and the relevant tables. The extracted plain-text copy is reproducible from the docx; do not treat an old chat summary as copy.
 4. Build the page in `src/pages/`, add any shared components to `src/styles/` and `src/scripts/`, and add the page to `build.js`.
-5. Run `node build.js`. Check the new page at `/preview/` at phone and desktop widths, plus keyboard behaviour for menus, notes and forms.
+5. Run `node build.js`. Check the page at the repository root at phone and desktop widths, plus keyboard behaviour for menus, notes and forms.
 6. Update the status in this file and report exactly what was built, what was checked, and what remains.
-7. Do not edit `preview/` by hand. Do not change live root pages, publish, or commit unless the user explicitly asks.
+7. Do not edit generated root pages by hand; edit `src/`. Do not publish or commit unless the user explicitly asks.
 
 One phase per “start next phase” request unless the user asks to keep going. If a phase is blocked by missing copy or a missing asset, finish the unblocked work, mark it **PARTIAL**, and name the exact missing input. Never invent Rick’s copy, quotations, press headlines, statistics, photo permissions or quiz scoring.
 

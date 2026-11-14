@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, 'preview');
+const OUT = path.join(ROOT, '');
 const SRC = path.join(ROOT, 'src');
 
 let pass = 0;

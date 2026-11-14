@@ -4,313 +4,342 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1b365d">
+  <meta name="color-scheme" content="light">
   <title>Choosing a College | What College Is Really For</title>
-  <meta name="description" content="A one-minute quiz for high school students. Find out what you want most from college and get the questions to ask on campus visits.">
+  <meta name="description" content="A two-minute quiz for high school students. Figure out what you want college to do for you, and get questions to ask, whether or not you can visit.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta property="og:title" content="Choosing a College | What College Is Really For">
+  <meta property="og:description" content="A two-minute quiz for high school students. Figure out what you want college to do for you, and get questions to ask, whether or not you can visit.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="What College Is Really For">
+  <meta property="og:locale" content="en_US">
   
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Choosing a College | What College Is Really For">
+  <meta name="twitter:description" content="A two-minute quiz for high school students. Figure out what you want college to do for you, and get questions to ask, whether or not you can visit.">
   
-  <!-- Google Fonts: Lora (Serif) & Inter (Sans-serif) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
   
-  <link rel="icon" type="image/avif" href="assets/images/favicon.avif">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preload" href="assets/fonts/lora-700-normal-7.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/inter-400-normal-2.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="icon" href="assets/favicon-512.png" sizes="512x512" type="image/png">
+  <link rel="icon" href="assets/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
 
-  <!-- Shared Global Header -->
-  <header class="site-header">
-    <div class="nav-container">
-      <a href="index.html" class="brand-logo">What College Is Really For</a>
-      
-      <nav class="nav-links">
-        <div class="dropdown">
-          <button class="dropbtn" aria-haspopup="true" aria-expanded="false">
-            Perspectives <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="choosing-a-college.html" class="active">Choosing a College</a>
-            <a href="in-college.html">In College</a>
-            <a href="parents.html">Parents</a>
-            <a href="faculty.html">Faculty</a>
-            <a href="college-leaders.html">College Leaders</a>
-            <a href="policymakers.html">Policymakers</a>
-          </div>
-        </div>
-        <a href="understanding-college.html">Understanding College</a>
-        <a href="the-research.html">The Research</a>
-        <a href="about.html">About</a>
-      </nav>
-      
-      <button class="mobile-toggle" id="mobile-menu" type="button" aria-label="Toggle navigation" aria-expanded="false">
-        <i class="fa-solid fa-bars"></i>
-      </button>
-    </div>
-  </header>
+<body data-page="choosing">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="nav-shell">
+    <a class="brand" href="index.html">
+      <span class="brand-name">What College Is Really For</span>
+    </a>
 
-  <main class="container" style="padding: 3.5rem 0 5rem;">
-    <div class="reading-container">
-      
-      <span class="section-label">For Students Choosing a College</span>
-      <h1>Rankings can't tell you what college will do for you.</h1>
-      
-      <p style="font-size: 1.15rem; color: var(--text-charcoal); line-height: 1.6;">
-        Majors, price, location, dorms. They all matter. None of them tell you who you'll be at 28 or in the years that follow. Start with what you want out of college, then find the schools that can deliver it.
-      </p>
-
-      <!-- Quiz Trigger Callout -->
-      <div style="background: var(--bg-surface); border: 1.5px solid var(--accent-gold); border-radius: var(--radius-card); padding: 1.75rem; margin: 2rem 0; text-align: center; box-shadow: var(--shadow-subtle);">
-        <h3 style="margin-bottom: 0.5rem;">Find What You Want Out of College</h3>
-        <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 1.25rem;">
-          5 questions, plus one optional. About a minute. No sign-up, no wrong answers.
-        </p>
-        <button class="gold-btn quiz-trigger-btn" 
-                data-audience="Choosing a College" 
-                onclick="window.initQuiz('Choosing a College')">
-          Take the Quiz
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="perspectives-menu">
+          Menu: Perspectives
+          <svg class="chevron" viewBox="0 0 12 8" aria-hidden="true" focusable="false"><path d="M1 1.5 6 6.5l5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
+        <div class="nav-dropdown-menu" id="perspectives-menu">
+          <a href="choosing-a-college.html" data-nav="choosing">I'm choosing a college</a>
+          <a href="in-college.html" data-nav="in-college">I'm in college</a>
+          <a href="parents.html" data-nav="parents">I'm a parent</a>
+          <a href="counselors.html" data-nav="counselors">I'm a counselor</a>
+          <a href="faculty.html" data-nav="faculty">I teach</a>
+          <a href="college-leaders.html" data-nav="leaders">I lead a college</a>
+          <a href="policymakers.html" data-nav="policymakers">I make policy</a>
+        </div>
       </div>
+      <a href="understanding-college.html" data-nav="understanding">Understanding College</a>
+      <a href="what-matters.html" data-nav="what-matters">What Matters in College</a>
+      <a href="the-research.html" data-nav="research">The Research</a>
+      <a href="about.html" data-nav="about">About</a>
+    </nav>
 
-      <!-- What You Get Section -->
-      <section style="margin-top: 2.5rem;">
-        <h4>What you get:</h4>
-        <ul style="padding-left: 1.25rem; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><strong>Your result:</strong> What your answers say you want most from college.</li>
-          <li><strong>Questions to ask:</strong> Easy to say, hard to dodge.</li>
-          <li><strong>Ways to check without asking anyone:</strong> Things to look up or notice.</li>
-          <li><strong>A scorecard:</strong> Compare your finalists on what students really experience.</li>
-        </ul>
-      </section>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
 
-      <!-- What College Really Costs -->
-      <section style="margin-top: 3rem; background: var(--bg-surface-alt); border-radius: var(--radius-card); padding: 2rem; border: 1px solid var(--border-muted);">
-        <span class="section-label">Financial Reality</span>
-        <h2>The price on the website is not the price you'll pay.</h2>
-        <p>
-          Most students pay less than the published price, often much less. At private nonprofit colleges, <strong>9 in 10 first-year students get grants</strong> from the college itself, and on average those grants cover more than half of the published tuition.<sup>[3]</sup> Some colleges with high published prices cost students from lower-income families less than a public university does. You can find your real price before you apply:
-        </p>
-        <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 0;">
-          <li><strong>Net price calculator:</strong> Every college must post one on its website. Enter your family's information and it estimates what you would pay after grants. Search for the college's name and "net price calculator."</li>
-          <li><strong>College Scorecard (collegescorecard.ed.gov):</strong> From the US Department of Education. It shows each college's average yearly cost for families at your income level, and how many of its students graduate.</li>
-          <li><strong>Federal Student Aid (FAFSA - studentaid.gov):</strong> Fill out the federal financial aid form that colleges use. It is needed for most grants, work-study jobs and loans.</li>
-        </ul>
-      </section>
-
-      <!-- First in Your Family Guide (Collapsible) -->
-      <section style="margin-top: 2rem;">
-        <details class="accordion-item">
-          <summary>First in your family to go to college? Read this</summary>
-          <div class="accordion-content">
-            <p>You're not behind. Many students figure this out without anyone at home who has done it. These five steps matter most:</p>
-            <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem;">
-              <li><strong>Talk to your school counselor this year:</strong> Say: "I want to go to college, and I'm the first in my family. What should I be doing now?" Counselors expect this question.</li>
-              <li><strong>Try three net price calculators:</strong> Include at least one private college you assumed was too expensive.</li>
-              <li><strong>Ask about fee waivers:</strong> If money is tight, you can usually apply to colleges and take the SAT or ACT for free. Your counselor can request the waivers.</li>
-              <li><strong>File the FAFSA early:</strong> File in the fall of your senior year as soon as it opens. File early, because some aid runs out.</li>
-              <li><strong>Keep every path open:</strong> Starting at a community college and transferring to a four-year college is a real path. So is a four-year college close to home. The questions on this site work for all of them.</li>
-            </ol>
-            <p style="margin-top: 1rem; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0;">
-              <em>Can't visit?</em> Most colleges offer virtual tours and online information sessions. Many will put you in touch with a current student by email. Some colleges pay travel costs for lower-income students to visit; search for the college's name and "fly-in program."
-            </p>
-          </div>
-        </details>
-      </section>
-
-      <!-- Standard Collapsible Modules -->
-      <section style="margin-top: 2rem;">
-        <details class="accordion-item">
-          <summary>Before you fall for a campus: Dealbreakers &amp; Good signs</summary>
-          <div class="accordion-content">
-            <p><strong>Dealbreakers first:</strong></p>
-            <ul style="padding-left: 1.25rem; margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
-              <li>Can my family and I afford this through graduation, after grants and scholarships?</li>
-              <li>Does it have what I might study, with room to change my mind?</li>
-              <li>Do students like me finish here? (Vincent Tinto finds that feeling connected is a big part of finishing.)</li>
-              <li>Will I feel safe, supported and like I belong?</li>
-              <li>Are housing, health, disability and advising services good enough for what I need?</li>
-            </ul>
-            <p><strong>Good signs at any college:</strong></p>
-            <ul style="padding-left: 1.25rem; margin-bottom: 0; display: flex; flex-direction: column; gap: 0.5rem;">
-              <li>Professors know students and talk with them outside class.</li>
-              <li>In class, students speak, write, argue and solve problems.</li>
-              <li>You have room to study outside your major.</li>
-              <li>Students work with people who think and live differently.</li>
-              <li>You get to do real things: research, projects, internships, performances, service.</li>
-            </ul>
-          </div>
-        </details>
-
-        <details class="accordion-item">
-          <summary>Words colleges use (Plain translations)</summary>
-          <div class="accordion-content">
-            <ul style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0;">
-              <li><strong>Major:</strong> The subject you study most.</li>
-              <li><strong>Seminar:</strong> A small class built on discussion.</li>
-              <li><strong>Humanities:</strong> Literature, history, philosophy, languages and the arts.</li>
-              <li><strong>Adviser:</strong> The person who helps you choose courses and plan.</li>
-              <li><strong>Mentor:</strong> An adult who takes a lasting interest in you and your goals.</li>
-              <li><strong>Office hours:</strong> Set times when a professor is available to any student, no appointment needed.</li>
-              <li><strong>Internship:</strong> A short job in a field you're considering.</li>
-            </ul>
-          </div>
-        </details>
-      </section>
-
-      <!-- INTERACTIVE TOOL: COLLEGE SCORECARD -->
-      <section id="scorecard-tool" style="margin-top: 4rem; background: var(--bg-surface); border: 1px solid var(--border-muted); border-radius: var(--radius-card); padding: 2.25rem; box-shadow: var(--shadow-subtle);">
-        <span class="section-label">Interactive Tool</span>
-        <h2>Your College Scorecard</h2>
-        <p><strong>What it's for:</strong> Turn your visits, calls and research into one page you can compare. It records what you found out about each college, not what the college says about itself.</p>
-        
-        <p style="font-size: 0.95rem; color: var(--text-muted);">
-          <strong>How to use it:</strong> Write your finalists across the top. Star your quiz result row. Gather evidence for each row and rate: Strong, Mixed, Weak, or Don't know yet.
-        </p>
-
-        <div class="scorecard-tabs" role="group" aria-label="Choose a college to view">
-          <button class="btn btn-outline" type="button" data-scorecard-col="1" aria-pressed="true"><span>College 1</span></button>
-          <button class="btn btn-outline" type="button" data-scorecard-col="2" aria-pressed="false"><span>College 2</span></button>
-          <button class="btn btn-outline" type="button" data-scorecard-col="3" aria-pressed="false"><span>College 3</span></button>
-          <button class="btn btn-outline" type="button" data-scorecard-col="4" aria-pressed="false"><span>College 4</span></button>
-          <button class="btn btn-outline" type="button" id="scorecard-compare" aria-expanded="false">See all four side by side (for printing)</button>
-        </div>
-        <div class="table-container scorecard-table-container" style="margin-top: 1.5rem;">
-          <table class="responsive-data-table" id="scorecard-table" data-active-col="1">
-            <thead>
-              <tr>
-                <th style="width: 35%;">Experience &amp; Measure</th>
-                <th style="width: 16%;" data-label="College 1"><input data-scorecard-name="1" aria-label="Name of college 1" type="text" placeholder="College #1" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
-                <th style="width: 16%;" data-label="College 2"><input data-scorecard-name="2" aria-label="Name of college 2" type="text" placeholder="College #2" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
-                <th style="width: 16%;" data-label="College 3"><input data-scorecard-name="3" aria-label="Name of college 3" type="text" placeholder="College #3" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
-                <th style="width: 16%;" data-label="College 4"><input data-scorecard-name="4" aria-label="Name of college 4" type="text" placeholder="College #4" style="width: 100%; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px; font-weight: 600;"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td data-label="Measure"><strong>Dealbreakers:</strong> Affordable after aid? Safe? Support services?</td>
-                <td data-label="College 1"><input type="text" placeholder="Pass / Fail" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 2"><input type="text" placeholder="Pass / Fail" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 3"><input type="text" placeholder="Pass / Fail" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 4"><input type="text" placeholder="Pass / Fail" style="width: 100%; padding: 0.35rem;"></td>
-              </tr>
-              <tr>
-                <td data-label="Measure"><strong>Faculty Contact:</strong> Will professors know my name by year one?</td>
-                <td data-label="College 1"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 2"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 3"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 4"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-              </tr>
-              <tr>
-                <td data-label="Measure"><strong>Breadth:</strong> Can I take &gt;50% of my courses outside my major?</td>
-                <td data-label="College 1"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 2"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 3"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 4"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-              </tr>
-              <tr>
-                <td data-label="Measure"><strong>Classroom Discussion:</strong> Do students do the talking in small seminars?</td>
-                <td data-label="College 1"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 2"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 3"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 4"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-              </tr>
-              <tr>
-                <td data-label="Measure"><strong>Campus Life:</strong> Are students involved in clubs, teams, and community?</td>
-                <td data-label="College 1"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 2"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 3"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-                <td data-label="College 4"><input type="text" placeholder="Rating" style="width: 100%; padding: 0.35rem;"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Tool Action Row (Item 1 Enhancement) -->
-        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap;">
-          <button class="navy-btn" onclick="window.printToolReport('scorecard-tool')">
-            <i class="fa-solid fa-print" style="margin-right: 0.5rem;"></i> Print
-          </button>
-          <button class="btn btn-outline" onclick="window.copyToolToClipboard('scorecard-tool')">
-            <i class="fa-solid fa-copy" style="margin-right: 0.5rem;"></i> Copy Text
-          </button>
-          <button class="btn btn-outline" style="color: #c53030; border-color: #feb2b2;" onclick="window.clearToolData('scorecard-tool')">
-            <i class="fa-solid fa-rotate-left" style="margin-right: 0.5rem;"></i> Reset Form
-          </button>
-        </div>
-      </section>
-
-      <!-- Universal Closing Callout: A Meaningful Life in a World of Change -->
-      <section class="meaningful-life-block">
-        <div class="stat-callout-g6">
-          <span class="stat-big-number">9.4</span>
-          <span class="stat-big-caption">jobs already held by age 38 by Americans now in their early forties.</span>
-        </div>
-        <h3 style="margin-bottom: 0.5rem;">A meaningful life in a world of change</h3>
-        <p>
-          College is more than getting through classes to get a job. It's where you find out what you care about, who you want to become and what you have to give. In the study behind this site, the same experiences were linked to higher income and to leadership, volunteering, continued learning and a fulfilled life.
-        </p>
-        <p style="margin-bottom: 0;">
-          The World Economic Forum expects nearly 40% of the skills used at work to change by 2030.<sup>[2]</sup> An education that teaches people to learn, to think and to work with others prepares them for all of it.
-        </p>
-      </section>
-
-      <details class="accordion-item">
-        <summary>Sources and notes</summary>
-        <div class="accordion-content" style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;">
-          <p><strong>[2]</strong> World Economic Forum, <em>The Future of Jobs Report 2025</em> (2025).<br>
-          <strong>[3]</strong> National Association of College and University Business Officers, <em>2025 Tuition Discounting Study</em> (2026), as reported by Higher Ed Dive.</p>
-        </div>
-      </details>
-
-      <!-- Next Steps Navigation -->
-      <section style="margin-top: 3.5rem; border-top: 1px solid var(--border-muted); padding-top: 2rem;">
-        <h4>Where to go next:</h4>
-        <ol style="padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li>Take the quiz above to find your top outcome.</li>
-          <li>Fill in the scorecard for your 2 to 4 finalist colleges.</li>
-          <li>Read <a href="in-college.html">In College</a> to see how to get these experiences wherever you go.</li>
-          <li>See <a href="understanding-college.html">Understanding College</a> to understand why broad study pays off.</li>
-        </ol>
-      </section>
-
+<main id="main">
+<section class="choosing-hero">
+  <div class="container choosing-hero-grid">
+    <div class="choosing-hero-copy">
+      <span class="section-label">For Students Choosing a College</span>
+      <h1>Rankings can&rsquo;t tell you what college will do for you.</h1>
+      <p class="lede">Majors, price, location, dorms. They all matter. None of them tell you who you&rsquo;ll be at 28, or whether you&rsquo;ll love your work, have people who count on you, or feel like your life means something. Start with the life you want, then find the colleges that can help you build it.</p>
     </div>
-  </main>
+    <aside class="choosing-prestige-card" aria-labelledby="prestige-title">
+      <h2 id="prestige-title">Does a famous name matter?</h2>
+      <p>Researchers disagree, and both sides have evidence:</p>
+      <ul>
+        <li><strong>For most graduates, less than people think.</strong> Stacy Dale and Alan Krueger followed earnings for more than 20 years. The earnings advantage of a more selective college was small once students&rsquo; own abilities were taken into account.<sup><a class="source-note" href="#note-1" data-note="note-1" title="See source">1</a></sup></li>
+        <li><strong>For some.</strong> Raj Chetty, David Deming and John Friedman did find that attending an Ivy-Plus college rather than a flagship public university increases a student&rsquo;s chances of reaching the top 1% of earners and of working at a prestigious finance or consulting firm. Ivy-Plus graduates are also overrepresented among Fortune 500 chief executives. However, the great majority of those CEOs, 88.4%, did not attend an Ivy-Plus college, and graduating from an Ivy-Plus college had little effect on average earnings.<sup><a class="source-note" href="#note-2" data-note="note-2" title="See source">2</a></sup> <details class="term"><summary>Ivy-Plus</summary><span>means the eight Ivy League universities plus Stanford, MIT, Duke and the University of Chicago.</span></details></li>
+      </ul>
+    </aside>
+  </div>
+</section>
 
-  <!-- Shared Global Footer -->
-  <footer class="site-footer">
-    <div class="container footer-content">
-      <div class="footer-title">What College Is Really For</div>
-      <p class="footer-citation">
-        Based on interviews with 1,000 college graduates, ages 25 to 65, from every kind of college. Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021).
-      </p>
-      <nav class="footer-nav">
-        <a href="understanding-college.html">Understanding College</a>
-        <a href="the-research.html">The Research</a>
-        <a href="about.html">About the Author</a>
-        <a href="about.html#book">Get the Book</a>
-        <a href="about.html#contact">Contact</a>
-      </nav>
-      <p class="footer-contact">
-        Contact: <a href="mailto:Detweiler@higheredimpact.org">Detweiler@higheredimpact.org</a>
-      </p>
-      <p class="footer-copy">
-        &copy; 2026 Richard A. Detweiler. All rights reserved.
-      </p>
-    </div>
-  </footer>
-
-  <!-- Modal Container Placeholder for Quiz -->
-  <div id="quiz-overlay">
-    <div id="quiz-modal" role="dialog" aria-modal="true" aria-label="Quiz">
-      <button class="quiz-close" aria-label="Close quiz" onclick="window.closeQuizModal()">&times;</button>
-      <div class="quiz-progress-container">
-        <div id="quiz-progress-bar"></div>
+<section class="choosing-section choosing-quiz-section" id="quiz" aria-labelledby="quiz-title">
+  <div class="container">
+    <div class="choosing-quiz-shell">
+      <h2 id="quiz-title">What do you want college to do for you?</h2>
+      <p>Five questions, plus one optional. Two minutes. No sign-up, no wrong answers. You&rsquo;ll get your result, questions to ask colleges (including ones you can ask without visiting) and a scorecard for your list.</p>
+      <div class="choosing-quiz" data-quiz-app>
+        <noscript><p>The quiz needs JavaScript. All of the guidance on this page still works without it.</p></noscript>
       </div>
-      <div id="quiz-content"></div>
+      <p class="quiz-skip"><a href="#recommendations">Skip the quiz and go to the recommendations</a></p>
     </div>
   </div>
+</section>
 
-  <script src="js/main.js"></script>
+<div class="container audience-layout">
+  <div class="audience-main" id="recommendations">
+    <section class="choosing-section" aria-labelledby="cost-title">
+      <h2 id="cost-title">Two things you might be wondering about</h2>
+      <p>The price on a college&rsquo;s website is almost never the price you&rsquo;ll pay, and you can find your real price before you apply.</p>
+      <details class="pullout">
+        <summary>What will it really cost?</summary>
+        <div class="pullout-body">
+          <p>Most students pay less than the posted price, often much less. At private nonprofit colleges, <strong>9 in 10 first-year students get grants</strong> from the college itself, and on average those grants cover more than half of the posted tuition.<sup><a class="source-note" href="#note-3" data-note="note-3" title="See source">3</a></sup> <details class="term"><summary>grant</summary><span>is money you don&rsquo;t pay back.</span></details> Some colleges with high posted prices cost students from lower-income families less than a public university does.</p>
+          <ul>
+            <li><strong>Net price calculator:</strong> Every college has one on its website. Put in your family&rsquo;s information and it estimates what you&rsquo;d pay after grants. <details class="term"><summary>net price</summary><span>is the posted price minus grants and scholarships.</span></details> Search for the college&rsquo;s name and &ldquo;net price calculator.&rdquo;</li>
+            <li><strong>College Scorecard (collegescorecard.ed.gov):</strong> From the US Department of Education. It shows what families at your income level actually pay at each college, and how many students graduate.</li>
+            <li><strong>FAFSA (studentaid.gov):</strong> The Free Application for Federal Student Aid, the free form that decides federal grants, work-study jobs and loans; most states and colleges use it for their own aid too. <a href="https://studentaid.gov/">What is the FAFSA?</a> <details class="term"><summary>work-study</summary><span>is a part-time campus job paid for partly by federal aid.</span></details></li>
+          </ul>
+        </div>
+      </details>
+      <p>You&rsquo;re not behind. Lots of students figure this out without anyone at home who has done it, and five steps matter most.</p>
+      <details class="pullout">
+        <summary>First in your family to go to college?</summary>
+        <div class="pullout-body">
+          <ol>
+            <li><strong>Find someone to help you this year:</strong> If you have a school counselor, say: &ldquo;I want to go to college, and I&rsquo;m the first in my family. What should I be doing now?&rdquo; Counselors expect this question. If you can&rsquo;t get time with a counselor, see the box below this list.</li>
+            <li><strong>Try three net price calculators:</strong> Include at least one private college you assumed was too expensive.</li>
+            <li><strong>Ask about fee waivers:</strong> If money is tight, you can usually apply to colleges and take the SAT or ACT for free. Your counselor can request the waivers. <details class="term"><summary>fee waiver</summary><span>lets you skip a fee you can&rsquo;t afford.</span></details></li>
+            <li><strong>File the FAFSA early:</strong> File in the fall of senior year as soon as it opens. Some aid runs out. <details class="term"><summary>FAFSA</summary><span>(Free Application for Federal Student Aid) is the free form that decides federal grants, work-study jobs and loans; most states and colleges use it for their own aid too. File it at studentaid.gov, which also has step-by-step help. It opens each fall for the following school year.</span></details></li>
+            <li><strong>Keep every path open:</strong> Starting at a community college and transferring to a four-year college is a real path. So is a four-year college close to home. The questions on this site work for all of them.</li>
+          </ol>
+          <p><strong>No counselor, or one with hundreds of students?</strong> You can still get help, free:</p>
+          <ul>
+            <li><strong>A teacher, coach, librarian or family friend who went to college.</strong> Ask: &ldquo;Can you help me figure out where to apply and how to pay for it?&rdquo; Most people are glad to be asked.</li>
+            <li><strong>Free college advising programs.</strong> The federal TRIO programs Upward Bound and Talent Search help students from lower-income families and first-generation students prepare for and apply to college. College Advising Corps places recent college graduates as advisers in many high schools. Ask at school whether either is there, or search for &ldquo;college access program&rdquo; and your town.</li>
+            <li><strong>The colleges themselves.</strong> Every admissions office has a counselor assigned to your area. Email them your questions; answering them is their job.</li>
+            <li><strong>A nearby community college.</strong> Its advising and financial aid offices will often help anyone in the community.</li>
+            <li><strong>Trusted free websites:</strong> studentaid.gov (federal financial aid) and collegescorecard.ed.gov (costs and graduation rates).</li>
+          </ul>
+          <p><em>&ldquo;Since a child, I wanted to become a doctor, but many were not supportive. Repeatedly, I heard, &lsquo;You are black, poor, and a girl. Being a doctor doesn&rsquo;t happen to people like you.&rsquo;&rdquo; Her college education, she writes, &ldquo;paved the way for me to sustain and ultimately become a physician.&rdquo; &mdash; Theressa, physician (The Evidence Liberal Arts Needs, p. 112)</em></p>
+        </div>
+      </details>
+    </section>
+
+    <section class="choosing-section" aria-labelledby="graduates-title">
+      <h2 id="graduates-title">What graduates told us</h2>
+      <p>We talked with 1,000 people who finished college ten, twenty and forty years ago.<sup><a class="source-note" href="#note-4" data-note="note-4" title="See source">4</a></sup> The ones who were leading things, giving back, still learning, doing well and happy with their lives weren&rsquo;t mostly the ones from famous colleges or &ldquo;safe&rdquo; majors. They were the ones who had certain kinds of experience in college:</p>
+      <ul>
+        <li><strong>Professors who knew them.</strong> Someone noticed them, talked with them outside class, and stuck with them. Many had a mentor whose influence lasted for years.</li>
+        <li><strong>Room to explore.</strong> They took lots of classes outside their major, including ones they never expected to like.</li>
+        <li><strong>Classes that made them think.</strong> They talked, wrote and argued, and they had to question their own ideas, not only memorize.</li>
+        <li><strong>Being part of something.</strong> A team, a club, a lab, a paper, a cause. Something they showed up for every week.</li>
+        <li><strong>People unlike themselves.</strong> Friends and classmates who saw the world differently.</li>
+      </ul>
+      <p>The first and fourth of these, professors who know you and being part of something, are what the study calls <strong>an authentic learning community</strong>: a college where students and faculty are involved with one another outside class as well as in it. Of everything the study measured, it was the experience most consistently linked to every part of adult life.</p>
+      <p><em>&ldquo;I got to study the sciences while also jumping into the theater. I got to write my thesis on religion while studying abroad in the U.K. I was surrounded by an eclectic mix of peers who pushed me.&rdquo; &mdash; Steve, actor (The Evidence Liberal Arts Needs, p. 139)</em></p>
+      <p>These experiences happen at every kind of college. At some, they&rsquo;re built in; in the study, liberal arts colleges were on average twice as likely to provide them. At others, especially large universities, they&rsquo;re there, but you have to go looking for them.</p>
+      <p><strong>What these experiences were linked to:</strong></p>
+      <ul>
+        <li><strong>An authentic learning community</strong> (professors who knew them, a mentor, being part of campus life): graduates were more likely to be leaders, to be civically involved, to keep learning, to be involved in the arts and culture, to feel fulfilled and, over a long career, to be successful.</li>
+        <li><strong>A mentor whose influence lasted:</strong> more likely to lead, to volunteer, to keep learning, to take part in culture and to feel fulfilled.</li>
+        <li><strong>Room to explore:</strong> more likely to earn more and, over a long career, to be successful. Major didn&rsquo;t predict long-term success.</li>
+        <li><strong>Classes that made them think:</strong> far more likely to feel their lives were fulfilling, and more likely to keep learning.</li>
+        <li><strong>People unlike themselves:</strong> more likely to lead and to keep learning.</li>
+      </ul>
+      <p>Want the specific percentages?</p>
+      <details class="pullout">
+        <summary>The numbers behind this</summary>
+        <div class="pullout-body">
+          <ul>
+            <li><strong>An authentic learning community</strong> (professors who knew them, a mentor, being part of campus life): graduates were 25% more likely to be leaders, 42% more likely to volunteer and 56% more likely to give a larger share of their income, 31% more likely to keep learning, 40% more likely to be involved in the arts and culture, and 46% more likely to say their lives felt fulfilling. Finally, over a long career, they were also 32% more likely to say they were successful.</li>
+            <li><strong>A mentor whose influence lasted:</strong> 26% more likely to be leaders, 28% more likely to volunteer, 23% more likely to keep learning, 31% more likely to be involved in culture and 34% more likely to feel fulfilled.</li>
+            <li><strong>Room to explore</strong> (more than half of classes outside the major): 24% more likely to earn more as adults, and 53% more likely to say they were successful and 72% more likely to earn more over a long career. Major didn&rsquo;t predict long-term success.</li>
+            <li><strong>Classes that made them think:</strong> graduates whose professors made them question their own arguments were 149% more likely (about two and a half times as likely) to say their lives felt highly fulfilling and 37% more likely to keep learning.</li>
+            <li><strong>People unlike themselves:</strong> frequent conversations with people of different beliefs and values: 26% more likely to be leaders and 38% more likely to keep learning.</li>
+          </ul>
+          <p>&ldquo;26% more likely&rdquo; means leadership was 26% more common among graduates who had more of that experience than among those who had less of it. See all the findings: <a href="what-matters.html">What Matters in College</a> &middot; <a href="the-research.html">Read how the study was done</a></p>
+        </div>
+      </details>
+      <p>These college experiences made an even bigger difference for students from families with the least money.</p>
+      <details class="pullout">
+        <summary>If money is tight, this matters even more</summary>
+        <div class="pullout-body">
+          <p>Among graduates well into their careers who grew up in lower-income families, those who took more than half their classes outside their major were <strong>72% more likely</strong> to say they were successful and <strong>75% more likely</strong> to report a higher income. Those who had been part of an authentic learning community (close relationships with professors outside class, and a mentor) were <strong>64% more likely</strong> to say they were successful.<sup><a class="source-note" href="#note-5" data-note="note-5" title="See source">5</a></sup> So when you compare colleges, don&rsquo;t just ask what it costs. Ask whether you&rsquo;ll get these experiences there.</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="choosing-section" aria-labelledby="timeline-title">
+      <h2 id="timeline-title">Your college timeline: what to do, and when</h2>
+      <p>A printable version is in the parent checklist.</p>
+      <ol>
+        <li><strong>Junior year: find your helpers.</strong> Talk with your school counselor, or if you can&rsquo;t get time with one, a teacher, coach or one of the free programs in the &ldquo;First in your family&rdquo; box. Take this site&rsquo;s quiz, and try three net price calculators, including one at a private college you assumed was too expensive.</li>
+        <li><strong>Junior and senior years: visit.</strong> Visit several colleges, in person if possible and online if not, to get a feel for the kind of college that fits you. Bring the questions from your quiz result, and ask students when a professor last talked with them outside class.</li>
+        <li><strong>Summer before senior year: make your list.</strong> Build a balanced list: colleges you&rsquo;re likely to get into and can afford, some good matches, and a few reaches. Ask about fee waivers if money is tight.</li>
+        <li><strong>Fall of senior year: apply and file the FAFSA.</strong> Send applications and file the FAFSA at studentaid.gov as soon as it opens; some aid runs out. Check whether any college also asks for the CSS Profile.</li>
+        <li><strong>Spring of senior year: compare offers.</strong> Compare financial aid offers side by side on net price (cost minus grants and scholarships), not loans. If an offer falls short, ask the aid office to review it.</li>
+        <li><strong>The final choice.</strong> Don&rsquo;t decide on cost, reputation or job preparation alone. Go back to the life you want, and ask which college is most likely to give you the experiences that make a lifelong difference.</li>
+      </ol>
+    </section>
+
+    <section class="choosing-section" aria-labelledby="visit-title">
+      <h2 id="visit-title">Can&rsquo;t visit? You can still find out</h2>
+      <p>Most of what you need to know, you can find from home.</p>
+      <ul>
+        <li><strong>Virtual tours and online info sessions:</strong> most colleges have both. Ask your quiz questions in the chat.</li>
+        <li><strong>Talk to a real student:</strong> many admissions offices will connect you with one by email or video. Ask the student, not the brochure.</li>
+        <li><strong>Sit in online:</strong> some colleges let you watch a class. Ask.</li>
+        <li><strong>Read what students write:</strong> the student newspaper, club pages and student government notes show what students actually do.</li>
+        <li><strong>Fly-in programs:</strong> some colleges pay travel costs for lower-income students to visit. Search for the college&rsquo;s name and &ldquo;fly-in program,&rdquo; or ask your counselor.</li>
+      </ul>
+    </section>
+
+    <section class="choosing-section" aria-labelledby="campus-title">
+      <h2 id="campus-title">Before you fall for a campus</h2>
+      <div class="choosing-campus-grid">
+        <div>
+          <h3>Dealbreakers first:</h3>
+          <ul>
+            <li>Is this a place that will help me become who I want to be, not just get a degree?</li>
+            <li>Can my family and I afford it all the way to graduation, after grants and scholarships?</li>
+            <li>Does it have what I might study, with room to change my mind?</li>
+            <li>Do students like me finish here? <details class="term"><summary>graduation rate</summary><span>is the share of students who finish in four years, and within six years. Ask for the rates for students like you.</span></details></li>
+            <li>Will I feel like I belong, safe and supported?</li>
+            <li>Are housing, health, disability and advising services good enough for what I need?</li>
+          </ul>
+          <p><strong>Why belonging is a dealbreaker:</strong> feeling that you belong isn&rsquo;t a luxury; it&rsquo;s essential. When you visit, in person or online, ask students: &ldquo;When did you first feel at home here, and what helped?&rdquo; Gregory Walton and Geoffrey Cohen found that a one-hour exercise, in which first-year students read how older students&rsquo; worries about belonging had faded, reduced the racial gap in grades by about half through graduation. A 2023 study of nearly 27,000 students at 22 colleges and universities found a similar exercise raised the share who completed their first year full-time, especially for students from groups that had historically progressed at lower rates, and most at colleges that gave students real opportunities to belong.<sup><a class="source-note" href="#note-6" data-note="note-6" title="See source">6</a></sup><sup><a class="source-note" href="#note-7" data-note="note-7" title="See source">7</a></sup></p>
+        </div>
+        <div>
+          <h3>Good signs at any college:</h3>
+          <ul>
+            <li>Professors know students and talk with them outside class.</li>
+            <li>In class, students talk, write, argue and solve problems.</li>
+            <li>You have room to take classes outside your major.</li>
+            <li>Students spend real time with people who think and live differently.</li>
+            <li>You get to do real things: research, projects, internships, performances, service.</li>
+          </ul>
+          <details class="pullout">
+            <summary>Words colleges use (plain translations)</summary>
+            <div class="pullout-body">
+              <ul>
+                <li><strong>Major:</strong> The subject you study most.</li>
+                <li><strong>Elective:</strong> A class you choose to take, not one your major requires.</li>
+                <li><strong>General education:</strong> Classes every student takes in different subjects, whatever the major.</li>
+                <li><strong>Seminar:</strong> A small class built on discussion.</li>
+                <li><strong>Humanities:</strong> Literature, history, philosophy, languages and the arts.</li>
+                <li><strong>Liberal arts:</strong> Not a list of majors. A way of learning: lots of subjects, small discussions, writing, and getting to know your professors.</li>
+                <li><strong>Adviser:</strong> The person who helps you choose classes and plan.</li>
+                <li><strong>Mentor:</strong> An adult who takes a lasting interest in you and your goals.</li>
+                <li><strong>Office hours:</strong> Set times when a professor is free to talk with any student, no appointment needed.</li>
+                <li><strong>Internship:</strong> A short job in a field you&rsquo;re curious about.</li>
+                <li><strong>Common Data Set:</strong> A standard report most colleges post online, with class sizes, costs and graduation rates.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="choosing-section" aria-labelledby="tool-card-title">
+      <h2 id="tool-card-title">Your College Scorecard</h2>
+      <p>Compare your top colleges on what you&rsquo;ll actually experience there, not what their websites say. Your quiz result is starred. There are questions for big universities, small colleges and community colleges, and you can add what matters most to you.</p>
+      <p><a class="btn btn-primary" href="tools/college-scorecard.html">Open the College Scorecard</a></p>
+    </section>
+
+    <p><a class="btn btn-outline btn-small" href="#notes-panel" data-notes-open>Sources for this page</a></p>
+  </div>
+
+  <aside class="audience-sidebar" aria-label="Choosing a College sidebar">
+    <div class="sidebar-card" data-sidebar-result>
+      <h3>Your result</h3>
+      <p><a href="#quiz">Take the two-minute quiz</a></p>
+    </div>
+    <div class="sidebar-card">
+      <h3>College Scorecard</h3>
+      <p>Compare your top colleges on what you&rsquo;ll actually experience there.</p>
+      <p><a href="tools/college-scorecard.html">Open the College Scorecard</a></p>
+    </div>
+    <div class="sidebar-card">
+      <h3>Where to go next</h3>
+      <ul>
+        <li><a href="what-matters.html">What Matters in College (all the findings)</a></li>
+        <li><a href="in-college.html">In College (how to get these experiences wherever you go)</a></li>
+        <li><a href="understanding-college.html">Understanding College (kinds of colleges, in plain words)</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-card">
+      <h3>Sources</h3>
+      <p><a href="#notes-panel" data-notes-open>Sources for this page</a></p>
+    </div>
+  </aside>
+</div>
+
+</main>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <p class="footer-name">What College Is Really For</p>
+        <p>A public education program of <strong>HigherEdImpact</strong>, a 501(c)(3) nonprofit organization (EIN 87-2050100). No sign-up, no advertising.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="understanding-college.html">Understanding College</a>
+        <a href="what-matters.html">What Matters in College</a>
+        <a href="the-research.html">The Research</a>
+        <a href="about.html">About HigherEdImpact</a>
+        <a href="about.html#book">The Book</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </div>
+
+    <p class="footer-cite">Based on interviews with 1,000 college graduates, ages 25 to 65, from every kind of college, reported in Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021).</p>
+
+    <div class="footer-meta">
+      <p>HigherEdImpact &middot; 18670 Nixon Ave., West Linn, Oregon 97068 &middot; <a href="mailto:Detweiler@higheredimpact.org">Detweiler@higheredimpact.org</a> &middot; <a href="https://higheredimpact.org/">higheredimpact.org</a></p>
+      <p>&copy; 2026 HigherEdImpact. Research findings &copy; Richard A. Detweiler.</p>
+    </div>
+  </div>
+</footer>
+
+<dialog class="notes-panel" id="notes-panel" aria-labelledby="notes-title">
+  <div class="notes-header">
+    <div>
+      <span class="section-label">Sources</span>
+      <h2 id="notes-title">Sources for this page</h2>
+    </div>
+    <button class="notes-close" type="button" data-notes-close aria-label="Close sources">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <ol class="notes-list">
+    <li id="note-1">Stacy Dale and Alan B. Krueger, &ldquo;Estimating the Effects of College Characteristics over the Career Using Administrative Earnings Data,&rdquo; <em>Journal of Human Resources</em> 49, no. 2 (2014): 323&ndash;358.</li>
+<li id="note-2">Raj Chetty, David J. Deming and John N. Friedman, &ldquo;Diversifying Society&rsquo;s Leaders? The Causal Effects of Admission to Highly Selective Private Colleges,&rdquo; NBER Working Paper No. 31492 (July 2023).</li>
+<li id="note-3">National Association of College and University Business Officers, <em>2025 Tuition Discounting Study</em> (2026), as reported by Higher Ed Dive.</li>
+<li id="note-4">Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021); findings in chapters 6 to 8 and appendix 5.</li>
+<li id="note-5">Richard A. Detweiler, <em>The Evidence Liberal Arts Needs</em> (MIT Press, 2021), pp. 162&ndash;166 and figures A5.6a to A5.6d; liberal arts colleges and the six experiences, pp. 191&ndash;192.</li>
+<li id="note-6">Gregory M. Walton and Geoffrey L. Cohen, &ldquo;A Brief Social-Belonging Intervention Improves Academic and Health Outcomes of Minority Students,&rdquo; <em>Science</em> 331 (2011): 1447&ndash;1451.</li>
+<li id="note-7">Gregory M. Walton, Mary C. Murphy, Christine Logel and others, &ldquo;Where and with whom does a brief social-belonging intervention promote progress in college?&rdquo; <em>Science</em> 380 (2023): 499&ndash;505.</li>
+<li id="note-8">Alexander W. Astin, <em>What Matters in College? Four Critical Years Revisited</em> (Jossey-Bass, 1993).</li>
+<li id="note-9">George D. Kuh, <em>High-Impact Educational Practices: What They Are, Who Has Access to Them, and Why They Matter</em> (AAC&amp;U, 2008).</li>
+<li id="note-10">Ernest T. Pascarella and Patrick T. Terenzini, <em>How College Affects Students</em>, vol. 2 (Jossey-Bass, 2005).</li>
+<li id="note-11">Richard J. Light, <em>Making the Most of College: Students Speak Their Minds</em> (Harvard University Press, 2001).</li>
+<li id="note-12">Gallup and Purdue University, <em>Great Jobs, Great Lives: The 2014 Gallup-Purdue Index Report</em> (2014).</li>
+<li id="note-13">Vincent Tinto, <em>Leaving College: Rethinking the Causes and Cures of Student Attrition</em>, 2nd ed. (University of Chicago Press, 1993).</li>
+  </ol>
+</dialog>
+
+<script src="scripts/ui.js"></script>
+<script src="scripts/choosing-data.js"></script>
+<script src="scripts/choosing.js"></script>
 </body>
 </html>

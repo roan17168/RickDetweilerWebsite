@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const source = fs.readFileSync('artifacts/understanding-source.txt', 'utf8');
-const page = fs.readFileSync('preview/understanding-college.html', 'utf8');
+const page = fs.readFileSync('understanding-college.html', 'utf8');
 
 function decode(text) {
   return text
@@ -153,15 +153,15 @@ hrefs.forEach(function (href) {
   }
   const file = href.split('#')[0];
   if (!file) return;
-  const target = path.resolve('preview', file);
+  const target = path.resolve('.', file);
   if (!fs.existsSync(target)) brokenLinks.push(href);
 });
 
 const nav = {
   header: /<a href="understanding-college\.html" data-nav="understanding">/.test(page),
   footer: /<a href="understanding-college\.html">Understanding College<\/a>/.test(page),
-  home: /href="understanding-college\.html"[^>]*>Understanding College</.test(fs.readFileSync('preview/index.html', 'utf8')),
-  stale: (fs.readFileSync('preview/index.html', 'utf8') + page).includes('../understanding-college.html')
+  home: /href="understanding-college\.html"[^>]*>Understanding College</.test(fs.readFileSync('index.html', 'utf8')),
+  stale: (fs.readFileSync('index.html', 'utf8') + page).includes('../understanding-college.html')
 };
 
 const required = {

@@ -7,13 +7,18 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(__dirname, '..');
-const PREVIEW = path.join(ROOT, 'preview');
+// The build writes the site to the repository root (GitHub Pages serves it there).
+const PREVIEW = ROOT;
+const SKIP_DIRS = ['src', 'artifacts', 'assets', 'scripts', 'css', 'js', 'node_modules', '.git', '.github', 'preview'];
 function listHtml(dir, base) {
   let found = [];
   fs.readdirSync(dir, { withFileTypes: true }).forEach(function (entry) {
     const full = path.join(dir, entry.name);
     const relative = base ? base + '/' + entry.name : entry.name;
-    if (entry.isDirectory()) found = found.concat(listHtml(full, relative));
+    if (entry.isDirectory()) {
+      if (SKIP_DIRS.indexOf(entry.name) !== -1) return;
+      found = found.concat(listHtml(full, relative));
+    }
     else if (entry.isFile() && entry.name.endsWith('.html')) found.push(relative);
   });
   return found;

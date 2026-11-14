@@ -35,7 +35,7 @@ One phase per “start next phase” request unless the user asks to keep going.
 | 8 | College Leaders + quiz + institutional checklist + board summary + alumni survey + promotion/tenure language | **DONE** |
 | 9 | Policymakers + quiz + one-page brief | **DONE** |
 | 10 | Understanding College + history timeline + faculty-care and employer charts | **DONE** |
-| 11 | About, Privacy, resources and PDFs | **PARTIAL — About and Privacy built; PDFs and photos missing** |
+| 11 | About, Privacy, resources and PDFs | **PARTIAL — About, Privacy and all six PDFs done; photos P1–P8 still missing** |
 | 12 | QA, accessibility, performance, SEO, analytics, domain, deployment | **PARTIAL — SEO layer built and audited (titles, descriptions, canonicals, sharing cards, JSON-LD, sitemap, robots); domain, analytics and deployment pending** |
 
 Status values: **DONE**, **NEXT**, **IN PROGRESS**, **PARTIAL**, **BLOCKED**, **QUEUED**.
@@ -369,6 +369,21 @@ Blocked, which is why the phase is PARTIAL:
 - **Search descriptions**: five exceed 160 characters (College Leaders 179, Counselors 212, In College 172, Home 162, Policymakers 184). They are the docx wording and were left verbatim; Rick may want them shortened.
 
 Next: launch decisions — analytics, domain, OG image and deployment.
+
+### Revision 6 completion — 13 November 2026
+
+The Revision 6 document and the six PDFs were uploaded to the repository on this date, so the three gaps recorded in `artifacts/handoff/` are built. `rev6-audit.js` now reports 55 PASS, 0 FAIL, 0 BLOCKED.
+
+Delivered:
+- Four tool pages, joining the scorecard: `tools/semester-plan.html`, `tools/course-self-audit.html`, `tools/leaders-checklist.html`, `tools/policy-brief.html`, each with labelled fields, browser storage, Print, Copy text, Download as PDF and Reset, and a one-page print stylesheet.
+- Six downloads in `preview/downloads/`, copied from `src/downloads/` and linked from Parents, Counselors, Faculty, College Leaders and Policymakers.
+- The Counselors quiz: five scored questions, an optional setting question, a tie-breaker and four results, plus the Home card link.
+- Counselors page rebuilt around the quiz, with the Revision 6 title and search description, the ten numbered source notes and the kit download.
+- `artifacts/counselors-quiz-audit.js` and `artifacts/downloads-audit.js` added; `rev6-audit.js` and `feature-audit.js` updated from blocked to enforcing.
+
+Checks run: `node build.js`; `qa-audit`, `rev6-audit`, `feature-audit`, `quiz-audit`, `seo-audit`, `data-html-audit`, `downloads-audit`, `counselors-audit`, `leaders-audit`, `policymakers-audit`, `understanding-audit`, `about-audit` — all pass. `counselors-quiz-audit` covers all 1,024 answer paths (664 single results, 360 tie-breakers).
+
+Not done, and why: the leaders checklist's “From your quiz” marking and the policy brief's result-driven ordering were not derivable from the Revision 6 text or the data files, so neither was invented. The self-audit's format-dependent examples are the same case. 375/768/1440 visual passes and a real print pass were not run in this chat.
 
 ### Cross-phase audit — 7 November 2026
 

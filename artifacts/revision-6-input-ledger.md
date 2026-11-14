@@ -13,11 +13,11 @@ Last updated: 13 November 2026.
 
 | Item | Status | Detail |
 | --- | --- | --- |
-| `Website_Layout_Review_Revision6 (1).docx` in this repository | **BLOCKED** | The file is not present anywhere in the working tree. Only `What_College_Is_Really_For_Revised_Site_Text_2026-10-12_2.docx` (and its extracted `artifacts/docx-paragraphs.txt`) exist. |
-| Revision 6 page, section, image, icon, PDF, quiz and note exactness | **BLOCKED** | Cannot be checked without the attachment. Nothing in this repository may be treated as Revision 6-verified. |
-| Revision 6 layout review of the 15 final pages | **BLOCKED** | Requires the attachment before any conformance claim. |
-
-Per the master prompt (§1), all Revision 6 copy, layout and content conformance work is blocked until the attachment is readable by the coding agent.
+| `Website_Layout_Review_Revision6.docx` in this repository | **PASS** | Uploaded to the repository root on 13 November 2026 and extracted to `artifacts/source/revision6-paragraphs.txt` (3,188 paragraphs, indexed). |
+| The six take-away PDFs | **PASS** | `parent-checklist.pdf`, `faculty-workshop-kit.pdf`, `deans-briefing.pdf`, `state-brief.pdf`, `federal-staff-memo.pdf` and `counselor-kit.pdf` are in the repository root and copied by the build to `preview/downloads/`. |
+| `big-picture.svg` | **PASS** | Uploaded with the Revision 6 pack; the chart data remains transcribed in `src/data/big-picture.json`. |
+| Revision 6 page, section, PDF, quiz and note exactness | **PASS** | Checked mechanically by `rev6-audit.js` (55 PASS, 0 FAIL, 0 BLOCKED), the copy audits and `counselors-quiz-audit.js`. |
+| Revision 6 layout review of the 19 final pages | **PARTIAL** | Structure, labels, headings, notes and copy are audited. Visual review at 375/768/1440 and a real print pass were not run in this chat. |
 
 ## 2. Production website identity
 
@@ -200,7 +200,7 @@ Fixed this pass: the Research page linked `https://globalliberalarts.org/`, whic
 | §6.3 modal dialog | **PASS** | Native `<dialog>`, verified by keyboard/mouse |
 | §6.4 reduced motion | **PASS** | `auto` under reduce, `smooth` otherwise |
 | §6.5 data HTML allowlist | **PASS** | `data-html-audit.js` |
-| §6.6 print/download honesty | **PASS** | 0 “Download as PDF” strings; all print controls verified |
+| §6.6 print/download honesty | **PASS** | Six real PDFs linked from their pages; tool pages carry the Revision 6 “Download as PDF” control, which opens print-to-PDF; `downloads-audit.js` and `rev6-audit.js` check both |
 | §6.7 mailto/clipboard honesty | **PASS** | 0 “Opening your email app” claims; status regions intact |
 | §6.8 stale docs/privacy | **PASS** | Privacy names tool page and all three keys; README corrected |
 | §6.9 images and fallbacks | **PARTIAL** | Portrait `<picture>` done; Eastern photo and HigherEdImpact logo still unused pending Revision 6 placement |
@@ -212,3 +212,15 @@ Fixed this pass: the Research page linked `https://globalliberalarts.org/`, whic
 | §11 final report | **PASS** | This file and the chat report |
 
 No commit, push, deployment, publication or live-root change was made.
+
+## 13 November 2026 — the three Revision 6 gaps closed
+
+With the docx and the six PDFs supplied, the three items this ledger previously recorded as blocked are built:
+
+| Gap | Status | Evidence |
+| --- | --- | --- |
+| Four missing tool pages | **PASS** | `tools/semester-plan.html`, `tools/course-self-audit.html`, `tools/leaders-checklist.html`, `tools/policy-brief.html`, joining `tools/college-scorecard.html`. Each has a visible label on every field, browser storage, Print, Copy text, Download as PDF and Reset, and a one-page print stylesheet. |
+| Six downloads | **PASS** | All six PDFs are linked from the page Revision 6 names, with descriptive link text and no tracking parameters. `downloads-audit.js` passes 14 checks. |
+| Counselors quiz | **PASS** | Five scored questions, one optional setting question, a four-option tie-breaker, four results (Door Opener, Matchmaker, Guide, Finisher), situation advice, share and persistence. `counselors-quiz-audit.js` walks all 1,024 answer paths (664 single results, 360 tie-breakers) and every tie resolves. The Home counselor card now reads “Start the 2-minute quiz” and links to `counselors.html#quiz`. |
+
+`rev6-audit.js` now reports 55 PASS, 0 FAIL, 0 BLOCKED. What remains blocked is unchanged: the production domain, a sharing image, analytics, deployment, photos P1–P8, and the Peace Corps line awaiting Rick's verification.

@@ -79,8 +79,9 @@ function present(label, source, haystack) {
 // --- About: copy verified against docx 1878-1907 -------------------------
 check('About page exists', fs.existsSync(path.join(PREVIEW, 'about.html')));
 
-check('title from docx 1879', aboutRaw.indexOf('<title>' + P[1879].replace(/^Page title: /, '') + '</title>') !== -1);
-check('description from docx 1880', aboutRaw.indexOf('content="' + P[1880].replace(/^Search description: /, '') + '"') !== -1);
+// Revision 6 (paragraphs 2191-2192) replaces the earlier About title and description.
+check('title from Revision 6 2191', aboutRaw.indexOf('<title>About | What College Is Really For</title>') !== -1);
+check('description from Revision 6 2192', aboutRaw.indexOf('content="About HigherEdImpact, the 501(c)(3) nonprofit that publishes What College Is Really For, and its Managing Director, Richard A. Detweiler, author of The Evidence Liberal Arts Needs."') !== -1);
 
 present('tagline 1884', P[1884], aboutText);
 present('lede 1885', P[1885], aboutText);

@@ -282,6 +282,13 @@
     this.app.innerHTML = resultHtml(result);
 
     var values = scored.values;
+    try {
+      if (root.localStorage) {
+        root.localStorage.setItem('wcirf_faculty_result_v1', JSON.stringify({ result: result.key, values: values }));
+      }
+    } catch (error) {
+      // The check still works without storage.
+    }
     var scores = {};
     this.questions.forEach(function (question, index) {
       scores[question.practice] = values[index];

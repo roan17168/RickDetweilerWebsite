@@ -49,7 +49,11 @@ const allPages = [
   'about.html',
   'privacy.html',
   '404.html',
-  'tools/college-scorecard.html'
+  'tools/college-scorecard.html',
+  'tools/semester-plan.html',
+  'tools/course-self-audit.html',
+  'tools/leaders-checklist.html',
+  'tools/policy-brief.html'
 ];
 
 console.log('Revision 6 audit\n');
@@ -60,9 +64,29 @@ allPages.forEach(function (file) {
   else bad('site map page missing: ' + file);
 });
 
-// 2. Remaining tool pages and downloads (content not in the repository)
-need('4 more tool pages (tools/…): Revision 6 lists 5; only the college scorecard exists');
-need('6 downloads (downloads/…): parent checklist, workshop kit, dean’s briefing, state brief, federal memo, counselor kit');
+// 2. The five tool pages and the six downloads
+const toolPages = ['tools/college-scorecard.html', 'tools/semester-plan.html', 'tools/course-self-audit.html', 'tools/leaders-checklist.html', 'tools/policy-brief.html'];
+const missingTools = toolPages.filter(function (file) { return !fs.existsSync(path.join(OUT, file)); });
+if (!missingTools.length) ok('all five tool pages are built');
+else bad('tool pages missing: ' + missingTools.join(', '));
+
+const downloadNames = ['parent-checklist.pdf', 'faculty-workshop-kit.pdf', 'deans-briefing.pdf', 'state-brief.pdf', 'federal-staff-memo.pdf', 'counselor-kit.pdf'];
+let downloadProblems = [];
+downloadNames.forEach(function (name) {
+  const file = path.join(OUT, 'downloads', name);
+  if (!fs.existsSync(file)) {
+    downloadProblems.push(name + ' is missing');
+    return;
+  }
+  const head = fs.readFileSync(file).slice(0, 5).toString('latin1');
+  if (head !== '%PDF-') downloadProblems.push(name + ' is not a PDF');
+  const linked = allPages.some(function (page) {
+    return fs.existsSync(path.join(OUT, page)) && read(page).indexOf('downloads/' + name) !== -1;
+  });
+  if (!linked) downloadProblems.push(name + ' is not linked from any page');
+});
+if (!downloadProblems.length) ok('all six downloads exist, are PDFs and are linked');
+else bad('downloads: ' + downloadProblems.join('; '));
 
 // 3. Header and footer shared elements
 const footer = read('index.html');
@@ -83,8 +107,7 @@ audiencePages.forEach(function (pair) {
   const quizAt = html.search(/id="[a-z-]*quiz"|id="check"|data-check-app/);
   const firstFinding = html.search(/What graduates told us|What the research found|The numbers behind this/);
   if (quizAt === -1) {
-    if (pair[0] === 'counselors.html') need(pair[1] + ': quiz not built yet (Revision 6 gives this page its own quiz)');
-    else bad(pair[1] + ': no quiz on the page');
+    bad(pair[1] + ': no quiz on the page');
   } else if (firstFinding !== -1 && firstFinding < quizAt) {
     bad(pair[1] + ': findings appear above the quiz');
   } else {
@@ -119,11 +142,14 @@ if (sourceLinkPages.length >= notesPages.length) ok('a “Sources for this page�
 else bad('only ' + sourceLinkPages.length + ' pages have a sources control for ' + notesPages.length + ' pages with notes');
 
 // 7. Print wording (Revision 6 says "Download as PDF"; the site delivers browser print)
+// Tool pages deliver the browser's print-to-PDF, as the Revision 6 tool template asks;
+// audience pages may only point at a real file under downloads/.
 const pdfLabels = allPages.filter(function (file) {
   if (!fs.existsSync(path.join(OUT, file))) return false;
+  if (file.indexOf('tools/') === 0) return false;
   return /Download as PDF/i.test(read(file));
 });
-if (!pdfLabels.length) ok('no control claims to download a PDF');
+if (!pdfLabels.length) ok('no audience page claims to download a PDF it does not have');
 else bad('PDF download wording on ' + pdfLabels.join(', '));
 
 // 8. Choosing timeline: six steps
@@ -189,15 +215,27 @@ const audienceMissing = audiencePages.filter(function (pair) {
 if (!audienceMissing.length) ok('every audience page links to What Matters in College');
 else bad('no What Matters link on ' + audienceMissing.map(function (p) { return p[1]; }).join(', '));
 
-// 15. Home: seven perspective cards
+// 15. Counselors quiz and the Home card that points at it
+const counselorsPage = read('counselors.html');
+if (/data-counselors-quiz/.test(counselorsPage) && /Skip the quiz/.test(counselorsPage)) ok('Counselors carries its own quiz and skip link');
+else bad('Counselors is missing the quiz or its skip link');
+const counselorsData = JSON.parse(fs.readFileSync(path.join(SRC, 'data', 'counselors.json'), 'utf8'));
+const resultHeadings = (counselorsData.quiz.results || []).map(function (item) { return item.heading; });
+if (resultHeadings.indexOf('The Matchmaker') !== -1 && resultHeadings.indexOf('The Door Opener') !== -1) ok('Counselors quiz carries the Matchmaker and Door Opener results');
+else bad('Counselors quiz is missing a Revision 6 result name');
+if ((counselorsData.quiz.questions || []).length === 5 && counselorsData.quiz.tieBreak) ok('Counselors quiz has five questions and a tie-breaker');
+else bad('Counselors quiz is missing questions or the tie-breaker');
+
+// 15b. Home: seven perspective cards
 const home = read('index.html');
 const cards = (home.match(/class="[^"]*(?:home-)?audience-card/g) || []).length;
 if (cards === 7) ok('Home shows all seven perspective cards');
 else bad('Home shows ' + cards + ' perspective cards (expected 7)');
+if (/href="counselors\.html#quiz">Start the 2-minute quiz/.test(home)) ok('Home counselor card links to the counselor quiz');
+else bad('Home counselor card does not link to the counselor quiz');
 
 // 16. Quiz skip link and an in-markup first question on every audience page
 const skipMissing = audiencePages.filter(function (pair) {
-  if (pair[0] === 'counselors.html') return false; // no quiz yet
   return !/Skip the quiz/i.test(read(pair[0]));
 });
 if (!skipMissing.length) ok('every audience page has the quiz skip link');
@@ -206,8 +244,7 @@ else bad('quiz skip link missing on ' + skipMissing.map(function (p) { return p[
 // The quiz itself needs JavaScript, as the wireframes assume; the page content and the
 // recommendations stay in the markup. Check every quiz page carries its mount point.
 const quizMounts = audiencePages.filter(function (pair) {
-  if (pair[0] === 'counselors.html') return false;
-  return !/data-quiz|data-check-app|id="[a-z-]*quiz"/.test(read(pair[0]));
+  return !/data-quiz|data-check-app|data-counselors-quiz|id="[a-z-]*quiz"/.test(read(pair[0]));
 });
 if (!quizMounts.length) ok('each quiz page carries its quiz mount');
 else bad('no quiz mount on ' + quizMounts.map(function (p) { return p[1]; }).join(', '));

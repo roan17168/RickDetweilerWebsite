@@ -70,7 +70,9 @@ function auditLine(number) {
   return normalize(text);
 }
 
-const skip = new Set([1234, 1238, 1247, 1256, 1278, 1296, 1384, 1400]);
+// 1429 and 1430 are the repeated “A meaningful life in a world of change” closing block,
+// which Revision 6 removes from every audience page.
+const skip = new Set([1234, 1238, 1247, 1256, 1278, 1296, 1384, 1400, 1429, 1430]);
 const missing = [];
 let checked = 0;
 
@@ -114,8 +116,12 @@ const meta = [
   ['title', titleMatch ? titleMatch[1] : ''],
   ['description', descMatch ? descMatch[1] : '']
 ];
+// Revision 6 (paragraph 1419) replaces the earlier search description.
+const REV6_DESCRIPTION = "For presidents, provosts, deans, chairs and trustees: check whether budgets, incentives and measures support the student experiences linked to graduates' lives, at every kind of institution.";
 meta.forEach(function (pair) {
-  const expected = normalize(paragraphs[pair[0] === 'title' ? 1201 : 1202].replace(/^(Page title|Search description):\s*/, ''));
+  const expected = pair[0] === 'title'
+    ? normalize(paragraphs[1201].replace(/^(Page title|Search description):\s*/, ''))
+    : normalize(REV6_DESCRIPTION);
   checked += 1;
   if (normalize(pair[1]) !== expected) missing.push(pair[0] + ' mismatch');
 });

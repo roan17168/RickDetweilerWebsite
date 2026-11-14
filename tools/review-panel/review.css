@@ -1,0 +1,231 @@
+/* Local review panel — served only by tools/review-server.js, never published. */
+
+#wcirf-review-root {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 2147483000;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #2e4053;
+}
+
+#wcirf-review-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #c9a227;
+  border-radius: 999px;
+  background: #10243d;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(16, 36, 61, 0.28);
+}
+
+#wcirf-review-toggle:hover {
+  background: #1b365d;
+}
+
+#wcirf-review-toggle .wcirf-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d4af37;
+}
+
+#wcirf-review-toggle .wcirf-count {
+  min-width: 18px;
+  padding: 1px 5px;
+  border-radius: 999px;
+  background: #d4af37;
+  color: #10243d;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+#wcirf-review-panel {
+  position: absolute;
+  right: 0;
+  bottom: 52px;
+  width: min(360px, calc(100vw - 32px));
+  max-height: min(72vh, 620px);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  background: #fdfcfb;
+  border: 1px solid #e2e8f0;
+  border-top: 3px solid #d4af37;
+  border-radius: 12px;
+  box-shadow: 0 22px 48px rgba(16, 36, 61, 0.26);
+}
+
+#wcirf-review-panel[data-open="true"] {
+  display: flex;
+}
+
+.wcirf-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 14px;
+  background: #10243d;
+  color: #fff;
+}
+
+.wcirf-head strong {
+  font-family: Lora, Georgia, serif;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+}
+
+.wcirf-close {
+  border: 0;
+  background: transparent;
+  color: #cbd5e1;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.wcirf-close:hover {
+  color: #fff;
+}
+
+.wcirf-body {
+  padding: 12px 14px 14px;
+  overflow-y: auto;
+}
+
+.wcirf-page {
+  margin: 0 0 8px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #7b6a35;
+}
+
+.wcirf-hint {
+  margin: 0 0 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #596a7a;
+}
+
+#wcirf-review-text {
+  width: 100%;
+  min-height: 82px;
+  resize: vertical;
+  padding: 9px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #fff;
+  color: #2e4053;
+  font: 13px/1.5 Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+#wcirf-review-text:focus {
+  outline: none;
+  border-color: #d4af37;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.28);
+}
+
+.wcirf-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.wcirf-btn {
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #10243d;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.wcirf-btn:hover {
+  border-color: #d4af37;
+  background: #faf5e4;
+}
+
+.wcirf-btn.wcirf-save {
+  border-color: #d4af37;
+  background: #d4af37;
+  color: #10243d;
+}
+
+.wcirf-btn.wcirf-save:hover {
+  background: #b89628;
+  color: #fff;
+}
+
+.wcirf-status {
+  min-height: 16px;
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: #4d7c4d;
+}
+
+.wcirf-list {
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid #e2e8f0;
+}
+
+.wcirf-note {
+  position: relative;
+  padding: 9px 26px 9px 0;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 12.5px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.wcirf-note small {
+  display: block;
+  margin-top: 3px;
+  font-size: 10.5px;
+  color: #7b8794;
+  letter-spacing: 0.01em;
+}
+
+.wcirf-note button {
+  position: absolute;
+  top: 8px;
+  right: 0;
+  border: 0;
+  background: transparent;
+  color: #9aa7b4;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.wcirf-note button:hover {
+  color: #b22222;
+}
+
+.wcirf-empty {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: #7b8794;
+  font-style: italic;
+}
+
+@media print {
+  #wcirf-review-root {
+    display: none !important;
+  }
+}

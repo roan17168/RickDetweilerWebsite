@@ -5,13 +5,20 @@ A static, multi-page site built with HTML, CSS and vanilla JavaScript. The live 
 
 ## Run locally
 
-From the repository root, start a static server:
+From the repository root, start the review server:
 
 ```sh
-python3 -m http.server 8000
+node build.js
+node tools/review-server.js 3000
 ```
 
-Open <http://localhost:8000/>. Use a local server rather than opening an HTML file directly so relative assets, navigation and browser storage behave as they do when hosted.
+Open <http://localhost:3000/>. The server behaves like GitHub Pages, but injects a small
+**Review notes** panel into every page. Open it with the pill in the bottom-right corner,
+note anything that looks wrong, then use **Copy all** and paste the notes back into the
+chat. Notes are stored in that browser only; the panel is never part of the build, so it
+does not appear on the published site. Use a local server rather than opening an HTML
+file directly so relative assets, navigation and browser storage behave as they do when
+hosted.
 
 ## The site
 

@@ -512,7 +512,7 @@ pages.forEach(function (page) {
     console.log('built ' + page.file);
 });
 
-const cssFiles = ['fonts.css', 'tokens.css', 'base.css', 'layout.css', 'components.css', 'pages.css', 'in-college.css', 'parents.css', 'faculty.css', 'college-leaders.css', 'counselors.css', 'policymakers.css', 'understanding.css', 'tools.css'];
+const cssFiles = ['fonts.css', 'tokens.css', 'base.css', 'layout.css', 'components.css', 'pages.css', 'in-college.css', 'parents.css', 'faculty.css', 'college-leaders.css', 'counselors.css', 'policymakers.css', 'understanding.css', 'tools.css', 'visual.css'];
 const css = cssFiles.map(function (file) { return read(path.join('styles', file)); }).join('\n');
 fs.writeFileSync(path.join(OUT, 'styles.css'), css);
 console.log('built styles.css');

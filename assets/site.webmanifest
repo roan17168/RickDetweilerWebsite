@@ -1,0 +1,18 @@
+{
+  "name": "What College Is Really For",
+  "short_name": "College",
+  "description": "What college is really for, from interviews with 1,000 graduates.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fdfcfb",
+  "theme_color": "#1b365d",
+  "icons": [
+    {
+      "src": "favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

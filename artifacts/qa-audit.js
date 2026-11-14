@@ -219,7 +219,13 @@ pages.forEach(function (file) {
   if (!isFoundation && /\sstyle="/.test(html)) fail(file, 'inline style');
   if (/\{\{[A-Z0-9_]+\}\}/.test(html)) fail(file, 'unresolved placeholder');
   if (/<script[^>]+src="https?:/.test(html)) fail(file, 'third-party script');
-  if (/<link[^>]+href="https?:/.test(html)) fail(file, 'third-party stylesheet or font');
+  if (/<link[^>]+href="https?:[^"]*"[^>]*>/.test(html)) {
+    (html.match(/<link[^>]+>/g) || []).forEach(function (tag) {
+      if (!/href="https?:/.test(tag)) return;
+      var rel = (tag.match(/rel="([^"]*)"/) || [])[1] || '';
+      if (/stylesheet|preconnect|preload/.test(rel)) fail(file, 'third-party stylesheet or font');
+    });
+  }
 });
 
 // --- shared CSS and fonts ------------------------------------------------

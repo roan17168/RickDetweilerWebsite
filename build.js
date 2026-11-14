@@ -603,3 +603,23 @@ if (siteUrl) {
 const robots = 'User-agent: *\nAllow: /\nDisallow: /foundation.html\n' + (siteUrl ? '\nSitemap: ' + absoluteUrl('sitemap.xml') + '\n' : '');
 fs.writeFileSync(path.join(OUT, 'robots.txt'), robots);
 console.log('built robots.txt');
+
+// root favicon fallback (browsers request /favicon.ico directly)
+fs.copyFileSync(path.join(OUT, 'assets', 'favicon.ico'), path.join(OUT, 'favicon.ico'));
+console.log('built favicon.ico');
+
+const manifest = {
+  name: 'What College Is Really For',
+  short_name: 'College',
+  description: 'What college is really for, from interviews with 1,000 graduates.',
+  start_url: './',
+  scope: './',
+  display: 'standalone',
+  background_color: '#fdfcfb',
+  theme_color: '#1b365d',
+  icons: [
+    { src: 'favicon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' }
+  ]
+};
+fs.writeFileSync(path.join(OUT, 'assets', 'site.webmanifest'), JSON.stringify(manifest, null, 2) + '\n');
+console.log('built assets/site.webmanifest');

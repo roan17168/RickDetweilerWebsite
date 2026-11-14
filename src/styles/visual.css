@@ -1006,3 +1006,349 @@ table.scorecard-table thead th {
 .choosing-section > .container > p {
   max-width: 64ch;
 }
+
+/* ==========================================================================
+   Quality pass: hierarchy, texture and section contrast
+   ========================================================================== */
+
+/* nav: quiet uppercase tracked labels, gold active rule */
+.primary-nav > a,
+.nav-dropdown-toggle {
+  font-size: 0.79rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.primary-nav > a[aria-current="page"],
+.primary-nav > a:hover {
+  box-shadow: inset 0 -2px 0 var(--gold);
+}
+
+.brand {
+  font-size: 1.38rem;
+}
+
+/* section labels carry a short gold rule */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.13em;
+}
+
+.section-label::before {
+  content: "";
+  display: inline-block;
+  width: 1.6rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+  flex: none;
+}
+
+/* hero: parchment texture, larger display type, serif standfirst */
+.home-hero,
+.choosing-hero {
+  background-image:
+    radial-gradient(circle at 50% -10%, rgba(212, 175, 55, 0.15), transparent 45%),
+    repeating-linear-gradient(135deg, rgba(27, 54, 93, 0.022) 0 1px, transparent 1px 10px),
+    linear-gradient(180deg, #ffffff 0%, var(--paper) 100%);
+}
+
+.home-hero h1 {
+  font-size: clamp(2.35rem, 4.4vw, 3.6rem);
+  line-height: 1.08;
+  max-width: 22ch;
+}
+
+.home-hero .home-hero-standfirst {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 2.1vw, 1.6rem);
+  line-height: 1.35;
+  color: var(--navy);
+  max-width: 34ch;
+}
+
+.home-hero .lede {
+  max-width: 40rem;
+}
+
+.home-hero-panel {
+  border-top: 3px solid var(--gold);
+  background: #fffefb;
+  box-shadow: var(--shadow);
+}
+
+/* home section headings */
+.home-section > .container > h2 {
+  font-size: clamp(1.75rem, 2.8vw, 2.3rem);
+}
+
+.home-audiences > .container > h2,
+.home-audiences-intro,
+.home-outcomes-section > .container > h2,
+.home-outcomes-intro,
+.home-book > .container > h2 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.home-audiences-intro,
+.home-outcomes-intro {
+  max-width: 44rem;
+}
+
+.home-audiences > .container > h2::after,
+.home-outcomes-section > .container > h2::after,
+.home-book > .container > h2::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 2px;
+  margin: 0.9rem auto 0;
+  background: var(--gold);
+}
+
+/* cards: gold crest, clearer hover, tighter text */
+.audience-card {
+  border-top: 3px solid transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.audience-card:hover {
+  border-top-color: var(--gold);
+}
+
+.card-icon {
+  background: #fff;
+  border: 1px solid rgba(212, 175, 55, 0.55);
+  box-shadow: inset 0 0 0 4px var(--gold-pale);
+  color: var(--navy);
+}
+
+.audience-card :is(h2, h3) {
+  margin-top: 0.1rem;
+}
+
+/* study band: deep navy for contrast against the paper sections */
+.home-study {
+  background: var(--navy);
+  background-image: radial-gradient(circle at 12% 0%, rgba(212, 175, 55, 0.16), transparent 40%);
+  border-bottom: 0;
+  color: #e8eef5;
+}
+
+.home-study .section-label {
+  color: var(--gold);
+}
+
+.home-study h2 {
+  color: #fff;
+  max-width: 26ch;
+}
+
+.home-study-list li {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-left: 3px solid var(--gold);
+  color: #e8eef5;
+}
+
+.home-study-list strong {
+  color: #fff;
+}
+
+.home-study-links {
+  color: #d7e2ee;
+}
+
+.home-study-links a {
+  color: #f1d98a;
+  text-decoration-color: rgba(241, 217, 138, 0.5);
+  text-underline-offset: 3px;
+}
+
+.home-study-list .source-note,
+.home-study-list .source-note a {
+  color: #f1d98a;
+}
+
+/* outcomes: numbered, gold-capped */
+.home-good-life-list {
+  counter-reset: outcome;
+}
+
+.home-good-life-list li {
+  position: relative;
+  border-top: 3px solid var(--gold-pale);
+  text-align: left;
+}
+
+.home-good-life-list li::before {
+  counter-increment: outcome;
+  content: counter(outcome, decimal-leading-zero);
+  display: block;
+  margin-bottom: 0.25rem;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--gold-dark);
+}
+
+.home-good-life-list strong {
+  font-size: 1.08rem;
+}
+
+/* book: editorial framing */
+.book-band {
+  border-top: 3px solid var(--gold);
+  padding: 1.75rem;
+}
+
+.book-band > div {
+  border-left: 1px solid var(--border);
+  padding-left: clamp(1.1rem, 2.5vw, 1.9rem);
+}
+
+.home-book-citation {
+  font-size: 1.12rem;
+}
+
+@media (max-width: 700px) {
+  .book-band > div {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
+/* footer: stronger masthead and gold rule */
+.footer-name {
+  font-size: 1.55rem;
+  letter-spacing: -0.01em;
+}
+
+.footer-top {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  padding-bottom: 1.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audience-card {
+    transition: none;
+  }
+}
+
+/* phones: one card per row, room for the button label */
+@media (max-width: 720px) {
+  .audience-grid,
+  .home-audience-first-row,
+  .home-audience-second-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0.9rem;
+  }
+
+  .home-section .audience-card {
+    padding: 1.25rem 1.3rem 1.15rem;
+  }
+
+  .audience-card .btn {
+    white-space: normal;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(1.95rem, 8.5vw, 2.4rem);
+  }
+
+  .home-hero .home-hero-standfirst {
+    font-size: 1.15rem;
+  }
+
+  .book-band {
+    padding: 1.2rem;
+  }
+}
+
+/* slightly larger jacket on desktop */
+@media (min-width: 1081px) {
+  .book-band {
+    grid-template-columns: 215px minmax(0, 1fr);
+  }
+
+  .book-band img {
+    max-width: 215px;
+  }
+}
+
+/* mobile navigation panel and brand fitting */
+@media (max-width: 960px) {
+  .brand {
+    font-size: 1.18rem;
+    white-space: nowrap;
+    letter-spacing: -0.02em;
+  }
+
+  .brand::before {
+    height: 1.25rem;
+  }
+
+  .primary-nav.is-open {
+    box-shadow: 0 22px 40px rgba(27, 54, 93, 0.16);
+    border-top: 1px solid var(--border);
+  }
+
+  .primary-nav > a,
+  .nav-dropdown-toggle {
+    min-height: 48px;
+    padding: 0.8rem 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .brand {
+    font-size: 1.02rem;
+  }
+
+  .nav-shell {
+    gap: 0.5rem;
+  }
+}
+
+/* choosing hero: an action to balance the research card, a tighter card */
+.choosing-hero-actions {
+  margin-top: 1.5rem;
+}
+
+.choosing-hero-note {
+  max-width: 22rem;
+}
+
+.choosing-prestige-card {
+  padding: 1.35rem 1.4rem;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.choosing-prestige-card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 0.55rem;
+}
+
+.choosing-prestige-card ul {
+  gap: 0.55rem;
+}
+
+.choosing-prestige-card li + li {
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 1081px) {
+  .choosing-hero-grid {
+    grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.95fr);
+    gap: clamp(1.5rem, 3.5vw, 3rem);
+  }
+}

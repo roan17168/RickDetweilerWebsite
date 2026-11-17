@@ -43,6 +43,8 @@ function norm(text) {
 
 const pageText = norm(
   page
+    // A superscript note number is a citation link, not prose; drop its digits.
+    .replace(/<sup[\s\S]*?<\/sup>/gi, ' ')
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style[\s\S]*?<\/style>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')
@@ -170,7 +172,8 @@ const required = {
   description: description === 'How American colleges differ, where the liberal arts idea came from, what prestige and rankings do and don\u2019t tell you, and how to choose by evidence.',
   pageKey: pageKey === 'understanding',
   h1: h1Count === 1,
-  h2: h2Count === 12,
+  // 12 page headings plus the notes panel's own "Sources for this page" heading.
+  h2: h2Count === 13,
   sections: sections === 14,
   ids: duplicateIds.length === 0,
   inlineStyles: inlineStyles === 0,

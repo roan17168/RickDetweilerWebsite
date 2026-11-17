@@ -36,6 +36,8 @@ function normalize(text) {
 
 function stripTags(html) {
   return html
+    // A superscript note number is a citation link, not prose; drop its digits.
+    .replace(/<sup[\s\S]*?<\/sup>/gi, ' ')
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
     .replace(/<style[\s\S]*?<\/style>/gi, ' ')
     .replace(/<[^>]+>/g, ' ');

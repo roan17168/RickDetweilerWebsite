@@ -153,7 +153,64 @@ const siteNotes = {
     }
   ],
   privacy: [],
-      research: [],
+      research: [
+    {
+      n: 1,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021); findings in chapters 6 to 8 and appendix 5.'
+    },
+    {
+      n: 2,
+      text: 'Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em>, ch. 5 and appendixes 2, 3 and 4.'
+    },
+    {
+      n: 3,
+      text: 'Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em>, chapters 6 to 8 and appendix 5, figures A5.1 to A5.6.'
+    },
+    {
+      n: 4,
+      text: 'Alexander W. Astin, <em>What Matters in College? Four Critical Years Revisited</em> (Jossey-Bass, 1993).'
+    },
+    {
+      n: 5,
+      text: 'Ernest T. Pascarella and Patrick T. Terenzini, <em>How College Affects Students</em>, vol. 2 (Jossey-Bass, 2005).'
+    },
+    {
+      n: 6,
+      text: 'Richard J. Light, <em>Making the Most of College: Students Speak Their Minds</em> (Harvard University Press, 2001).'
+    },
+    {
+      n: 7,
+      text: 'Vincent Tinto, <em>Leaving College: Rethinking the Causes and Cures of Student Attrition</em>, 2nd ed. (University of Chicago Press, 1993).'
+    },
+    {
+      n: 8,
+      text: 'Gallup and Purdue University, <em>Great Jobs, Great Lives: The 2014 Gallup-Purdue Index Report</em> (2014).'
+    },
+    {
+      n: 9,
+      text: 'Scott Freeman and others, &ldquo;Active Learning Increases Student Performance in Science, Engineering, and Mathematics,&rdquo; <em>PNAS</em> 111, no. 23 (2014): 8410&ndash;8415.'
+    },
+    {
+      n: 10,
+      text: 'George D. Kuh, <em>High-Impact Educational Practices: What They Are, Who Has Access to Them, and Why They Matter</em> (AAC&amp;U, 2008).'
+    },
+    {
+      n: 11,
+      text: 'Gregory M. Walton and Geoffrey L. Cohen, &ldquo;A Brief Social-Belonging Intervention Improves Academic and Health Outcomes of Minority Students,&rdquo; <em>Science</em> 331 (2011): 1447&ndash;1451.'
+    },
+    {
+      n: 12,
+      text: 'Gregory M. Walton, Mary C. Murphy, Christine Logel and others, &ldquo;Where and with whom does a brief social-belonging intervention promote progress in college?&rdquo; <em>Science</em> 380 (2023): 499&ndash;505.'
+    },
+    {
+      n: 13,
+      text: 'Bureau of Labor Statistics, &ldquo;From age 18 to 38, Americans born 1957&ndash;64 held more jobs than those born 1980&ndash;84,&rdquo; <em>The Economics Daily</em>, May 12, 2026.'
+    },
+    {
+      n: 14,
+      text: 'World Economic Forum, <em>The Future of Jobs Report 2025</em> (2025).'
+    }
+  ],
     choosing: [
       {
         n: 1,
@@ -208,9 +265,112 @@ const siteNotes = {
         text: 'Vincent Tinto, <em>Leaving College: Rethinking the Causes and Cures of Student Attrition</em>, 2nd ed. (University of Chicago Press, 1993).'
       }
     ],
-  'in-college': [],
-  parents: [],
-  faculty: [],
+  'in-college': [
+    {
+      n: 1,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs</em> (MIT Press, 2021), chapters 6 to 8 and appendix 5; success and income, pp. 162&ndash;166 and figures A5.6a to A5.6d.'
+    },
+    {
+      n: 2,
+      text: 'Graduate Management Admission Council, <em>Corporate Recruiters Survey</em> (2026).'
+    },
+    {
+      n: 3,
+      text: 'Gregory M. Walton and Geoffrey L. Cohen, &ldquo;A Brief Social-Belonging Intervention Improves Academic and Health Outcomes of Minority Students,&rdquo; <em>Science</em> 331 (2011): 1447&ndash;1451.'
+    },
+    {
+      n: 4,
+      text: 'Gregory M. Walton, Mary C. Murphy, Christine Logel and others, &ldquo;Where and with whom does a brief social-belonging intervention promote progress in college?&rdquo; <em>Science</em> 380 (2023): 499&ndash;505.'
+    },
+    {
+      n: 5,
+      text: 'Gallup and Purdue University, <em>Great Jobs, Great Lives: The 2014 Gallup-Purdue Index Report</em> (2014).'
+    },
+    {
+      n: 6,
+      text: 'Vincent Tinto, <em>Leaving College: Rethinking the Causes and Cures of Student Attrition</em>, 2nd ed. (University of Chicago Press, 1993).'
+    },
+    {
+      n: 7,
+      text: 'Scott Freeman and others, &ldquo;Active Learning Increases Student Performance in Science, Engineering, and Mathematics,&rdquo; <em>PNAS</em> 111, no. 23 (2014): 8410&ndash;8415.'
+    }
+  ],
+  parents: [
+    {
+      n: 1,
+      text: 'Pew Research Center, &ldquo;Parenting in America Today&rdquo; (January 2023).'
+    },
+    {
+      n: 2,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021); findings in chapters 6 to 8 and appendix 5.'
+    },
+    {
+      n: 3,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs</em> (MIT Press, 2021), pp. 162&ndash;166 and figures A5.6a to A5.6d; liberal arts colleges, pp. 191&ndash;192.'
+    },
+    {
+      n: 4,
+      text: 'National Association of College and University Business Officers, <em>2025 Tuition Discounting Study</em> (2026), as reported by Higher Ed Dive.'
+    },
+    {
+      n: 5,
+      text: 'Graduate Management Admission Council, <em>Corporate Recruiters Survey</em> (2026).'
+    },
+    {
+      n: 6,
+      text: 'Ernest T. Pascarella and Patrick T. Terenzini, <em>How College Affects Students</em>, vol. 2 (Jossey-Bass, 2005).'
+    },
+    {
+      n: 7,
+      text: 'Gallup and Purdue University, <em>Great Jobs, Great Lives: The 2014 Gallup-Purdue Index Report</em> (2014).'
+    },
+    {
+      n: 8,
+      text: 'Vincent Tinto, <em>Leaving College: Rethinking the Causes and Cures of Student Attrition</em>, 2nd ed. (University of Chicago Press, 1993).'
+    },
+    {
+      n: 9,
+      text: 'Gregory M. Walton, Mary C. Murphy, Christine Logel and others, &ldquo;Where and with whom does a brief social-belonging intervention promote progress in college?&rdquo; <em>Science</em> 380 (2023): 499&ndash;505.'
+    },
+    {
+      n: 10,
+      text: 'World Economic Forum, <em>The Future of Jobs Report 2025</em> (2025).'
+    }
+  ],
+  faculty: [
+    {
+      n: 1,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021); findings in chapters 6 to 8 and appendix 5.'
+    },
+    {
+      n: 2,
+      text: 'George D. Kuh, <em>High-Impact Educational Practices: What They Are, Who Has Access to Them, and Why They Matter</em> (AAC&amp;U, 2008).'
+    },
+    {
+      n: 3,
+      text: 'Alexander W. Astin, <em>What Matters in College? Four Critical Years Revisited</em> (Jossey-Bass, 1993).'
+    },
+    {
+      n: 4,
+      text: 'Scott Freeman and others, &ldquo;Active Learning Increases Student Performance in Science, Engineering, and Mathematics,&rdquo; <em>PNAS</em> 111, no. 23 (2014): 8410&ndash;8415.'
+    },
+    {
+      n: 5,
+      text: 'Richard J. Light, <em>Making the Most of College: Students Speak Their Minds</em> (Harvard University Press, 2001).'
+    },
+    {
+      n: 6,
+      text: 'Gregory M. Walton and Geoffrey L. Cohen, &ldquo;A Brief Social-Belonging Intervention Improves Academic and Health Outcomes of Minority Students,&rdquo; <em>Science</em> 331 (2011): 1447&ndash;1451.'
+    },
+    {
+      n: 7,
+      text: 'Gregory M. Walton, Mary C. Murphy, Christine Logel and others, &ldquo;Where and with whom does a brief social-belonging intervention promote progress in college?&rdquo; <em>Science</em> 380 (2023): 499&ndash;505.'
+    },
+    {
+      n: 8,
+      text: 'Cassandra M. Guarino and Victor M. H. Borden, &ldquo;Faculty Service Loads and Gender: Are Women Taking Care of the Academic Family?&rdquo; <em>Research in Higher Education</em> 58 (2017): 672&ndash;694.'
+    }
+  ],
   counselors: [
     {
       n: 1,
@@ -253,8 +413,90 @@ const siteNotes = {
       text: 'American School Counselor Association, student-to-school-counselor ratio, 2024&ndash;25 (372 to 1; recommended 250 to 1).'
     }
   ],
-  'college-leaders': [],
-  policymakers: [],
+  'college-leaders': [
+    {
+      n: 1,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021); findings in chapters 6 to 8 and appendix 5.'
+    },
+    {
+      n: 2,
+      text: 'Vincent Tinto, <em>Leaving College: Rethinking the Causes and Cures of Student Attrition</em>, 2nd ed. (University of Chicago Press, 1993).'
+    },
+    {
+      n: 3,
+      text: 'George D. Kuh, <em>High-Impact Educational Practices: What They Are, Who Has Access to Them, and Why They Matter</em> (AAC&amp;U, 2008).'
+    },
+    {
+      n: 4,
+      text: 'Gregory M. Walton, Mary C. Murphy, Christine Logel and others, &ldquo;Where and with whom does a brief social-belonging intervention promote progress in college?&rdquo; <em>Science</em> 380 (2023): 499&ndash;505.'
+    },
+    {
+      n: 5,
+      text: 'Alexander W. Astin, <em>What Matters in College? Four Critical Years Revisited</em> (Jossey-Bass, 1993).'
+    },
+    {
+      n: 6,
+      text: 'Ernest T. Pascarella and Patrick T. Terenzini, <em>How College Affects Students</em>, vol. 2 (Jossey-Bass, 2005).'
+    },
+    {
+      n: 7,
+      text: 'Gallup and Purdue University, <em>Great Jobs, Great Lives: The 2014 Gallup-Purdue Index Report</em> (2014).'
+    },
+    {
+      n: 8,
+      text: 'George D. Kuh, Jillian Kinzie, John H. Schuh, Elizabeth J. Whitt and others, <em>Student Success in College: Creating Conditions That Matter</em> (Jossey-Bass, 2005).'
+    },
+    {
+      n: 9,
+      text: 'Bureau of Labor Statistics, &ldquo;From age 18 to 38, Americans born 1957&ndash;64 held more jobs than those born 1980&ndash;84,&rdquo; <em>The Economics Daily</em>, May 12, 2026.'
+    },
+    {
+      n: 10,
+      text: 'Gallup and Strada Education Network, national alumni survey (2019), as cited in Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021), p. 191.'
+    }
+  ],
+  policymakers: [
+    {
+      n: 1,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021); findings in chapters 6 to 8 and appendix 5.'
+    },
+    {
+      n: 2,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs</em> (MIT Press, 2021), pp. 162&ndash;166 and figures A5.6a and A5.6d.'
+    },
+    {
+      n: 3,
+      text: 'Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em>, figures A5.6c and A5.6d.'
+    },
+    {
+      n: 4,
+      text: 'George D. Kuh, <em>High-Impact Educational Practices: What They Are, Who Has Access to Them, and Why They Matter</em> (AAC&amp;U, 2008).'
+    },
+    {
+      n: 5,
+      text: 'U.S. Department of Education, &ldquo;Fact Sheet: Trump Administration Implements Accountability Provisions of Working Families Tax Cuts Act,&rdquo; June 29, 2026.'
+    },
+    {
+      n: 6,
+      text: 'Graduate Management Admission Council, <em>Corporate Recruiters Survey</em> (2026).'
+    },
+    {
+      n: 7,
+      text: 'Bureau of Labor Statistics, &ldquo;From age 18 to 38, Americans born 1957&ndash;64 held more jobs than those born 1980&ndash;84,&rdquo; <em>The Economics Daily</em>, May 12, 2026.'
+    },
+    {
+      n: 8,
+      text: 'World Economic Forum, <em>The Future of Jobs Report 2025</em> (2025).'
+    },
+    {
+      n: 9,
+      text: 'Stacy Dale and Alan B. Krueger, &ldquo;Estimating the Effects of College Characteristics over the Career Using Administrative Earnings Data,&rdquo; <em>Journal of Human Resources</em> 49, no. 2 (2014): 323&ndash;358.'
+    },
+    {
+      n: 10,
+      text: 'Raj Chetty, David J. Deming and John N. Friedman, &ldquo;Diversifying Society&rsquo;s Leaders? The Causal Effects of Admission to Highly Selective Private Colleges,&rdquo; NBER Working Paper No. 31492 (July 2023).'
+    }
+  ],
   'course-self-audit': [
     {
       n: 1,
@@ -269,7 +511,136 @@ const siteNotes = {
   ],
   'leaders-checklist': [],
   'semester-plan': [],
-  understanding: [],
+  understanding: [
+    {
+      n: 1,
+      text: 'Detweiler, <em>The Evidence Liberal Arts Needs</em> (MIT Press, 2021), pp. 191&ndash;192.'
+    },
+    {
+      n: 2,
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021); findings in chapters 6 to 8 and appendix 5.'
+    },
+    {
+      n: 3,
+      text: 'Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em>, ch. 3.'
+    },
+    {
+      n: 4,
+      text: 'Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em>, ch. 3.'
+    },
+    {
+      n: 5,
+      text: 'Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em>, ch. 2.'
+    },
+    {
+      n: 6,
+      text: 'Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em>, p. 162.'
+    },
+    {
+      n: 7,
+      text: 'Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em>, ch. 6.'
+    },
+    {
+      n: 8,
+      text: 'Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em>, p. 164.'
+    },
+    {
+      n: 9,
+      text: 'Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em>, p. 162.'
+    },
+    {
+      n: 10,
+      text: 'Detweiler, &ldquo;The Floor and the Ceiling,&rdquo; <em>HigherEdImpact Review</em>, 2024.'
+    },
+    {
+      n: 11,
+      text: 'Richard A. Detweiler, &ldquo;What Students Know About College That Critics Don&rsquo;t,&rdquo; <em>Inside Higher Ed</em>, September 2, 2026.'
+    },
+    {
+      n: 12,
+      text: 'Detweiler, pp. 191&ndash;192 and appendix 3, p. 241.'
+    },
+    {
+      n: 13,
+      text: 'Gallup and Strada Education Network, national alumni survey (2019), as cited in Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021), p. 191.'
+    },
+    {
+      n: 14,
+      text: 'Gallup-Strada National Alumni Survey, 2019.'
+    },
+    {
+      n: 15,
+      text: 'Gallup and Purdue University, <em>Great Jobs, Great Lives: The 2014 Gallup-Purdue Index Report</em> (2014).'
+    },
+    {
+      n: 16,
+      text: 'National Association of College and University Business Officers, <em>2025 Tuition Discounting Study</em> (2026), as reported by Higher Ed Dive.'
+    },
+    {
+      n: 17,
+      text: 'Detweiler, p. 104; tuition discounting: National Association of College and University Business Officers, <em>2025 Tuition Discounting Study</em> (2026).'
+    },
+    {
+      n: 18,
+      text: 'Graduate Management Admission Council, <em>Corporate Recruiters Survey</em> (2026).'
+    },
+    {
+      n: 19,
+      text: 'Steve Jobs, remarks introducing the Apple iPad 2, March 2, 2011.'
+    },
+    {
+      n: 20,
+      text: 'Mark Cuban, interview with Bloomberg, February 2017.'
+    },
+    {
+      n: 21,
+      text: 'Fareed Zakaria, <em>In Defense of a Liberal Education</em> (W. W. Norton, 2015).'
+    },
+    {
+      n: 22,
+      text: 'Raj Chetty, David J. Deming and John N. Friedman, &ldquo;Diversifying Society&rsquo;s Leaders? The Causal Effects of Admission to Highly Selective Private Colleges,&rdquo; NBER Working Paper No. 31492 (July 2023).'
+    },
+    {
+      n: 23,
+      text: 'Stacy Dale and Alan B. Krueger, &ldquo;Estimating the Effects of College Characteristics over the Career Using Administrative Earnings Data,&rdquo; <em>Journal of Human Resources</em> 49, no. 2 (2014): 323&ndash;358.'
+    },
+    {
+      n: 24,
+      text: 'Alexander W. Astin, <em>What Matters in College? Four Critical Years Revisited</em> (Jossey-Bass, 1993).'
+    },
+    {
+      n: 25,
+      text: 'Ernest T. Pascarella and Patrick T. Terenzini, <em>How College Affects Students</em>, vol. 2 (Jossey-Bass, 2005).'
+    },
+    {
+      n: 26,
+      text: 'Vincent Tinto, <em>Leaving College: Rethinking the Causes and Cures of Student Attrition</em>, 2nd ed. (University of Chicago Press, 1993).'
+    },
+    {
+      n: 27,
+      text: 'Gregory M. Walton and Geoffrey L. Cohen, &ldquo;A Brief Social-Belonging Intervention Improves Academic and Health Outcomes of Minority Students,&rdquo; <em>Science</em> 331 (2011): 1447&ndash;1451.'
+    },
+    {
+      n: 28,
+      text: 'Gregory M. Walton, Mary C. Murphy, Christine Logel and others, &ldquo;Where and with whom does a brief social-belonging intervention promote progress in college?&rdquo; <em>Science</em> 380 (2023): 499&ndash;505.'
+    },
+    {
+      n: 29,
+      text: 'Bureau of Labor Statistics, &ldquo;From age 18 to 38, Americans born 1957&ndash;64 held more jobs than those born 1980&ndash;84,&rdquo; <em>The Economics Daily</em>, May 12, 2026.'
+    },
+    {
+      n: 30,
+      text: 'Bureau of Labor Statistics, &ldquo;Baby boomers born from 1957 to 1964 held an average of 12.7 jobs from ages 18 to 56,&rdquo; <em>The Economics Daily</em>, January 3, 2024.'
+    },
+    {
+      n: 31,
+      text: 'Higher Education Opportunity Act of 2008 (P.L. 110-315).'
+    },
+    {
+      n: 32,
+      text: 'Association of American Colleges and Universities (AAC&amp;U), <em>How College Contributes to Workforce Success</em>, 2021.'
+    }
+  ],
   foundation: []
 };
 

@@ -13271,34 +13271,6 @@ main details.has-side-panel > .counselors-glossary-more-body {
 /* A tall body of running prose, already as wide as it needs to be, flows in
    two columns instead of one long ribbon. The words and their order are
    untouched; only the measure changes. */
-main details.has-split-body > :not(summary) {
-  column-count: 2;
-  column-gap: clamp(1.75rem, 3vw, 2.75rem);
-  column-rule: 1px solid var(--border);
-}
-
-main details.has-split-body p,
-main details.has-split-body h3,
-main details.has-split-body blockquote {
-  break-inside: avoid;
-}
-
-/* A heading that starts a column needs its own air, not the gap the rule
-   above would otherwise collapse into the previous column's foot. */
-main details.has-split-body > :not(summary) > :first-child {
-  margin-top: 0;
-}
-
-/* Consecutive footnote markers in a row — "24252627" — are unreadable. Where
-   several sit together, they get a hair space and a thin comma between them,
-   drawn by the pseudo-element so no character is added to the markup. */
-main sup + sup > .source-note::before {
-  content: ", ";
-  font-weight: 400;
-  letter-spacing: 0;
-  color: inherit;
-}
-
 /* ==========================================================================
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so

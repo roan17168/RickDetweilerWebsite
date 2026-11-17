@@ -519,8 +519,6 @@
     return null;
   }
 
-  var SPLIT_BODY = 'has-split-body';
-
   /* How wide is the space a panel could occupy? If the panel is one cell of a
      two-column grid — which is where most of these live — the cell is only
      half the page, and the fix is to let the panel span the whole grid before
@@ -546,7 +544,6 @@
   function applySidePanel(details) {
     if (!sideQuery) return;
     details.classList.remove(SIDE_LAYOUT);
-    details.classList.remove(SPLIT_BODY);
 
     if (!sideQuery.matches || !details.open) return;
 
@@ -577,17 +574,12 @@
       return;
     }
 
-    /* Otherwise the panel already has the width it needs and the height is
-       the problem. Running prose in it can flow in two columns instead of
-       one long ribbon — the same words, half the height. Only plain blocks:
-       a list or a figure set in columns reads worse than a tall one. */
-    var blocks = Array.prototype.slice.call(body.children);
-    var plain = blocks.length >= 4 && blocks.every(function (el) {
-      return /^(P|H3|H4|BLOCKQUOTE)$/.test(el.tagName);
-    });
-    if (plain && height > 620 && current > 600) {
-      details.classList.add(SPLIT_BODY);
-    }
+    /* If setting the label beside the body gives the body no more room, the
+       panel is left exactly as it is. Splitting the body into columns was
+       tried as a second answer and measured worse: at this measure two
+       columns need more lines than one, so the panel came out taller, not
+       shorter. For a body that is already a comfortable line's width, its
+       height is simply the length of what it has to say. */
   }
 
   function buildSidePanels() {

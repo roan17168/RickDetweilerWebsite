@@ -10641,6 +10641,31 @@ blockquote p:last-child {
   --edge: 1.5rem;
 }
 
+/* ==========================================================================
+   1c. ONE TYPE SCALE
+   A census of every heading and paragraph on all sixteen pages found eight
+   different h1 sizes, nine different h2 sizes and five different body sizes
+   — several of them within four pixels of each other, which reads as
+   inconsistency rather than hierarchy. Those in-between sizes are gone.
+
+   Every heading and every paragraph on the site now resolves to one of
+   these six steps. Change a step here and the whole site follows.
+   ========================================================================== */
+
+:root {
+  --step-display: clamp(2.6rem, 5.1vw, 4.1rem);   /* page h1 */
+  --step-h2: clamp(1.85rem, 2.9vw, 2.3rem);       /* section heading */
+  --step-h3: clamp(1.22rem, 1.6vw, 1.46rem);      /* sub-heading */
+  --step-h4: 1.06rem;                             /* minor heading */
+  --step-body: 1rem;                              /* body copy */
+  --step-small: 0.875rem;                         /* captions, notes */
+  --step-label: 0.75rem;                          /* section labels */
+  --step-lede: clamp(1.09rem, 1.5vw, 1.25rem);     /* deck under a headline */
+
+  --lead-body: 1.72;                              /* body line-height */
+  --lead-tight: 1.16;                             /* display line-height */
+}
+
 @media (min-width: 721px) {
   :root {
     --edge: 2rem;
@@ -10731,6 +10756,64 @@ blockquote p:last-child {
   .audience-main {
     max-width: none;
   }
+}
+
+/* Heading and body sizes are declared once, on the elements, and qualified
+   with `main` so they outrank the per-page rules in the older sheets. This is
+   the layer that actually holds the scale; the page sheets below it now only
+   adjust margins and colour. */
+main h1 {
+  font-family: var(--font-serif);
+  font-size: var(--step-display);
+  line-height: var(--lead-tight);
+  letter-spacing: -0.022em;
+  font-weight: 700;
+}
+
+main h2 {
+  font-family: var(--font-serif);
+  font-size: var(--step-h2);
+  line-height: 1.22;
+  letter-spacing: -0.016em;
+  font-weight: 700;
+}
+
+main h3 {
+  font-family: var(--font-serif);
+  font-size: var(--step-h3);
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+  font-weight: 700;
+}
+
+main h4 {
+  font-family: var(--font-sans);
+  font-size: var(--step-h4);
+  line-height: 1.4;
+  letter-spacing: 0.005em;
+  font-weight: 700;
+}
+
+/* Body copy, lists and table cells all sit on the same size and leading. */
+main p,
+main li,
+main dd,
+main td,
+main th {
+  font-size: var(--step-body);
+  line-height: var(--lead-body);
+}
+
+main .lede {
+  font-size: clamp(1.1rem, 1.55vw, 1.28rem);
+  line-height: 1.52;
+}
+
+main .small,
+main .study-sample-card p.small,
+main figcaption {
+  font-size: var(--step-small);
+  line-height: 1.6;
 }
 
 /* ==========================================================================
@@ -10985,7 +11068,7 @@ main a:not(.btn):not(.brand) {
 .home-hero h1 {
   margin: 0;
   max-width: 19ch;
-  font-size: clamp(2.5rem, 5.1vw, 4.1rem);
+  font-size: var(--step-display);
   line-height: 1.03;
   letter-spacing: -0.028em;
   color: var(--navy);
@@ -11014,8 +11097,6 @@ main a:not(.btn):not(.brand) {
 .home-hero .lede {
   margin: 1.05rem 0 0;
   max-width: 34rem;
-  font-size: 1.02rem;
-  line-height: 1.72;
   color: var(--ink);
 }
 
@@ -11108,8 +11189,6 @@ main a:not(.btn):not(.brand) {
 
   .home-hero .lede {
     margin-top: 0.9rem;
-    font-size: 0.98rem;
-    line-height: 1.66;
   }
 
   .home-hero-panel {
@@ -12195,7 +12274,7 @@ main a:not(.btn):not(.brand) {
 }
 
 .understanding-section h2 {
-  font-size: clamp(1.7rem, 3vw, 2.25rem);
+  font-size: var(--step-h2);
 }
 
 /* The "on this page" index becomes a card, not a bare list. */
@@ -12230,7 +12309,7 @@ main a:not(.btn):not(.brand) {
    They now take the display face at a genuine chapter scale. */
 .understanding-section > .container > h2,
 .research-section > .container > h2 {
-  font-size: clamp(1.8rem, 3.2vw, 2.45rem);
+  font-size: var(--step-h2);
   line-height: 1.12;
   letter-spacing: -0.02em;
   margin-bottom: 1.1rem;
@@ -12668,6 +12747,134 @@ main :is(.parents-cost-card, .parents-get-card, .parents-check-card,
 }
 
 /* ==========================================================================
+   12c. THE SCALE, ENFORCED
+   The steps above are declared on the bare elements; the per-page sheets in
+   base, pages, understanding and visual each still set their own sizes on
+   more specific selectors, which is how eight h1 sizes survived. This block
+   is the last word: it matches heading tags at every depth, and the classes
+   the older sheets used as headings, so no rule below can reintroduce an
+   in-between size.
+   ========================================================================== */
+
+main :is(h1, .hero-title, .page-hero h1, [class$="-hero"] h1) {
+  font-family: var(--font-serif);
+  font-size: var(--step-display);
+  line-height: var(--lead-tight);
+  letter-spacing: -0.022em;
+  font-weight: 700;
+}
+
+main :is(h2, .section-title, [class$="-section"] h2, [class$="-section"] > .container > h2,
+  [class*="-hero"] h2, .understanding-section h2, .research-section h2) {
+  font-family: var(--font-serif);
+  font-size: var(--step-h2);
+  line-height: 1.22;
+  letter-spacing: -0.016em;
+  font-weight: 700;
+}
+
+main :is(h3, [class$="-section"] h3, .understanding-reading h3,
+  .reading-body h3, .parents-more-body h3) {
+  font-family: var(--font-serif);
+  font-size: var(--step-h3);
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+  font-weight: 700;
+}
+
+main :is(h4, .card-hook-title) {
+  font-family: var(--font-sans);
+  font-size: var(--step-h4);
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+/* Section eyebrows and small captions land on one two-step sub-scale. */
+main :is(.section-label, .eyebrow) {
+  font-family: var(--font-sans);
+  font-size: var(--step-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* Body copy at every depth, so a paragraph nested in a panel matches one in
+   an essay. Excluded: things that are deliberately a size apart. */
+main :is(p, li, dd, dt, td, th):not(.lede):not(.small):not(.figure):not(.figure-label):not(.section-label) {
+  font-size: var(--step-body);
+  line-height: var(--lead-body);
+}
+
+/* The deck under every page headline is one size, everywhere. It had been
+   set in seven places to five different values, from 0.98 to 1.28rem, so it
+   is matched here at every depth the page sheets reach it. */
+main p.lede,
+main section p.lede,
+main section > .container > p.lede,
+main .reading > p.lede,
+main .container > p.lede,
+main [class*="-hero"] .lede,
+main [class*="-hero"] p.lede,
+main [class*="-hero"] > .container > p.lede,
+main [class*="-hero-copy"] p.lede {
+  font-size: var(--step-lede);
+  line-height: 1.5;
+}
+
+/* Small print — captions, source lines, footnotes — is one size too. */
+main p.small,
+main section p.small,
+main .study-sample-card p.small,
+main figcaption,
+main .figcaption {
+  font-size: var(--step-small);
+  line-height: 1.6;
+}
+
+/* Structural exceptions, kept on purpose: these are a different kind of
+   object, not body copy. */
+main .audience-grid .audience-card :is(h2, h3),
+main .home-audiences .audience-card :is(h2, h3),
+main article.audience-card > :is(h2, h3) {
+  font-size: var(--step-h3);
+  line-height: 1.24;
+}
+
+main .about-reading .path-intro h2,
+main .path-intro > h2,
+main #milestones .path-intro h2,
+main #milestones > .container > h2 {
+  font-size: var(--step-h2);
+  line-height: 1.22;
+}
+
+/* The contents index eyebrow is deliberately a size below every other
+   label, because it sits inside a panel rather than on the page. */
+/* The contents index eyebrow is a paragraph carrying the label class. It is
+   a label, so it takes the label step, not the body step. */
+main p.section-label[class],
+main section p.section-label,
+main nav p.section-label,
+main section nav p.section-label,
+main .understanding-contents p.section-label,
+main nav.understanding-toc p.section-label {
+  font-size: var(--step-label);
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* .small on a panel that is already small keeps the small step; the older
+   sheet set it to 0.875rem on a more specific selector. */
+main .study-sample-card p.small,
+main .research-section .study-sample-card p.small {
+  font-size: var(--step-small);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so
    the eye always has somewhere to land.
@@ -12676,7 +12883,6 @@ main :is(.parents-cost-card, .parents-get-card, .parents-check-card,
 .reading-body,
 .pullout-body,
 .understanding-more-body {
-  font-size: 1.02rem;
   line-height: 1.78;
 }
 

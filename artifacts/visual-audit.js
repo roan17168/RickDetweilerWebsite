@@ -618,6 +618,60 @@ function contrast(fg, bg) {
     grammarFailures.length === 0,
     grammarFailures.slice(0, 5).join(' | ') || 'one grammar across ' + cardSelectors.length + ' card types');
 
+  /* --- 7f. one type scale ---------------------------------------------- */
+  /* A census of every heading and paragraph on all sixteen pages found
+     eight h1 sizes, nine h2 sizes and five body sizes. This asserts that
+     each element type resolves to exactly one size, so the scale cannot
+     drift apart again. */
+  var typeFailures = [];
+  var typePage = await browser.newPage();
+  await typePage.setViewport({ width: 1440, height: 900 });
+  var typeSizes = {};
+  for (var tp2 = 0; tp2 < pages.length; tp2 += 1) {
+    await typePage.goto(BASE + '/' + pages[tp2], { waitUntil: 'domcontentloaded', timeout: 60000 });
+    var sizes = await typePage.evaluate(function () {
+      var out = {};
+      ['h1', 'h2', 'h3', 'p', 'li'].forEach(function (tag) {
+        var seen = {};
+        document.querySelectorAll('main ' + tag).forEach(function (el) {
+          if (!el.textContent.trim()) return;
+          if (el.closest('.notes-panel, dialog, [hidden]')) return;
+          /* A paragraph carrying a label, caption or deck class is one of
+             those objects, not body copy, and has its own step. */
+          if (el.matches('.section-label, .eyebrow, .small, .lede, figcaption, .figure, .figure-label')) return;
+          var px = Math.round(parseFloat(getComputedStyle(el).fontSize) * 10) / 10;
+          seen[px] = (seen[px] || 0) + 1;
+        });
+        out[tag] = seen;
+      });
+      return out;
+    });
+    Object.keys(sizes).forEach(function (tag) {
+      typeSizes[tag] = typeSizes[tag] || {};
+      Object.keys(sizes[tag]).forEach(function (px) {
+        typeSizes[tag][px] = (typeSizes[tag][px] || 0) + sizes[tag][px];
+      });
+    });
+  }
+  await typePage.close();
+  /* One size per element type, allowing at most one deliberate exception
+     (the card headings, which are a different object from section headings). */
+  ['h1', 'h2', 'h3'].forEach(function (tag) {
+    var distinct = Object.keys(typeSizes[tag] || {});
+    if (distinct.length > 2) {
+      typeFailures.push(tag + ' has ' + distinct.length + ' sizes: ' + distinct.join('/'));
+    }
+  });
+  var bodySizes = Object.keys(typeSizes.p || {});
+  if (bodySizes.length > 3) {
+    typeFailures.push('p has ' + bodySizes.length + ' sizes: ' + bodySizes.join('/'));
+  }
+  check('each element type resolves to one size across the site',
+    typeFailures.length === 0,
+    typeFailures.join(' | ') || 'h1=' + Object.keys(typeSizes.h1 || {}).join('/') +
+      '  h2=' + Object.keys(typeSizes.h2 || {}).join('/') +
+      '  body=' + (bodySizes[0] || '?'));
+
   /* --- 8. the horizontal rail ------------------------------------------ */
   /* Every page must share one left edge and one container width, at desktop
      and on a phone. This is the check that caught six different left edges

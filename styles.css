@@ -12342,6 +12342,63 @@ main td {
   color: var(--navy);
 }
 
+/* The 404 hero is short, so on its own it left two thirds of the rail empty
+   and the page looked unfinished. The message keeps the reading column and
+   the ways onward take the right half of the rail, so the screen is used. */
+.page-hero .reading:has(> p > .btn-primary) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.66fr);
+  column-gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  row-gap: 0.75rem;
+}
+
+.page-hero .reading:has(> p > .btn-primary) > .section-label {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.page-hero .reading:has(> p > .btn-primary) > h1 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.page-hero .reading:has(> p > .btn-primary) > .lede {
+  grid-column: 1;
+  grid-row: 3;
+  max-width: 32rem;
+  margin-bottom: 0;
+}
+
+.page-hero .reading:has(> p > .btn-primary) > p:last-child {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  align-self: center;
+  margin: 0;
+  padding-left: clamp(1.5rem, 3vw, 2.5rem);
+  border-left: 1px solid rgba(212, 175, 55, 0.45);
+}
+
+@media (max-width: 820px) {
+  .page-hero .reading:has(> p > .btn-primary) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-hero .reading:has(> p > .btn-primary) > .section-label,
+  .page-hero .reading:has(> p > .btn-primary) > h1,
+  .page-hero .reading:has(> p > .btn-primary) > .lede,
+  .page-hero .reading:has(> p > .btn-primary) > p:last-child {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .page-hero .reading:has(> p > .btn-primary) > p:last-child {
+    margin-top: 1.25rem;
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
 /* ==========================================================================
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so

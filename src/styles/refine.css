@@ -1629,12 +1629,44 @@ main a:not(.btn):not(.brand) {
 
 /* The research page's stat row stopped at 58rem inside a 1140px rail, leaving
    a visible gap at the right edge. It now fills the rail, each figure set off
-   by a hairline, and the numbers carry the same weight as the home strip. */
+   by a hairline, and the numbers carry the same weight as the home strip.
+
+   Four across is a desktop arrangement. This rule is unconditional and comes
+   after the page's own phone layout, so unless the columns are held back it
+   would win at every width and set four eighty-five pixel columns on a phone —
+   "1,000 graduates interviewed" broken into four stacked words. */
 .research-stats {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
   max-width: none;
   margin-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+@media (min-width: 601px) {
+  .research-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Two across, the figures need air between the rows and the hairline belongs
+   on the right-hand column of each row only — otherwise the third figure
+   carries a rule down its left edge that starts in the middle of nothing. */
+@media (max-width: 600px) {
+  .research-stats {
+    row-gap: 1.2rem;
+  }
+
+  .research-stats > div {
+    padding-left: 0;
+  }
+
+  .research-stats > div + div {
+    border-left: 0;
+  }
+
+  .research-stats > div:nth-child(2n) {
+    padding-left: 1rem;
+    border-left: 1px solid var(--border);
+  }
 }
 
 .research-stats > div {
@@ -2705,6 +2737,45 @@ main details.has-side-panel > .counselors-glossary-more-body {
    two columns instead of one long ribbon. The words and their order are
    untouched; only the measure changes. */
 /* ==========================================================================
+   12i. FOOTNOTE MARKERS ARE TAP TARGETS
+
+   The numbered citation beside a sentence is not decoration: a reader taps it
+   to see the source. As set, it was nine to thirteen pixels tall — an easy
+   miss on a phone and a frustration on a fingertip.
+
+   Every marker gets a transparent hit area of at least 24px, centred on the
+   numeral and grown only where there is room, so the line spacing and the
+   running text are unchanged. Nothing is drawn; only the target grows. */
+main .source-note {
+  position: relative;
+}
+
+main .source-note::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+}
+
+/* Inside a paragraph the hit areas of neighbouring markers would overlap. The
+   narrower area keeps them apart. */
+main sup + sup > .source-note::after {
+  width: 20px;
+}
+
+/* A disclosure's summary is a control too. Twenty-two pixels of label is a
+   small target; the padding is transparent and adds no height to the row. */
+main details > summary {
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so
    the eye always has somewhere to land.

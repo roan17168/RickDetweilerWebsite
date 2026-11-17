@@ -180,3 +180,80 @@ that citation numbers are not mistaken for prose.
 the document.** The two items the document itself marks as pending inputs (the
 annual summary PDF and the P.O. box) remain open by the owner's decision, and are
 recorded in `artifacts/revision-6-input-ledger.md`.
+
+---
+
+# Revision 7 — visual refinement
+
+A design pass on top of the completed Revision 6 build, requested because the
+site read as "basic, simple and boring": too much empty space, too much undifferentiated
+text, and nothing drawing the eye in.
+
+**Hard constraint from the owner: the content does not change.** No prose was
+rewritten, added or removed. Verified mechanically by stripping markup from
+every built page at the pre-redesign commit and at the current commit: all 16
+pages are byte-identical in visible text.
+
+## What changed
+
+| Area | Change |
+| --- | --- |
+| Ground and type | A slightly deeper warm paper, ink with more navy in it, a two-stop page wash and a hairline grid, so empty space reads as a considered page |
+| Masthead | Sits translucent over the page and gains a shadow, a gold hairline and a solid background once scrolled |
+| Home hero | Was a centred stack of type above a wide empty band. Now an asymmetric editorial spread: display type left, the "start at the end" card right, with a CSS-drawn arc motif echoing the icon |
+| Audience cards | Seven cards laid on a 12-column track so both rows (4 then 3) are justified edge to edge; the card action is a quiet text link with an arrow rather than a full-width button |
+| Study band | Deep navy with an engraved diagonal texture, a gold-lit corner and a touch of lift on hover |
+| Outcomes | Numbered rules in the brand gold; left-aligned so the eye can scan the six |
+| Book band | Centred plate against the jacket, gold edge, restrained hover |
+| Interior heroes | Text-only heroes (research, understanding college, what matters) and the parents hero use the same spread: headline left, deck opposite on a shared baseline |
+| Long-form | A wider measure, more leading, rules above chapter headings, gold list markers, a light index card for "On this page" |
+| Footer | Deeper navy, a gold rule that fades at both ends, a warm glow from the top-left |
+| Buttons | Letterpress treatment: a two-stop gold, an inset highlight and a soft gold shadow |
+| Motion | One scroll-triggered entrance, written as an animation keyed off a class — never a hidden resting state — plus hover and focus transitions |
+| Favicon | The supplied HigherEdImpact monogram, rendered to 16/32/192/512 PNGs, a 512 maskable variant, a solid-background 180px apple-touch icon and a multi-resolution `favicon.ico` (16/32/48) |
+
+## Why the motion is safe
+
+The entrance is `@keyframes refine-rise` applied by `.js .reveal-in`. There is no
+`opacity: 0` resting state anywhere, so a page with JavaScript disabled, a
+failed script, a missing `IntersectionObserver`, a print stylesheet or
+`prefers-reduced-motion: reduce` shows every element at full opacity. An earlier
+draft used a hidden resting state and a real browser caught content below the
+fold rendering blank; it was rewritten rather than patched.
+
+## Verification
+
+`node artifacts/run-all-checks.js` — **16 of 16 suites pass** (15 static + 1 browser).
+
+The new `artifacts/visual-audit.js` drives a real Chromium and checks what the
+static audits cannot — **46 assertions, all passing**:
+
+- no content left transparent by the motion layer, on seven pages
+- every page still readable with JavaScript disabled
+- reduced-motion users get the final state, with no animation
+- no horizontal overflow at 11 widths from 320 to 1920
+- body, heading, muted and label colours all above 4.5:1 against their own backgrounds
+- every icon in the set decodes at its declared size
+- the home hero is a two-column spread on desktop and one column on a phone
+- the masthead gains and releases its scrolled state
+
+Print was checked separately with print media emulation: the navy study band
+falls back to dark text on white if a reader prints without background graphics.
+
+Without a browser available the visual audit reports SKIP (exit 77) and the
+suite reports "15 passed, 0 failed, 1 skipped" rather than a failure, so the
+checks stay runnable on a machine with no Chromium.
+
+## Scorecard
+
+| Area | Status |
+| --- | --- |
+| No change to copy, headings or navigation labels | PASS — all 16 pages text-identical |
+| Empty space addressed | PASS |
+| Text overload addressed (measure, rhythm, rules, markers) | PASS |
+| Depth, pattern, hierarchy | PASS |
+| Restrained motion, fully accessible | PASS |
+| Professional register kept | PASS |
+| Favicon replaced and correctly formatted | PASS |
+| Static suite | PASS 15/15 |
+| Browser suite | PASS 46/46 |

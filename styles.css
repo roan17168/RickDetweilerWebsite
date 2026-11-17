@@ -10663,26 +10663,29 @@ blockquote p:last-child {
 }
 
 @media (min-width: 861px) {
-  .reading-body > * {
+  /* Prose is held to the reading measure; anything tabular or boxed is
+     allowed the full rail, because a five-column table squeezed into 748px
+     is what left a third of the page blank beside it. */
+  .reading-body > *,
+  .understanding-reading > *,
+  .research-section > *,
+  .privacy-body > * {
     max-width: var(--measure);
   }
 
-  /* Inside long-form pages the section wrapper supplies the measure, so the
-     headings and body copy agree with each other. */
-  .understanding-reading,
-  .research-body > .research-section > *,
-  .reading-body {
+  .reading-body > :is(table, .data-table, .understanding-table-wrap, .research-table-wrap,
+    .chart-table-wrap, .understanding-chart, .understanding-chart-data, .chart-table,
+    .understanding-kinds-table, .understanding-context-table, .callout, .pullout,
+    figure, .chart-figure),
+  .understanding-reading > :is(table, .data-table, .understanding-table-wrap, .research-table-wrap,
+    .chart-table-wrap, .understanding-chart, .understanding-chart-data, .chart-table,
+    .understanding-kinds-table, .understanding-context-table, .callout, .pullout,
+    figure, .chart-figure),
+  .research-section > :is(.study-grid, .research-findings, .research-table-wrap, .callout),
+  .privacy-body > :is(table) {
     max-width: none;
   }
 
-  .understanding-reading > * {
-    max-width: var(--measure);
-  }
-
-  .understanding-reading,
-  .research-body {
-    max-width: none;
-  }
 }
 
 /* The research page's body previously sat on a 68rem inner column; it now
@@ -11964,6 +11967,170 @@ main a:not(.btn):not(.brand) {
    opening space rather than butting against the hero's rule. */
 .chart-section {
   padding-top: clamp(2.25rem, 4vw, 3.25rem);
+}
+
+/* ==========================================================================
+   11b. INTERIOR PAGE FUNDAMENTALS
+   ========================================================================== */
+
+/* The research page's stat row stopped at 58rem inside a 1140px rail, leaving
+   a visible gap at the right edge. It now fills the rail, each figure set off
+   by a hairline, and the numbers carry the same weight as the home strip. */
+.research-stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  max-width: none;
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.research-stats > div {
+  padding: 0.15rem 1.25rem;
+  margin: 0;
+}
+
+.research-stats > div:first-child {
+  padding-left: 0;
+}
+
+.research-stats > div + div {
+  border-left: 1px solid var(--border);
+}
+
+.research-stats strong {
+  font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+  letter-spacing: -0.025em;
+}
+
+.research-stats span {
+  margin-top: 0.4rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+
+/* Study facts read as four filed cards: a gold cap, a label, then the detail. */
+.study-fact {
+  position: relative;
+  padding: 1.15rem 1.15rem 1.1rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fffdf8 100%);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--gold);
+  border-radius: 10px;
+  box-shadow: var(--lift-1);
+  transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
+}
+
+.study-fact:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--lift-2);
+}
+
+.study-fact strong {
+  color: var(--gold-text);
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.study-fact p {
+  margin: 0.4rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Callouts: a warm plate with a gold spine and a soft inner glow. */
+.callout {
+  position: relative;
+  padding: 1.25rem 1.35rem 1.25rem 1.5rem;
+  background:
+    radial-gradient(20rem 12rem at 0% 0%, rgba(212, 175, 55, 0.16), transparent 70%),
+    linear-gradient(180deg, #fffdf4 0%, var(--gold-pale) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.32);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  box-shadow: 0 1px 2px rgba(134, 106, 20, 0.06);
+}
+
+/* Long-form chapter openings: more air above the rule, so a new chapter is
+   unmistakable even when you are deep in the page. */
+.understanding-section {
+  padding-top: clamp(3rem, 5.5vw, 4.5rem);
+  padding-bottom: clamp(3rem, 5.5vw, 4.5rem);
+}
+
+.understanding-section h2 {
+  font-size: clamp(1.7rem, 3vw, 2.25rem);
+}
+
+/* The "on this page" index becomes a card, not a bare list. */
+.understanding-contents {
+  padding-top: clamp(1.5rem, 3vw, 2.25rem);
+  padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.understanding-contents a {
+  display: inline-block;
+  padding: 0.15rem 0;
+}
+
+/* Pull-out disclosures: a card with a hover lift, so they read as controls. */
+.pullout {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  box-shadow: var(--lift-1);
+  transition: box-shadow 220ms var(--ease-out);
+}
+
+.pullout[open] {
+  box-shadow: var(--lift-2);
+}
+
+.pullout summary:hover {
+  color: var(--navy);
+}
+
+/* Chapter headings on the long guides were set only slightly larger than body
+   copy, which is why a 16,000px page felt like one undifferentiated column.
+   They now take the display face at a genuine chapter scale. */
+.understanding-section > .container > h2,
+.research-section > .container > h2 {
+  font-size: clamp(1.8rem, 3.2vw, 2.45rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.1rem;
+}
+
+/* A gold rule above each chapter heading, drawn full width, marks the seam
+   between chapters far more clearly than whitespace alone. */
+.understanding-section > .container > h2::before {
+  width: 3rem;
+  height: 2px;
+  margin-bottom: 0.85rem;
+}
+
+/* The first paragraph after a chapter heading leads in slightly larger, which
+   is a classic editorial cue that a new section has begun. */
+.understanding-reading > h2 + p,
+.research-section > h2 + p {
+  font-size: 1.06rem;
+  line-height: 1.72;
+  color: var(--navy-soft);
+}
+
+/* Body copy inside the guides gets a little more air between paragraphs so
+   the page breathes instead of presenting as a wall. */
+.understanding-reading > p + p,
+.research-body p + p {
+  margin-top: 1em;
+}
+
+/* Sub-headings inside chapters are small caps labels with a rule, not another
+   serif tier competing with the chapter title. */
+.understanding-reading h3 {
+  margin-top: 2.1rem;
+  font-size: 1.18rem;
+  letter-spacing: -0.01em;
 }
 
 /* ==========================================================================

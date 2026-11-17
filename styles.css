@@ -11617,11 +11617,11 @@ main a:not(.btn):not(.brand) {
 
 .book-band {
   position: relative;
-  grid-template-columns: minmax(0, 168px) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 196px) minmax(0, 1fr);
   align-items: center;
-  gap: clamp(1.25rem, 3vw, 2.25rem);
+  gap: clamp(1.5rem, 3.4vw, 2.75rem);
   margin-top: 1.5rem;
-  padding: clamp(1.25rem, 2.6vw, 1.8rem);
+  padding: clamp(1.4rem, 3vw, 2.2rem);
   background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -11631,7 +11631,7 @@ main a:not(.btn):not(.brand) {
 
 .book-band img {
   width: 100%;
-  max-width: 168px;
+  max-width: 196px;
 }
 
 .book-band::before {
@@ -11658,6 +11658,48 @@ main a:not(.btn):not(.brand) {
   max-width: 46rem;
   padding-left: clamp(1.1rem, 2.5vw, 1.9rem);
   border-left: 1px solid var(--border);
+  /* The citation and the link are two short lines beside a tall cover, so the
+     column is centred and given a hairline rule above it rather than floating
+     in the middle of the plate. */
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.book-band > div::before {
+  content: "";
+  display: block;
+  width: 2.25rem;
+  height: 2px;
+  margin-bottom: 0.55rem;
+  background: var(--gold);
+}
+
+.book-band-citation,
+.home-book-citation {
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.book-band p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.book-band p:last-child a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(212, 175, 55, 0.9);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+.book-band p:last-child a:hover {
+  color: var(--gold-dark);
+  text-decoration-color: var(--gold-dark);
 }
 
 @media (max-width: 620px) {

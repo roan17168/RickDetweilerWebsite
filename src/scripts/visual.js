@@ -285,6 +285,22 @@
       });
     }
 
+    /* Headings inside a table, a figure or a disclosure are captions for that
+       object, not sections of the page — a chart's column groups are not
+       chapters, and listing them produces the same entry twice. */
+    heads = heads.filter(function (h) {
+      return !h.closest('table, figure, figcaption, details, aside, .choosing-quiz, .plan-shell');
+    });
+
+    /* And no entry twice, whatever the page's markup does. */
+    var seenText = {};
+    heads = heads.filter(function (h) {
+      var key = h.textContent.trim().toLowerCase();
+      if (!key || seenText[key]) return false;
+      seenText[key] = true;
+      return true;
+    });
+
     if (heads.length < 3) return;
 
     /* Anchors are needed for the links. Where a heading has none, one is
@@ -346,36 +362,100 @@
     setDormant();
     window.addEventListener('scroll', setDormant, { passive: true });
 
-    /* Anything wider than the reading measure would run under the outline.
-       Those are listed once, and the outline fades while one is alongside. */
-    var wide = Array.prototype.filter.call(
-      main.querySelectorAll('table, figure, .understanding-table-wrap, .understanding-timeline, ' +
-        '.research-stat-row, .chart-figure, .data-table, pre, blockquote'),
-      function (el) { return el.getBoundingClientRect().width > 900; }
-    );
+    /* Some blocks run the full rail — the parents timeline, wide tables, the
+       chart — and their text would run underneath the outline. Rather than
+       keep a list of every such class, measure the text itself against the
+       panel's own left edge, which is the exact condition for a collision:
+       any line reaching past it can end up under the panel.
 
-    if (wide.length) {
-      var ticking = false;
-      var check = function () {
-        ticking = false;
-        var rail = (nav.firstElementChild || nav).getBoundingClientRect();
-        var clash = wide.some(function (el) {
-          var r = el.getBoundingClientRect();
-          if (!r.width) return false;
-          return r.bottom > rail.top + 80 && r.top < rail.bottom - 80 &&
-                 r.right > rail.left + 40;
-        });
-        nav.classList.toggle('is-obscured', clash);
-      };
-      var onScroll = function () {
-        if (ticking) return;
-        ticking = true;
-        window.requestAnimationFrame(check);
-      };
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll, { passive: true });
-      check();
+       Those lines are recorded once, in document coordinates, so scrolling
+       afterwards costs arithmetic rather than layout. The panel is only
+       pinned horizontally, so its left edge does not move as the page
+       scrolls and the recorded comparison stays valid. */
+    var panelLeft = inner.getBoundingClientRect().left + window.pageXOffset;
+
+    /* Which text reaches past the panel? Text that sits in a sticky region
+       moves relative to the page, and a few pages reveal panels on scroll, so
+       the answer cannot be cached as fixed coordinates. Instead, the nodes
+       whose lines reach past the panel's left edge are collected here, and
+       only those are re-measured while scrolling — a handful of nodes, which
+       is cheap enough to do per frame and always correct. */
+    var candidates = [];
+
+    var findCandidates = function () {
+      candidates = [];
+      var walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null);
+      var node, guard = 0;
+      while ((node = walker.nextNode()) && guard++ < 30000) {
+        if (!node.nodeValue || !node.nodeValue.trim()) continue;
+        if (nav.contains(node)) continue;
+        var range = document.createRange();
+        range.selectNodeContents(node);
+        var rects = range.getClientRects();
+        for (var i = 0; i < rects.length; i++) {
+          if (rects[i].width < 4 || rects[i].height < 4) continue;
+          if (rects[i].right > panelLeft - 10) { candidates.push(node); break; }
+        }
+      }
+    };
+    findCandidates();
+
+    /* A page can add content later — the quiz result, a book plate. When it
+       does, look again, at most once a second. */
+    var lastScan = 0;
+    var rescan = function () {
+      var now = Date.now();
+      if (now - lastScan < 1000) return;
+      lastScan = now;
+      findCandidates();
+    };
+    if ('MutationObserver' in window) {
+      var mo = new MutationObserver(function (records) {
+        for (var i = 0; i < records.length; i++) {
+          if (records[i].addedNodes.length) { rescan(); return; }
+        }
+      });
+      mo.observe(main, { childList: true, subtree: true });
     }
+
+    var ticking = false;
+    var check = function () {
+      ticking = false;
+      var box = inner.getBoundingClientRect();
+      if (!box.width) return;
+      if (box.top < 90 || box.bottom > window.innerHeight) {
+        nav.classList.remove('is-obscured');
+        return;
+      }
+      var left = box.left + 6;
+      var top = box.top + 4;
+      var bottom = box.bottom - 4;
+      var clash = false;
+
+      for (var i = 0; i < candidates.length && !clash; i++) {
+        var node = candidates[i];
+        if (!node.parentElement || !node.parentElement.isConnected) continue;
+        var range = document.createRange();
+        range.selectNodeContents(node);
+        var rects = range.getClientRects();
+        for (var j = 0; j < rects.length; j++) {
+          var r = rects[j];
+          if (r.width < 4 || r.height < 4) continue;
+          if (r.right > left && r.bottom > top && r.top < bottom) { clash = true; break; }
+        }
+      }
+
+      nav.classList.toggle('is-obscured', clash);
+    };
+
+    var onScroll = function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(check);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    check();
 
     /* Mark the entry for the section you are reading. */
     if ('IntersectionObserver' in window) {

@@ -2546,6 +2546,65 @@ main section.research-section--last {
 }
 
 /* ==========================================================================
+   12g. RUNNING PROSE IN THE READING FACE
+
+   The site has two voices and had only ever used one. Every heading is Lora,
+   a serif; every word of body copy was Inter, a face drawn for screens and
+   interfaces. That is why the long sections read as a wall: eight
+   consecutive paragraphs of the same sans at the same size are visually
+   identical, and the eye has nothing to grip.
+
+   Running prose now uses the same serif as the headings, a little larger and
+   looser on the line. Everything that is not running prose keeps the sans —
+   tables, cards, buttons, labels, forms, captions, the quiz, anything in a
+   dark panel. Those are instruments, and instruments are clearer in a screen
+   face. What changed is the reading, not the machinery.
+
+   Scoped by reading container rather than by exception, so no card and no
+   navy panel can be caught by it.
+   ========================================================================== */
+
+main .container > p:not([class]),
+main .understanding-reading > p:not([class]),
+main .reading-body > p,
+main .about-reading > p {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  letter-spacing: 0.001em;
+}
+
+/* Footnote markers stay in the screen face, so a numeral beside a serif is
+   never set in a text figure. */
+main .container > p:not([class]) sup,
+main .understanding-reading > p:not([class]) sup,
+main .reading-body > p sup,
+main .about-reading > p sup {
+  font-family: var(--font-sans);
+  font-size: 0.7em;
+  line-height: 0;
+}
+
+/* An opening paragraph takes one step more, so a section starts with a
+   visible change of scale rather than a repeat of the paragraph before it. */
+main .container > h2 + p:not([class]),
+main .container > h3 + p:not([class]),
+main .understanding-reading > h2 + p:not([class]),
+main .reading-body > h2 + p:not([class]),
+main .about-reading > h2 + p:not([class]) {
+  font-size: 1.16rem;
+  line-height: 1.64;
+  margin-bottom: 1.15rem;
+}
+
+/* A bold opening that is a label is a label, and stays at label scale. */
+main h2 + p[data-runin="label"],
+main h3 + p[data-runin="label"] {
+  font-size: var(--step-body);
+  line-height: var(--lead-body);
+}
+
+/* ==========================================================================
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so
    the eye always has somewhere to land.

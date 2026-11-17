@@ -1,0 +1,1348 @@
+/* Refinement layer
+
+   A restrained visual upgrade that sits on top of the existing language:
+   deeper colour, editorial composition instead of stacked centred text,
+   a quieter paper texture, and motion that is felt rather than noticed.
+
+   Rules of engagement held throughout:
+   - No copy, markup or structural changes. Selectors only, plus two
+     attribute hooks added in ui.js (.is-stuck, .reveal-in).
+   - Everything here degrades to the previous appearance if JavaScript,
+     gradients or backdrop-filter are unavailable.
+   - prefers-reduced-motion disables all movement; print is untouched.
+
+   ==========================================================================
+   1. TOKENS
+   ========================================================================== */
+
+:root {
+  /* A slightly deeper, warmer paper than the flat near-white it replaces. */
+  --paper: #fbf9f5;
+  --cream: #fbf9f5;
+  --surface-alt: #f5f2ea;
+
+  /* Ink with a touch more navy so long passages read as printed, not grey. */
+  --ink: #26374a;
+  --muted: #56677a;
+
+  /* Rule colour tuned to the paper rather than a blue-grey. */
+  --border: #e6e1d6;
+  --border-strong: #d3ccbc;
+
+  /* Gold at three stops: hairline, accent, and text-safe. */
+  --gold-line: rgba(212, 175, 55, 0.42);
+  --gold-text: #8a6d12;
+
+  /* Elevation: a single soft ambient shadow plus a crisp contact edge, which
+     reads as paper on paper rather than as a web card. */
+  --lift-1: 0 1px 2px rgba(27, 54, 93, 0.05), 0 10px 24px -12px rgba(27, 54, 93, 0.14);
+  --lift-2: 0 2px 4px rgba(27, 54, 93, 0.06), 0 22px 44px -20px rgba(27, 54, 93, 0.24);
+  --lift-3: 0 30px 60px -28px rgba(27, 54, 93, 0.34);
+
+  --gutter: clamp(1.15rem, 4vw, 2rem);
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   2. PAGE GROUND AND TYPE DETAIL
+   ========================================================================== */
+
+body {
+  background-color: var(--paper);
+  /* Two very low-contrast washes plus a hairline grid. The grid is what makes
+     empty space read as a considered page rather than as missing content. */
+  background-image:
+    radial-gradient(70rem 34rem at 78% -6%, rgba(212, 175, 55, 0.07), transparent 62%),
+    radial-gradient(60rem 30rem at 4% 4%, rgba(27, 54, 93, 0.035), transparent 58%),
+    linear-gradient(180deg, #ffffff 0%, var(--paper) 26rem);
+  background-repeat: no-repeat;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Optical alignment for display type; body copy keeps normal tracking. */
+h1 {
+  letter-spacing: -0.021em;
+}
+
+h2 {
+  letter-spacing: -0.014em;
+}
+
+/* Source note digits: smaller, quieter, never disruptive to the line. */
+.source-note {
+  font-variant-numeric: lining-nums;
+  letter-spacing: 0;
+}
+
+/* Links inside prose keep the underline but sit closer to the text. */
+main a:not(.btn):not(.brand) {
+  text-underline-offset: 0.16em;
+  transition: color var(--ease-soft) 150ms;
+}
+
+/* ==========================================================================
+   3. HEADER — a masthead that responds to scroll
+   ========================================================================== */
+
+.site-header {
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid rgba(27, 54, 93, 0.08);
+  box-shadow: none;
+  transition: box-shadow 240ms var(--ease-soft), background-color 240ms var(--ease-soft);
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-line) 18%, var(--gold-line) 82%, transparent);
+  opacity: 0;
+  transition: opacity 260ms var(--ease-soft);
+  pointer-events: none;
+}
+
+.site-header.is-stuck {
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 1px 0 rgba(27, 54, 93, 0.05), 0 12px 30px -18px rgba(27, 54, 93, 0.35);
+}
+
+.site-header.is-stuck::after {
+  opacity: 1;
+}
+
+.brand::before {
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--gold) 0%, #b9972c 100%);
+}
+
+.brand-name {
+  letter-spacing: -0.015em;
+}
+
+/* Nav: a gold rule that grows from the centre instead of a static underline. */
+.primary-nav > a,
+.nav-dropdown-toggle {
+  position: relative;
+}
+
+.primary-nav > a::after {
+  display: none;
+}
+
+.primary-nav > a > span,
+.primary-nav > a {
+  transition: color 160ms var(--ease-soft);
+}
+
+.primary-nav > a[aria-current="page"],
+.nav-dropdown-toggle[aria-expanded="true"] {
+  color: var(--navy);
+}
+
+/* Underline: drawn beneath the existing active state, no extra markup. */
+.primary-nav > a[aria-current="page"] {
+  background-image: linear-gradient(90deg, var(--gold), var(--gold));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 2px;
+}
+
+/* Dropdown becomes a small sheet with a hairline and a soft lift. */
+.nav-dropdown-menu {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--lift-2);
+  overflow: hidden;
+}
+
+.nav-dropdown-menu a {
+  transition: background-color 140ms var(--ease-soft), padding-left 140ms var(--ease-soft);
+}
+
+.nav-dropdown-menu a:hover,
+.nav-dropdown-menu a:focus-visible {
+  background: var(--gold-pale);
+}
+
+/* ==========================================================================
+   4. BUTTONS — letterpress, not web-default
+   ========================================================================== */
+
+.btn-primary,
+.btn-gold {
+  background-image: linear-gradient(180deg, #e0bd4b 0%, var(--gold) 52%, #c4a22f 100%);
+  border: 1px solid rgba(134, 106, 20, 0.35);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.45) inset,
+    0 2px 6px rgba(134, 106, 20, 0.22),
+    0 12px 22px -14px rgba(134, 106, 20, 0.7);
+  transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out),
+    filter 180ms var(--ease-soft);
+}
+
+.btn-primary:hover,
+.btn-gold:hover {
+  background-image: linear-gradient(180deg, #d6b345 0%, #c9a733 52%, #b6952b 100%);
+  color: var(--navy);
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.4) inset,
+    0 4px 10px rgba(134, 106, 20, 0.26),
+    0 18px 30px -16px rgba(134, 106, 20, 0.8);
+}
+
+.btn-primary:active,
+.btn-gold:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(134, 106, 20, 0.3) inset;
+}
+
+.btn-outline {
+  border-color: var(--border-strong);
+  box-shadow: 0 1px 2px rgba(27, 54, 93, 0.04);
+  transition: transform 180ms var(--ease-out), border-color 180ms var(--ease-soft),
+    background-color 180ms var(--ease-soft), box-shadow 180ms var(--ease-soft);
+}
+
+.btn-outline:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--lift-1);
+}
+
+/* ==========================================================================
+   5. HOME HERO — the composition fix
+   The hero was one centred column with a wide empty band beneath it. Here it
+   becomes an asymmetric editorial spread: display type on the left, the
+   "start at the end" panel presented as a filed card on the right, and the
+   hero share of the viewport constrained so nothing floats in dead space.
+   ========================================================================== */
+
+.home-hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2.5rem, 5.5vw, 4.5rem) 0 clamp(2.5rem, 5vw, 4rem);
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+  isolation: isolate;
+}
+
+/* Concentric arcs, drawn in CSS, echoing the mark in the favicon.
+   Kept to a whisper: 0.05 alpha at most, and hidden from print. */
+.home-hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -14vw;
+  top: -22vw;
+  width: 62vw;
+  min-width: 420px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at 50% 50%,
+      rgba(212, 175, 55, 0.05) 0 1px,
+      transparent 1px 34px);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 32%, transparent 72%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 32%, transparent 72%);
+  pointer-events: none;
+}
+
+/* A soft gold wash anchoring the base of the left column. */
+.home-hero::after {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  left: -12vw;
+  bottom: -18vw;
+  width: 44vw;
+  min-width: 320px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.12), transparent 62%);
+  pointer-events: none;
+}
+
+.home-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.32fr) minmax(0, 0.78fr);
+  gap: clamp(1.75rem, 4.5vw, 3.5rem);
+  align-items: start;
+  max-width: none;
+}
+
+.home-hero-copy {
+  text-align: left;
+  /* Keeps the hero from becoming a full-width ribbon of type. */
+  max-width: 44rem;
+}
+
+.home-hero .hero-rule {
+  width: 3.25rem;
+  height: 3px;
+  margin: 0 0 1.15rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), rgba(212, 175, 55, 0.25));
+}
+
+.home-hero .section-label {
+  letter-spacing: 0.16em;
+}
+
+.home-hero h1 {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 19ch;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.026em;
+  color: var(--navy);
+  text-wrap: balance;
+}
+
+/* The standfirst is the hinge of the argument, so it gets real presence. */
+.home-hero .home-hero-standfirst {
+  margin: 1.15rem 0 0;
+  max-width: 30ch;
+  font-size: clamp(1.28rem, 1.9vw, 1.62rem);
+  line-height: 1.34;
+  color: var(--navy-soft);
+}
+
+.home-hero .home-hero-standfirst::after {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 1px;
+  margin: 1.1rem 0 0;
+  background: var(--border-strong);
+}
+
+.home-hero .lede {
+  margin: 1.1rem 0 0;
+  max-width: 34rem;
+  font-size: 1.02rem;
+  line-height: 1.72;
+  color: var(--ink);
+}
+
+/* The panel reads as a filed index card: a small tab, a hairline frame, and a
+   shadow that lifts it off the paper. */
+.home-hero-panel {
+  position: relative;
+  max-width: none;
+  margin: 0;
+  padding: 1.5rem 1.5rem 1.4rem;
+  background:
+    linear-gradient(180deg, #ffffff 0%, #fffdf7 100%);
+  border: 1px solid var(--border);
+  border-top: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--lift-2);
+  text-align: left;
+}
+
+.home-hero-panel::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: linear-gradient(90deg, var(--gold) 0%, #e8cf7d 55%, rgba(212, 175, 55, 0.35) 100%);
+}
+
+.home-hero-panel h2 {
+  margin-bottom: 0.55rem;
+  font-size: 1.34rem;
+  letter-spacing: -0.012em;
+}
+
+.home-hero-panel p {
+  font-size: 0.93rem;
+  line-height: 1.62;
+  color: var(--ink);
+}
+
+.home-hero-panel p + p {
+  margin-top: 0.6rem;
+}
+
+.home-hero-panel strong {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+/* Short sections used to reserve a full-width band under a one-line heading,
+   which is what read as empty space. Each section now flows as a single
+   column: heading, intro, then the grid, with no reserved gap. */
+.home-audiences,
+.home-outcomes-section {
+  padding-top: clamp(2.5rem, 4.2vw, 3.5rem);
+  padding-bottom: clamp(2.5rem, 4.2vw, 3.5rem);
+}
+
+.home-audiences-intro,
+.home-outcomes-intro {
+  margin-bottom: 1.6rem;
+}
+
+@media (max-width: 960px) {
+  .home-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+
+  .home-hero h1 {
+    max-width: 24ch;
+  }
+
+  .home-hero::before {
+    right: -32vw;
+    top: -26vw;
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 700px) {
+  .home-hero {
+    padding-top: 2rem;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(2rem, 8.4vw, 2.6rem);
+  }
+
+  .home-hero-panel {
+    padding: 1.2rem 1.15rem;
+  }
+
+  .home-hero::after {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   6. AUDIENCE CARDS — where the reader starts
+   ========================================================================== */
+
+.home-audiences {
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+}
+
+.home-audiences > .container > h2 {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.home-audiences > .container > h2::after,
+.home-outcomes-section > .container > h2::after,
+.home-book > .container > h2::after {
+  display: none;
+}
+
+.home-audiences-intro {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 40rem;
+  color: var(--muted);
+}
+
+.audience-grid {
+  gap: 1rem;
+}
+
+/* Seven perspectives: four cards, then three. Both rows are laid on a
+   12-column track and justified edge to edge (4 x span 3, then 3 x span 4),
+   so the second row is wider rather than leaving a hole at its end. */
+@media (min-width: 861px) {
+  .home-audience-first-row {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .home-audience-first-row > .audience-card {
+    grid-column: span 3;
+  }
+
+  .home-audience-second-row {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    margin-top: 1rem;
+  }
+
+  .home-audience-second-row > .audience-card {
+    grid-column: span 4;
+  }
+}
+
+@media (max-width: 860px) {
+  .home-audience-first-row,
+  .home-audience-second-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .home-audience-first-row,
+  .home-audience-second-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.audience-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.4rem 1.35rem 1.25rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fffefa 100%);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--lift-1);
+  overflow: hidden;
+  transition: transform 240ms var(--ease-out), box-shadow 240ms var(--ease-out),
+    border-color 240ms var(--ease-soft);
+}
+
+/* A gold wash that develops from the top edge on hover. */
+.audience-card::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0 0 auto;
+  height: 46%;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 240ms var(--ease-soft);
+  pointer-events: none;
+}
+
+.audience-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212, 175, 55, 0.55);
+  border-top-color: var(--gold);
+  box-shadow: var(--lift-2);
+}
+
+.audience-card:hover::after {
+  opacity: 1;
+}
+
+.audience-card:focus-within {
+  border-top-color: var(--gold);
+  box-shadow: var(--lift-2);
+}
+
+.card-icon {
+  position: relative;
+  z-index: 1;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0.85rem;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 10px;
+  background: linear-gradient(160deg, #fffdf6 0%, var(--gold-pale) 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 6px 12px -8px rgba(134, 106, 20, 0.6);
+  color: var(--gold-text);
+  transition: transform 240ms var(--ease-out), color 240ms var(--ease-soft);
+}
+
+.audience-card:hover .card-icon {
+  transform: translateY(-2px) rotate(-3deg);
+  color: var(--gold-text);
+}
+
+.card-icon svg {
+  width: 1.28rem;
+  height: 1.28rem;
+  stroke-width: 1.7;
+}
+
+.audience-card :is(h2, h3) {
+  position: relative;
+  z-index: 1;
+  font-size: 1.24rem;
+  line-height: 1.24;
+  letter-spacing: -0.012em;
+  margin-bottom: 0.45rem;
+}
+
+.audience-card .card-hook {
+  position: relative;
+  z-index: 1;
+  font-size: 0.94rem;
+  line-height: 1.58;
+  color: var(--muted);
+  margin-bottom: 1.15rem;
+}
+
+.audience-card .btn {
+  position: relative;
+  z-index: 1;
+  align-self: flex-start;
+  justify-content: flex-start;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 100%;
+  margin-top: auto;
+  text-align: left;
+  padding: 0.5rem 0;
+  border: 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.65);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--navy);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 180ms var(--ease-soft), border-color 180ms var(--ease-soft),
+    padding-right 180ms var(--ease-out);
+}
+
+.audience-card .btn::after {
+  content: " \2192";
+  display: inline-block;
+  margin-left: 0.35rem;
+  transition: transform 180ms var(--ease-out);
+}
+
+.audience-card:hover .btn {
+  color: var(--gold-text);
+  border-bottom-color: var(--gold);
+}
+
+.audience-card:hover .btn::after {
+  transform: translateX(3px);
+}
+
+@media (max-width: 720px) {
+  .audience-card {
+    padding: 1.15rem 1.1rem 1.05rem;
+  }
+}
+
+/* ==========================================================================
+   7. STUDY BAND — deep navy, engraved
+   ========================================================================== */
+
+.home-study {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--navy);
+  background-image:
+    radial-gradient(46rem 26rem at 8% -10%, rgba(212, 175, 55, 0.2), transparent 60%),
+    radial-gradient(40rem 24rem at 96% 110%, rgba(58, 83, 107, 0.55), transparent 62%),
+    linear-gradient(180deg, #1b365d 0%, #162c4b 100%);
+  border-bottom: 0;
+  color: #e8eef5;
+}
+
+/* A faint engraved rule through the band. */
+.home-study::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.028) 0 1px,
+    transparent 1px 12px
+  );
+  pointer-events: none;
+}
+
+.home-study > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.home-study .section-label {
+  color: #e6c876;
+}
+
+.home-study h2 {
+  color: #fff;
+  letter-spacing: -0.018em;
+}
+
+.home-study-list li {
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 2px solid rgba(212, 175, 55, 0.85);
+  border-radius: 10px;
+  color: #e8eef5;
+  transition: background-color 220ms var(--ease-soft), transform 220ms var(--ease-out);
+}
+
+.home-study-list li:hover {
+  background: rgba(255, 255, 255, 0.09);
+  transform: translateY(-2px);
+}
+
+.home-study-list strong {
+  color: #fff;
+}
+
+/* ==========================================================================
+   8. OUTCOMES — the six parts of a life
+   ========================================================================== */
+
+.home-outcomes-section {
+  background: linear-gradient(180deg, var(--paper) 0%, #ffffff 100%);
+}
+
+.home-outcomes-section > .container > h2,
+.home-outcomes-intro {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.home-good-life-list {
+  gap: 0.9rem;
+}
+
+.home-good-life-list li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.3rem 1.2rem 1.2rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: none;
+  text-align: left;
+  overflow: hidden;
+  transition: border-color 220ms var(--ease-soft), box-shadow 220ms var(--ease-out),
+    transform 220ms var(--ease-out);
+}
+
+.home-good-life-list li:hover {
+  transform: translateY(-3px);
+  border-top-color: var(--gold);
+  box-shadow: var(--lift-1);
+}
+
+.home-good-life-list li::before {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold-text);
+  margin-bottom: 0.5rem;
+}
+
+.home-good-life-list strong {
+  font-size: 1.12rem;
+  margin-bottom: 0.3rem;
+}
+
+.home-good-life-list li:not(:has(strong)) {
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   9. BOOK BAND — an editorial plate
+   ========================================================================== */
+
+.home-book {
+  background: linear-gradient(180deg, #f7f4ec 0%, var(--paper) 100%);
+}
+
+.home-book > .container > h2 {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.book-band {
+  position: relative;
+  grid-template-columns: minmax(0, 168px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+  margin-top: 1.5rem;
+  padding: clamp(1.25rem, 2.6vw, 1.8rem);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--lift-1);
+  overflow: hidden;
+}
+
+.book-band img {
+  width: 100%;
+  max-width: 168px;
+}
+
+.book-band::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--gold), rgba(212, 175, 55, 0.3));
+}
+
+.book-band img {
+  border-radius: 3px;
+  box-shadow:
+    0 1px 1px rgba(27, 54, 93, 0.1),
+    0 26px 40px -22px rgba(27, 54, 93, 0.55);
+  transition: transform 420ms var(--ease-out);
+}
+
+.book-band:hover img {
+  transform: translateY(-3px) rotate(-0.6deg);
+}
+
+.book-band > div {
+  max-width: 46rem;
+  padding-left: clamp(1.1rem, 2.5vw, 1.9rem);
+  border-left: 1px solid var(--border);
+}
+
+@media (max-width: 620px) {
+  .book-band {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+  }
+
+  .book-band > div {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+.home-program-line {
+  border-top: 1px solid var(--border);
+}
+
+.home-book [data-notes-open] {
+  border-color: var(--border-strong);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  box-shadow: 0 1px 2px rgba(27, 54, 93, 0.05);
+  transition: border-color 180ms var(--ease-soft), background-color 180ms var(--ease-soft),
+    box-shadow 180ms var(--ease-soft), transform 180ms var(--ease-out);
+}
+
+.home-book [data-notes-open]:hover {
+  border-color: var(--gold);
+  background: var(--gold-pale);
+  box-shadow: var(--lift-1);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   10. INTERIOR HEROES — one consistent opening
+   ========================================================================== */
+
+.choosing-hero,
+.research-hero,
+.understanding-hero,
+.what-matters-hero,
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+}
+
+.choosing-hero::before,
+.research-hero::before,
+.understanding-hero::before,
+.what-matters-hero::before,
+.page-hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -18vw;
+  bottom: -34vw;
+  width: 54vw;
+  min-width: 380px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle at 50% 50%,
+    rgba(27, 54, 93, 0.045) 0 1px,
+    transparent 1px 30px
+  );
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 30%, transparent 70%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 30%, transparent 70%);
+  pointer-events: none;
+}
+
+.choosing-hero h1,
+.research-hero h1,
+.understanding-hero h1,
+.what-matters-hero h1 {
+  letter-spacing: -0.026em;
+}
+
+.choosing-hero .lede,
+.research-hero .lede,
+.understanding-hero .lede {
+  max-width: 36rem;
+}
+
+.hero-rule {
+  width: 3.25rem;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), rgba(212, 175, 55, 0.25));
+}
+
+/* Text-only heroes (research, understanding college, what matters) used to
+   run a headline and a deck down the left half of the page and leave the
+   right half bare. They now open as a spread: the headline holds the left
+   column and the deck sits opposite it, sharing a baseline. Only grid
+   placement is used; the reading order in the document is unchanged. */
+@media (min-width: 941px) {
+  .research-hero > .container,
+  .understanding-hero > .container,
+  .what-matters-hero > .container {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 5vw, 4rem);
+    align-items: end;
+  }
+
+  .research-hero > .container > .hero-rule,
+  .understanding-hero > .container > .hero-rule {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 1.15rem;
+  }
+
+  .research-hero > .container > .section-label,
+  .understanding-hero > .container > .section-label,
+  .what-matters-hero > .container > .section-label {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+    margin-bottom: 0.55rem;
+  }
+
+  .research-hero > .container > h1,
+  .understanding-hero > .container > h1,
+  .what-matters-hero > .container > h1 {
+    grid-column: 1;
+    grid-row: 3;
+    margin-bottom: 0;
+  }
+
+  /* The deck sits opposite, aligned to the foot of the headline, opened by a
+     hairline so the two columns read as one composition. */
+  .research-hero > .container > .lede,
+  .understanding-hero > .container > .lede,
+  .what-matters-hero > .container > .lede {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    align-self: end;
+    max-width: 34rem;
+    margin: 0 0 0.15rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--border-strong);
+    font-size: 1.05rem;
+    line-height: 1.68;
+  }
+
+  .research-hero > .container > .research-stats {
+    grid-column: 1 / -1;
+    grid-row: 4;
+  }
+}
+
+/* Sizes: these heroes carry the page, so the headline can breathe. */
+@media (min-width: 941px) {
+  .research-hero h1,
+  .understanding-hero h1,
+  .what-matters-hero h1 {
+    font-size: clamp(2.5rem, 4.4vw, 3.5rem);
+    line-height: 1.06;
+    max-width: 26ch;
+  }
+}
+
+/* The prestige card on the choosing page: a filed note, not a panel. */
+.choosing-prestige-card {
+  border-radius: var(--radius);
+  box-shadow: var(--lift-2);
+}
+
+/* ==========================================================================
+   11. SECTION RHYTHM AND HEADINGS
+   Empty space reads as deliberate when every section opens the same way and
+   the headings sit on a consistent baseline.
+   ========================================================================== */
+
+.home-section,
+.choosing-section,
+.research-section,
+.understanding-section,
+.about-section,
+.foundation-section {
+  padding-top: clamp(2.75rem, 5vw, 4.25rem);
+  padding-bottom: clamp(2.75rem, 5vw, 4.25rem);
+}
+
+.home-section > .container > h2,
+.choosing-section > .container > h2,
+.research-section > .container > h2,
+.understanding-section > .container > h2,
+.about-section > .container > h2,
+.understanding-section > h2,
+.research-section > h2 {
+  letter-spacing: -0.016em;
+}
+
+/* Alternating sections get the faintest tint so the page has a beat. */
+.research-section:nth-of-type(even),
+.understanding-section.understanding-alt,
+.choosing-section:nth-of-type(even) {
+  background: linear-gradient(180deg, rgba(245, 242, 234, 0.55) 0%, rgba(251, 249, 245, 0) 100%);
+}
+
+/* The chart section follows straight on from its hero, so it needs its own
+   opening space rather than butting against the hero's rule. */
+.chart-section {
+  padding-top: clamp(2.25rem, 4vw, 3.25rem);
+}
+
+/* ==========================================================================
+   12. CARDS, CALLOUTS AND TABLES
+   ========================================================================== */
+
+.study-fact,
+.chart-card,
+.sidebar-card,
+.result-panel {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--lift-1);
+}
+
+.study-fact {
+  border-top: 2px solid var(--gold);
+}
+
+.chart-card {
+  transition: box-shadow 220ms var(--ease-out), transform 220ms var(--ease-out);
+}
+
+.chart-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--lift-1);
+}
+
+.callout {
+  background: linear-gradient(180deg, #fffdf4 0%, var(--gold-pale) 100%);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+}
+
+/* Stat blocks: rules instead of boxes, so they read as data not as cards. */
+.research-stats {
+  border-top: 1px solid var(--border-strong);
+}
+
+.research-stats > div {
+  position: relative;
+  padding-top: 0.15rem;
+}
+
+.research-stats strong {
+  letter-spacing: -0.02em;
+}
+
+.research-stats span {
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+/* Tables: quieter header, better rhythm, no heavy grid. */
+.data-table,
+.chart-table {
+  font-size: 0.9rem;
+}
+
+.data-table thead th,
+.chart-table thead th {
+  color: var(--navy);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.data-table tbody tr:hover,
+.chart-table tbody tr:hover {
+  background: rgba(212, 175, 55, 0.06);
+}
+
+.data-table td,
+.chart-table td {
+  border-bottom: 1px solid rgba(230, 225, 214, 0.8);
+}
+
+/* ==========================================================================
+   13. LONG-FORM READING
+   Text-heavy pages get a wider measure, more leading and clearer headings so
+   the eye always has somewhere to land.
+   ========================================================================== */
+
+.reading-body,
+.pullout-body,
+.understanding-more-body {
+  font-size: 1.02rem;
+  line-height: 1.78;
+}
+
+.reading-body p + p,
+.pullout-body p + p {
+  margin-top: 0.95em;
+}
+
+.reading-body h2 {
+  margin-top: 2.4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.reading-body h3 {
+  margin-top: 1.8rem;
+  color: var(--navy);
+}
+
+.reading-body ul,
+.reading-body ol {
+  padding-left: 1.15rem;
+}
+
+.reading-body li {
+  margin-bottom: 0.45rem;
+}
+
+.reading-body li::marker {
+  color: var(--gold-text);
+}
+
+/* Contents / on-this-page lists: a light index card. */
+.understanding-contents {
+  background: linear-gradient(180deg, #ffffff 0%, #fbf8f1 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.understanding-contents a {
+  transition: color 150ms var(--ease-soft), padding-left 150ms var(--ease-out);
+}
+
+.understanding-contents a:hover {
+  padding-left: 3px;
+}
+
+/* ==========================================================================
+   14. FOOTER
+   ========================================================================== */
+
+.site-footer {
+  position: relative;
+  background-color: #16294a;
+  background-image:
+    radial-gradient(46rem 24rem at 12% 0%, rgba(212, 175, 55, 0.13), transparent 60%),
+    linear-gradient(180deg, #1b365d 0%, #142746 100%);
+  border-top: 1px solid rgba(212, 175, 55, 0.55);
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0), var(--gold) 22%, var(--gold) 78%, rgba(212, 175, 55, 0));
+}
+
+.footer-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.footer-name {
+  letter-spacing: -0.015em;
+}
+
+.footer-nav a {
+  position: relative;
+  transition: color 150ms var(--ease-soft);
+}
+
+.footer-meta {
+  color: #a8b8c8;
+}
+
+/* ==========================================================================
+   15. NOTES PANEL
+   ========================================================================== */
+
+.notes-panel {
+  border: 1px solid var(--border);
+  box-shadow: 0 0 0 1px rgba(27, 54, 93, 0.04), var(--lift-3);
+}
+
+.notes-panel::backdrop {
+  background: rgba(18, 32, 54, 0.48);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+.notes-list li::marker {
+  color: var(--gold-text);
+}
+
+/* ==========================================================================
+   16. MOTION
+   One mechanism only: a scroll-triggered entrance, plus the hover and focus
+   transitions declared above.
+
+   The entrance is written as an *animation keyed off a class*, never as a
+   hidden resting state. Content is visible by default, so a page without
+   JavaScript, a browser without IntersectionObserver, a print stylesheet or
+   a failed script all degrade to fully readable text. If the observer fires,
+   the element simply plays a short rise as it arrives.
+   ========================================================================== */
+
+@keyframes refine-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes refine-draw {
+  from {
+    transform: scaleX(0.001);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.js .reveal-in {
+  animation: refine-rise 620ms var(--ease-out) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+/* Cards stagger in sequence inside a grid. */
+.js .audience-grid .audience-card:nth-child(2),
+.js .audience-grid .audience-card:nth-child(5) {
+  --reveal-delay: 60ms;
+}
+
+.js .audience-grid .audience-card:nth-child(3),
+.js .audience-grid .audience-card:nth-child(6) {
+  --reveal-delay: 120ms;
+}
+
+.js .audience-grid .audience-card:nth-child(4),
+.js .audience-grid .audience-card:nth-child(7) {
+  --reveal-delay: 180ms;
+}
+
+.js .home-good-life-list li:nth-child(2) {
+  --reveal-delay: 50ms;
+}
+
+.js .home-good-life-list li:nth-child(3) {
+  --reveal-delay: 100ms;
+}
+
+.js .home-good-life-list li:nth-child(4) {
+  --reveal-delay: 150ms;
+}
+
+.js .home-good-life-list li:nth-child(5) {
+  --reveal-delay: 200ms;
+}
+
+.js .home-good-life-list li:nth-child(6) {
+  --reveal-delay: 250ms;
+}
+
+/* A section's short gold rule draws itself left to right. */
+.js .section-label.reveal-in::before {
+  animation: refine-draw 520ms var(--ease-out) 120ms both;
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal-in,
+  .js .section-label.reveal-in::before {
+    animation: none;
+  }
+
+  .audience-card,
+  .audience-card:hover,
+  .home-study-list li:hover,
+  .home-good-life-list li:hover,
+  .chart-card:hover,
+  .btn-primary:hover,
+  .btn-gold:hover,
+  .btn-outline:hover,
+  .book-band:hover img,
+  .audience-card:hover .card-icon {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   17. PRINT AND FALLBACKS
+   ========================================================================== */
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .home-hero::before,
+  .home-hero::after,
+  .choosing-hero::before,
+  .research-hero::before,
+  .understanding-hero::before,
+  .what-matters-hero::before,
+  .page-hero::before,
+  .home-study::after,
+  .site-footer::before {
+    display: none;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Without gradient support, fall back to flat, legible colour. */
+@supports not (background-image: linear-gradient(90deg, red, blue)) {
+  .home-study {
+    background-color: var(--navy);
+  }
+
+  .btn-primary,
+  .btn-gold {
+    background-color: var(--gold);
+  }
+}

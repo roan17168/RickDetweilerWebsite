@@ -69,6 +69,54 @@
     });
   });
 
+  /* Masthead: the header gains a shadow and a gold hairline once the page has
+     scrolled away from the top, so it separates from the paper beneath it. */
+  var header = document.querySelector('.site-header');
+  if (header) {
+    var lastStuck = null;
+    var syncHeader = function () {
+      var stuck = (window.pageYOffset || document.documentElement.scrollTop || 0) > 8;
+      if (stuck === lastStuck) return;
+      lastStuck = stuck;
+      header.classList.toggle('is-stuck', stuck);
+    };
+    syncHeader();
+    window.addEventListener('scroll', syncHeader, { passive: true });
+  }
+
+  /* Reveal on entry: as an element first comes into view it plays a short
+     rise. This is decoration only. The class it sets (.reveal-in) triggers a
+     CSS animation and has no hidden resting state, so if this script never
+     runs, or IntersectionObserver is missing, every element is simply
+     visible. Reduced-motion users are skipped entirely. */
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    var revealTargets = document.querySelectorAll(
+      '.home-section > .container > h2, .home-section .section-label, .audience-card,' +
+      ' .home-study-list li, .home-good-life-list li, .book-band,' +
+      ' .choosing-section > .container > h2, .research-section > .container > h2,' +
+      ' .understanding-section > .container > h2, .about-section > .container > h2,' +
+      ' .study-fact, .chart-card'
+    );
+
+    if (revealTargets.length) {
+      var revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('reveal-in');
+          revealObserver.unobserve(entry.target);
+        });
+      }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
+
+      Array.prototype.forEach.call(revealTargets, function (node) {
+        /* Anything already within the first screen arrives with the page, so
+           it should not animate after the reader has started reading. */
+        if (node.getBoundingClientRect().top < window.innerHeight * 0.85) return;
+        revealObserver.observe(node);
+      });
+    }
+  }
+
   /* Notes panel: a native modal dialog supplies background inertness, focus confinement, Escape and focus return. */
   var panel = document.getElementById('notes-panel');
   var lastFocus = null;

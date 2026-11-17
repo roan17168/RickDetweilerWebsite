@@ -464,6 +464,14 @@
     border: 0;
   }
 
+  /* Same override as the data table above: 22% and 15.6% are column widths
+     for a table that has columns, not for a cell that has become a row of its
+     own. */
+  .leaders-form-table tbody th,
+  .leaders-form-table tbody td {
+    width: 100%;
+  }
+
   .leaders-form-table tbody th {
     padding-bottom: var(--s-3);
     border-bottom: 1px solid var(--border);
@@ -532,6 +540,18 @@
   .leaders-data-table tbody td {
     padding: 0;
     border: 0;
+  }
+
+  /* The desktop rule sets the heading column to 30% of the table. In the
+     stacked card the "table" is only as wide as it needs to be, so that 30%
+     resolves to ninety-two pixels and the heading wraps one or two words to a
+     line, twelve lines deep. A block cell in a card must fill the card. The
+     selector has to be at least as specific as the desktop rule it overrides,
+     which is why it is spelled out here rather than folded into the list
+     above. */
+  .leaders-data-table tbody th,
+  .leaders-data-table tbody td {
+    width: 100%;
   }
 
   .leaders-data-table tbody th {

@@ -438,6 +438,13 @@
     border: 0;
   }
 
+  /* Overrides the 22% heading column set for the wide table. See the note in
+     college-leaders.css: a percentage of a shrink-to-fit card is not a width. */
+  .policymakers-form-table tbody th,
+  .policymakers-form-table tbody td {
+    width: 100%;
+  }
+
   .policymakers-form-table tbody th {
     padding-bottom: var(--s-3);
     border-bottom: 1px solid var(--border);

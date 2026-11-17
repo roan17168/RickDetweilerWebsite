@@ -153,20 +153,28 @@
   border-top: 0;
 }
 
-.understanding-kinds-table th:nth-child(1) {
-  width: 16%;
-}
+/* Column widths for the four-column table. They are a hint for the row of
+   cells, not a size for a single cell: at 760px and below the table becomes a
+   stack of cards, every cell is a block on its own row, and a leftover 16%
+   would set the row heading — "Regional or comprehensive university" — to
+   forty-nine pixels and break it one word to a line. Scoped to the screen
+   where the table is still a table: the same 761px at which it stops stacking. */
+@media (min-width: 761px) {
+  .understanding-kinds-table th:nth-child(1) {
+    width: 16%;
+  }
 
-.understanding-kinds-table th:nth-child(2) {
-  width: 23%;
-}
+  .understanding-kinds-table th:nth-child(2) {
+    width: 23%;
+  }
 
-.understanding-kinds-table th:nth-child(3) {
-  width: 21%;
-}
+  .understanding-kinds-table th:nth-child(3) {
+    width: 21%;
+  }
 
-.understanding-kinds-table th:nth-child(4) {
-  width: 40%;
+  .understanding-kinds-table th:nth-child(4) {
+    width: 40%;
+  }
 }
 
 .understanding-context-table .understanding-group th {

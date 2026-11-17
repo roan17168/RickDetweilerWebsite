@@ -19,6 +19,7 @@
    3. A reading-progress bar on long pages.
    4. Pointer-tracked light on the hero and the navy study band.
    5. Slow drift on the hero's arc motif.
+   6. A label or a sentence, for the bold opening of a paragraph.
 */
 
 (function () {
@@ -192,6 +193,49 @@
     });
   }
 
+  /* ---------------------------------------- 6. run-in labels */
+
+  /* Many paragraphs open with a bold run. Some are labels — "What it's for.",
+     "At a big university." — that name what follows. Others are simply the
+     first sentence of the paragraph set in bold. Telling them apart lets the
+     stylesheet give a label its own line without disturbing an emphasised
+     sentence, and it has to be done on the text, because CSS cannot read a
+     full stop.
+
+     The test, in order:
+       - the run must be the first thing in the paragraph;
+       - it must be 44 characters or fewer;
+       - it must not end in a question mark or an exclamation mark (a question
+         is never a label);
+       - it must contain at most one full stop, at its end. A run containing
+         two sentences is prose that happens to be bold.
+
+     A run that ends in a colon is always a label: a colon introduces. */
+  function classifyRunins() {
+    var paras = document.querySelectorAll('main p');
+    Array.prototype.forEach.call(paras, function (p) {
+      var strong = p.firstElementChild;
+      if (!strong || strong.tagName !== 'STRONG') return;
+      var text = strong.textContent.trim();
+      if (!text) return;
+
+      /* Closing quotes belong to the sentence, not to the test. */
+      var bare = text.replace(/[\u201d\u2019\u0022\u0027)\]]+$/, '');
+
+      var isLabel = false;
+      if (text.length <= 44) {
+        if (/[:：]$/.test(bare)) {
+          isLabel = true;
+        } else if (!/[?!]$/.test(bare)) {
+          var stops = (bare.match(/\./g) || []).length;
+          isLabel = stops <= 1 && (!stops || /\.$/.test(bare));
+        }
+      }
+
+      p.setAttribute('data-runin', isLabel ? 'label' : 'inline');
+    });
+  }
+
   /* --------------------------------------------------------------- start */
 
   onIdle(function () {
@@ -199,5 +243,6 @@
     countResearchStats();
     buildProgress();
     trackPointer();
+    classifyRunins();
   });
 })();

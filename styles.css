@@ -10606,6 +10606,13 @@ blockquote p:last-child {
   --lift-2: 0 2px 4px rgba(27, 54, 93, 0.06), 0 22px 44px -20px rgba(27, 54, 93, 0.24);
   --lift-3: 0 30px 60px -28px rgba(27, 54, 93, 0.34);
 
+  /* One vertical rhythm for every section on every page. The measured site
+     had eleven different paddings — 36/36, 52/44, 64/32, 72/72, 76/68,
+     80/80, 86/56, 96/72 — so the pace of the page changed when you moved
+     between pages. */
+  --section-pad: clamp(3.25rem, 5vw, 4.25rem);
+  --section-pad-tight: clamp(2.5rem, 4vw, 3.25rem);
+
   --gutter: clamp(1.15rem, 4vw, 2rem);
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
@@ -12156,8 +12163,8 @@ main a:not(.btn):not(.brand) {
 .understanding-section,
 .about-section,
 .foundation-section {
-  padding-top: clamp(2.75rem, 5vw, 4.25rem);
-  padding-bottom: clamp(2.75rem, 5vw, 4.25rem);
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
 }
 
 .home-section > .container > h2,
@@ -12269,8 +12276,8 @@ main a:not(.btn):not(.brand) {
 /* Long-form chapter openings: more air above the rule, so a new chapter is
    unmistakable even when you are deep in the page. */
 .understanding-section {
-  padding-top: clamp(3rem, 5.5vw, 4.5rem);
-  padding-bottom: clamp(3rem, 5.5vw, 4.5rem);
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
 }
 
 .understanding-section h2 {
@@ -12279,8 +12286,8 @@ main a:not(.btn):not(.brand) {
 
 /* The "on this page" index becomes a card, not a bare list. */
 .understanding-contents {
-  padding-top: clamp(1.5rem, 3vw, 2.25rem);
-  padding-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  padding-top: var(--section-pad-tight);
+  padding-bottom: var(--section-pad-tight);
 }
 
 .understanding-contents a {
@@ -12872,6 +12879,127 @@ main .study-sample-card p.small,
 main .research-section .study-sample-card p.small {
   font-size: var(--step-small);
   line-height: 1.6;
+}
+
+/* ==========================================================================
+   12d. RUN-IN LABELS
+   One hundred and eleven paragraphs across the site open with a bold label —
+   "What it's for.", "When to use it.", "At a big university." — and every
+   one of them was set as ordinary bold text inside a paragraph. Visually
+   they did no work at all: the reader met a wall of body copy and had to
+   parse the structure out of it.
+
+   Where a paragraph opens with a short bold run, that run is now set as a
+   label: the sans face at label scale, gold-ink, on its own line, with the
+   paragraph text beneath it and a little air above. The markup is untouched
+   — this is done with the first <strong> in a paragraph — so nothing about
+   the words or their order changes.
+   ========================================================================== */
+
+/* The classification is done in visual.js and recorded as an attribute:
+   data-runin="label" is a short bold opening that names what follows;
+   data-runin="inline" is an emphasised sentence, which stays in the line.
+   CSS cannot test punctuation, and a sentence that happens to be bold is not
+   a heading, so the distinction has to be made on the text itself. */
+
+main p[data-runin="label"] > strong:first-child {
+  display: block;
+  margin-bottom: 0.24rem;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.075em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: var(--gold-text);
+}
+
+/* Consecutive labelled paragraphs get a hairline between them, so a run of
+   them reads as a set of entries rather than one long block. */
+main p[data-runin="label"] + p[data-runin="label"] {
+  margin-top: 1.15rem;
+  padding-top: 1.05rem;
+  border-top: 1px solid var(--border);
+}
+
+main .pullout p[data-runin="label"] + p[data-runin="label"],
+main .callout p[data-runin="label"] + p[data-runin="label"] {
+  border-top-color: rgba(212, 175, 55, 0.35);
+}
+
+/* ==========================================================================
+   12e. ONE VERTICAL RHYTHM
+   Every section on the site now breathes at the same pace. Sections that
+   already carried their own padding were scattered across eleven values;
+   they are all pinned to --section-pad, with a single tighter step for the
+   short index and closing strips that would otherwise float.
+   ========================================================================== */
+
+main > section,
+main > div > section,
+main > .container > section {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+}
+
+/* The hero is the one section that opens the page, so it keeps a slightly
+   shorter foot and hands straight over to the first block below it. */
+main > section:first-of-type,
+main > .container > section:first-of-type {
+  padding-top: clamp(2.75rem, 4.5vw, 3.75rem);
+}
+
+/* Short strips — the contents index, the page-closing source button, the
+   "what's next" row — take the tight step so they read as a divider rather
+   than a full block. */
+main > section.understanding-contents,
+main section.sources-end,
+main > .container:has(> .sources-end) {
+  padding-top: var(--section-pad-tight);
+  padding-bottom: var(--section-pad-tight);
+}
+
+/* Sections that sit directly above the footer hand over more cleanly if they
+   close on the standard foot rather than a deep one. */
+main > section:last-of-type {
+  padding-bottom: var(--section-pad);
+}
+
+/* The older sheets still set section padding on a handful of class
+   selectors, which outranks the element rule above. This matches them at the
+   same weight and pins every one to the same rhythm. */
+main :is(.home-section, .choosing-section, .research-section, .understanding-section,
+  .about-section, .foundation-section, .about-hero, .research-hero,
+  .understanding-hero, .choosing-hero, .what-matters-hero, .page-hero) {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+}
+
+main :is(.about-hero, .research-hero, .understanding-hero, .choosing-hero,
+  .what-matters-hero, .page-hero) {
+  padding-top: clamp(2.75rem, 4.5vw, 3.75rem);
+}
+
+main :is(section.understanding-contents, section.research-hero--tight) {
+  padding-top: var(--section-pad-tight);
+  padding-bottom: var(--section-pad-tight);
+}
+
+/* The last few sections that set their own padding. The Understanding page's
+   contents index sits under the hero and reads as part of it, so it takes the
+   tight step; the chart section on What Matters is an opening block; the
+   research page's closing sections were splitting the difference between two
+   values that no other page used. */
+main section.understanding-contents {
+  padding-top: var(--section-pad-tight);
+  padding-bottom: var(--section-pad-tight);
+}
+
+main section.understanding-closing,
+main section.chart-section,
+main section.research-section--last {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
 }
 
 /* ==========================================================================

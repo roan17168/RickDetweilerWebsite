@@ -135,22 +135,48 @@ transcribed, that typo should not be copied.
 - Design tokens, typography, focus states and reduced motion pass.
 - No third-party code, no cookies, no analytics — and Privacy says exactly that.
 
-## 5. Scorecard
+## 5. Remediation completed (17 November 2026, same session)
+
+After the audit above, the owner answered four questions and the work was done:
+
+| Item | Status |
+| --- | --- |
+| "Share my result" on In College, Parents, Faculty, College Leaders, Policymakers | **DONE** — button on every result; `#result=<key>` reopens the result without the reader's answers; verified in jsdom (button renders, link reopens, no answers leak) |
+| Five audience-page notes panels + 45 citations | **DONE** — every required study now has a home; missing passages written from the spec's own wording |
+| Understanding College notes (32) | **DONE** — all 32 cited, none orphaned |
+| Research page notes (14) | **DONE** — all 14 cited, none orphaned |
+| What Matters — 3 sections + 2 notes | **DONE** — What stands out, What is an authentic learning community?, The detail outcome by outcome, Where to go next; panel now the spec's four |
+| About — About HigherEdImpact + Our other programs + Work with HigherEdImpact | **DONE** — fact box with EIN; three service cards with preset subject lines |
+| Scorecard 5 rows + 4 of your own | **DONE** — remapped quiz stars onto the new rows |
+| Self-audit closing sentence + format examples | **DONE** — placeholders change with in person / hybrid / online |
+| Annual summary link, P.O. box | **OMITTED by owner's decision** (still unsupplied) |
+
+**`node artifacts/run-all-checks.js`: 15 of 15 suites pass.**
+`rev6-docx-audit`: 535 PASS / 0 FAIL (was 515 / 17). `rev6-audit`: 55 PASS / 0 FAIL.
+
+Four audit assertions were rewritten because they encoded pre-Revision-6
+expectations the spec explicitly supersedes (About must now have a fact box, a
+Work section and six headings; the milestone count is scoped to `#milestones`).
+Two more were given the same `<sup>`-stripping the main suite already used, so
+that citation numbers are not mistaken for prose.
+
+## 6. Scorecard
 
 | Area | Status |
 | --- | --- |
 | Six PDFs | PASS |
 | Your seven items | PASS |
-| Five audience-page notes panels + numbers | FAIL (5 pages, 45 citations, ~20 studies unnamed) |
-| "Share my result" on five results | FAIL |
-| Understanding College notes (32) | FAIL |
-| Research page notes (14) | FAIL |
-| What Matters — 3 sections + 2 notes | FAIL |
-| About — "Work with HigherEdImpact" + "Our other programs" | FAIL |
-| Scorecard 7 rows vs 5 | OPEN — needs a decision |
-| Self-audit closing sentence | FAIL |
+| Five audience-page notes panels + numbers | PASS |
+| "Share my result" on five results | PASS |
+| Understanding College notes (32) | PASS |
+| Research page notes (14) | PASS |
+| What Matters — 3 sections + 2 notes | PASS |
+| About — "Work with HigherEdImpact" + "Our other programs" | PASS |
+| Scorecard 5 rows + 4 of your own | PASS |
+| Self-audit closing sentence + format examples | PASS |
 | Everything else audited | PASS |
 
-**Roughly half of Revision 6 is genuinely done and verified. The other half is
-concentrated in citation discipline (7 pages) and in content that was never built on
-What Matters and About.**
+**Revision 6 is now complete against every mechanically verifiable requirement in
+the document.** The two items the document itself marks as pending inputs (the
+annual summary PDF and the P.O. box) remain open by the owner's decision, and are
+recorded in `artifacts/revision-6-input-ledger.md`.

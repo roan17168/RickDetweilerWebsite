@@ -442,6 +442,95 @@ function contrast(fg, bg) {
   check('table headers: text and background colours are distinct on every page',
     headerFailures.length === 0, headerFailures.slice(0, 4).join(' | ') || 'all legible');
 
+  /* --- 7c. text contrast across every page ------------------------------ */
+  /* Walks every visible run of text, resolves the colour actually painted
+     behind it by climbing ancestors and weighting any alpha, and applies the
+     WCAG AA threshold for its size. This is what caught a dark gold link
+     sitting inside a navy plate. */
+  var contrastFailures = [];
+  var contrastPage = await browser.newPage();
+  await contrastPage.setViewport({ width: 1280, height: 900 });
+  for (var cp = 0; cp < pages.length; cp += 1) {
+    await contrastPage.goto(BASE + '/' + pages[cp], { waitUntil: 'domcontentloaded', timeout: 60000 });
+    var bad = await contrastPage.evaluate(function () {
+      function parse(v) {
+        var m = /rgba?\(([^)]+)\)/.exec(v);
+        if (!m) return null;
+        var p = m[1].split(/[,\s/]+/).filter(Boolean).map(Number);
+        return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+      }
+      function lum(c) {
+        function ch(v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+        return 0.2126 * ch(c.r) + 0.7152 * ch(c.g) + 0.0722 * ch(c.b);
+      }
+      function ratio(f, b) {
+        var x = lum(f), y = lum(b), hi = Math.max(x, y), lo = Math.min(x, y);
+        return (hi + 0.05) / (lo + 0.05);
+      }
+      function behind(el) {
+        var layers = [], node = el;
+        while (node) {
+          var c = parse(window.getComputedStyle(node).backgroundColor);
+          if (c && c.a > 0.02) { layers.push(c); if (c.a > 0.97) break; }
+          node = node.parentElement;
+        }
+        var base = { r: 255, g: 255, b: 255 };
+        for (var i = layers.length - 1; i >= 0; i -= 1) {
+          var l = layers[i];
+          base = {
+            r: base.r * (1 - l.a) + l.r * l.a,
+            g: base.g * (1 - l.a) + l.g * l.a,
+            b: base.b * (1 - l.a) + l.b * l.a
+          };
+        }
+        return base;
+      }
+      var out = [];
+      var nodes = document.querySelectorAll('p, li, h1, h2, h3, h4, a, button, td, th, dt, dd, span, strong, em, summary, label');
+      nodes.forEach(function (el) {
+        if (!el.textContent || !el.textContent.trim()) return;
+        if (el.closest('[aria-hidden="true"]') || el.closest('svg')) return;
+        if (el.querySelector('p, li, h1, h2, h3, h4')) return;
+        var box = el.getBoundingClientRect();
+        if (!box.width || !box.height) return;
+        var cs = window.getComputedStyle(el);
+        if (cs.visibility === 'hidden' || cs.display === 'none') return;
+        /* A skip link parks itself off-canvas until focused, and the review
+           server injects its own floating button; neither is page content. */
+        if (box.right < 0 || box.left > window.innerWidth || box.top < -4000) return;
+        if (el.closest('#review-bar, .review-notes, [data-review-tools]')) return;
+        /* A styled button or pill paints its own ink on its own plate; the
+           colour that matters is the one on the element itself. */
+        if (el.matches('a, button') && !el.matches('p, li, td, th') &&
+            parse(window.getComputedStyle(el).backgroundColor).a > 0.9) return;
+        /* A bare wrapper whose whole text lives inside one painted button or
+           pill is measured at that child, not at the wrapper. */
+        if (el.children.length === 1) {
+          var only = el.children[0];
+          if ((only.tagName === 'A' || only.tagName === 'BUTTON') &&
+              only.textContent.trim() === el.textContent.trim()) return;
+        }
+        var fg = parse(cs.color);
+        if (!fg || fg.a < 0.5) return;
+        var size = parseFloat(cs.fontSize);
+        var weight = parseInt(cs.fontWeight, 10) || 400;
+        var large = size >= 24 || (size >= 18.66 && weight >= 700);
+        var need = large ? 3 : 4.5;
+        var r = ratio(fg, behind(el));
+        if (r < need - 0.15) {
+          out.push((el.tagName + '.' + String(el.className).split(' ')[0]).slice(0, 34) +
+            ' "' + el.textContent.trim().slice(0, 20) + '" ' + r.toFixed(2) + ':' + need);
+        }
+      });
+      return out;
+    });
+    bad.slice(0, 3).forEach(function (b) { contrastFailures.push(pages[cp] + ' — ' + b); });
+  }
+  await contrastPage.close();
+  check('text contrast passes WCAG AA on all ' + pages.length + ' pages',
+    contrastFailures.length === 0,
+    contrastFailures.slice(0, 4).join(' | ') || 'no failures');
+
   /* --- 8. the horizontal rail ------------------------------------------ */
   /* Every page must share one left edge and one container width, at desktop
      and on a phone. This is the check that caught six different left edges

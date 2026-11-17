@@ -1704,6 +1704,35 @@ main td {
   overflow-wrap: break-word;
 }
 
+/* The seminar card inside the audience quizzes is a navy plate, but the two
+   skip links inside it were styled for paper: dark gold on navy measured
+   2.2:1. On the navy plate they take the light gold with a matching rule. */
+.choosing-quiz-intro .quiz-skip a,
+.choosing-quiz-intro .policymakers-skip {
+  color: var(--gold-light, #f2d98a);
+  text-decoration-color: rgba(242, 217, 138, 0.7);
+}
+
+.choosing-quiz-intro .quiz-skip a:hover,
+.choosing-quiz-intro .policymakers-skip:hover {
+  color: #fff;
+  text-decoration-color: #fff;
+}
+
+.choosing-quiz-intro .quiz-skip a:focus-visible,
+.choosing-quiz-intro .policymakers-skip:focus-visible {
+  outline-color: var(--gold-light, #f2d98a);
+}
+
+/* An em dash in a table cell means "no link found". It was painted at
+   1.5:1 against paper — effectively invisible, which reads as an empty cell
+   rather than a deliberate dash. It now meets AA while staying visibly
+   lighter than the figures around it. */
+.chart-table td.is-empty,
+.data-table td.is-empty {
+  color: #6a6354;
+}
+
 /* ==========================================================================
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so

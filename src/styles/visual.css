@@ -626,8 +626,10 @@ table.scorecard-table {
   box-shadow: var(--shadow-sm);
 }
 
-.data-table thead th,
-.chart-table thead th,
+/* The navy header belongs to the scorecard only. Grouping it with the generic
+   table selectors painted every .data-table header navy — including the
+   research tables, whose own gold header rule then lost the cascade, leaving
+   navy text on a navy bar. Scoped to the scorecard. */
 table.scorecard-table thead th {
   background: var(--navy);
   color: #fff;

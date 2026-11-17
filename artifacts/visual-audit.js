@@ -364,6 +364,62 @@ function contrast(fg, bg) {
     JSON.stringify(headerState));
   await sticky.close();
 
+  /* --- 7b. table headers are legible ----------------------------------- */
+  /* A grouped selector once painted every .data-table header navy while the
+     research tables kept navy text, so entire header rows rendered as blank
+     navy bars. This walks every header cell on every page and compares its
+     text colour to the colour actually painted behind it. */
+  var tablePages = ['the-research.html', 'understanding-college.html', 'what-matters.html',
+    'about.html', 'choosing-a-college.html', 'counselors.html', 'college-leaders.html',
+    'policymakers.html'];
+  var headerFailures = [];
+  var tablePage = await browser.newPage();
+  await tablePage.setViewport({ width: 1280, height: 900 });
+  for (var tp = 0; tp < tablePages.length; tp += 1) {
+    await tablePage.goto(BASE + '/' + tablePages[tp], { waitUntil: 'networkidle0', timeout: 60000 });
+    var badHeaders = await tablePage.evaluate(function () {
+      function parse(value) {
+        var m = /rgba?\(([^)]+)\)/.exec(value);
+        if (!m) return null;
+        var parts = m[1].split(/[,\s/]+/).filter(Boolean).map(Number);
+        return { r: parts[0], g: parts[1], b: parts[2], a: parts.length > 3 ? parts[3] : 1 };
+      }
+      function luminance(c) {
+        function ch(v) { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }
+        return 0.2126 * ch(c.r) + 0.7152 * ch(c.g) + 0.0722 * ch(c.b);
+      }
+      function ratio(fg, bg) {
+        var a = luminance(fg), b = luminance(bg);
+        var hi = Math.max(a, b), lo = Math.min(a, b);
+        return (hi + 0.05) / (lo + 0.05);
+      }
+      function paintedBg(el) {
+        var node = el;
+        while (node && node !== document.documentElement) {
+          var c = parse(window.getComputedStyle(node).backgroundColor);
+          if (c && c.a > 0.85) return c;
+          node = node.parentElement;
+        }
+        return { r: 255, g: 255, b: 255, a: 1 };
+      }
+      var out = [];
+      document.querySelectorAll('table thead th, .chart-table-band th').forEach(function (th) {
+        var text = (th.textContent || '').trim();
+        if (!text) return;
+        if (!th.getBoundingClientRect().width) return;
+        var fg = parse(window.getComputedStyle(th).color);
+        if (!fg) return;
+        var r = ratio(fg, paintedBg(th));
+        if (r < 4.4) out.push(text.slice(0, 24) + ' = ' + r.toFixed(2) + ':1');
+      });
+      return out;
+    });
+    badHeaders.forEach(function (b) { headerFailures.push(tablePages[tp] + ' — ' + b); });
+  }
+  await tablePage.close();
+  check('table headers: text and background colours are distinct on every page',
+    headerFailures.length === 0, headerFailures.slice(0, 4).join(' | ') || 'all legible');
+
   /* --- 8. the horizontal rail ------------------------------------------ */
   /* Every page must share one left edge and one container width, at desktop
      and on a phone. This is the check that caught six different left edges

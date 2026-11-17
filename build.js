@@ -135,11 +135,19 @@ const siteNotes = {
   'what-matters': [
     {
       n: 1,
-      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021).'
+      text: 'Richard A. Detweiler, <em>The Evidence Liberal Arts Needs: Lives of Consequence, Inquiry, and Accomplishment</em> (MIT Press, 2021); findings in chapters 6 to 8 and appendix 5.'
     },
     {
       n: 2,
-      text: 'Detweiler, appendix 5. The chart follows the book\u2019s figure 10.1; percentages are the book\u2019s percent relative effect.'
+      text: 'Vincent Tinto, <em>Leaving College: Rethinking the Causes and Cures of Student Attrition</em>, 2nd ed. (University of Chicago Press, 1993).'
+    },
+    {
+      n: 3,
+      text: 'Gregory M. Walton and Geoffrey L. Cohen, &ldquo;A Brief Social-Belonging Intervention Improves Academic and Health Outcomes of Minority Students,&rdquo; <em>Science</em> 331 (2011): 1447&ndash;1451.'
+    },
+    {
+      n: 4,
+      text: 'Gregory M. Walton, Mary C. Murphy, Christine Logel and others, &ldquo;Where and with whom does a brief social-belonging intervention promote progress in college?&rdquo; <em>Science</em> 380 (2023): 499&ndash;505.'
     }
   ],
   about: [

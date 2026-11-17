@@ -1751,6 +1751,30 @@ main td {
   outline-offset: 2px;
 }
 
+/* The timeline disclosure parks its open/close marker against the far edge.
+   The marker was pushed right only by the "Read more" label's automatic
+   margin, so once the panel was open the label was hidden and the marker
+   collapsed onto the end of the heading, reading as a stray dash. The
+   heading now takes the free space instead. */
+.parents-more-summary h2 {
+  margin-right: auto;
+}
+
+.parents-more-summary .parents-more-label {
+  margin-left: 0;
+}
+
+.parents-more-summary::after {
+  margin-left: 0;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--gold-dark);
+}
+
+.parents-more > summary:hover::after {
+  color: var(--navy);
+}
+
 /* ==========================================================================
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so

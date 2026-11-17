@@ -145,14 +145,6 @@ main a:not(.btn):not(.brand) {
   color: var(--navy);
 }
 
-/* Underline: drawn beneath the existing active state, no extra markup. */
-.primary-nav > a[aria-current="page"] {
-  background-image: linear-gradient(90deg, var(--gold), var(--gold));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 2px;
-}
-
 /* Dropdown becomes a small sheet with a hairline and a soft lift. */
 .nav-dropdown-menu {
   background: #fff;
@@ -413,17 +405,39 @@ main a:not(.btn):not(.brand) {
 
 @media (max-width: 700px) {
   .home-hero {
-    padding-top: 2rem;
+    padding-top: 1.85rem;
+    padding-bottom: 2rem;
   }
 
   .home-hero h1 {
-    font-size: clamp(2rem, 8.4vw, 2.6rem);
+    font-size: clamp(1.95rem, 8vw, 2.5rem);
+  }
+
+  .home-hero .home-hero-standfirst {
+    margin-top: 0.9rem;
+    font-size: 1.18rem;
+  }
+
+  .home-hero .home-hero-standfirst::after {
+    margin-top: 0.85rem;
+  }
+
+  .home-hero .lede {
+    margin-top: 0.9rem;
+    font-size: 0.98rem;
+    line-height: 1.66;
   }
 
   .home-hero-panel {
     padding: 1.2rem 1.15rem;
   }
 
+  .home-hero-panel p {
+    font-size: 0.9rem;
+  }
+
+  /* The decorative arc reads as a smudge at phone widths, so it is dropped. */
+  .home-hero::before,
   .home-hero::after {
     display: none;
   }
@@ -975,6 +989,64 @@ main a:not(.btn):not(.brand) {
   }
 }
 
+/* The parents page is the one audience hero with no second column, so it ran
+   as a narrow stack of type down the left half of the page with nothing
+   opposite it. It uses the same editorial spread as the text-only heroes:
+   headline on the left, deck and actions on the right, sharing one baseline.
+   `display: contents` lets the copy wrapper's children sit in the hero grid
+   directly, which is layout only. The wrapper is a plain div with no role, so
+   nothing is lost to assistive technology, and the reading order is
+   untouched. */
+@media (min-width: 941px) {
+  .parents-hero .parents-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 5vw, 4rem);
+    align-items: end;
+    max-width: none;
+  }
+
+  .parents-hero .choosing-hero-copy {
+    display: contents;
+  }
+
+  .parents-hero .hero-rule {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 1.15rem;
+  }
+
+  .parents-hero .section-label {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+    margin-bottom: 0.55rem;
+  }
+
+  .parents-hero h1 {
+    grid-column: 1;
+    grid-row: 3;
+    max-width: 16ch;
+    margin-bottom: 0;
+  }
+
+  .parents-hero .lede {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    align-self: end;
+    max-width: 34rem;
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--border-strong);
+  }
+
+  .parents-hero .choosing-hero-actions {
+    grid-column: 2;
+    grid-row: 4;
+    margin-top: 1.5rem;
+  }
+}
+
 /* The prestige card on the choosing page: a filed note, not a panel. */
 .choosing-prestige-card {
   border-radius: var(--radius);
@@ -1329,9 +1401,35 @@ main a:not(.btn):not(.brand) {
     display: none;
   }
 
-  .js .reveal {
+  .js .reveal,
+  .js .reveal-in {
     opacity: 1;
     transform: none;
+    animation: none;
+  }
+
+  /* The study band is navy with white type on screen. If the reader prints
+     without background graphics, that band turns white, so its text has to
+     turn dark with it. */
+  .home-study {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  .home-study h2,
+  .home-study .section-label,
+  .home-study-list strong,
+  .home-study-links,
+  .home-study-links a {
+    color: #111 !important;
+  }
+
+  .audience-card,
+  .audience-card:hover,
+  .home-good-life-list li,
+  .book-band,
+  .home-hero-panel {
+    box-shadow: none;
   }
 }
 

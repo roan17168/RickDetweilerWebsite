@@ -2578,7 +2578,12 @@ main .research-finding-copy > p,
 main .parents-loan-copy > p,
 main .faculty-carrying > p,
 main .parents-advice > p,
-main .numbers-note > p {
+main .numbers-note > p,
+main .pullout-body > p,
+main .callout > p,
+main .understanding-callout > p,
+main .author-note > p,
+main .parents-advice p {
   font-family: var(--font-serif);
   font-size: 1.0625rem;
   line-height: 1.72;

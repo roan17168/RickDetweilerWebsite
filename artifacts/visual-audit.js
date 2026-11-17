@@ -583,6 +583,43 @@ function contrast(fg, bg) {
   check('boxed blocks are not stranded short of the rail', cappedFailures.length === 0,
     cappedFailures.slice(0, 4).join(' | ') || 'no stranded blocks');
 
+  /* --- 7e. one card grammar -------------------------------------------- */
+  /* The site had grown a dozen card classes with three corner radii and four
+     border treatments. This asserts that every surface card shares one
+     corner and one gold cap, so the pages cannot drift apart again. */
+  var grammarFailures = [];
+  var grammarPage = await browser.newPage();
+  await grammarPage.setViewport({ width: 1280, height: 900 });
+  var cardSelectors = ['.audience-card', '.parents-cost-card', '.parents-get-card',
+    '.parents-check-card', '.choosing-get-card', '.choosing-prestige-card',
+    '.faculty-card', '.policymakers-thing', '.policymakers-request', '.policymakers-washington-item',
+    '.leaders-board', '.audit-meta', '.audit-close', '.study-sample-card',
+    '.sidebar-card', '.citation-card', '.related-orgs li', '.home-good-life-list li',
+    '.study-fact'];
+  for (var gp2 = 0; gp2 < pages.length; gp2 += 1) {
+    await grammarPage.goto(BASE + '/' + pages[gp2], { waitUntil: 'domcontentloaded', timeout: 60000 });
+    var report = await grammarPage.evaluate(function (sels) {
+      var out = [];
+      sels.forEach(function (sel) {
+        var el = document.querySelector(sel);
+        if (!el) return;
+        var cs = window.getComputedStyle(el);
+        var radius = parseFloat(cs.borderTopLeftRadius);
+        var capWidth = parseFloat(cs.borderTopWidth);
+        var capColor = cs.borderTopColor;
+        if (radius < 8) out.push(sel + ' radius=' + radius);
+        if (capWidth < 2) out.push(sel + ' cap=' + capWidth);
+        if (!/rgba?\(212, 175, 55/.test(capColor)) out.push(sel + ' capColor=' + capColor);
+      });
+      return out;
+    }, cardSelectors);
+    report.forEach(function (r) { grammarFailures.push(pages[gp2] + ' — ' + r); });
+  }
+  await grammarPage.close();
+  check('every surface card shares one corner and one gold cap',
+    grammarFailures.length === 0,
+    grammarFailures.slice(0, 5).join(' | ') || 'one grammar across ' + cardSelectors.length + ' card types');
+
   /* --- 8. the horizontal rail ------------------------------------------ */
   /* Every page must share one left edge and one container width, at desktop
      and on a phone. This is the check that caught six different left edges

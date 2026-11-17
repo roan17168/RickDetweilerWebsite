@@ -20,6 +20,7 @@
    4. Pointer-tracked light on the hero and the navy study band.
    5. Slow drift on the hero's arc motif.
    6. A label or a sentence, for the bold opening of a paragraph.
+   7. A margin outline, on long pages, built from the headings already there.
 */
 
 (function () {
@@ -236,6 +237,160 @@
     });
   }
 
+  /* ---------------------------------------- 7. margin outline */
+
+  /* Long essay pages set their prose on the 748px reading measure inside the
+     1140px rail, which leaves about 380px empty down the whole length of the
+     page — measured at 90 to 100 per cent of its height. That column is not
+     decoration; it is the natural place for an outline.
+
+     The outline is built from headings that are already on the page, so it
+     adds no words of its own. It is aria-hidden because it duplicates the
+     page's own contents list, and the page remains complete and navigable
+     without it.
+
+     Two conditions keep it honest. It only appears on a wide viewport, and
+     only on a page long enough for an outline to help. Where a wide element
+     — a table, a chart, a timeline — runs the full rail, the outline steps
+     aside rather than sitting on top of it. */
+  function buildMarginOutline() {
+    if (window.matchMedia && !window.matchMedia('(min-width: 1180px)').matches) return;
+
+    var main = document.querySelector('main');
+    if (!main) return;
+    if (main.classList.contains('margin-outline-host')) return;
+    if (main.scrollHeight < 3000) return;
+
+    var sections = Array.prototype.filter.call(
+      main.querySelectorAll('section'),
+      function (sec) {
+        return !sec.closest('footer, aside, .choosing-quiz, .plan-shell, .parents-more');
+      }
+    );
+
+    /* The headings to list: the section headings, and, where a page has fewer
+       than three of those, its sub-headings as well. */
+    var heads = [];
+    sections.forEach(function (sec) {
+      var h2 = sec.querySelector('h2');
+      if (h2) heads.push(h2);
+    });
+
+    if (heads.length < 3) {
+      heads = [];
+      sections.forEach(function (sec) {
+        Array.prototype.forEach.call(sec.querySelectorAll('h2, h3'), function (h) {
+          if (heads.length < 12) heads.push(h);
+        });
+      });
+    }
+
+    if (heads.length < 3) return;
+
+    /* Anchors are needed for the links. Where a heading has none, one is
+       derived from its position on the page. Nothing visible changes. */
+    heads.forEach(function (h, i) {
+      if (!h.id) h.id = 'outline-' + (i + 1);
+    });
+
+    var nav = document.createElement('nav');
+    nav.className = 'margin-outline';
+    nav.setAttribute('aria-hidden', 'true');
+
+    var inner = document.createElement('div');
+    inner.className = 'margin-outline-inner';
+
+    var label = document.createElement('p');
+    label.className = 'margin-outline-label';
+    label.textContent = 'On this page';
+    inner.appendChild(label);
+
+    var list = document.createElement('ol');
+    var links = [];
+
+    heads.forEach(function (h) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent.trim();
+      li.appendChild(a);
+      list.appendChild(li);
+      links.push({ a: a, h: h });
+    });
+
+    inner.appendChild(list);
+    nav.appendChild(inner);
+    main.appendChild(nav);
+    main.classList.add('margin-outline-host');
+
+    /* When does the outline start earning its place? Only once the page's own
+       opening matter — the hero, and any contents list the page keeps in
+       flow — has gone by. Before that the reader is being introduced to the
+       page, and a duplicate list beside the title is noise.
+
+       Several pages carry their own "On this page" card near the top. The
+       outline is the same idea, so the two must never be on screen together. */
+    var startedAt = 0;
+    var seen = main.querySelector('.understanding-contents, .about-contents, .contents, [class*="contents"]');
+    if (seen) {
+      startedAt = seen.getBoundingClientRect().bottom + window.pageYOffset - 120;
+    }
+    if (!startedAt) {
+      var hero = main.querySelector('section');
+      startedAt = (hero ? hero.getBoundingClientRect().bottom + window.pageYOffset : 0) - 80;
+    }
+
+    var setDormant = function () {
+      nav.classList.toggle('is-dormant', window.pageYOffset < startedAt);
+    };
+    setDormant();
+    window.addEventListener('scroll', setDormant, { passive: true });
+
+    /* Anything wider than the reading measure would run under the outline.
+       Those are listed once, and the outline fades while one is alongside. */
+    var wide = Array.prototype.filter.call(
+      main.querySelectorAll('table, figure, .understanding-table-wrap, .understanding-timeline, ' +
+        '.research-stat-row, .chart-figure, .data-table, pre, blockquote'),
+      function (el) { return el.getBoundingClientRect().width > 900; }
+    );
+
+    if (wide.length) {
+      var ticking = false;
+      var check = function () {
+        ticking = false;
+        var rail = (nav.firstElementChild || nav).getBoundingClientRect();
+        var clash = wide.some(function (el) {
+          var r = el.getBoundingClientRect();
+          if (!r.width) return false;
+          return r.bottom > rail.top + 80 && r.top < rail.bottom - 80 &&
+                 r.right > rail.left + 40;
+        });
+        nav.classList.toggle('is-obscured', clash);
+      };
+      var onScroll = function () {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(check);
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      check();
+    }
+
+    /* Mark the entry for the section you are reading. */
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          links.forEach(function (l) {
+            l.a.classList.toggle('is-current', l.h === entry.target);
+          });
+        });
+      }, { rootMargin: '-12% 0px -72% 0px', threshold: 0 });
+      heads.forEach(function (h) { io.observe(h); });
+    }
+  }
+
   /* --------------------------------------------------------------- start */
 
   onIdle(function () {
@@ -244,5 +399,6 @@
     buildProgress();
     trackPointer();
     classifyRunins();
+    buildMarginOutline();
   });
 })();

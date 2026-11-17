@@ -2436,6 +2436,116 @@ main section.research-section--last {
 }
 
 /* ==========================================================================
+   12f. THE MARGIN OUTLINE
+   On the essay pages the prose is set on the 748px reading measure inside
+   the 1140px rail, which leaves about 380px empty — measured at 90 to 100
+   per cent of the page's full height. That is the blank space the page was
+   carrying.
+
+   The column now holds an outline of the page, built from the headings that
+   are already there. It is duplicative by design (aria-hidden, the page has
+   its own contents list) and it is the reason the prose column no longer
+   reads as a narrow strip with nothing beside it.
+   ========================================================================== */
+
+.margin-outline {
+  display: none;
+}
+
+@media (min-width: 1180px) {
+  .margin-outline-host {
+    position: relative;
+  }
+
+  .margin-outline {
+    display: block;
+    position: absolute;
+    top: 0;
+    /* Aligned to the rail's right edge, not the viewport's: main is
+       full-bleed, so right:0 would push the column into the gutter. */
+    right: max(1.15rem, calc((100% - var(--rail)) / 2));
+    bottom: 0;
+    width: min(17.5rem, calc(var(--rail) - var(--measure) - 3rem));
+    /* The column is a full-height track — top and bottom both pinned to the
+       page — so the panel inside it has room to travel and can stick. */
+    pointer-events: none;
+    transition: opacity 220ms var(--ease-soft);
+  }
+
+  /* Out of sight while the page is still introducing itself. */
+  .margin-outline.is-dormant,
+  .margin-outline.is-obscured {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .margin-outline-inner {
+    position: sticky;
+    top: 7rem;
+    pointer-events: auto;
+  }
+
+  .margin-outline-label {
+    margin: 0 0 0.9rem;
+    font-family: var(--font-sans);
+    font-size: var(--step-label);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--gold-text);
+  }
+
+  .margin-outline ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: 1px solid var(--border);
+  }
+
+  .margin-outline li {
+    margin: 0;
+  }
+
+  .margin-outline a {
+    display: block;
+    padding: 0.44rem 0 0.44rem 0.95rem;
+    margin-left: -1px;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--muted);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: color 180ms var(--ease-soft), border-color 180ms var(--ease-soft);
+  }
+
+  .margin-outline a:hover {
+    color: var(--navy);
+    border-left-color: var(--gold-line);
+  }
+
+  .margin-outline a:focus-visible {
+    outline: 2px solid var(--gold-dark);
+    outline-offset: 2px;
+  }
+
+  .margin-outline a.is-current {
+    color: var(--navy);
+    font-weight: 600;
+    border-left-color: var(--gold);
+  }
+}
+
+/* Print and reduced-motion: the outline is already a duplication of the
+   page, so it never prints. */
+@media print {
+  .margin-outline {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so
    the eye always has somewhere to land.

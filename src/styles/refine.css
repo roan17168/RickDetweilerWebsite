@@ -2034,6 +2034,63 @@ main td {
 }
 
 /* ==========================================================================
+   12b. ONE CARD GRAMMAR
+   The site had grown a dozen card classes with three different corner radii
+   and four different border treatments: some had a gold cap, some a plain
+   hairline, some a shadow, some none. Side by side that reads as unfinished
+   rather than varied. Every surface card now shares one grammar — the same
+   corner, the same hairline, the same soft lift, and a gold cap that warms
+   on hover — so a page made of cards looks designed as a set.
+   Panels that contain a form or a table keep their flatter treatment on
+   purpose: they are containers, not cards.
+   ========================================================================== */
+
+:where(.parents-cost-card, .parents-get-card, .parents-check-card,
+  .choosing-get-card, .choosing-prestige-card, .faculty-card,
+  .policymakers-thing, .policymakers-request, .policymakers-washington-item,
+  .leaders-board, .audit-meta, .audit-close, .leaders-checklist-close,
+  .study-sample-card, .sidebar-card) {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 3px solid rgba(212, 175, 55, 0.4);
+  border-radius: var(--radius);
+  box-shadow: var(--lift-1);
+  transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out),
+    border-color 220ms var(--ease-soft);
+}
+
+:where(.parents-cost-card, .parents-get-card, .parents-check-card,
+  .choosing-get-card, .choosing-prestige-card, .faculty-card,
+  .policymakers-thing, .policymakers-request, .policymakers-washington-item,
+  .leaders-board, .audit-meta, .audit-close, .leaders-checklist-close,
+  .study-sample-card, .sidebar-card):hover {
+  transform: translateY(-2px);
+  border-top-color: var(--gold);
+  box-shadow: var(--lift-2);
+}
+
+/* A small display numeral in gold, used where a card is one of a numbered
+   set. Panels that already carry a heading use it instead. */
+.card-index {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold-text);
+}
+
+/* The three "worth knowing" panels on the audience pages were pale slabs
+   with a two-pixel gold cap; they now share the card grammar above and gain
+   a warm paper tint so they read as a lighter weight than the quiz card. */
+.parents-cost-grid > *,
+.policymakers-things > * {
+  background-image: linear-gradient(180deg, #fffdf7 0%, #ffffff 60%);
+}
+
+/* ==========================================================================
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so
    the eye always has somewhere to land.

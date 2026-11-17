@@ -531,6 +531,58 @@ function contrast(fg, bg) {
     contrastFailures.length === 0,
     contrastFailures.slice(0, 4).join(' | ') || 'no failures');
 
+  /* --- 7d. no boxed block is left short of the rail --------------------- */
+  /* Twice now a table, a figure or a card grid stayed pinned to the 748px
+     reading measure inside the 1140px rail, leaving a third of the page
+     blank beside it. This finds any wide, boxed block that is narrower than
+     the rail while its prose neighbours are full width. */
+  var cappedFailures = [];
+  var cappedPage = await browser.newPage();
+  await cappedPage.setViewport({ width: 1280, height: 900 });
+  for (var gp = 0; gp < pages.length; gp += 1) {
+    await cappedPage.goto(BASE + '/' + pages[gp], { waitUntil: 'domcontentloaded', timeout: 60000 });
+    var capped = await cappedPage.evaluate(function () {
+      var out = [];
+      function measurePx() {
+        var raw = getComputedStyle(document.documentElement).getPropertyValue('--measure').trim();
+        var rootSize = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+        var num = parseFloat(raw);
+        if (!num) return 748;
+        if (/rem$/.test(raw)) return num * rootSize;
+        if (/em$/.test(raw)) return num * rootSize;
+        return num;
+      }
+      var rail = document.querySelector('.reading, main > .container, main > section > .container');
+      var railWidth = rail ? rail.getBoundingClientRect().width : 1140;
+      var boxy = document.querySelectorAll(
+        'table, .data-table, .chart-table, .chart-card, figure, .study-grid, .study-sample, ' +
+        '.research-findings, .research-table-wrap, .understanding-chart, .callout, .pullout');
+      boxy.forEach(function (el) {
+        var w = el.getBoundingClientRect().width;
+        if (w < 8) return;
+        if (el.closest('.sidebar-card, aside, .notes-panel, dialog')) return;
+        /* a two-column card grid inside a rail is fine; only flag something
+           that is clearly a near-full-width candidate but stopped short */
+        if (w > railWidth * 0.9) return;
+        /* A prose-shaped block at the reading measure is intentional, not
+           stranded: --measure is ~0.66 of the rail and is how prose is set.
+           Only flag something that sits between that measure and the rail. */
+        /* --measure is declared in rem, so resolve it against the root size
+           rather than reading the number off the string. */
+        var measure = measurePx();
+        if (w <= measure + 4) return;
+        if (w < railWidth * 0.55) return;
+        out.push((el.tagName + '.' + String(el.className).split(' ')[0]).slice(0, 34) +
+          ' ' + Math.round(w) + '/' + Math.round(railWidth));
+      });
+      return out;
+    });
+    capped.slice(0, 3).forEach(function (c) { cappedFailures.push(pages[gp] + ' — ' + c); });
+  }
+  await cappedPage.close();
+  check('boxed blocks are not stranded short of the rail', cappedFailures.length === 0,
+    cappedFailures.slice(0, 4).join(' | ') || 'no stranded blocks');
+
   /* --- 8. the horizontal rail ------------------------------------------ */
   /* Every page must share one left edge and one container width, at desktop
      and on a phone. This is the check that caught six different left edges

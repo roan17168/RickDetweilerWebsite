@@ -148,6 +148,24 @@
   }
 }
 
+/* The Choosing a College page runs a reading column beside a results sidebar.
+   The column was fixed at 760px and the sidebar at 280–360px, which together
+   came to about 1120px of a 1140px rail but were centred as a block, so the
+   prose column ended up narrow while the space between the two was mostly
+   gap. The rail is now divided properly: the column takes what the prose can
+   use and the sidebar takes a fixed measure. */
+@media (min-width: 1081px) {
+  .audience-layout {
+    grid-template-columns: minmax(0, var(--measure)) minmax(280px, 1fr);
+    gap: clamp(2rem, 3.5vw, 3.25rem);
+    justify-content: stretch;
+  }
+
+  .audience-main {
+    max-width: none;
+  }
+}
+
 /* ==========================================================================
    2. PAGE GROUND AND TYPE DETAIL
    ========================================================================== */
@@ -1902,6 +1920,12 @@ main td {
     padding-left: 0;
     border-left: 0;
   }
+}
+
+/* The faculty self-audit table was capped at 58rem, so it stopped 214px
+   short of the rail while every section around it used the full width. */
+.audit-prompt-table-wrap {
+  max-width: none;
 }
 
 /* ==========================================================================

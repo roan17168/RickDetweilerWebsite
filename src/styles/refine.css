@@ -1000,14 +1000,22 @@ main a:not(.btn):not(.brand) {
   margin-bottom: 1.15rem;
 }
 
+/* The card action is a hairlined link across the full width of the card body,
+   set on the same left edge as the heading and the quote above it.
+
+   It used to be `width: max-content` inside a flex column, which sizes a child
+   to its own text rather than to the space available: in the four-across row
+   the card body is 231px wide and the label needed 221px, so the underline ran
+   out past the card. Since the cards already carry 1.35rem of side margin, the
+   link is now inset by that margin and fills what is left. */
 .audience-card .btn {
   position: relative;
   z-index: 1;
-  align-self: flex-start;
+  align-self: stretch;
   justify-content: flex-start;
-  width: -moz-max-content;
-  width: max-content;
-  max-width: 100%;
+  box-sizing: border-box;
+  width: auto;
+  max-width: none;
   margin-top: auto;
   text-align: left;
   padding: 0.5rem 0;
@@ -1017,12 +1025,17 @@ main a:not(.btn):not(.brand) {
   background: none;
   box-shadow: none;
   color: var(--navy);
-  font-size: 0.82rem;
+  /* The label is "Start the 2-minute quiz" plus an arrow, and in the
+     four-across row the card body is only about 190px wide once the side
+     margins are taken. At 0.82rem with 0.06em tracking it wrapped onto a second
+     line and pushed the arrow away from it, so the size and tracking are set to
+     what keeps it on one line at the tightest card width. */
+  font-size: clamp(0.72rem, 0.62rem + 0.16vw, 0.82rem);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
   text-transform: uppercase;
-  transition: color 180ms var(--ease-soft), border-color 180ms var(--ease-soft),
-    padding-right 180ms var(--ease-out);
+  transition: color 180ms var(--ease-soft), border-color 180ms var(--ease-soft);
 }
 
 .audience-card .btn::after {
@@ -1032,9 +1045,23 @@ main a:not(.btn):not(.brand) {
   transition: transform 180ms var(--ease-out);
 }
 
+@media (max-width: 1100px) {
+  /* Two-across and one-across rows have room for the full treatment. */
+  .audience-card .btn {
+    white-space: normal;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* A gold fill was being drawn behind text that then stayed gold-dark, and the
+   block stopped short of the card edge — it read as a misaligned highlight
+   rather than a hover. The action is a link, so hovering darkens the label and
+   the rule under it and nothing else. */
 .audience-card:hover .btn {
   color: var(--gold-text);
   border-bottom-color: var(--gold);
+  background: none;
 }
 
 .audience-card:hover .btn::after {

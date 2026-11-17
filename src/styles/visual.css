@@ -786,24 +786,14 @@ table.scorecard-table thead th {
   }
 }
 
-/* card actions: legacy gold block button */
+/* Card actions are set in refine.css (§ card grammar): a hairlined link on the
+   card's own left edge. The gold block button that used to live here was
+   superseded by it, and keeping both meant every property below was declared
+   twice and then over-ridden — including a hover fill that came back whenever
+   the later rule did not mention it. */
 .audience-card {
   display: flex;
   flex-direction: column;
-}
-
-.audience-card .btn {
-  width: 100%;
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--navy);
-  font-weight: 600;
-}
-
-.audience-card .btn:hover {
-  background: #b89628;
-  border-color: #b89628;
-  color: #fff;
 }
 
 /* hero: centered, legacy-style, no dead column at tablet widths */

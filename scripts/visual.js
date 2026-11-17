@@ -439,7 +439,21 @@
       ticking = false;
       var box = inner.getBoundingClientRect();
       if (!box.width) return;
-      if (box.top < 90 || box.bottom > window.innerHeight) {
+      /* The list of entries grows with the page, and on a short viewport a long
+         one runs past the bottom of the window. Showing the top half of a list
+         that continues below the fold is worse than not showing it: the reader
+         cannot see the entry they want and the panel covers the text beside it.
+         So an outline taller than the window stays out of the way entirely. */
+      if (box.height > window.innerHeight - 180) {
+        nav.classList.add('is-obscured');
+        return;
+      }
+      /* Coming into view from above is not a reason to stop guarding: the panel
+         sticks at 7rem, which is above this threshold, so as soon as the reader
+         reached a section the condition was met and the outline was taken out
+         of the collision test — precisely where a full-rail paragraph could be
+         underneath it. Only "off screen entirely" clears the state now. */
+      if (box.bottom <= 0 || box.top >= window.innerHeight) {
         nav.classList.remove('is-obscured');
         return;
       }
@@ -458,6 +472,40 @@
           var r = rects[j];
           if (r.width < 4 || r.height < 4) continue;
           if (r.right > left && r.bottom > top && r.top < bottom) { clash = true; break; }
+        }
+      }
+
+      /* Text is not the only thing that can end up under the panel. A card's
+         header band carries an icon and, on the home page, a running number —
+         neither is a text node, and neither is wide enough to be caught by the
+         comparison above. So the panels and bands themselves are tested too.
+
+         A section or a container is only a box: a heading inside it may end
+         well before the panel, and hiding the outline because a section
+         happens to span the rail would leave the whole page without one. The
+         test is therefore for things that are drawn — a card, a band, a
+         figure, an image, a button — not for the wrappers around them. */
+      if (!clash) {
+        var drawn = main.querySelectorAll(
+          'article, .audience-card, .about-work-card, .book-band, figure, table, ' +
+          '.pullout, .callout, .card-icon, img, svg, .btn, .parents-cost-card, ' +
+          '.faculty-card, .leaders-practice, .understanding-quote, .research-finding, ' +
+          'li, blockquote, pre, aside, .chart, ' +
+          /* A closing paragraph can sit outside any card and run the full rail. */
+          '.understanding-closing-lede, .understanding-closing h3'
+        );
+        for (var k = 0; k < drawn.length && !clash; k++) {
+          var el = drawn[k];
+          if (nav.contains(el)) continue;
+          /* A card icon sits inside a card that is already tested; measuring
+             both only doubles the work. */
+          if (el.tagName === 'SVG' && el.closest('article, .audience-card, .btn, nav')) continue;
+          var er = el.getBoundingClientRect();
+          if (er.width < 24 || er.height < 16) continue;
+          if (er.right > left && er.left < box.right - 6 &&
+              er.bottom > top && er.top < bottom) {
+            clash = true;
+          }
         }
       }
 

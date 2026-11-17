@@ -465,6 +465,45 @@
   max-width: 46rem;
 }
 
+/* The three engagements — testimony, speaking, advising — are cards on the same
+   grammar as the rest of the site: a hairline, a rounded corner, a little air.
+   They carried no styling at all, so each heading sat directly under the button
+   of the block above and the three read as one undifferentiated column. The
+   button inside each card is a control, not a sentence, so it keeps its own
+   height and left edge. */
+.about-work-cards {
+  display: grid;
+  gap: var(--s-4);
+  margin: var(--s-5) 0 var(--s-6);
+}
+
+.about-work-card {
+  padding: var(--s-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.about-work-card h3 {
+  margin-bottom: var(--s-2);
+  font-size: 1.15rem;
+}
+
+.about-work-card p {
+  margin-bottom: 0;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.about-work-card p:last-child {
+  margin-top: var(--s-4);
+}
+
+.about-work-card .btn {
+  margin: 0;
+}
+
 .about-study {
   margin-top: var(--s-6);
   padding: var(--s-5);

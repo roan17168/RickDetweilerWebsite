@@ -503,70 +503,64 @@
   "scorecard": {
     "dealbreakers": [
       {
-        "question": "Can my family afford all four years, after grants and scholarships?",
-        "where": "The college's net price calculator; College Scorecard (cost by family income); your scholarship or financial aid offer"
+        "question": "Will it help me become who I want to be?",
+        "where": "Your own reflection; the questions your quiz result gave you"
       },
       {
-        "question": "Do students like me finish here, in four years?",
-        "where": "College Scorecard; College Navigator; ask admissions for the graduation rate of Pell Grant recipients"
+        "question": "Is it affordable after aid?",
+        "where": "The college's net price calculator; your financial aid offer; College Scorecard cost by family income"
       },
       {
-        "question": "Will I feel safe, supported and like I belong?",
-        "where": "Current students; campus support offices; your own visit"
+        "question": "Is it safe?",
+        "where": "Campus safety reports; current students; your own visit"
       },
       {
-        "question": "Do they have what I might study, with room to change my mind?",
-        "where": "Course catalog; admissions"
+        "question": "Are there support services if I need them?",
+        "where": "Student support offices; ask a student whether they used them"
       }
     ],
     "experiences": [
       {
-        "key": "professors",
-        "label": "Professors and students outside class (counts for every result)",
-        "question": "Do professors know students and spend time with them outside class?",
-        "where": "Ask a student: \"Is there a professor who knows you well?\""
+        "key": "faculty",
+        "label": "Faculty contact",
+        "question": "Will professors know my name by the end of year one?",
+        "where": "Are there honors sections or first-year seminars capped under 20, and can I get into them? Do professors or staff advise first-year students? Do full-time professors teach first-year courses?",
+        "mine": false
       },
       {
-        "key": "leadership",
-        "label": "Leadership",
-        "question": "Do students get real responsibility early?",
-        "where": "Club and team pages: are first- and second-year students in charge?"
+        "key": "breadth",
+        "label": "Breadth",
+        "question": "Can I take more than half of my courses outside my major?",
+        "where": "How many credits does my intended major require? How many electives are left after the major and general education?",
+        "mine": false
       },
       {
-        "key": "civic",
-        "label": "Civic Involvement",
-        "question": "Do classes and programs work with the community over time?",
-        "where": "Service office; news page; ask a student what they've worked on"
+        "key": "discussion",
+        "label": "Classroom discussion",
+        "question": "Do students do the talking in small classes?",
+        "where": "Are courses mostly lectures, or do most courses involve active student involvement? Which courses are taught as seminars or in small sections?",
+        "mine": false
       },
       {
-        "key": "continued",
-        "label": "Continued Learning",
-        "question": "Is there room to study outside the major, in small discussion classes?",
-        "where": "Graduation requirements; first-year course list"
+        "key": "community",
+        "label": "Community",
+        "question": "Do professors know students and spend time with them outside class? Are students involved in clubs, teams and community?",
+        "where": "Do students and professors spend time together outside class? What groups or activities do students actually lead? What do students do on weekends?",
+        "mine": false
       },
       {
-        "key": "cultural",
-        "label": "Cultural Involvement",
-        "question": "Will I study and spend time with ideas, arts and people unlike me?",
-        "where": "Required courses; events calendar; study-abroad numbers"
-      },
-      {
-        "key": "fulfillment",
-        "label": "Fulfillment",
-        "question": "Will someone help me think about what I want, not just which classes I need?",
-        "where": "Ask how advisers are assigned; course descriptions"
-      },
-      {
-        "key": "personal",
-        "label": "Personal Success",
-        "question": "Are internships and big projects common, paid or funded, and supported early?",
-        "where": "Outcomes page; career office; ask a student when they first went"
+        "key": "finishing",
+        "label": "Finishing",
+        "question": "What share of students like me graduate?",
+        "where": "What share of students who receive Pell Grants graduate within four years? Within six years?",
+        "mine": false
       }
     ],
     "summary": [
       "Number of Strongs (starred rows first)",
       "The best example I heard",
       "What worries me"
-    ]
+    ],
+    "ownRows": 4
   }
 }

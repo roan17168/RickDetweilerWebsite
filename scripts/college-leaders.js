@@ -22,6 +22,49 @@
 
   var initialized = false;
 
+
+  var RESULT_STORAGE = 'wcirf_leaders_result_v1';
+
+  function persistResults(results) {
+    try {
+      if (!root.localStorage) return;
+      root.localStorage.setItem(RESULT_STORAGE, JSON.stringify({
+        results: (results || []).map(function (item) { return item.key; })
+      }));
+    } catch (error) {
+      // The check still works without storage.
+    }
+  }
+
+  /* A shared link carries the result name or names: #result=mission. It wins over storage. */
+  function reopenResults(data) {
+    var wanted = [];
+    try {
+      var hash = String(root.location ? root.location.hash : '').replace(/^#/, '');
+      hash.split('&').forEach(function (part) {
+        var pieces = part.split('=');
+        if (pieces[0] === 'result') {
+          wanted = decodeURIComponent(pieces[1] || '').split('|').filter(Boolean);
+        }
+      });
+    } catch (error) {
+      wanted = [];
+    }
+    if (!wanted.length) {
+      try {
+        var raw = root.localStorage ? root.localStorage.getItem(RESULT_STORAGE) : null;
+        var saved = raw ? JSON.parse(raw) : null;
+        wanted = saved && Array.isArray(saved.results) ? saved.results : [];
+      } catch (error) {
+        wanted = [];
+      }
+    }
+    if (!wanted.length || !data || !data.quiz) return [];
+    return wanted.map(function (key) {
+      return (data.quiz.results || []).filter(function (item) { return item.key === key; })[0];
+    }).filter(Boolean);
+  }
+
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, function (character) {
       return {
@@ -105,6 +148,7 @@
     html += '<div class="result-tools">' +
       '<button class="btn btn-outline" type="button" data-result-copy>Copy my questions</button>' +
       '<button class="btn btn-outline" type="button" data-result-email>Email this to me</button>' +
+      '<button class="btn btn-outline" type="button" data-result-share data-result-share-key="wcirf_leaders_result_v1">Share my result</button>' +
       '<span class="result-tool-status" role="status" aria-live="polite"></span>' +
       '</div>';
     html += '<div class="quiz-actions">' +
@@ -227,6 +271,7 @@
 
   Quiz.prototype.showResults = function (scored) {
     var self = this;
+    persistResults(scored.results);
     this.app.innerHTML = resultHtml(scored.results);
 
     this.app.querySelector('[data-leaders-retake]').addEventListener('click', function () {
@@ -358,7 +403,9 @@
     var app = document.querySelector('[data-leaders-quiz]');
     if (app) {
       var quiz = new Quiz(app, data);
-      quiz.start();
+      var reopen = reopenResults(data);
+      if (reopen.length) quiz.showResults({ results: reopen });
+      else quiz.start();
     }
   }
 

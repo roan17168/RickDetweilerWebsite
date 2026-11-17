@@ -144,8 +144,7 @@
   document.addEventListener('click', function (event) {
     var copy = event.target.closest('[data-result-copy]');
     var email = event.target.closest('[data-result-email]');
-    if (!copy && !email) return;
-    var button = copy || email;
+    if (!copy && !email) return;    var button = copy || email;
     var scope = button.closest('.quiz-results, .in-college-result, .faculty-result, .leaders-results, .policymakers-results');
     var source = scope ? scope.querySelector('.result-copy-source') : null;
     if (!source) return;
@@ -157,6 +156,55 @@
     }
     window.location.href = 'mailto:?subject=' + encodeURIComponent('My questions from What College Is Really For') +
       '&body=' + encodeURIComponent(text);
+  });
+
+  /* Share my result: copies a link that reopens the page with the same result showing,
+     without the reader's individual answers. The result is stored on this device under
+     the page's result key; the link carries only the result name, and on arrival the page
+     rebuilds that result from its own data. */
+  document.addEventListener('click', function (event) {
+    var button = event.target.closest('[data-result-share]');
+    if (!button) return;
+    var key = button.getAttribute('data-result-share-key');
+    if (!key) return;
+    var slug = null;
+    try {
+      var raw = window.localStorage ? window.localStorage.getItem(key) : null;
+      var saved = raw ? JSON.parse(raw) : null;
+      slug = saved ? (saved.outcome || saved.result || null) : null;
+    } catch (error) {
+      slug = null;
+    }
+    var status = button.parentNode ? button.parentNode.querySelector('.result-tool-status') : null;
+    if (!slug) {
+      if (status) status.textContent = 'Take the quiz once, then this link will reopen your result.';
+      return;
+    }
+    var link = String(window.location.href).split('#')[0] + '#result=' + encodeURIComponent(slug);
+    var done = function (copied) {
+      if (status) {
+        status.textContent = copied
+          ? 'Link copied. It reopens this result without your answers.'
+          : 'Copy this link: ' + link;
+      }
+    };
+    try {
+      window.history.replaceState(null, '', link);
+    } catch (error) {
+      // The link is still offered for this page view.
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(link).then(function () { done(true); }, function () { done(false); });
+    } else {
+      var area = document.createElement('textarea');
+      area.value = link;
+      document.body.appendChild(area);
+      area.select();
+      var copied = false;
+      try { copied = document.execCommand('copy'); } catch (copyError) { copied = false; }
+      document.body.removeChild(area);
+      done(copied);
+    }
   });
 
   var advancingChoice = null;

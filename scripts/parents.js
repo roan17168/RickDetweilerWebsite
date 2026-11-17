@@ -23,6 +23,50 @@
   var HONESTY = '<p class="quiz-honesty">This study looked at graduates&rsquo; adult lives and the college experiences linked to life outcomes. The results held for graduates of all types of colleges, big and small, private and public, prestigious and not, and they are supported by many other research studies. <a href="the-research.html">The Research page</a> explains what the study can and cannot show.</p>';
   var initialized = false;
 
+
+  var RESULT_STORAGE = 'wcirf_parents_result_v1';
+
+  function readStored() {
+    try {
+      var raw = root.localStorage ? root.localStorage.getItem(RESULT_STORAGE) : null;
+      return raw ? JSON.parse(raw) : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function writeStored(outcome) {
+    try {
+      if (root.localStorage) root.localStorage.setItem(RESULT_STORAGE, JSON.stringify({ outcome: outcome }));
+    } catch (error) {
+      return false;
+    }
+    return true;
+  }
+
+  function removeStored() {
+    try {
+      if (root.localStorage) root.localStorage.removeItem(RESULT_STORAGE);
+    } catch (error) {
+      // Nothing else to do.
+    }
+  }
+
+  /* A shared link carries only the result name: #result=Growth. */
+  function sharedOutcome() {
+    try {
+      var hash = String(root.location ? root.location.hash : '').replace(/^#/, '');
+      var found = null;
+      hash.split('&').forEach(function (part) {
+        var pieces = part.split('=');
+        if (pieces[0] === 'result') found = decodeURIComponent(pieces[1] || '');
+      });
+      return found && OUTCOMES.indexOf(found) !== -1 ? found : null;
+    } catch (error) {
+      return null;
+    }
+  }
+
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, function (character) {
       return {
@@ -306,12 +350,14 @@
 
   Quiz.prototype.showResults = function (scored) {
     var self = this;
-    var results = scored.result.map(function (key) {
+    var wanted = String(scored.result || '').split('|');
+    var results = wanted.map(function (key) {
       return findResult(self.data, key);
     }).filter(Boolean);
 
     if (!results.length) return;
     this.phase = 'results';
+    writeStored(scored.result.join('|'));
 
     var panels = this.panelsHtml();
     var tieNote = results.length > 1 ?
@@ -336,6 +382,7 @@
       '<div class="result-tools">' +
       '<button class="btn btn-outline" type="button" data-result-copy>Copy my questions</button>' +
       '<button class="btn btn-outline" type="button" data-result-email>Email this to me</button>' +
+      '<button class="btn btn-outline" type="button" data-result-share data-result-share-key="wcirf_parents_result_v1">Share my result</button>' +
       '<span class="result-tool-status" role="status" aria-live="polite"></span>' +
       '</div>' +
       '<div class="quiz-actions">' +
@@ -344,6 +391,12 @@
       '</div></div>';
 
     this.app.querySelector('[data-parents-retake]').addEventListener('click', function () {
+      removeStored();
+      try {
+        window.history.replaceState(null, '', String(window.location.href).split('#')[0] + '#quiz');
+      } catch (error) {
+        // The quiz still restarts for this page view.
+      }
       self.start();
     });
 
@@ -366,7 +419,15 @@
     var quizApp = document.querySelector('[data-parents-quiz]');
     if (quizApp) {
       var quiz = new Quiz(quizApp, data);
-      quiz.start();
+      var shared = sharedOutcome();
+      var stored = readStored();
+      /* A shared link wins over a stored result; either reopens the result without answers. */
+      var reopen = shared || (stored && stored.outcome ? stored.outcome : null);
+      if (reopen && findResult(data, String(reopen).split('|')[0])) {
+        quiz.showResults({ result: String(reopen).split('|') });
+      } else {
+        quiz.start();
+      }
     }
 
     if (root.matchMedia) {

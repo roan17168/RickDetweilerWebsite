@@ -103,6 +103,34 @@
     };
   }
 
+
+  var RESULT_STORAGE = 'wcirf_in_college_result_v1';
+
+  /* A shared link carries only the result name: #result=<key>. It wins over a stored result. */
+  function sharedResultKey(data) {
+    var wanted = null;
+    try {
+      var hash = String(root.location ? root.location.hash : '').replace(/^#/, '');
+      hash.split('&').forEach(function (part) {
+        var pieces = part.split('=');
+        if (pieces[0] === 'result') wanted = decodeURIComponent(pieces[1] || '');
+      });
+    } catch (error) {
+      wanted = null;
+    }
+    if (!wanted) {
+      try {
+        var raw = root.localStorage ? root.localStorage.getItem(RESULT_STORAGE) : null;
+        var saved = raw ? JSON.parse(raw) : null;
+        wanted = saved ? saved.result : null;
+      } catch (error) {
+        wanted = null;
+      }
+    }
+    if (!wanted) return null;
+    return (data.quiz.results || []).find(function (band) { return band.key === wanted; }) || null;
+  }
+
   function initPractices() {
     if (practiceInitialized) return;
     practiceList = document.querySelector('[data-practice-list]');
@@ -399,9 +427,11 @@
     this.focusQuestion(true);
   };
 
-  Quiz.prototype.showResult = function () {
+  Quiz.prototype.showResult = function (forced) {
     var self = this;
-    var scored = scoreQuiz(this.answers, this.data);
+    var scored = forced
+      ? { complete: true, result: forced, values: [] }
+      : scoreQuiz(this.answers, this.data);
     if (!scored.complete || !scored.result) return;
 
     var result = scored.result;
@@ -428,6 +458,7 @@
       '<div class="result-tools">' +
       '<button class="btn btn-outline" type="button" data-result-copy>Copy my questions</button>' +
       '<button class="btn btn-outline" type="button" data-result-email>Email this to me</button>' +
+      '<button class="btn btn-outline" type="button" data-result-share data-result-share-key="wcirf_in_college_result_v1">Share my result</button>' +
       '<span class="result-tool-status" role="status" aria-live="polite"></span>' +
       '</div>' +
       '<div class="quiz-actions">' +
@@ -645,7 +676,9 @@
     var quizApp = document.querySelector('[data-check-app]');
     if (quizApp) {
       var quiz = new Quiz(quizApp, data);
-      quiz.start();
+      var reopen = sharedResultKey(data);
+      if (reopen) quiz.showResult(reopen);
+      else quiz.start();
     }
     var planForm = document.querySelector('[data-plan-form]');
     if (planForm) new Plan(planForm);

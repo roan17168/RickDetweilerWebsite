@@ -28,16 +28,19 @@
     'Personal Success'
   ];
 
-  var RESULT_TO_ROW = {
-    'Leadership': 'leadership',
-    'Civic Involvement': 'civic',
-    'Continued Learning': 'continued',
-    'Cultural Involvement': 'cultural',
-    'Fulfillment': 'fulfillment',
-    'Personal Success': 'personal'
+  /* Revision 6 gives the scorecard five experience rows plus four of the reader's own.
+     A quiz result names a long-term outcome, not a row, so each outcome stars the rows
+     whose experiences the research links to it. */
+  var RESULT_TO_ROWS = {
+    'Leadership': ['community', 'faculty'],
+    'Civic Involvement': ['community', 'faculty'],
+    'Continued Learning': ['breadth', 'discussion', 'faculty'],
+    'Cultural Involvement': ['breadth', 'discussion'],
+    'Fulfillment': ['discussion', 'breadth', 'community'],
+    'Personal Success': ['breadth', 'faculty']
   };
 
-  var SCORECARD_ROWS = ['leadership', 'civic', 'continued', 'cultural', 'fulfillment', 'personal'];
+  var SCORECARD_ROWS = ['faculty', 'breadth', 'discussion', 'community', 'finishing'];
   var RATINGS = ['Strong', 'Mixed', 'Weak', "Don't know yet"];
   var DEALBREAKER_VALUES = ['Pass', 'Fail', "Don't know yet"];
   var RESULT_STORAGE = 'wcirf_choosing_result_v2';
@@ -610,15 +613,19 @@
       ratings: [],
       stars: {},
       notes: [],
+      own: {},
       leading: ''
     };
     for (index = 0; index < 4; index += 1) {
       state.dealbreakers.push(['', '', '', '']);
-      state.ratings.push(['', '', '', '', '', '', '']);
+      state.ratings.push(['', '', '', '', '', '', '', '', '']);
       state.notes.push({ example: '', worry: '' });
     }
-    ['professors', 'leadership', 'civic', 'continued', 'cultural', 'fulfillment', 'personal'].forEach(function (key) {
+    ['faculty', 'breadth', 'discussion', 'community', 'finishing', 'own-1', 'own-2', 'own-3', 'own-4'].forEach(function (key) {
       state.stars[key] = false;
+    });
+    ['own-1', 'own-2', 'own-3', 'own-4'].forEach(function (key) {
+      state.own[key] = '';
     });
     return state;
   }
@@ -667,7 +674,7 @@
       }
       if (Array.isArray(parsed.ratings)) {
         this.state.ratings = [0, 1, 2, 3].map(function (college) {
-          return [0, 1, 2, 3, 4, 5, 6].map(function (row) {
+          return [0, 1, 2, 3, 4, 5, 6, 7, 8].map(function (row) {
             var value = parsed.ratings[college] && parsed.ratings[college][row];
             return hasValue(RATINGS, value) ? value : '';
           });
@@ -686,6 +693,11 @@
             worry: typeof note.worry === 'string' ? note.worry : ''
           };
         });
+      }
+      if (parsed.own && typeof parsed.own === 'object') {
+        Object.keys(this.state.own).forEach(function (key) {
+          this.state.own[key] = typeof parsed.own[key] === 'string' ? parsed.own[key] : '';
+        }, this);
       }
       if (typeof parsed.leading === 'string') this.state.leading = parsed.leading;
     } catch (error) {
@@ -714,8 +726,9 @@
       self.state.stars[key] = false;
     });
     (outcomes || []).forEach(function (outcome) {
-      var key = RESULT_TO_ROW[outcome];
-      if (key) self.state.stars[key] = true;
+      (RESULT_TO_ROWS[outcome] || []).forEach(function (key) {
+        if (SCORECARD_ROWS.indexOf(key) !== -1) self.state.stars[key] = true;
+      });
     });
     var note = document.querySelector('[data-scorecard-prefill]');
     if (note && outcomes && outcomes.length) {
@@ -807,15 +820,31 @@
         '</tr>';
     }).join('');
 
-    var experienceRows = data.experiences.map(function (experience, rowIndex) {
+    var ownRows = [];
+    for (var ownIndex = 0; ownIndex < (data.ownRows || 4); ownIndex += 1) {
+      ownRows.push({
+        key: 'own-' + (ownIndex + 1),
+        label: 'My own',
+        question: '',
+        where: '',
+        mine: true
+      });
+    }
+    var allRows = data.experiences.concat(ownRows);
+
+    var experienceRows = allRows.map(function (experience, rowIndex) {
       return '<tr data-scorecard-row="' + experience.key + '">' +
         '<th scope="row" class="scorecard-experience">' +
         '<div class="scorecard-rowtitle">' +
         '<button type="button" class="scorecard-star" data-scorecard-star="' + experience.key + '" data-scorecard-label="' + escapeHtml(experience.label) + '" aria-pressed="' + (state.stars[experience.key] ? 'true' : 'false') + '" aria-label="' + (state.stars[experience.key] ? 'Unstar ' : 'Star ') + escapeHtml(experience.label) + ' row">' +
         '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 2.6 2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3.1-5.8 3.1 1.1-6.4L2.6 9.4l6.5-.9z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>' +
-        '</button><span>' + escapeHtml(experience.label) + '</span></div>' +
-        '<p class="scorecard-question">' + escapeHtml(experience.question) + '</p>' +
-        '<span class="scorecard-where-inline">' + escapeHtml(experience.where) + '</span>' +
+        '</button>' + (experience.mine
+          ? '<input class="scorecard-own-label" type="text" data-scorecard-own="' + escapeHtml(experience.key) + '" value="' + escapeHtml(state.own[experience.key] || '') + '" placeholder="Write in what matters to you" aria-label="Write in your own row ' + (rowIndex - 4) + '">'
+          : '<span>' + escapeHtml(experience.label) + '</span>') + '</div>' +
+        (experience.mine
+          ? ''
+          : '<p class="scorecard-question">' + escapeHtml(experience.question) + '</p>' +
+            '<span class="scorecard-where-inline">' + escapeHtml(experience.where) + '</span>') +
         '</th>' +
         '<td class="scorecard-where">' + escapeHtml(experience.where) + '</td>' +
         [1, 2, 3, 4].map(function (college) {
@@ -1017,6 +1046,13 @@
     if (target.matches('[data-scorecard-leading]')) {
       this.state.leading = target.value;
       this.save();
+      return;
+    }
+    if (target.matches('[data-scorecard-own]')) {
+      var ownKey = target.getAttribute('data-scorecard-own');
+      this.state.own[ownKey] = target.value;
+      this.save();
+      return;
     }
   };
 
@@ -1031,8 +1067,13 @@
         lines.push(' - ' + row.question + ' ' + (self.state.dealbreakers[index][rowIndex] || 'Not filled in'));
       });
       lines.push('Experiences:');
-      self.data.experiences.forEach(function (experience, rowIndex) {
-        lines.push(' - ' + experience.label + ': ' + (self.state.ratings[index][rowIndex] || 'Not rated') + (self.state.stars[experience.key] ? ' (starred)' : ''));
+      self.data.experiences.concat([0, 1, 2, 3].map(function (n) {
+        return { key: 'own-' + (n + 1), label: 'My own', mine: true };
+      })).forEach(function (experience, rowIndex) {
+        var rowLabel = experience.mine
+          ? (self.state.own[experience.key] || 'My own row')
+          : experience.label;
+        lines.push(' - ' + rowLabel + ': ' + (self.state.ratings[index][rowIndex] || 'Not rated') + (self.state.stars[experience.key] ? ' (starred)' : ''));
       });
       lines.push('Strongs: ' + counts.starred + ' starred, ' + counts.all + ' total');
       lines.push('Best example: ' + (self.state.notes[index].example || 'Not filled in'));
@@ -1096,6 +1137,6 @@
     shuffle: shuffle,
     scorecard: Scorecard,
     RESULT_ORDER: RESULT_ORDER,
-    RESULT_TO_ROW: RESULT_TO_ROW
+    RESULT_TO_ROWS: RESULT_TO_ROWS
   };
 });

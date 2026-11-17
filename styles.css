@@ -12300,6 +12300,24 @@ main td {
   color: #6a6354;
 }
 
+/* Keyboard focus inside the quizzes lands on the radio itself, which is a
+   small native control. The whole answer card takes the ring, so the focus
+   state is as legible as every other link and button on the site. */
+.quiz-choice:has(input:focus-visible),
+.checklist-item:has(input:focus-visible),
+.scorecard-row:has(select:focus-visible) {
+  outline: 2px solid var(--gold-dark);
+  outline-offset: 2px;
+  border-color: var(--gold);
+  background: #fffdf6;
+}
+
+.quiz-choice:has(input:focus-visible) input,
+.checklist-item:has(input:focus-visible) input {
+  outline: 2px solid var(--gold-dark);
+  outline-offset: 2px;
+}
+
 /* ==========================================================================
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so

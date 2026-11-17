@@ -93,10 +93,10 @@
     /* All four read the same way — a figure above a label — so the strip has
        a rhythm rather than a mix of numbers and words. */
     var figures = [
-      { value: '1,000', label: 'graduates interviewed' },
-      { value: '25–65', label: 'ages in the study' },
-      { value: '6', label: 'life outcomes measured' },
-      { value: '40', label: 'years looked back' }
+      { value: '1,000', label: 'graduates' },
+      { value: '25–65', label: 'ages studied' },
+      { value: '6', label: 'life outcomes' },
+      { value: '40', label: 'years later' }
     ];
 
     /* Only show a strip whose figures really are the study's. If the list

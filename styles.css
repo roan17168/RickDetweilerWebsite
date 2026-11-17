@@ -12495,6 +12495,111 @@ main td {
   max-width: none;
 }
 
+/* The Research page closes on a citation card and four related organizations.
+   The citation card was held to the reading measure with an empty third of
+   the rail beside it, and the organization list was a plain bullet stack.
+   The card now takes the rail and sets the citation as a quotation, with the
+   imprint and the award line beneath a hairline; the organizations read as a
+   four-up row of plates. */
+.citation-card {
+  position: relative;
+  max-width: none;
+  padding: clamp(1.4rem, 3vw, 2.1rem) clamp(1.4rem, 3vw, 2.25rem)
+    clamp(1.4rem, 3vw, 2rem) clamp(1.9rem, 4vw, 2.9rem);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--lift-1);
+}
+
+.citation-card::before {
+  content: "";
+  position: absolute;
+  inset: clamp(1.2rem, 2.5vw, 1.8rem) auto clamp(1.2rem, 2.5vw, 1.8rem) 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--gold), rgba(212, 175, 55, 0.25));
+}
+
+.citation-card p:first-child {
+  max-width: 62ch;
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--navy);
+}
+
+.citation-card p + p {
+  max-width: none;
+  margin-top: 0.9rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.citation-card .btn {
+  margin-top: 1.15rem;
+}
+
+/* four related organizations, laid edge to edge */
+.research-section .related-orgs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: none;
+  margin-top: 1.4rem;
+  padding: 0;
+  list-style: none;
+}
+
+.research-section .related-orgs li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.05rem 1.15rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 3px solid rgba(212, 175, 55, 0.4);
+  border-radius: 10px;
+  transition: border-color 220ms var(--ease-soft), transform 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out);
+}
+
+.research-section .related-orgs li:hover {
+  transform: translateY(-2px);
+  border-top-color: var(--gold);
+  box-shadow: var(--lift-1);
+}
+
+.research-section .related-orgs a {
+  font-family: var(--font-display, Lora, Georgia, serif);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--navy);
+  text-decoration-color: rgba(212, 175, 55, 0.7);
+  text-underline-offset: 3px;
+}
+
+.research-section .related-orgs span {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .research-section .related-orgs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .research-section .related-orgs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ==========================================================================
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so

@@ -1641,6 +1641,26 @@ main a:not(.btn):not(.brand) {
   border-bottom: 1px solid rgba(230, 225, 214, 0.8);
 }
 
+/* Long identifiers (storage keys, URLs) have no spaces to break on, so at
+   320px they pushed the page wider than the viewport. Code and inline
+   identifiers may now break anywhere rather than overflow. */
+code,
+kbd,
+samp,
+.term,
+.term span {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Same for a long unbroken link or word in body copy. */
+main p,
+main li,
+main dd,
+main td {
+  overflow-wrap: break-word;
+}
+
 /* ==========================================================================
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so

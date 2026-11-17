@@ -199,12 +199,14 @@ function contrast(fg, bg) {
   await rm.close();
 
   /* --- 3. no horizontal overflow at any width --------------------------- */
-  var widths = [320, 390, 480, 720, 860, 960, 1024, 1180, 1280, 1440, 1920];
+  var widths = [320, 360, 390, 414, 480, 600, 768, 834, 1024, 1280, 1440];
   for (var w = 0; w < widths.length; w += 1) {
     var width = widths[w];
     var probe = await browser.newPage();
     await probe.setViewport({ width: width, height: 900 });
-    await probe.goto(BASE + '/index.html', { waitUntil: 'networkidle0', timeout: 60000 });
+    /* The narrowest widths are where a long identifier or a wide table
+       usually breaks out, so every page is checked, not just the home page. */
+    await probe.goto(BASE + '/' + pages[w % pages.length], { waitUntil: 'networkidle0', timeout: 60000 });
     var overflow = await probe.evaluate(function () {
       var docWidth = document.documentElement.clientWidth;
       var scrollWidth = document.documentElement.scrollWidth;
@@ -220,11 +222,31 @@ function contrast(fg, bg) {
       }
       return { docWidth: docWidth, scrollWidth: scrollWidth, wide: wide.slice(0, 4) };
     });
-    check('home at ' + width + 'px: no horizontal overflow',
+    check('page ' + (w % pages.length + 1) + ' at ' + width + 'px: no horizontal overflow',
       overflow.scrollWidth <= overflow.docWidth + 1,
       overflow.wide.join(' | ') || (overflow.scrollWidth + '/' + overflow.docWidth));
     await probe.close();
   }
+
+  /* --- 3b. every page at the narrowest width --------------------------- */
+  var narrowFailures = [];
+  var narrowPage = await browser.newPage();
+  await narrowPage.setViewport({ width: 320, height: 800 });
+  for (var nw = 0; nw < pages.length; nw += 1) {
+    await narrowPage.goto(BASE + '/' + pages[nw], { waitUntil: 'domcontentloaded', timeout: 60000 });
+    var narrow = await narrowPage.evaluate(function () {
+      var vw = document.documentElement.clientWidth;
+      return {
+        over: document.documentElement.scrollWidth > vw + 1,
+        sw: document.documentElement.scrollWidth,
+        vw: vw
+      };
+    });
+    if (narrow.over) narrowFailures.push(pages[nw] + ' ' + narrow.sw + '/' + narrow.vw);
+  }
+  await narrowPage.close();
+  check('every page fits a 320px viewport', narrowFailures.length === 0,
+    narrowFailures.slice(0, 4).join(' | ') || 'all ' + pages.length + ' pages fit');
 
   /* --- 4. contrast ------------------------------------------------------ */
   var contrastPage = await browser.newPage();

@@ -563,13 +563,11 @@ function contrast(fg, bg) {
         if (el.closest('.sidebar-card, aside, .notes-panel, dialog')) return;
         /* a two-column card grid inside a rail is fine; only flag something
            that is clearly a near-full-width candidate but stopped short */
-        if (w > railWidth * 0.9) return;
-        /* A prose-shaped block at the reading measure is intentional, not
-           stranded: --measure is ~0.66 of the rail and is how prose is set.
-           Only flag something that sits between that measure and the rail. */
-        /* --measure is declared in rem, so resolve it against the root size
-           rather than reading the number off the string. */
+        /* Accepted widths: the rail itself (allowing for a rounded wrapper's
+           padding), or the reading measure. Anything that lands between the
+           two is a block that stopped short for no reason. */
         var measure = measurePx();
+        if (w > railWidth * 0.9) return;
         if (w <= measure + 4) return;
         if (w < railWidth * 0.55) return;
         out.push((el.tagName + '.' + String(el.className).split(' ')[0]).slice(0, 34) +

@@ -997,7 +997,9 @@ const manifest = {
   background_color: '#fdfcfb',
   theme_color: '#1b365d',
   icons: [
-    { src: 'favicon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' }
+    { src: 'favicon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+    { src: 'favicon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+    { src: 'favicon-maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
   ]
 };
 fs.writeFileSync(path.join(OUT, 'assets', 'site.webmanifest'), JSON.stringify(manifest, null, 2) + '\n');

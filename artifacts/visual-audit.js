@@ -798,6 +798,80 @@ function contrast(fg, bg) {
     noJsState.heroRows >= 2 && noJsState.figures === 0, JSON.stringify(noJsState));
   await noJs.close();
 
+  /* --- panels that open sideways ---------------------------------------- */
+  /* A disclosure opened in place, inside a column, leaves a tall ribbon of
+     text with an empty channel beside it. These assertions hold the fix in
+     place: on a wide screen a panel that has room takes the side layout and
+     grows; on a narrow one it does not, and nothing overflows either way. */
+  var sidePages = ['understanding-college.html', 'in-college.html', 'faculty.html', 'choosing-a-college.html'];
+  var sideWide = { applied: 0, grew: 0 };
+  var sideNarrow = { applied: 0, overflow: 0 };
+
+  for (var si = 0; si < sidePages.length; si++) {
+    var sp = await browser.newPage();
+    await sp.setViewport({ width: 1440, height: 900 });
+    await sp.goto(BASE + '/' + sidePages[si], { waitUntil: 'networkidle0', timeout: 60000 });
+    var wideState = await sp.evaluate(async function () {
+      /* For each panel that took the side layout, compare its body against
+         the same body with the layout removed. That is the real claim: the
+         panel gives the body more room than it would otherwise have. Some of
+         these panels are already open when the page loads, so a before/after
+         around the click would measure nothing. */
+      var out = { applied: 0, grew: 0 };
+      var all = Array.prototype.slice.call(document.querySelectorAll('main details'));
+      for (var i = 0; i < all.length; i++) {
+        var d = all[i];
+        var body = null;
+        for (var c = 0; c < d.children.length; c++) {
+          if (d.children[c].tagName !== 'SUMMARY') { body = d.children[c]; break; }
+        }
+        if (!body) continue;
+        if (!d.open) { d.open = true; d.dispatchEvent(new Event('toggle')); }
+        await new Promise(function (r) { setTimeout(r, 60); });
+        if (d.classList.contains('has-side-panel')) {
+          out.applied++;
+          d.classList.remove('has-side-panel');
+          var without = body.getBoundingClientRect().width;
+          d.classList.add('has-side-panel');
+          var with_ = body.getBoundingClientRect().width;
+          if (with_ > without + 40) out.grew++;
+        }
+        d.open = false;
+        d.dispatchEvent(new Event('toggle'));
+      }
+      return out;
+    });
+    sideWide.applied += wideState.applied;
+    sideWide.grew += wideState.grew;
+    await sp.close();
+
+    var sn = await browser.newPage();
+    await sn.setViewport({ width: 390, height: 844 });
+    await sn.goto(BASE + '/' + sidePages[si], { waitUntil: 'networkidle0', timeout: 60000 });
+    var narrowState = await sn.evaluate(async function () {
+      var all = Array.prototype.slice.call(document.querySelectorAll('main details'));
+      for (var i = 0; i < all.length; i++) {
+        all[i].open = true;
+        all[i].dispatchEvent(new Event('toggle'));
+      }
+      await new Promise(function (r) { setTimeout(r, 220); });
+      return {
+        applied: document.querySelectorAll('main details.has-side-panel').length,
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+      };
+    });
+    sideNarrow.applied += narrowState.applied;
+    if (narrowState.overflow > 1) sideNarrow.overflow++;
+    await sn.close();
+  }
+
+  check('a panel with room opens beside its label and widens',
+    sideWide.applied > 0 && sideWide.grew === sideWide.applied,
+    sideWide.applied + ' panels, ' + sideWide.grew + ' widened');
+  check('no panel takes the side layout on a narrow screen',
+    sideNarrow.applied === 0 && sideNarrow.overflow === 0,
+    sideNarrow.applied + ' applied, ' + sideNarrow.overflow + ' pages overflowing');
+
   await browser.close();
 
   /* --- report ----------------------------------------------------------- */

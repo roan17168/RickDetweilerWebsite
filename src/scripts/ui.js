@@ -7,6 +7,15 @@
 
   document.documentElement.classList.add('js');
 
+  /* Remember which disclosures the author opened in the markup, before any
+     script closes or reorders them. The visual layer uses this to decide
+     whether a panel opens beside its label or underneath it. Recorded here
+     because this file runs before the page-specific scripts, and it is the
+     only point at which the authored state is still true. */
+  Array.prototype.forEach.call(document.querySelectorAll('details'), function (details) {
+    details.setAttribute('data-authored-open', details.hasAttribute('open') ? 'true' : 'false');
+  });
+
   var page = document.body.getAttribute('data-page');
   if (page) {
     document.querySelectorAll('[data-nav]').forEach(function (link) {

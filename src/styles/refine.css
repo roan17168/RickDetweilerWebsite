@@ -2629,6 +2629,110 @@ main h3 + p[data-runin="label"] {
 }
 
 /* ==========================================================================
+   12h. A PANEL THAT OPENS BESIDE ITS LABEL
+
+   A disclosure is a short label and a long body. Opened in place, the body
+   appears under the label and takes the whole width of whatever box it is
+   in — which, when the box is one column of a two-column grid, leaves an
+   empty channel beside a thousand pixels of text. The window was horizontal
+   and the panel was vertical.
+
+   Where there is room, the open panel becomes a row: the label a column, the
+   body the rest. visual.js decides per panel, from real measured width, and
+   adds .has-side-panel. On a narrow screen the class is never added and the
+   panel opens underneath exactly as before.
+
+   The divider runs down the left of the body rather than across the top, so
+   the label reads as a marginal note on the passage beside it.
+   ========================================================================== */
+
+/* A panel that becomes a row must not be confined to one cell of the grid it
+   sits in. Outside a grid the declaration is simply ignored. */
+main details.has-side-panel {
+  grid-column: 1 / -1;
+  /* The card is sized so that the label and the body together fill it. A card
+     spanning the whole rail would leave a hollow strip inside its own border,
+     which is the thing being fixed; a card slightly narrower than the rail
+     leaves ordinary page margin instead. */
+  max-width: min(100%, calc(var(--measure) + 17rem));
+}
+
+main details.has-side-panel {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.25fr) minmax(0, 1fr);
+  column-gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  row-gap: 0;
+  align-items: start;
+}
+
+main details.has-side-panel > summary {
+  margin: 0;
+  padding: 0.15rem 0 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+/* Only panels whose summary is a plain, short label take the side layout.
+   A card whose summary is a numbered heading with a marker of its own keeps
+   its full width; it is a heading, not a margin note. */
+main details.has-side-panel > summary::before,
+main details.has-side-panel > summary::after {
+  content: none;
+}
+
+main details.has-side-panel > :not(summary) {
+  max-width: 100%;
+  padding-left: clamp(1rem, 2vw, 1.6rem);
+  border-left: 1px solid var(--border);
+  margin-top: 0;
+}
+
+/* Inside a tinted plate the rule takes the plate's own accent. */
+main .pullout.has-side-panel > :not(summary),
+main .callout.has-side-panel > :not(summary),
+main .understanding-callout.has-side-panel > :not(summary) {
+  border-left-color: rgba(212, 175, 55, 0.4);
+}
+
+/* A body that is a grid of its own keeps that grid, now with more room. */
+main details.has-side-panel > .understanding-more-body,
+main details.has-side-panel > .counselors-glossary-more-body {
+  padding-left: clamp(1rem, 2vw, 1.6rem);
+}
+
+/* A tall body of running prose, already as wide as it needs to be, flows in
+   two columns instead of one long ribbon. The words and their order are
+   untouched; only the measure changes. */
+main details.has-split-body > :not(summary) {
+  column-count: 2;
+  column-gap: clamp(1.75rem, 3vw, 2.75rem);
+  column-rule: 1px solid var(--border);
+}
+
+main details.has-split-body p,
+main details.has-split-body h3,
+main details.has-split-body blockquote {
+  break-inside: avoid;
+}
+
+/* A heading that starts a column needs its own air, not the gap the rule
+   above would otherwise collapse into the previous column's foot. */
+main details.has-split-body > :not(summary) > :first-child {
+  margin-top: 0;
+}
+
+/* Consecutive footnote markers in a row — "24252627" — are unreadable. Where
+   several sit together, they get a hair space and a thin comma between them,
+   drawn by the pseudo-element so no character is added to the markup. */
+main sup + sup > .source-note::before {
+  content: ", ";
+  font-weight: 400;
+  letter-spacing: 0;
+  color: inherit;
+}
+
+/* ==========================================================================
    13. LONG-FORM READING
    Text-heavy pages get a wider measure, more leading and clearer headings so
    the eye always has somewhere to land.

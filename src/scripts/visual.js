@@ -21,6 +21,7 @@
    5. Slow drift on the hero's arc motif.
    6. A label or a sentence, for the bold opening of a paragraph.
    7. A margin outline, on long pages, built from the headings already there.
+   8. A panel that opens beside its label when there is room for it.
 */
 
 (function () {
@@ -423,6 +424,16 @@
       mo.observe(main, { childList: true, subtree: true });
     }
 
+    /* A disclosure opening does not add nodes, so the observer does not see
+       it, but the page underneath changes shape. Re-measure when that
+       happens, then re-test immediately so the outline never sits over a
+       panel that has just opened beneath it. */
+    document.addEventListener('layout-changed', function () {
+      lastScan = Date.now();
+      findCandidates();
+      check();
+    });
+
     var ticking = false;
     var check = function () {
       ticking = false;
@@ -476,6 +487,134 @@
     }
   }
 
+  /* ---------------------------------------- 8. panels that open sideways */
+
+  /* Several panels on this site are disclosures: a short label, and a long
+     body that appears underneath it when opened. Opened in place they are
+     the tallest thing on the page — a five-entry list of quotations became a
+     thousand pixels of single-column text with the other half of the grid
+     empty beside it. The window was horizontal and the panel was vertical.
+
+     Where there is room, the body now opens beside its label instead: the
+     panel becomes a row, the label a column, the body the rest. On a narrow
+     screen there is no room, so nothing changes there — the panel opens
+     underneath exactly as before.
+
+     The test for "there is room" is real width, not a guess: does the body
+     have more than its current width available once the label is set beside
+     it, by a margin worth the reflow.
+
+     A panel the author opened in the markup is a deliberate part of the page
+     rather than a thing the reader asked to see, so it always takes the side
+     layout where it fits. A panel the reader opens does the same. Nothing is
+     hidden either way, and the words are untouched. */
+  var SIDE_LAYOUT = 'has-side-panel';
+  var sideQuery = window.matchMedia ? window.matchMedia('(min-width: 900px)') : null;
+
+  function bodyOf(details) {
+    var kids = details.children;
+    for (var i = 0; i < kids.length; i++) {
+      if (kids[i].tagName !== 'SUMMARY') return kids[i];
+    }
+    return null;
+  }
+
+  var SPLIT_BODY = 'has-split-body';
+
+  /* How wide is the space a panel could occupy? If the panel is one cell of a
+     two-column grid — which is where most of these live — the cell is only
+     half the page, and the fix is to let the panel span the whole grid before
+     deciding anything about its inside. The stylesheet does the spanning; this
+     measures against the room it would then have. */
+  function roomFor(details) {
+    var width = details.getBoundingClientRect().width;
+    var parent = details.parentElement;
+    if (parent) {
+      var style = window.getComputedStyle(parent);
+      if (style.display === 'grid' || style.display === 'inline-grid') {
+        var cols = style.gridTemplateColumns.split(' ').filter(Boolean).length;
+        if (cols > 1) {
+          var pr = parent.getBoundingClientRect();
+          var inner = pr.width - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+          width = Math.max(width, inner);
+        }
+      }
+    }
+    return width;
+  }
+
+  function applySidePanel(details) {
+    if (!sideQuery) return;
+    details.classList.remove(SIDE_LAYOUT);
+    details.classList.remove(SPLIT_BODY);
+
+    if (!sideQuery.matches || !details.open) return;
+
+    var body = bodyOf(details);
+    if (!body) return;
+
+    /* A table or a grid of cards is already using the full width it was
+       given; setting it beside a label would only squeeze it. */
+    if (body.matches('table, figure, pre') || body.querySelector(':scope > table')) return;
+
+    var current = body.getBoundingClientRect().width;
+    var room = roomFor(details);
+    if (!current || !room) return;
+
+    /* A body too short to matter is left alone: a definition popover with two
+       lines in it has nothing to gain from being turned sideways. */
+    var height = body.getBoundingClientRect().height;
+
+    /* How much wider can the body get with the label beside it? */
+    var summary = details.querySelector('summary');
+    var labelWidth = summary ? Math.min(summary.getBoundingClientRect().width, room * 0.3) : 0;
+    var available = room - labelWidth - 32;
+
+    if (height < 220) return;
+
+    if (available - current >= 110) {
+      details.classList.add(SIDE_LAYOUT);
+      return;
+    }
+
+    /* Otherwise the panel already has the width it needs and the height is
+       the problem. Running prose in it can flow in two columns instead of
+       one long ribbon — the same words, half the height. Only plain blocks:
+       a list or a figure set in columns reads worse than a tall one. */
+    var blocks = Array.prototype.slice.call(body.children);
+    var plain = blocks.length >= 4 && blocks.every(function (el) {
+      return /^(P|H3|H4|BLOCKQUOTE)$/.test(el.tagName);
+    });
+    if (plain && height > 620 && current > 600) {
+      details.classList.add(SPLIT_BODY);
+    }
+  }
+
+  function buildSidePanels() {
+    if (!sideQuery) return;
+    var panels = document.querySelectorAll('main details');
+    Array.prototype.forEach.call(panels, function (details) {
+      applySidePanel(details);
+      /* Only listen once per panel. */
+      if (details.getAttribute('data-side-watch')) return;
+      details.setAttribute('data-side-watch', 'true');
+      details.addEventListener('toggle', function () {
+        applySidePanel(details);
+        /* Opening a panel changes the page's shape, so anything measured
+           against the old shape has to be measured again. */
+        document.dispatchEvent(new CustomEvent('layout-changed'));
+      });
+    });
+    if (!document.documentElement.getAttribute('data-side-resize')) {
+      document.documentElement.setAttribute('data-side-resize', 'true');
+      var relayout = function () {
+        Array.prototype.forEach.call(document.querySelectorAll('main details'), applySidePanel);
+      };
+      if (sideQuery.addEventListener) sideQuery.addEventListener('change', relayout);
+      else if (sideQuery.addListener) sideQuery.addListener(relayout);
+    }
+  }
+
   /* --------------------------------------------------------------- start */
 
   onIdle(function () {
@@ -485,5 +624,6 @@
     trackPointer();
     classifyRunins();
     buildMarginOutline();
+    buildSidePanels();
   });
 })();

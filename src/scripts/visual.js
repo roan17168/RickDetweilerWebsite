@@ -329,6 +329,11 @@
       var a = document.createElement('a');
       a.href = '#' + h.id;
       a.textContent = h.textContent.trim();
+      /* The panel duplicates the page's own contents list, so it is
+         aria-hidden. A focusable control inside an aria-hidden region is a
+         trap for anyone on a keyboard, so these stay out of the tab order;
+         the page's own list is the accessible route to the same anchors. */
+      a.tabIndex = -1;
       li.appendChild(a);
       list.appendChild(li);
       links.push({ a: a, h: h });

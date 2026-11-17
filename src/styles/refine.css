@@ -393,7 +393,12 @@ main a:not(.btn):not(.brand) {
 
 .btn-primary:hover,
 .btn-gold:hover {
-  background-image: linear-gradient(180deg, #d6b345 0%, #c9a733 52%, #b6952b 100%);
+  /* Hover lifts the gold rather than deepening it. Deepening it to #b6952b put
+     the navy label at 4.23:1 — under the 4.5:1 the rest of the site meets, on
+     every primary button there is. This is lighter than the resting gradient, so
+     the button brightens under the pointer, and the label clears 5.9:1 at the
+     darkest stop. */
+  background-image: linear-gradient(180deg, #ecd084 0%, #e4c469 52%, #d9b755 100%);
   color: var(--navy);
   transform: translateY(-2px);
   box-shadow:
@@ -418,6 +423,45 @@ main a:not(.btn):not(.brand) {
 .btn-outline:hover {
   transform: translateY(-1px);
   box-shadow: var(--lift-1);
+}
+
+/* An outline button carries the page's ink colour, which is right on paper and
+   invisible on a navy panel — "Sources for this page" was measured at 1:1, dark
+   ink on navy, on every closing panel in the site. Where the surface is dark the
+   outline button takes the light treatment instead. */
+.understanding-closing .btn-outline,
+.parents-next .btn-outline,
+.faculty-closing .btn-outline,
+.policymakers-closing .btn-outline,
+.choosing-closing .btn-outline,
+.in-college-closing .btn-outline,
+.leaders-closing .btn-outline,
+.counselors-closing .btn-outline,
+[class*="-closing"] .btn-outline {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.55);
+  color: #fff;
+  box-shadow: none;
+}
+
+.understanding-closing .btn-outline:hover,
+.parents-next .btn-outline:hover,
+.faculty-closing .btn-outline:hover,
+.policymakers-closing .btn-outline:hover,
+.choosing-closing .btn-outline:hover,
+.in-college-closing .btn-outline:hover,
+.leaders-closing .btn-outline:hover,
+.counselors-closing .btn-outline:hover,
+[class*="-closing"] .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--gold);
+  color: #fff;
+}
+
+/* The small print that can follow the action holds the same light tone. */
+.understanding-closing .sources-end,
+[class*="-closing"] .sources-end {
+  color: rgba(255, 255, 255, 0.82);
 }
 
 /* ==========================================================================

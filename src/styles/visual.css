@@ -133,9 +133,14 @@ h1 {
   box-shadow: 0 4px 10px rgba(27, 54, 93, 0.1);
 }
 
+/* A flat #b89628 here painted over the gold gradient set later in the sheet and
+   left the navy label at 4.29:1 — under the 4.5:1 the rest of the site meets, on
+   every primary button on the site. The gradient is the button's finish now, so
+   the hover only moves it and lets the gradient rules in the later sheet set the
+   colour; `background: none` is what stops this rule from covering them. */
 .btn-primary:hover {
-  background: #b89628;
-  color: #fff;
+  background: none;
+  color: var(--navy);
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }

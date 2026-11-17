@@ -10683,8 +10683,9 @@ blockquote p:last-child {
     .chart-table-wrap, .understanding-chart, .understanding-chart-data, .chart-table,
     .understanding-kinds-table, .understanding-context-table, .callout, .pullout,
     figure, .chart-figure),
-  .research-section > :is(.study-grid, .research-findings, .research-table-wrap, .callout),
-  .privacy-body > :is(table) {
+  .research-section > :is(.study-grid, .study-sample, .research-findings,
+    .research-table-wrap, .callout, .pullout, figure),
+  .privacy-body > :is(table, .data-table) {
     max-width: none;
   }
 

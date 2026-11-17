@@ -13134,11 +13134,35 @@ main section.research-section--last {
 main .container > p:not([class]),
 main .understanding-reading > p:not([class]),
 main .reading-body > p,
-main .about-reading > p {
+main .about-reading > p,
+main .privacy-body > p,
+main .understanding-history-body > p,
+main .research-prose > p,
+main .choosing-section > p,
+main .policymakers-brief-intro > p,
+main .about-study > p,
+main .research-finding-copy > p,
+main .parents-loan-copy > p,
+main .faculty-carrying > p,
+main .parents-advice > p,
+main .numbers-note > p,
+main .pullout-body > p,
+main .callout > p,
+main .understanding-callout > p,
+main .author-note > p,
+main .parents-advice p {
   font-family: var(--font-serif);
   font-size: 1.0625rem;
   line-height: 1.72;
   letter-spacing: 0.001em;
+}
+
+/* The lede is the page speaking in its own voice, so it is set in the reading
+   face at reading scale — not in the interface face. */
+main p.lede,
+main .home-hero .lede {
+  font-family: var(--font-serif);
+  line-height: 1.6;
 }
 
 /* Footnote markers stay in the screen face, so a numeral beside a serif is

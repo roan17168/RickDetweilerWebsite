@@ -9290,8 +9290,10 @@ table.scorecard-table {
   box-shadow: var(--shadow-sm);
 }
 
-.data-table thead th,
-.chart-table thead th,
+/* The navy header belongs to the scorecard only. Grouping it with the generic
+   table selectors painted every .data-table header navy — including the
+   research tables, whose own gold header rule then lost the cascade, leaving
+   navy text on a navy bar. Scoped to the scorecard. */
 table.scorecard-table thead th {
   background: var(--navy);
   color: #fff;
@@ -10561,4 +10563,2994 @@ blockquote p:last-child {
 .path-nav a:hover {
   color: var(--gold-dark);
   text-decoration: underline;
+}
+
+/* Refinement layer
+
+   A restrained visual upgrade that sits on top of the existing language:
+   deeper colour, editorial composition instead of stacked centred text,
+   a quieter paper texture, and motion that is felt rather than noticed.
+
+   Rules of engagement held throughout:
+   - No copy, markup or structural changes. Selectors only, plus two
+     attribute hooks added in ui.js (.is-stuck, .reveal-in).
+   - Everything here degrades to the previous appearance if JavaScript,
+     gradients or backdrop-filter are unavailable.
+   - prefers-reduced-motion disables all movement; print is untouched.
+
+   ==========================================================================
+   1. TOKENS
+   ========================================================================== */
+
+:root {
+  /* A slightly deeper, warmer paper than the flat near-white it replaces. */
+  --paper: #fbf9f5;
+  --cream: #fbf9f5;
+  --surface-alt: #f5f2ea;
+
+  /* Ink with a touch more navy so long passages read as printed, not grey. */
+  --ink: #26374a;
+  --muted: #56677a;
+
+  /* Rule colour tuned to the paper rather than a blue-grey. */
+  --border: #e6e1d6;
+  --border-strong: #d3ccbc;
+
+  /* Gold at three stops: hairline, accent, and text-safe. */
+  --gold-line: rgba(212, 175, 55, 0.42);
+  --gold-text: #8a6d12;
+
+  /* Elevation: a single soft ambient shadow plus a crisp contact edge, which
+     reads as paper on paper rather than as a web card. */
+  --lift-1: 0 1px 2px rgba(27, 54, 93, 0.05), 0 10px 24px -12px rgba(27, 54, 93, 0.14);
+  --lift-2: 0 2px 4px rgba(27, 54, 93, 0.06), 0 22px 44px -20px rgba(27, 54, 93, 0.24);
+  --lift-3: 0 30px 60px -28px rgba(27, 54, 93, 0.34);
+
+  /* One vertical rhythm for every section on every page. The measured site
+     had eleven different paddings — 36/36, 52/44, 64/32, 72/72, 76/68,
+     80/80, 86/56, 96/72 — so the pace of the page changed when you moved
+     between pages. */
+  --section-pad: clamp(3.25rem, 5vw, 4.25rem);
+  --section-pad-tight: clamp(2.5rem, 4vw, 3.25rem);
+
+  --gutter: clamp(1.15rem, 4vw, 2rem);
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* The masthead and footer used a percentage width, so their brand lines sat
+   a few pixels outside the content rail. They now share the same rail. */
+.nav-shell,
+.footer-inner {
+  width: min(calc(100% - (var(--edge) * 2)), var(--rail));
+}
+
+/* ==========================================================================
+   1b. ONE HORIZONTAL RAIL
+   A measured pass across all fourteen pages found six different left edges
+   (70, 96, 100, 176, 280, 421px) and five container widths (1140, 1088, 1080,
+   928, 720px), so content shifted sideways as a reader moved between pages.
+
+   Every page container now sits on a single rail with a single gutter:
+
+       --rail      1140px  the full measure
+       --measure    748px  the reading measure, inside the same rail
+       --edge      the gutter, fluid to the rail
+
+   The reading measure stays *inside* the rail rather than being a separate
+   narrower centred column, so its left edge lines up with every other page
+   instead of floating 140px further in.
+   ========================================================================== */
+
+:root {
+  --rail: 1140px;
+  --measure: 46.75rem; /* 748px */
+  --edge: 1.5rem;
+}
+
+/* ==========================================================================
+   1c. ONE TYPE SCALE
+   A census of every heading and paragraph on all sixteen pages found eight
+   different h1 sizes, nine different h2 sizes and five different body sizes
+   — several of them within four pixels of each other, which reads as
+   inconsistency rather than hierarchy. Those in-between sizes are gone.
+
+   Every heading and every paragraph on the site now resolves to one of
+   these six steps. Change a step here and the whole site follows.
+   ========================================================================== */
+
+:root {
+  --step-display: clamp(2.6rem, 5.1vw, 4.1rem);   /* page h1 */
+  --step-h2: clamp(1.85rem, 2.9vw, 2.3rem);       /* section heading */
+  --step-h3: clamp(1.22rem, 1.6vw, 1.46rem);      /* sub-heading */
+  --step-h4: 1.06rem;                             /* minor heading */
+  --step-body: 1rem;                              /* body copy */
+  --step-small: 0.875rem;                         /* captions, notes */
+  --step-label: 0.75rem;                          /* section labels */
+  --step-lede: clamp(1.09rem, 1.5vw, 1.25rem);     /* deck under a headline */
+
+  --lead-body: 1.72;                              /* body line-height */
+  --lead-tight: 1.16;                             /* display line-height */
+}
+
+@media (min-width: 721px) {
+  :root {
+    --edge: 2rem;
+  }
+}
+
+/* A rail that still keeps its gutter on small screens. */
+.container,
+.reading,
+.wide,
+.research-body,
+.reading-body {
+  width: min(calc(100% - (var(--edge) * 2)), var(--rail));
+  max-width: none;
+  margin-inline: auto;
+}
+
+/* Reading columns share the rail's left edge. Their text is held to a
+   comfortable measure, but the box they sit in is the page. */
+.reading-body {
+  padding-left: 0;
+}
+
+@media (min-width: 861px) {
+  /* Prose is held to the reading measure; anything tabular or boxed is
+     allowed the full rail, because a five-column table squeezed into 748px
+     is what left a third of the page blank beside it. */
+  .reading-body > *,
+  .understanding-reading > *,
+  .research-section > *,
+  .privacy-body > * {
+    max-width: var(--measure);
+  }
+
+  .reading-body > :is(table, .data-table, .understanding-table-wrap, .research-table-wrap,
+    .chart-table-wrap, .understanding-chart, .understanding-chart-data, .chart-table,
+    .understanding-kinds-table, .understanding-context-table, .callout, .pullout,
+    figure, .chart-figure),
+  .understanding-reading > :is(table, .data-table, .understanding-table-wrap, .research-table-wrap,
+    .chart-table-wrap, .understanding-chart, .understanding-chart-data, .chart-table,
+    .understanding-kinds-table, .understanding-context-table, .callout, .pullout,
+    figure, .chart-figure),
+  .research-section > :is(.study-grid, .study-sample, .research-findings,
+    .research-table-wrap, .callout, .pullout, figure),
+  .privacy-body > :is(table, .data-table) {
+    max-width: none;
+  }
+
+}
+
+/* The research page's body previously sat on a 68rem inner column; it now
+   uses the rail like every other page. */
+.research-body {
+  padding-top: clamp(2.75rem, 5vw, 4.25rem);
+}
+
+/* Two wrappers still override the rail: the quiz section narrows its own
+   container to a 1080px column, and the privacy body is a standalone 720px
+   column. Both are brought onto the rail so the whole site shares one edge. */
+.choosing-quiz-section .container {
+  width: min(calc(100% - (var(--edge) * 2)), var(--rail));
+}
+
+.privacy-body {
+  width: min(calc(100% - (var(--edge) * 2)), var(--rail));
+  margin-inline: auto;
+}
+
+@media (min-width: 861px) {
+  .privacy-body > * {
+    max-width: var(--measure);
+  }
+}
+
+/* The Choosing a College page runs a reading column beside a results sidebar.
+   The column was fixed at 760px and the sidebar at 280–360px, which together
+   came to about 1120px of a 1140px rail but were centred as a block, so the
+   prose column ended up narrow while the space between the two was mostly
+   gap. The rail is now divided properly: the column takes what the prose can
+   use and the sidebar takes a fixed measure. */
+@media (min-width: 1081px) {
+  .audience-layout {
+    grid-template-columns: minmax(0, var(--measure)) minmax(280px, 1fr);
+    gap: clamp(2rem, 3.5vw, 3.25rem);
+    justify-content: stretch;
+  }
+
+  .audience-main {
+    max-width: none;
+  }
+}
+
+/* Heading and body sizes are declared once, on the elements, and qualified
+   with `main` so they outrank the per-page rules in the older sheets. This is
+   the layer that actually holds the scale; the page sheets below it now only
+   adjust margins and colour. */
+main h1 {
+  font-family: var(--font-serif);
+  font-size: var(--step-display);
+  line-height: var(--lead-tight);
+  letter-spacing: -0.022em;
+  font-weight: 700;
+}
+
+main h2 {
+  font-family: var(--font-serif);
+  font-size: var(--step-h2);
+  line-height: 1.22;
+  letter-spacing: -0.016em;
+  font-weight: 700;
+}
+
+main h3 {
+  font-family: var(--font-serif);
+  font-size: var(--step-h3);
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+  font-weight: 700;
+}
+
+main h4 {
+  font-family: var(--font-sans);
+  font-size: var(--step-h4);
+  line-height: 1.4;
+  letter-spacing: 0.005em;
+  font-weight: 700;
+}
+
+/* Body copy, lists and table cells all sit on the same size and leading. */
+main p,
+main li,
+main dd,
+main td,
+main th {
+  font-size: var(--step-body);
+  line-height: var(--lead-body);
+}
+
+main .lede {
+  font-size: clamp(1.1rem, 1.55vw, 1.28rem);
+  line-height: 1.52;
+}
+
+main .small,
+main .study-sample-card p.small,
+main figcaption {
+  font-size: var(--step-small);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   2. PAGE GROUND AND TYPE DETAIL
+   ========================================================================== */
+
+body {
+  background-color: var(--paper);
+  /* Two very low-contrast washes plus a hairline grid. The grid is what makes
+     empty space read as a considered page rather than as missing content. */
+  background-image:
+    radial-gradient(70rem 34rem at 78% -6%, rgba(212, 175, 55, 0.07), transparent 62%),
+    radial-gradient(60rem 30rem at 4% 4%, rgba(27, 54, 93, 0.035), transparent 58%),
+    linear-gradient(180deg, #ffffff 0%, var(--paper) 26rem);
+  background-repeat: no-repeat;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Optical alignment for display type; body copy keeps normal tracking. */
+h1 {
+  letter-spacing: -0.021em;
+}
+
+h2 {
+  letter-spacing: -0.014em;
+}
+
+/* Source note digits: smaller, quieter, never disruptive to the line. */
+.source-note {
+  font-variant-numeric: lining-nums;
+  letter-spacing: 0;
+}
+
+/* Links inside prose keep the underline but sit closer to the text. */
+main a:not(.btn):not(.brand) {
+  text-underline-offset: 0.16em;
+  transition: color var(--ease-soft) 150ms;
+}
+
+/* ==========================================================================
+   3. HEADER — a masthead that responds to scroll
+   ========================================================================== */
+
+.site-header {
+  background: rgba(255, 255, 255, 0.82);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid rgba(27, 54, 93, 0.08);
+  box-shadow: none;
+  transition: box-shadow 240ms var(--ease-soft), background-color 240ms var(--ease-soft);
+}
+
+.site-header::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-line) 18%, var(--gold-line) 82%, transparent);
+  opacity: 0;
+  transition: opacity 260ms var(--ease-soft);
+  pointer-events: none;
+}
+
+.site-header.is-stuck {
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 1px 0 rgba(27, 54, 93, 0.05), 0 12px 30px -18px rgba(27, 54, 93, 0.35);
+}
+
+.site-header.is-stuck::after {
+  opacity: 1;
+}
+
+.brand::before {
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--gold) 0%, #b9972c 100%);
+}
+
+.brand-name {
+  letter-spacing: -0.015em;
+}
+
+/* Nav: a gold rule that grows from the centre instead of a static underline. */
+.primary-nav > a,
+.nav-dropdown-toggle {
+  position: relative;
+}
+
+.primary-nav > a::after {
+  display: none;
+}
+
+.primary-nav > a > span,
+.primary-nav > a {
+  transition: color 160ms var(--ease-soft);
+}
+
+.primary-nav > a[aria-current="page"],
+.nav-dropdown-toggle[aria-expanded="true"] {
+  color: var(--navy);
+}
+
+/* Dropdown becomes a small sheet with a hairline and a soft lift. */
+.nav-dropdown-menu {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--lift-2);
+  overflow: hidden;
+}
+
+.nav-dropdown-menu a {
+  transition: background-color 140ms var(--ease-soft), padding-left 140ms var(--ease-soft);
+}
+
+.nav-dropdown-menu a:hover,
+.nav-dropdown-menu a:focus-visible {
+  background: var(--gold-pale);
+}
+
+/* ==========================================================================
+   4. BUTTONS — letterpress, not web-default
+   ========================================================================== */
+
+.btn-primary,
+.btn-gold {
+  background-image: linear-gradient(180deg, #e0bd4b 0%, var(--gold) 52%, #c4a22f 100%);
+  border: 1px solid rgba(134, 106, 20, 0.35);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.45) inset,
+    0 2px 6px rgba(134, 106, 20, 0.22),
+    0 12px 22px -14px rgba(134, 106, 20, 0.7);
+  transition: transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out),
+    filter 180ms var(--ease-soft);
+}
+
+.btn-primary:hover,
+.btn-gold:hover {
+  background-image: linear-gradient(180deg, #d6b345 0%, #c9a733 52%, #b6952b 100%);
+  color: var(--navy);
+  transform: translateY(-2px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.4) inset,
+    0 4px 10px rgba(134, 106, 20, 0.26),
+    0 18px 30px -16px rgba(134, 106, 20, 0.8);
+}
+
+.btn-primary:active,
+.btn-gold:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(134, 106, 20, 0.3) inset;
+}
+
+.btn-outline {
+  border-color: var(--border-strong);
+  box-shadow: 0 1px 2px rgba(27, 54, 93, 0.04);
+  transition: transform 180ms var(--ease-out), border-color 180ms var(--ease-soft),
+    background-color 180ms var(--ease-soft), box-shadow 180ms var(--ease-soft);
+}
+
+.btn-outline:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--lift-1);
+}
+
+/* ==========================================================================
+   5. HOME HERO — a display spread
+   The hero was one centred column; then a text-only two-column spread that
+   still left the lower right of the page bare. It is now a real composition:
+   display type on the left, the "start at the end" card on the right, and a
+   line of study figures beneath, so the fold carries headline, promise,
+   evidence and an action in one look.
+   ========================================================================== */
+
+.home-hero {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(2.75rem, 5.5vw, 4.75rem) 0 clamp(2.75rem, 5vw, 4.25rem);
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+  isolation: isolate;
+}
+
+/* Concentric arcs, drawn in CSS, echoing the mark in the icon. Kept to a
+   whisper: 3–6% alpha, and removed from print. */
+.home-hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  right: -16vw;
+  top: -26vw;
+  width: 66vw;
+  min-width: 440px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle at 50% 50%,
+      rgba(212, 175, 55, 0.055) 0 1px,
+      transparent 1px 30px);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 30%, transparent 70%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 30%, transparent 70%);
+  pointer-events: none;
+}
+
+/* A single soft pool of warm light low on the left, so the fold does not go
+   flat beneath the headline. Deliberately faint: it should read as paper. */
+.home-hero::after {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  left: -18vw;
+  bottom: -30vw;
+  width: 52vw;
+  min-width: 300px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.07), transparent 58%);
+  pointer-events: none;
+}
+
+.home-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.82fr);
+  grid-template-areas:
+    "copy panel"
+    "figures panel";
+  column-gap: clamp(1.75rem, 4.5vw, 3.75rem);
+  row-gap: clamp(1.75rem, 3.5vw, 2.5rem);
+  align-items: start;
+  max-width: none;
+}
+
+.home-hero-copy {
+  grid-area: copy;
+  text-align: left;
+  max-width: 44rem;
+}
+
+.home-hero .hero-rule {
+  width: 3.25rem;
+  height: 3px;
+  margin: 0 0 1.15rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), rgba(212, 175, 55, 0.2));
+}
+
+.home-hero .section-label {
+  letter-spacing: 0.16em;
+}
+
+.home-hero h1 {
+  margin: 0;
+  max-width: 19ch;
+  font-size: var(--step-display);
+  line-height: 1.03;
+  letter-spacing: -0.028em;
+  color: var(--navy);
+  text-wrap: balance;
+}
+
+/* The standfirst is the hinge of the argument, so it gets real presence and a
+   hairline that ties it to the body copy beneath. */
+.home-hero .home-hero-standfirst {
+  margin: 1.15rem 0 0;
+  max-width: 30ch;
+  font-size: clamp(1.3rem, 1.95vw, 1.66rem);
+  line-height: 1.32;
+  color: var(--navy-soft);
+}
+
+.home-hero .home-hero-standfirst::after {
+  content: "";
+  display: block;
+  width: 2.25rem;
+  height: 1px;
+  margin: 1.1rem 0 0;
+  background: var(--border-strong);
+}
+
+.home-hero .lede {
+  margin: 1.05rem 0 0;
+  max-width: 34rem;
+  color: var(--ink);
+}
+
+/* The panel is a card, not a box: a two-tone top edge, a tab, and a shadow
+   that lifts it clear of the paper. */
+.home-hero-panel {
+  grid-area: panel;
+  position: relative;
+  max-width: none;
+  margin: 0;
+  padding: 1.55rem 1.55rem 1.45rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fffdf6 100%);
+  border: 1px solid var(--border);
+  border-top: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--lift-2);
+  text-align: left;
+}
+
+.home-hero-panel::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: linear-gradient(90deg, var(--gold) 0%, #e8cf7d 55%, rgba(212, 175, 55, 0.3) 100%);
+}
+
+.home-hero-panel h2 {
+  margin-bottom: 0.55rem;
+  font-size: 1.34rem;
+  letter-spacing: -0.012em;
+}
+
+.home-hero-panel p {
+  font-size: 0.93rem;
+  line-height: 1.62;
+  color: var(--ink);
+}
+
+.home-hero-panel p + p {
+  margin-top: 0.6rem;
+}
+
+.home-hero-panel strong {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+@media (max-width: 960px) {
+  .home-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "copy"
+      "panel"
+      "figures";
+    row-gap: 1.6rem;
+  }
+
+  .home-hero h1 {
+    max-width: 24ch;
+  }
+
+  .home-hero::before {
+    right: -34vw;
+    top: -28vw;
+    opacity: 0.7;
+  }
+}
+
+@media (max-width: 700px) {
+  .home-hero {
+    padding-top: 1.85rem;
+    padding-bottom: 2rem;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(1.95rem, 8vw, 2.5rem);
+  }
+
+  .home-hero .home-hero-standfirst {
+    margin-top: 0.9rem;
+    font-size: 1.18rem;
+  }
+
+  .home-hero .home-hero-standfirst::after {
+    margin-top: 0.85rem;
+  }
+
+  .home-hero .lede {
+    margin-top: 0.9rem;
+  }
+
+  .home-hero-panel {
+    padding: 1.2rem 1.15rem;
+  }
+
+  .home-hero-panel p {
+    font-size: 0.9rem;
+  }
+
+  .home-hero::before,
+  .home-hero::after {
+    display: none;
+  }
+}
+
+/* Study figures: four numbers that carry the evidence at a glance. Built in
+   the script layer from text already on the page, so nothing is invented and
+   nothing is lost when the script does not run. */
+.hero-figures {
+  grid-area: figures;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 1.1rem 0 0;
+  border-top: 1px solid var(--border-strong);
+  list-style: none;
+  max-width: 44rem;
+}
+
+.hero-figures li {
+  position: relative;
+  padding: 0 1rem;
+  margin: 0;
+  list-style: none;
+}
+
+.hero-figures li:first-child {
+  padding-left: 0;
+}
+
+.hero-figures li + li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  bottom: 0.15rem;
+  width: 1px;
+  background: var(--border);
+}
+
+.hero-figures .figure {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(1.45rem, 2.1vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.hero-figures .figure-label {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 560px) {
+  .hero-figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem 0;
+  }
+
+  .hero-figures li:nth-child(odd) {
+    padding-left: 0;
+  }
+
+  .hero-figures li:nth-child(3)::before,
+  .hero-figures li:nth-child(odd)::before {
+    display: none;
+  }
+}
+
+/* Reading progress: a 2px gold thread along the top of the viewport, present
+   only on pages long enough to lose your place. Built by the script layer;
+   hidden when there is none. */
+.read-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
+  height: 2px;
+  background: rgba(27, 54, 93, 0.06);
+  pointer-events: none;
+}
+
+.read-progress span {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--gold) 0%, #e8cf7d 60%, var(--gold) 100%);
+  transition: transform 120ms linear;
+}
+
+/* Pointer-tracked light. The wash sits under everything and only moves on
+   devices with a precise pointer, so touch scrolling is untouched. */
+.home-hero.has-pointer-light,
+.home-study.has-pointer-light {
+  --light-x: 72%;
+  --light-y: 18%;
+}
+
+.home-hero.has-pointer-light::before {
+  opacity: 1;
+}
+
+.home-hero.has-pointer-light {
+  background-image: radial-gradient(38rem 30rem at var(--light-x) var(--light-y),
+      rgba(212, 175, 55, 0.1), transparent 68%);
+}
+
+.home-study.has-pointer-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(34rem 26rem at var(--light-x) var(--light-y),
+      rgba(212, 175, 55, 0.16), transparent 66%);
+  pointer-events: none;
+  transition: background 200ms linear;
+}
+
+/* ==========================================================================
+   6. AUDIENCE CARDS — where the reader starts
+   ========================================================================== */
+
+.home-audiences {
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+}
+
+.home-audiences > .container > h2 {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.home-audiences > .container > h2::after,
+.home-outcomes-section > .container > h2::after,
+.home-book > .container > h2::after {
+  display: none;
+}
+
+.home-audiences-intro {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 40rem;
+  color: var(--muted);
+}
+
+.audience-grid {
+  gap: 1rem;
+}
+
+/* Seven perspectives: four cards, then three. Both rows are laid on a
+   12-column track and justified edge to edge (4 x span 3, then 3 x span 4),
+   so the second row is wider rather than leaving a hole at its end. */
+@media (min-width: 861px) {
+  .home-audience-first-row {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .home-audience-first-row > .audience-card {
+    grid-column: span 3;
+  }
+
+  .home-audience-second-row {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    margin-top: 1rem;
+  }
+
+  .home-audience-second-row > .audience-card {
+    grid-column: span 4;
+  }
+}
+
+@media (max-width: 860px) {
+  .home-audience-first-row,
+  .home-audience-second-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .home-audience-first-row,
+  .home-audience-second-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* The seven perspective cards are the first real decision on the page, and
+   they were the flattest thing on it: a white box, a small monochrome icon,
+   a line of grey italic and a link. Each card is now a two-part object — a
+   tinted header carrying a larger icon in a white disc, and a paper body
+   holding the heading, the quote and the action — so the grid reads as a
+   designed set rather than a list of boxes. */
+.audience-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 1.35rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 0;
+  border-radius: var(--radius);
+  box-shadow: var(--lift-1);
+  overflow: hidden;
+  transition: transform 240ms var(--ease-out), box-shadow 240ms var(--ease-out),
+    border-color 240ms var(--ease-soft);
+}
+
+/* the tinted header band */
+.audience-card {
+  background-image: linear-gradient(180deg,
+    var(--surface-alt) 0, var(--surface-alt) 4.6rem,
+    #fff 4.6rem, #fff 100%);
+}
+
+/* A gold hairline caps every card, and it thickens on hover. */
+.audience-card {
+  border-top: 3px solid rgba(212, 175, 55, 0.38);
+}
+
+.audience-card:hover {
+  border-top-color: var(--gold);
+}
+
+/* the icon sits on the seam between header and body */
+.audience-card .card-icon {
+  margin: 0 0 0.85rem;
+  width: 3.1rem;
+  height: 3.1rem;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  box-shadow:
+    0 1px 1px rgba(27, 54, 93, 0.05),
+    0 10px 18px -12px rgba(27, 54, 93, 0.4);
+}
+
+/* the card body, held off the card edge by its own padding */
+.audience-card > :is(h2, h3, .card-hook, .btn) {
+  margin-left: 1.35rem;
+  margin-right: 1.35rem;
+}
+
+.audience-card > .card-icon {
+  margin-left: 1.35rem;
+}
+
+.audience-card > :is(h2, h3) {
+  font-size: 1.3rem;
+  line-height: 1.22;
+  letter-spacing: -0.014em;
+  margin-bottom: 0.5rem;
+}
+
+.audience-card .card-hook {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.15rem;
+  /* The seven quotes are two or three lines depending on the card, so the
+     action used to sit at a different height in every column. Taking the
+     free space is what lines the seven actions up on one baseline. */
+  flex-grow: 1;
+}
+
+@media (max-width: 720px) {
+  .audience-card {
+    padding-bottom: 1.15rem;
+  }
+
+  .audience-card > :is(h2, h3, .card-hook, .btn),
+  .audience-card > .card-icon {
+    margin-left: 1.1rem;
+    margin-right: 1.1rem;
+  }
+}
+
+/* A gold wash that develops from the top edge on hover. */
+.audience-card::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0 0 auto;
+  height: 46%;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 240ms var(--ease-soft);
+  pointer-events: none;
+}
+
+.audience-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212, 175, 55, 0.55);
+  border-top-color: var(--gold);
+  box-shadow: var(--lift-2);
+}
+
+.audience-card:hover::after {
+  opacity: 1;
+}
+
+.audience-card:focus-within {
+  border-top-color: var(--gold);
+  box-shadow: var(--lift-2);
+}
+
+.card-icon {
+  position: relative;
+  z-index: 1;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0.85rem;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 10px;
+  background: linear-gradient(160deg, #fffdf6 0%, var(--gold-pale) 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset, 0 6px 12px -8px rgba(134, 106, 20, 0.6);
+  color: var(--gold-text);
+  transition: transform 240ms var(--ease-out), color 240ms var(--ease-soft);
+}
+
+.audience-card:hover .card-icon {
+  transform: translateY(-2px) rotate(-3deg);
+  color: var(--gold-text);
+}
+
+.card-icon svg {
+  width: 1.28rem;
+  height: 1.28rem;
+  stroke-width: 1.7;
+}
+
+.audience-card :is(h2, h3) {
+  position: relative;
+  z-index: 1;
+  font-size: 1.24rem;
+  line-height: 1.24;
+  letter-spacing: -0.012em;
+  margin-bottom: 0.45rem;
+}
+
+.audience-card .card-hook {
+  position: relative;
+  z-index: 1;
+  font-size: 0.94rem;
+  line-height: 1.58;
+  color: var(--muted);
+  margin-bottom: 1.15rem;
+}
+
+.audience-card .btn {
+  position: relative;
+  z-index: 1;
+  align-self: flex-start;
+  justify-content: flex-start;
+  width: -moz-max-content;
+  width: max-content;
+  max-width: 100%;
+  margin-top: auto;
+  text-align: left;
+  padding: 0.5rem 0;
+  border: 0;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.65);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--navy);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 180ms var(--ease-soft), border-color 180ms var(--ease-soft),
+    padding-right 180ms var(--ease-out);
+}
+
+.audience-card .btn::after {
+  content: " \2192";
+  display: inline-block;
+  margin-left: 0.35rem;
+  transition: transform 180ms var(--ease-out);
+}
+
+.audience-card:hover .btn {
+  color: var(--gold-text);
+  border-bottom-color: var(--gold);
+}
+
+.audience-card:hover .btn::after {
+  transform: translateX(3px);
+}
+
+/* NOTE: ::before on a card is the running number ("01"), set in visual.css.
+   An earlier "corner fold" was drawn on ::before too, so on hover the number
+   itself picked up a diagonal gold gradient and slid into place — which read
+   as a stray hairline streaking across the card corner. The fold is gone;
+   the number is pinned so nothing else can paint it. */
+.home-audiences .audience-card::before {
+  background: none;
+  opacity: 1;
+  transform: none;
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .audience-card {
+    padding: 1.15rem 1.1rem 1.05rem;
+  }
+}
+
+/* ==========================================================================
+   7. STUDY BAND — deep navy, engraved
+   ========================================================================== */
+
+.home-study {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--navy);
+  background-image:
+    radial-gradient(46rem 26rem at 8% -10%, rgba(212, 175, 55, 0.2), transparent 60%),
+    radial-gradient(40rem 24rem at 96% 110%, rgba(58, 83, 107, 0.55), transparent 62%),
+    linear-gradient(180deg, #1b365d 0%, #162c4b 100%);
+  border-bottom: 0;
+  color: #e8eef5;
+}
+
+/* A faint engraved rule through the band. */
+.home-study::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    115deg,
+    rgba(255, 255, 255, 0.028) 0 1px,
+    transparent 1px 12px
+  );
+  pointer-events: none;
+}
+
+.home-study > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.home-study .section-label {
+  color: #e6c876;
+}
+
+.home-study h2 {
+  color: #fff;
+  letter-spacing: -0.018em;
+}
+
+.home-study-list li {
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: 2px solid rgba(212, 175, 55, 0.85);
+  border-radius: 10px;
+  color: #e8eef5;
+  transition: background-color 220ms var(--ease-soft), transform 220ms var(--ease-out);
+}
+
+.home-study-list li:hover {
+  background: rgba(255, 255, 255, 0.09);
+  transform: translateY(-2px);
+}
+
+.home-study-list strong {
+  color: #fff;
+}
+
+/* ==========================================================================
+   8. OUTCOMES — the six parts of a life
+   ========================================================================== */
+
+.home-outcomes-section {
+  background: linear-gradient(180deg, var(--paper) 0%, #ffffff 100%);
+}
+
+.home-outcomes-section > .container > h2,
+.home-outcomes-intro {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.home-good-life-list {
+  gap: 0.9rem;
+}
+
+.home-good-life-list li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1.35rem 1.25rem 1.25rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 3px solid rgba(212, 175, 55, 0.38);
+  border-radius: var(--radius);
+  box-shadow: none;
+  text-align: left;
+  overflow: hidden;
+  transition: border-color 220ms var(--ease-soft), box-shadow 220ms var(--ease-out),
+    transform 220ms var(--ease-out);
+}
+
+.home-good-life-list li:hover {
+  transform: translateY(-3px);
+  border-top-color: var(--gold);
+  box-shadow: var(--lift-1);
+}
+
+/* The numeral is set small in gold, with an oversized ghost of itself behind
+   it. The watermark gives each card weight without adding a single word. */
+/* The numeral is the watermark at the right, so the small duplicate above the
+   heading is emptied. The pseudo-element must still exist: visual.css does
+   counter-increment on it, and removing it renumbers every card to 00. */
+.home-good-life-list li::before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* The watermark is the card's own numeral, set enormous at the right edge.
+   It carried an empty decorative ring before, which said nothing; the number
+   actually counts the six parts of a life, so the mark now means something
+   and the card gains a strong anchor without a single new word. */
+.home-good-life-list li::after {
+  content: counter(outcome, decimal-leading-zero);
+  position: absolute;
+  top: -0.35rem;
+  right: 0.7rem;
+  z-index: 0;
+  font-family: var(--font-display, Lora, Georgia, serif);
+  font-size: 3.6rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: rgba(27, 54, 93, 0.07);
+  pointer-events: none;
+  transition: color 260ms var(--ease-soft), transform 260ms var(--ease-out);
+}
+
+.home-good-life-list li:hover::after {
+  color: rgba(212, 175, 55, 0.3);
+  transform: translateY(-2px);
+}
+
+.home-good-life-list strong {
+  font-size: 1.12rem;
+  margin-bottom: 0.3rem;
+}
+
+.home-good-life-list li:not(:has(strong)) {
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   9. BOOK BAND — an editorial plate
+   ========================================================================== */
+
+.home-book {
+  background: linear-gradient(180deg, #f7f4ec 0%, var(--paper) 100%);
+}
+
+.home-book > .container > h2 {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.book-band {
+  position: relative;
+  grid-template-columns: minmax(0, 196px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 3.4vw, 2.75rem);
+  margin-top: 1.5rem;
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--lift-1);
+  overflow: hidden;
+}
+
+.book-band img {
+  width: 100%;
+  max-width: 196px;
+}
+
+.book-band::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--gold), rgba(212, 175, 55, 0.3));
+}
+
+.book-band img {
+  border-radius: 3px;
+  box-shadow:
+    0 1px 1px rgba(27, 54, 93, 0.1),
+    0 26px 40px -22px rgba(27, 54, 93, 0.55);
+  transition: transform 420ms var(--ease-out);
+}
+
+.book-band:hover img {
+  transform: translateY(-3px) rotate(-0.6deg);
+}
+
+.book-band > div {
+  max-width: 46rem;
+  padding-left: clamp(1.1rem, 2.5vw, 1.9rem);
+  border-left: 1px solid var(--border);
+  /* The citation and the link are two short lines beside a tall cover, so the
+     column is centred and given a hairline rule above it rather than floating
+     in the middle of the plate. */
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.book-band > div::before {
+  content: "";
+  display: block;
+  width: 2.25rem;
+  height: 2px;
+  margin-bottom: 0.55rem;
+  background: var(--gold);
+}
+
+.book-band-citation,
+.home-book-citation {
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.book-band p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.book-band p:last-child a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(212, 175, 55, 0.9);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+.book-band p:last-child a:hover {
+  color: var(--gold-dark);
+  text-decoration-color: var(--gold-dark);
+}
+
+@media (max-width: 620px) {
+  .book-band {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+  }
+
+  .book-band > div {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+.home-program-line {
+  border-top: 1px solid var(--border);
+}
+
+.home-book [data-notes-open] {
+  border-color: var(--border-strong);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  box-shadow: 0 1px 2px rgba(27, 54, 93, 0.05);
+  transition: border-color 180ms var(--ease-soft), background-color 180ms var(--ease-soft),
+    box-shadow 180ms var(--ease-soft), transform 180ms var(--ease-out);
+}
+
+.home-book [data-notes-open]:hover {
+  border-color: var(--gold);
+  background: var(--gold-pale);
+  box-shadow: var(--lift-1);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   10. INTERIOR HEROES — one consistent opening
+   ========================================================================== */
+
+.choosing-hero,
+.research-hero,
+.understanding-hero,
+.what-matters-hero,
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  border-bottom: 1px solid var(--border);
+}
+
+.choosing-hero::before,
+.research-hero::before,
+.understanding-hero::before,
+.what-matters-hero::before,
+.page-hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: -18vw;
+  bottom: -34vw;
+  width: 54vw;
+  min-width: 380px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle at 50% 50%,
+    rgba(27, 54, 93, 0.045) 0 1px,
+    transparent 1px 30px
+  );
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 30%, transparent 70%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 30%, transparent 70%);
+  pointer-events: none;
+}
+
+.choosing-hero h1,
+.research-hero h1,
+.understanding-hero h1,
+.what-matters-hero h1 {
+  letter-spacing: -0.026em;
+}
+
+.choosing-hero .lede,
+.research-hero .lede,
+.understanding-hero .lede {
+  max-width: 36rem;
+}
+
+.hero-rule {
+  width: 3.25rem;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), rgba(212, 175, 55, 0.25));
+}
+
+/* Text-only heroes (research, understanding college, what matters) used to
+   run a headline and a deck down the left half of the page and leave the
+   right half bare. They now open as a spread: the headline holds the left
+   column and the deck sits opposite it, sharing a baseline. Only grid
+   placement is used; the reading order in the document is unchanged. */
+@media (min-width: 941px) {
+  .research-hero > .container,
+  .understanding-hero > .container,
+  .what-matters-hero > .container {
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 5vw, 4rem);
+    align-items: end;
+  }
+
+  .research-hero > .container > .hero-rule,
+  .understanding-hero > .container > .hero-rule {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 1.15rem;
+  }
+
+  .research-hero > .container > .section-label,
+  .understanding-hero > .container > .section-label,
+  .what-matters-hero > .container > .section-label {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+    margin-bottom: 0.55rem;
+  }
+
+  .research-hero > .container > h1,
+  .understanding-hero > .container > h1,
+  .what-matters-hero > .container > h1 {
+    grid-column: 1;
+    grid-row: 3;
+    margin-bottom: 0;
+  }
+
+  /* The deck sits opposite, aligned to the foot of the headline, opened by a
+     hairline so the two columns read as one composition. */
+  .research-hero > .container > .lede,
+  .understanding-hero > .container > .lede,
+  .what-matters-hero > .container > .lede {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    align-self: end;
+    max-width: 34rem;
+    margin: 0 0 0.15rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--border-strong);
+    font-size: 1.05rem;
+    line-height: 1.68;
+  }
+
+  .research-hero > .container > .research-stats {
+    grid-column: 1 / -1;
+    grid-row: 4;
+  }
+}
+
+/* Sizes: these heroes carry the page, so the headline can breathe. */
+@media (min-width: 941px) {
+  .research-hero h1,
+  .understanding-hero h1,
+  .what-matters-hero h1 {
+    font-size: clamp(2.5rem, 4.4vw, 3.5rem);
+    line-height: 1.06;
+    max-width: 26ch;
+  }
+}
+
+/* The parents page is the one audience hero with no second column, so it ran
+   as a narrow stack of type down the left half of the page with nothing
+   opposite it. It uses the same editorial spread as the text-only heroes:
+   headline on the left, deck and actions on the right, sharing one baseline.
+   `display: contents` lets the copy wrapper's children sit in the hero grid
+   directly, which is layout only. The wrapper is a plain div with no role, so
+   nothing is lost to assistive technology, and the reading order is
+   untouched. */
+@media (min-width: 941px) {
+  .parents-hero .parents-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
+    column-gap: clamp(2rem, 5vw, 4rem);
+    align-items: end;
+    max-width: none;
+  }
+
+  .parents-hero .choosing-hero-copy {
+    display: contents;
+  }
+
+  .parents-hero .hero-rule {
+    grid-column: 1;
+    grid-row: 1;
+    margin-bottom: 1.15rem;
+  }
+
+  .parents-hero .section-label {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+    margin-bottom: 0.55rem;
+  }
+
+  .parents-hero h1 {
+    grid-column: 1;
+    grid-row: 3;
+    max-width: 16ch;
+    margin-bottom: 0;
+  }
+
+  .parents-hero .lede {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    align-self: end;
+    max-width: 34rem;
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--border-strong);
+  }
+
+  .parents-hero .choosing-hero-actions {
+    grid-column: 2;
+    grid-row: 4;
+    margin-top: 1.5rem;
+  }
+}
+
+/* The prestige card on the choosing page: a filed note, not a panel. */
+.choosing-prestige-card {
+  border-radius: var(--radius);
+  box-shadow: var(--lift-2);
+}
+
+/* ==========================================================================
+   10b. SECTION TREATMENTS
+   Five cream bands in a row is what made the page feel like one long grey
+   scroll. Sections now alternate on a deliberate three-step scale — white,
+   warm tint, and the deep navy — so each one is visibly its own chapter.
+   ========================================================================== */
+
+/* Audiences: white, with a faint dot grid that gives the empty space texture
+   without any colour. */
+.home-audiences {
+  background-color: #ffffff;
+  background-image: radial-gradient(rgba(27, 54, 93, 0.055) 0.8px, transparent 0.8px);
+  background-size: 17px 17px;
+  background-position: 0 0;
+}
+
+/* Outcomes: the warm band. */
+.home-outcomes-section {
+  background: linear-gradient(180deg, #faf7f0 0%, #fbf9f5 100%);
+}
+
+/* Book: back to white so the jacket is the only saturated thing on screen. */
+.home-book {
+  background: #ffffff;
+}
+
+/* Every section heading opens on the same small gold rule, so the eye can
+   find the next chapter on any page at any width. */
+.home-section > .container > h2::before,
+.about-section > .container > h2::before,
+.research-section > .container > h2::before,
+.home-book > .container > h2::before {
+  content: "";
+  display: block;
+  width: 2.4rem;
+  height: 2px;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(90deg, var(--gold), rgba(212, 175, 55, 0.25));
+}
+
+/* On white sections the rule sits slightly closer to its heading. */
+.home-section > .container > h2::before {
+  margin-bottom: 0.65rem;
+}
+
+/* ==========================================================================
+   11. SECTION RHYTHM AND HEADINGS
+   Empty space reads as deliberate when every section opens the same way and
+   the headings sit on a consistent baseline.
+   ========================================================================== */
+
+.home-section,
+.choosing-section,
+.research-section,
+.understanding-section,
+.about-section,
+.foundation-section {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+}
+
+.home-section > .container > h2,
+.choosing-section > .container > h2,
+.research-section > .container > h2,
+.understanding-section > .container > h2,
+.about-section > .container > h2,
+.understanding-section > h2,
+.research-section > h2 {
+  letter-spacing: -0.016em;
+}
+
+/* Alternating sections get the faintest tint so the page has a beat. */
+.research-section:nth-of-type(even),
+.understanding-section.understanding-alt,
+.choosing-section:nth-of-type(even) {
+  background: linear-gradient(180deg, rgba(245, 242, 234, 0.55) 0%, rgba(251, 249, 245, 0) 100%);
+}
+
+/* The chart section follows straight on from its hero, so it needs its own
+   opening space rather than butting against the hero's rule. */
+.chart-section {
+  padding-top: clamp(2.25rem, 4vw, 3.25rem);
+}
+
+/* ==========================================================================
+   11b. INTERIOR PAGE FUNDAMENTALS
+   ========================================================================== */
+
+/* The research page's stat row stopped at 58rem inside a 1140px rail, leaving
+   a visible gap at the right edge. It now fills the rail, each figure set off
+   by a hairline, and the numbers carry the same weight as the home strip. */
+.research-stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  max-width: none;
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.research-stats > div {
+  padding: 0.15rem 1.25rem;
+  margin: 0;
+}
+
+.research-stats > div:first-child {
+  padding-left: 0;
+}
+
+.research-stats > div + div {
+  border-left: 1px solid var(--border);
+}
+
+.research-stats strong {
+  font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+  letter-spacing: -0.025em;
+}
+
+.research-stats span {
+  margin-top: 0.4rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+}
+
+/* Study facts read as four filed cards: a gold cap, a label, then the detail. */
+.study-fact {
+  position: relative;
+  padding: 1.15rem 1.15rem 1.1rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fffdf8 100%);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--gold);
+  border-radius: 10px;
+  box-shadow: var(--lift-1);
+  transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out);
+}
+
+.study-fact:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--lift-2);
+}
+
+.study-fact strong {
+  color: var(--gold-text);
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.study-fact p {
+  margin: 0.4rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Callouts: a warm plate with a gold spine and a soft inner glow. */
+.callout {
+  position: relative;
+  padding: 1.25rem 1.35rem 1.25rem 1.5rem;
+  background:
+    radial-gradient(20rem 12rem at 0% 0%, rgba(212, 175, 55, 0.16), transparent 70%),
+    linear-gradient(180deg, #fffdf4 0%, var(--gold-pale) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.32);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  box-shadow: 0 1px 2px rgba(134, 106, 20, 0.06);
+}
+
+/* Long-form chapter openings: more air above the rule, so a new chapter is
+   unmistakable even when you are deep in the page. */
+.understanding-section {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+}
+
+.understanding-section h2 {
+  font-size: var(--step-h2);
+}
+
+/* The "on this page" index becomes a card, not a bare list. */
+.understanding-contents {
+  padding-top: var(--section-pad-tight);
+  padding-bottom: var(--section-pad-tight);
+}
+
+.understanding-contents a {
+  display: inline-block;
+  padding: 0.15rem 0;
+}
+
+/* Pull-out disclosures: a card with a hover lift, so they read as controls. */
+.pullout {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  box-shadow: var(--lift-1);
+  transition: box-shadow 220ms var(--ease-out);
+}
+
+.pullout[open] {
+  box-shadow: var(--lift-2);
+}
+
+.pullout summary:hover {
+  color: var(--navy);
+}
+
+/* Chapter headings on the long guides were set only slightly larger than body
+   copy, which is why a 16,000px page felt like one undifferentiated column.
+   They now take the display face at a genuine chapter scale. */
+.understanding-section > .container > h2,
+.research-section > .container > h2 {
+  font-size: var(--step-h2);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.1rem;
+}
+
+/* A gold rule above each chapter heading, drawn full width, marks the seam
+   between chapters far more clearly than whitespace alone. */
+.understanding-section > .container > h2::before {
+  width: 3rem;
+  height: 2px;
+  margin-bottom: 0.85rem;
+}
+
+/* The first paragraph after a chapter heading leads in slightly larger, which
+   is a classic editorial cue that a new section has begun. */
+.understanding-reading > h2 + p,
+.research-section > h2 + p {
+  font-size: 1.06rem;
+  line-height: 1.72;
+  color: var(--navy-soft);
+}
+
+/* Body copy inside the guides gets a little more air between paragraphs so
+   the page breathes instead of presenting as a wall. */
+.understanding-reading > p + p,
+.research-body p + p {
+  margin-top: 1em;
+}
+
+/* Sub-headings inside chapters are small caps labels with a rule, not another
+   serif tier competing with the chapter title. */
+.understanding-reading h3 {
+  margin-top: 2.1rem;
+  font-size: 1.18rem;
+  letter-spacing: -0.01em;
+}
+
+/* ==========================================================================
+   12. CARDS, CALLOUTS AND TABLES
+   ========================================================================== */
+
+.study-fact,
+.chart-card,
+.sidebar-card,
+.result-panel {
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--lift-1);
+}
+
+.study-fact {
+  border-top: 2px solid var(--gold);
+}
+
+.chart-card {
+  transition: box-shadow 220ms var(--ease-out), transform 220ms var(--ease-out);
+}
+
+.chart-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--lift-1);
+}
+
+.callout {
+  background: linear-gradient(180deg, #fffdf4 0%, var(--gold-pale) 100%);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+}
+
+/* Stat blocks: rules instead of boxes, so they read as data not as cards. */
+.research-stats {
+  border-top: 1px solid var(--border-strong);
+}
+
+.research-stats > div {
+  position: relative;
+  padding-top: 0.15rem;
+}
+
+.research-stats strong {
+  letter-spacing: -0.02em;
+}
+
+.research-stats span {
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+/* Tables: quieter header, better rhythm, no heavy grid. */
+.data-table,
+.chart-table {
+  font-size: 0.9rem;
+}
+
+.data-table thead th,
+.chart-table thead th {
+  color: var(--navy);
+  border-bottom: 1px solid var(--border-strong);
+}
+
+.data-table tbody tr:hover,
+.chart-table tbody tr:hover {
+  background: rgba(212, 175, 55, 0.06);
+}
+
+.data-table td,
+.chart-table td {
+  border-bottom: 1px solid rgba(230, 225, 214, 0.8);
+}
+
+/* Long identifiers (storage keys, URLs) have no spaces to break on, so at
+   320px they pushed the page wider than the viewport. Code and inline
+   identifiers may now break anywhere rather than overflow. */
+code,
+kbd,
+samp,
+.term,
+.term span {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Same for a long unbroken link or word in body copy. */
+main p,
+main li,
+main dd,
+main td {
+  overflow-wrap: break-word;
+}
+
+/* The seminar card inside the audience quizzes is a navy plate, but the two
+   skip links inside it were styled for paper: dark gold on navy measured
+   2.2:1. On the navy plate they take the light gold with a matching rule. */
+.choosing-quiz-intro .quiz-skip a,
+.choosing-quiz-intro .policymakers-skip {
+  color: var(--gold-light, #f2d98a);
+  text-decoration-color: rgba(242, 217, 138, 0.7);
+}
+
+.choosing-quiz-intro .quiz-skip a:hover,
+.choosing-quiz-intro .policymakers-skip:hover {
+  color: #fff;
+  text-decoration-color: #fff;
+}
+
+.choosing-quiz-intro .quiz-skip a:focus-visible,
+.choosing-quiz-intro .policymakers-skip:focus-visible {
+  outline-color: var(--gold-light, #f2d98a);
+}
+
+/* An em dash in a table cell means "no link found". It was painted at
+   1.5:1 against paper — effectively invisible, which reads as an empty cell
+   rather than a deliberate dash. It now meets AA while staying visibly
+   lighter than the figures around it. */
+.chart-table td.is-empty,
+.data-table td.is-empty {
+  color: #6a6354;
+}
+
+/* Keyboard focus inside the quizzes lands on the radio itself, which is a
+   small native control. The whole answer card takes the ring, so the focus
+   state is as legible as every other link and button on the site. */
+.quiz-choice:has(input:focus-visible),
+.checklist-item:has(input:focus-visible),
+.scorecard-row:has(select:focus-visible) {
+  outline: 2px solid var(--gold-dark);
+  outline-offset: 2px;
+  border-color: var(--gold);
+  background: #fffdf6;
+}
+
+.quiz-choice:has(input:focus-visible) input,
+.checklist-item:has(input:focus-visible) input {
+  outline: 2px solid var(--gold-dark);
+  outline-offset: 2px;
+}
+
+/* The timeline disclosure parks its open/close marker against the far edge.
+   The marker was pushed right only by the "Read more" label's automatic
+   margin, so once the panel was open the label was hidden and the marker
+   collapsed onto the end of the heading, reading as a stray dash. The
+   heading now takes the free space instead. */
+.parents-more-summary h2 {
+  margin-right: auto;
+}
+
+.parents-more-summary .parents-more-label {
+  margin-left: 0;
+}
+
+.parents-more-summary::after {
+  margin-left: 0;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--gold-dark);
+}
+
+.parents-more > summary:hover::after {
+  color: var(--navy);
+}
+
+/* The 404 hero is short, so on its own it left two thirds of the rail empty
+   and the page looked unfinished. The message keeps the reading column and
+   the ways onward take the right half of the rail, so the screen is used. */
+.page-hero .reading:has(> p > .btn-primary) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.66fr);
+  column-gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  row-gap: 0.75rem;
+}
+
+.page-hero .reading:has(> p > .btn-primary) > .section-label {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.page-hero .reading:has(> p > .btn-primary) > h1 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.page-hero .reading:has(> p > .btn-primary) > .lede {
+  grid-column: 1;
+  grid-row: 3;
+  max-width: 32rem;
+  margin-bottom: 0;
+}
+
+.page-hero .reading:has(> p > .btn-primary) > p:last-child {
+  grid-column: 2;
+  grid-row: 1 / span 3;
+  align-self: center;
+  margin: 0;
+  padding-left: clamp(1.5rem, 3vw, 2.5rem);
+  border-left: 1px solid rgba(212, 175, 55, 0.45);
+}
+
+@media (max-width: 820px) {
+  .page-hero .reading:has(> p > .btn-primary) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-hero .reading:has(> p > .btn-primary) > .section-label,
+  .page-hero .reading:has(> p > .btn-primary) > h1,
+  .page-hero .reading:has(> p > .btn-primary) > .lede,
+  .page-hero .reading:has(> p > .btn-primary) > p:last-child {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .page-hero .reading:has(> p > .btn-primary) > p:last-child {
+    margin-top: 1.25rem;
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
+/* The faculty self-audit table was capped at 58rem, so it stopped 214px
+   short of the rail while every section around it used the full width. */
+.audit-prompt-table-wrap {
+  max-width: none;
+}
+
+/* The Research page closes on a citation card and four related organizations.
+   The citation card was held to the reading measure with an empty third of
+   the rail beside it, and the organization list was a plain bullet stack.
+   The card now takes the rail and sets the citation as a quotation, with the
+   imprint and the award line beneath a hairline; the organizations read as a
+   four-up row of plates. */
+.citation-card {
+  position: relative;
+  max-width: none;
+  padding: clamp(1.4rem, 3vw, 2.1rem) clamp(1.4rem, 3vw, 2.25rem)
+    clamp(1.4rem, 3vw, 2rem) clamp(1.9rem, 4vw, 2.9rem);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 3px solid rgba(212, 175, 55, 0.4);
+  border-radius: var(--radius);
+  box-shadow: var(--lift-1);
+  transition: box-shadow 220ms var(--ease-out), border-color 220ms var(--ease-soft);
+}
+
+.citation-card:hover {
+  border-top-color: var(--gold);
+  box-shadow: var(--lift-2);
+}
+
+.citation-card::before {
+  content: "";
+  position: absolute;
+  inset: clamp(1.2rem, 2.5vw, 1.8rem) auto clamp(1.2rem, 2.5vw, 1.8rem) 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--gold), rgba(212, 175, 55, 0.25));
+}
+
+.citation-card p:first-child {
+  max-width: 62ch;
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  line-height: 1.6;
+  color: var(--navy);
+}
+
+.citation-card p + p {
+  max-width: none;
+  margin-top: 0.9rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.citation-card .btn {
+  margin-top: 1.15rem;
+}
+
+/* four related organizations, laid edge to edge */
+.research-section .related-orgs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: none;
+  margin-top: 1.4rem;
+  padding: 0;
+  list-style: none;
+}
+
+.research-section .related-orgs li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.05rem 1.15rem;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 3px solid rgba(212, 175, 55, 0.4);
+  border-radius: 10px;
+  transition: border-color 220ms var(--ease-soft), transform 220ms var(--ease-out),
+    box-shadow 220ms var(--ease-out);
+}
+
+.research-section .related-orgs li:hover {
+  transform: translateY(-2px);
+  border-top-color: var(--gold);
+  box-shadow: var(--lift-1);
+}
+
+.research-section .related-orgs a {
+  font-family: var(--font-display, Lora, Georgia, serif);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--navy);
+  text-decoration-color: rgba(212, 175, 55, 0.7);
+  text-underline-offset: 3px;
+}
+
+.research-section .related-orgs span {
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .research-section .related-orgs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .research-section .related-orgs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ==========================================================================
+   12b. ONE CARD GRAMMAR
+   The site had grown a dozen card classes with three different corner radii
+   and four different border treatments: some had a gold cap, some a plain
+   hairline, some a shadow, some none. Side by side that reads as unfinished
+   rather than varied. Every surface card now shares one grammar — the same
+   corner, the same hairline, the same soft lift, and a gold cap that warms
+   on hover — so a page made of cards looks designed as a set.
+   Panels that contain a form or a table keep their flatter treatment on
+   purpose: they are containers, not cards.
+   ========================================================================== */
+
+/* main.card-x carries the weight of a class but is qualified by an element,
+   so it outranks both a plain page-level `.card-x` rule and the `:where()`
+   defaults the older sheets use — the grammar is enforced, not suggested. */
+main :is(.parents-cost-card, .parents-get-card, .parents-check-card,
+  .choosing-get-card, .choosing-prestige-card, .faculty-card,
+  .policymakers-thing, .policymakers-request, .policymakers-washington-item,
+  .leaders-board, .audit-meta, .audit-close, .leaders-checklist-close,
+  .study-sample-card, .sidebar-card) {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-top: 3px solid rgba(212, 175, 55, 0.4);
+  border-radius: var(--radius);
+  box-shadow: var(--lift-1);
+  transition: transform 220ms var(--ease-out), box-shadow 220ms var(--ease-out),
+    border-color 220ms var(--ease-soft);
+}
+
+main :is(.parents-cost-card, .parents-get-card, .parents-check-card,
+  .choosing-get-card, .choosing-prestige-card, .faculty-card,
+  .policymakers-thing, .policymakers-request, .policymakers-washington-item,
+  .leaders-board, .audit-meta, .audit-close, .leaders-checklist-close,
+  .study-sample-card, .sidebar-card):hover {
+  transform: translateY(-2px);
+  border-top-color: var(--gold);
+  box-shadow: var(--lift-2);
+}
+
+/* A small display numeral in gold, used where a card is one of a numbered
+   set. Panels that already carry a heading use it instead. */
+.card-index {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--gold-text);
+}
+
+/* The three "worth knowing" panels on the audience pages were pale slabs
+   with a two-pixel gold cap; they now share the card grammar above and gain
+   a warm paper tint so they read as a lighter weight than the quiz card. */
+.parents-cost-grid > *,
+.policymakers-things > * {
+  background-image: linear-gradient(180deg, #fffdf7 0%, #ffffff 60%);
+}
+
+/* ==========================================================================
+   12c. THE SCALE, ENFORCED
+   The steps above are declared on the bare elements; the per-page sheets in
+   base, pages, understanding and visual each still set their own sizes on
+   more specific selectors, which is how eight h1 sizes survived. This block
+   is the last word: it matches heading tags at every depth, and the classes
+   the older sheets used as headings, so no rule below can reintroduce an
+   in-between size.
+   ========================================================================== */
+
+main :is(h1, .hero-title, .page-hero h1, [class$="-hero"] h1) {
+  font-family: var(--font-serif);
+  font-size: var(--step-display);
+  line-height: var(--lead-tight);
+  letter-spacing: -0.022em;
+  font-weight: 700;
+}
+
+main :is(h2, .section-title, [class$="-section"] h2, [class$="-section"] > .container > h2,
+  [class*="-hero"] h2, .understanding-section h2, .research-section h2) {
+  font-family: var(--font-serif);
+  font-size: var(--step-h2);
+  line-height: 1.22;
+  letter-spacing: -0.016em;
+  font-weight: 700;
+}
+
+main :is(h3, [class$="-section"] h3, .understanding-reading h3,
+  .reading-body h3, .parents-more-body h3) {
+  font-family: var(--font-serif);
+  font-size: var(--step-h3);
+  line-height: 1.3;
+  letter-spacing: -0.008em;
+  font-weight: 700;
+}
+
+main :is(h4, .card-hook-title) {
+  font-family: var(--font-sans);
+  font-size: var(--step-h4);
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+/* Section eyebrows and small captions land on one two-step sub-scale. */
+main :is(.section-label, .eyebrow) {
+  font-family: var(--font-sans);
+  font-size: var(--step-label);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+/* Body copy at every depth, so a paragraph nested in a panel matches one in
+   an essay. Excluded: things that are deliberately a size apart. */
+main :is(p, li, dd, dt, td, th):not(.lede):not(.small):not(.figure):not(.figure-label):not(.section-label) {
+  font-size: var(--step-body);
+  line-height: var(--lead-body);
+}
+
+/* The deck under every page headline is one size, everywhere. It had been
+   set in seven places to five different values, from 0.98 to 1.28rem, so it
+   is matched here at every depth the page sheets reach it. */
+main p.lede,
+main section p.lede,
+main section > .container > p.lede,
+main .reading > p.lede,
+main .container > p.lede,
+main [class*="-hero"] .lede,
+main [class*="-hero"] p.lede,
+main [class*="-hero"] > .container > p.lede,
+main [class*="-hero-copy"] p.lede {
+  font-size: var(--step-lede);
+  line-height: 1.5;
+}
+
+/* Small print — captions, source lines, footnotes — is one size too. */
+main p.small,
+main section p.small,
+main .study-sample-card p.small,
+main figcaption,
+main .figcaption {
+  font-size: var(--step-small);
+  line-height: 1.6;
+}
+
+/* Structural exceptions, kept on purpose: these are a different kind of
+   object, not body copy. */
+main .audience-grid .audience-card :is(h2, h3),
+main .home-audiences .audience-card :is(h2, h3),
+main article.audience-card > :is(h2, h3) {
+  font-size: var(--step-h3);
+  line-height: 1.24;
+}
+
+main .about-reading .path-intro h2,
+main .path-intro > h2,
+main #milestones .path-intro h2,
+main #milestones > .container > h2 {
+  font-size: var(--step-h2);
+  line-height: 1.22;
+}
+
+/* The contents index eyebrow is deliberately a size below every other
+   label, because it sits inside a panel rather than on the page. */
+/* The contents index eyebrow is a paragraph carrying the label class. It is
+   a label, so it takes the label step, not the body step. */
+main p.section-label[class],
+main section p.section-label,
+main nav p.section-label,
+main section nav p.section-label,
+main .understanding-contents p.section-label,
+main nav.understanding-toc p.section-label {
+  font-size: var(--step-label);
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* .small on a panel that is already small keeps the small step; the older
+   sheet set it to 0.875rem on a more specific selector. */
+main .study-sample-card p.small,
+main .research-section .study-sample-card p.small {
+  font-size: var(--step-small);
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   12d. RUN-IN LABELS
+   One hundred and eleven paragraphs across the site open with a bold label —
+   "What it's for.", "When to use it.", "At a big university." — and every
+   one of them was set as ordinary bold text inside a paragraph. Visually
+   they did no work at all: the reader met a wall of body copy and had to
+   parse the structure out of it.
+
+   Where a paragraph opens with a short bold run, that run is now set as a
+   label: the sans face at label scale, gold-ink, on its own line, with the
+   paragraph text beneath it and a little air above. The markup is untouched
+   — this is done with the first <strong> in a paragraph — so nothing about
+   the words or their order changes.
+   ========================================================================== */
+
+/* The classification is done in visual.js and recorded as an attribute:
+   data-runin="label" is a short bold opening that names what follows;
+   data-runin="inline" is an emphasised sentence, which stays in the line.
+   CSS cannot test punctuation, and a sentence that happens to be bold is not
+   a heading, so the distinction has to be made on the text itself. */
+
+main p[data-runin="label"] > strong:first-child {
+  display: block;
+  margin-bottom: 0.24rem;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.075em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: var(--gold-text);
+}
+
+/* Consecutive labelled paragraphs get a hairline between them, so a run of
+   them reads as a set of entries rather than one long block. */
+main p[data-runin="label"] + p[data-runin="label"] {
+  margin-top: 1.15rem;
+  padding-top: 1.05rem;
+  border-top: 1px solid var(--border);
+}
+
+main .pullout p[data-runin="label"] + p[data-runin="label"],
+main .callout p[data-runin="label"] + p[data-runin="label"] {
+  border-top-color: rgba(212, 175, 55, 0.35);
+}
+
+/* ==========================================================================
+   12e. ONE VERTICAL RHYTHM
+   Every section on the site now breathes at the same pace. Sections that
+   already carried their own padding were scattered across eleven values;
+   they are all pinned to --section-pad, with a single tighter step for the
+   short index and closing strips that would otherwise float.
+   ========================================================================== */
+
+main > section,
+main > div > section,
+main > .container > section {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+}
+
+/* The hero is the one section that opens the page, so it keeps a slightly
+   shorter foot and hands straight over to the first block below it. */
+main > section:first-of-type,
+main > .container > section:first-of-type {
+  padding-top: clamp(2.75rem, 4.5vw, 3.75rem);
+}
+
+/* Short strips — the contents index, the page-closing source button, the
+   "what's next" row — take the tight step so they read as a divider rather
+   than a full block. */
+main > section.understanding-contents,
+main section.sources-end,
+main > .container:has(> .sources-end) {
+  padding-top: var(--section-pad-tight);
+  padding-bottom: var(--section-pad-tight);
+}
+
+/* Sections that sit directly above the footer hand over more cleanly if they
+   close on the standard foot rather than a deep one. */
+main > section:last-of-type {
+  padding-bottom: var(--section-pad);
+}
+
+/* The older sheets still set section padding on a handful of class
+   selectors, which outranks the element rule above. This matches them at the
+   same weight and pins every one to the same rhythm. */
+main :is(.home-section, .choosing-section, .research-section, .understanding-section,
+  .about-section, .foundation-section, .about-hero, .research-hero,
+  .understanding-hero, .choosing-hero, .what-matters-hero, .page-hero) {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+}
+
+main :is(.about-hero, .research-hero, .understanding-hero, .choosing-hero,
+  .what-matters-hero, .page-hero) {
+  padding-top: clamp(2.75rem, 4.5vw, 3.75rem);
+}
+
+main :is(section.understanding-contents, section.research-hero--tight) {
+  padding-top: var(--section-pad-tight);
+  padding-bottom: var(--section-pad-tight);
+}
+
+/* The last few sections that set their own padding. The Understanding page's
+   contents index sits under the hero and reads as part of it, so it takes the
+   tight step; the chart section on What Matters is an opening block; the
+   research page's closing sections were splitting the difference between two
+   values that no other page used. */
+main section.understanding-contents {
+  padding-top: var(--section-pad-tight);
+  padding-bottom: var(--section-pad-tight);
+}
+
+main section.understanding-closing,
+main section.chart-section,
+main section.research-section--last {
+  padding-top: var(--section-pad);
+  padding-bottom: var(--section-pad);
+}
+
+/* ==========================================================================
+   12f. THE MARGIN OUTLINE
+   On the essay pages the prose is set on the 748px reading measure inside
+   the 1140px rail, which leaves about 380px empty — measured at 90 to 100
+   per cent of the page's full height. That is the blank space the page was
+   carrying.
+
+   The column now holds an outline of the page, built from the headings that
+   are already there. It is duplicative by design (aria-hidden, the page has
+   its own contents list) and it is the reason the prose column no longer
+   reads as a narrow strip with nothing beside it.
+   ========================================================================== */
+
+.margin-outline {
+  display: none;
+}
+
+@media (min-width: 1180px) {
+  .margin-outline-host {
+    position: relative;
+  }
+
+  .margin-outline {
+    display: block;
+    position: absolute;
+    top: 0;
+    /* Aligned to the rail's right edge, not the viewport's: main is
+       full-bleed, so right:0 would push the column into the gutter. */
+    right: max(1.15rem, calc((100% - var(--rail)) / 2));
+    bottom: 0;
+    width: min(17.5rem, calc(var(--rail) - var(--measure) - 3rem));
+    /* The column is a full-height track — top and bottom both pinned to the
+       page — so the panel inside it has room to travel and can stick. */
+    pointer-events: none;
+    transition: opacity 220ms var(--ease-soft);
+  }
+
+  /* Out of sight while the page is still introducing itself. */
+  .margin-outline.is-dormant,
+  .margin-outline.is-obscured {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .margin-outline-inner {
+    position: sticky;
+    top: 7rem;
+    pointer-events: auto;
+  }
+
+  .margin-outline-label {
+    margin: 0 0 0.9rem;
+    font-family: var(--font-sans);
+    font-size: var(--step-label);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+    text-transform: uppercase;
+    color: var(--gold-text);
+  }
+
+  .margin-outline ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: 1px solid var(--border);
+  }
+
+  .margin-outline li {
+    margin: 0;
+  }
+
+  .margin-outline a {
+    display: block;
+    padding: 0.44rem 0 0.44rem 0.95rem;
+    margin-left: -1px;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--muted);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: color 180ms var(--ease-soft), border-color 180ms var(--ease-soft);
+  }
+
+  .margin-outline a:hover {
+    color: var(--navy);
+    border-left-color: var(--gold-line);
+  }
+
+  .margin-outline a:focus-visible {
+    outline: 2px solid var(--gold-dark);
+    outline-offset: 2px;
+  }
+
+  .margin-outline a.is-current {
+    color: var(--navy);
+    font-weight: 600;
+    border-left-color: var(--gold);
+  }
+}
+
+/* Print and reduced-motion: the outline is already a duplication of the
+   page, so it never prints. */
+@media print {
+  .margin-outline {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   12g. RUNNING PROSE IN THE READING FACE
+
+   The site has two voices and had only ever used one. Every heading is Lora,
+   a serif; every word of body copy was Inter, a face drawn for screens and
+   interfaces. That is why the long sections read as a wall: eight
+   consecutive paragraphs of the same sans at the same size are visually
+   identical, and the eye has nothing to grip.
+
+   Running prose now uses the same serif as the headings, a little larger and
+   looser on the line. Everything that is not running prose keeps the sans —
+   tables, cards, buttons, labels, forms, captions, the quiz, anything in a
+   dark panel. Those are instruments, and instruments are clearer in a screen
+   face. What changed is the reading, not the machinery.
+
+   Scoped by reading container rather than by exception, so no card and no
+   navy panel can be caught by it.
+   ========================================================================== */
+
+main .container > p:not([class]),
+main .understanding-reading > p:not([class]),
+main .reading-body > p,
+main .about-reading > p,
+main .privacy-body > p,
+main .understanding-history-body > p,
+main .research-prose > p,
+main .choosing-section > p,
+main .policymakers-brief-intro > p,
+main .about-study > p,
+main .research-finding-copy > p,
+main .parents-loan-copy > p,
+main .faculty-carrying > p,
+main .parents-advice > p,
+main .numbers-note > p,
+main .pullout-body > p,
+main .callout > p,
+main .understanding-callout > p,
+main .author-note > p,
+main .parents-advice p {
+  font-family: var(--font-serif);
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  letter-spacing: 0.001em;
+}
+
+/* The lede is the page speaking in its own voice, so it is set in the reading
+   face at reading scale — not in the interface face. */
+main p.lede,
+main .home-hero .lede {
+  font-family: var(--font-serif);
+  line-height: 1.6;
+}
+
+/* Footnote markers stay in the screen face, so a numeral beside a serif is
+   never set in a text figure. */
+main .container > p:not([class]) sup,
+main .understanding-reading > p:not([class]) sup,
+main .reading-body > p sup,
+main .about-reading > p sup {
+  font-family: var(--font-sans);
+  font-size: 0.7em;
+  line-height: 0;
+}
+
+/* An opening paragraph takes one step more, so a section starts with a
+   visible change of scale rather than a repeat of the paragraph before it. */
+main .container > h2 + p:not([class]),
+main .container > h3 + p:not([class]),
+main .understanding-reading > h2 + p:not([class]),
+main .reading-body > h2 + p:not([class]),
+main .about-reading > h2 + p:not([class]) {
+  font-size: 1.16rem;
+  line-height: 1.64;
+  margin-bottom: 1.15rem;
+}
+
+/* A bold opening that is a label is a label, and stays at label scale. */
+main h2 + p[data-runin="label"],
+main h3 + p[data-runin="label"] {
+  font-size: var(--step-body);
+  line-height: var(--lead-body);
+}
+
+/* ==========================================================================
+   12h. A PANEL THAT OPENS BESIDE ITS LABEL
+
+   A disclosure is a short label and a long body. Opened in place, the body
+   appears under the label and takes the whole width of whatever box it is
+   in — which, when the box is one column of a two-column grid, leaves an
+   empty channel beside a thousand pixels of text. The window was horizontal
+   and the panel was vertical.
+
+   Where there is room, the open panel becomes a row: the label a column, the
+   body the rest. visual.js decides per panel, from real measured width, and
+   adds .has-side-panel. On a narrow screen the class is never added and the
+   panel opens underneath exactly as before.
+
+   The divider runs down the left of the body rather than across the top, so
+   the label reads as a marginal note on the passage beside it.
+   ========================================================================== */
+
+/* A panel that becomes a row must not be confined to one cell of the grid it
+   sits in. Outside a grid the declaration is simply ignored. */
+main details.has-side-panel {
+  grid-column: 1 / -1;
+  /* The card is sized so that the label and the body together fill it. A card
+     spanning the whole rail would leave a hollow strip inside its own border,
+     which is the thing being fixed; a card slightly narrower than the rail
+     leaves ordinary page margin instead. */
+  max-width: min(100%, calc(var(--measure) + 17rem));
+}
+
+main details.has-side-panel {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.25fr) minmax(0, 1fr);
+  column-gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  row-gap: 0;
+  align-items: start;
+}
+
+main details.has-side-panel > summary {
+  margin: 0;
+  padding: 0.15rem 0 0;
+  border: 0;
+  background: none;
+  box-shadow: none;
+}
+
+/* Only panels whose summary is a plain, short label take the side layout.
+   A card whose summary is a numbered heading with a marker of its own keeps
+   its full width; it is a heading, not a margin note. */
+main details.has-side-panel > summary::before,
+main details.has-side-panel > summary::after {
+  content: none;
+}
+
+main details.has-side-panel > :not(summary) {
+  max-width: 100%;
+  padding-left: clamp(1rem, 2vw, 1.6rem);
+  border-left: 1px solid var(--border);
+  margin-top: 0;
+}
+
+/* Inside a tinted plate the rule takes the plate's own accent. */
+main .pullout.has-side-panel > :not(summary),
+main .callout.has-side-panel > :not(summary),
+main .understanding-callout.has-side-panel > :not(summary) {
+  border-left-color: rgba(212, 175, 55, 0.4);
+}
+
+/* A body that is a grid of its own keeps that grid, now with more room. */
+main details.has-side-panel > .understanding-more-body,
+main details.has-side-panel > .counselors-glossary-more-body {
+  padding-left: clamp(1rem, 2vw, 1.6rem);
+}
+
+/* A tall body of running prose, already as wide as it needs to be, flows in
+   two columns instead of one long ribbon. The words and their order are
+   untouched; only the measure changes. */
+/* ==========================================================================
+   13. LONG-FORM READING
+   Text-heavy pages get a wider measure, more leading and clearer headings so
+   the eye always has somewhere to land.
+   ========================================================================== */
+
+.reading-body,
+.pullout-body,
+.understanding-more-body {
+  line-height: 1.78;
+}
+
+.reading-body p + p,
+.pullout-body p + p {
+  margin-top: 0.95em;
+}
+
+.reading-body h2 {
+  margin-top: 2.4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.reading-body h3 {
+  margin-top: 1.8rem;
+  color: var(--navy);
+}
+
+.reading-body ul,
+.reading-body ol {
+  padding-left: 1.15rem;
+}
+
+.reading-body li {
+  margin-bottom: 0.45rem;
+}
+
+.reading-body li::marker {
+  color: var(--gold-text);
+}
+
+/* Contents / on-this-page lists: a light index card. */
+.understanding-contents {
+  background: linear-gradient(180deg, #ffffff 0%, #fbf8f1 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.understanding-contents a {
+  transition: color 150ms var(--ease-soft), padding-left 150ms var(--ease-out);
+}
+
+.understanding-contents a:hover {
+  padding-left: 3px;
+}
+
+/* ==========================================================================
+   14. FOOTER
+   ========================================================================== */
+
+.site-footer {
+  position: relative;
+  background-color: #16294a;
+  background-image:
+    radial-gradient(46rem 24rem at 12% 0%, rgba(212, 175, 55, 0.13), transparent 60%),
+    linear-gradient(180deg, #1b365d 0%, #142746 100%);
+  border-top: 1px solid rgba(212, 175, 55, 0.55);
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0), var(--gold) 22%, var(--gold) 78%, rgba(212, 175, 55, 0));
+}
+
+.footer-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.footer-name {
+  letter-spacing: -0.015em;
+}
+
+.footer-nav a {
+  position: relative;
+  transition: color 150ms var(--ease-soft);
+}
+
+.footer-meta {
+  color: #a8b8c8;
+}
+
+/* ==========================================================================
+   15. NOTES PANEL
+   ========================================================================== */
+
+.notes-panel {
+  border: 1px solid var(--border);
+  box-shadow: 0 0 0 1px rgba(27, 54, 93, 0.04), var(--lift-3);
+}
+
+.notes-panel::backdrop {
+  background: rgba(18, 32, 54, 0.48);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+}
+
+.notes-list li::marker {
+  color: var(--gold-text);
+}
+
+/* ==========================================================================
+   16. MOTION
+   One mechanism only: a scroll-triggered entrance, plus the hover and focus
+   transitions declared above.
+
+   The entrance is written as an *animation keyed off a class*, never as a
+   hidden resting state. Content is visible by default, so a page without
+   JavaScript, a browser without IntersectionObserver, a print stylesheet or
+   a failed script all degrade to fully readable text. If the observer fires,
+   the element simply plays a short rise as it arrives.
+   ========================================================================== */
+
+@keyframes refine-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes refine-draw {
+  from {
+    transform: scaleX(0.001);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.js .reveal-in {
+  animation: refine-rise 620ms var(--ease-out) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+/* Cards stagger in sequence inside a grid. */
+.js .audience-grid .audience-card:nth-child(2),
+.js .audience-grid .audience-card:nth-child(5) {
+  --reveal-delay: 60ms;
+}
+
+.js .audience-grid .audience-card:nth-child(3),
+.js .audience-grid .audience-card:nth-child(6) {
+  --reveal-delay: 120ms;
+}
+
+.js .audience-grid .audience-card:nth-child(4),
+.js .audience-grid .audience-card:nth-child(7) {
+  --reveal-delay: 180ms;
+}
+
+.js .home-good-life-list li:nth-child(2) {
+  --reveal-delay: 50ms;
+}
+
+.js .home-good-life-list li:nth-child(3) {
+  --reveal-delay: 100ms;
+}
+
+.js .home-good-life-list li:nth-child(4) {
+  --reveal-delay: 150ms;
+}
+
+.js .home-good-life-list li:nth-child(5) {
+  --reveal-delay: 200ms;
+}
+
+.js .home-good-life-list li:nth-child(6) {
+  --reveal-delay: 250ms;
+}
+
+/* A section's short gold rule draws itself left to right as it arrives. */
+.js .section-label.reveal-in::before,
+.js .home-section > .container > h2.reveal-in::before,
+.js .about-section > .container > h2.reveal-in::before,
+.js .research-section > .container > h2.reveal-in::before,
+.js .choosing-section > .container > h2.reveal-in::before,
+.js .understanding-section > .container > h2.reveal-in::before {
+  animation: refine-draw 520ms var(--ease-out) 120ms both;
+  transform-origin: left center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal-in,
+  .js .section-label.reveal-in::before {
+    animation: none;
+  }
+
+  .audience-card,
+  .audience-card:hover,
+  .home-study-list li:hover,
+  .home-good-life-list li:hover,
+  .chart-card:hover,
+  .btn-primary:hover,
+  .btn-gold:hover,
+  .btn-outline:hover,
+  .book-band:hover img,
+  .audience-card:hover .card-icon {
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ==========================================================================
+   17. PRINT AND FALLBACKS
+   ========================================================================== */
+
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .home-hero::before,
+  .home-hero::after,
+  .choosing-hero::before,
+  .research-hero::before,
+  .understanding-hero::before,
+  .what-matters-hero::before,
+  .page-hero::before,
+  .home-study::after,
+  .site-footer::before {
+    display: none;
+  }
+
+  .js .reveal,
+  .js .reveal-in {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  /* The study band is navy with white type on screen. If the reader prints
+     without background graphics, that band turns white, so its text has to
+     turn dark with it. */
+  .home-study {
+    background: #fff !important;
+    color: #111 !important;
+  }
+
+  .home-study h2,
+  .home-study .section-label,
+  .home-study-list strong,
+  .home-study-links,
+  .home-study-links a {
+    color: #111 !important;
+  }
+
+  .audience-card,
+  .audience-card:hover,
+  .home-good-life-list li,
+  .book-band,
+  .home-hero-panel {
+    box-shadow: none;
+  }
+}
+
+/* Without gradient support, fall back to flat, legible colour. */
+@supports not (background-image: linear-gradient(90deg, red, blue)) {
+  .home-study {
+    background-color: var(--navy);
+  }
+
+  .btn-primary,
+  .btn-gold {
+    background-color: var(--gold);
+  }
 }

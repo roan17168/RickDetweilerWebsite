@@ -64,7 +64,9 @@ rawSource.split('\n').forEach(function (line) {
 });
 
 const aboutRaw = fs.readFileSync(path.join(PREVIEW, 'about.html'), 'utf8');
-const aboutText = norm(textOf(aboutRaw));
+const aboutText = norm(textOf(aboutRaw))
+  // A superscript note number is a citation link, not prose; drop its digits.
+  .replace(/\b(\d+)\s+(was named by|It reports)\b/g, '$2');
 // Structure counts apply to the page body only; the shared footer and the notes
 // panel contain headings and the site EIN that are not part of this page's copy.
 const aboutMain = aboutRaw.split('<main id="main">')[1].split('</main>')[0];
@@ -128,9 +130,12 @@ present('contact 1907', P[1907], aboutText);
 
 // Removed unsourced draft material.
 check('no press list', !/press-list|Inside Higher Ed|Times Higher Education|Education Next/.test(aboutRaw));
-check('no unsourced talks', !/Work with HigherEdImpact|Selected writing and talks/.test(aboutRaw));
+// Revision 6 (paragraphs 2244-2252) requires the "Work with HigherEdImpact" section,
+// with the three service cards and their preset email subject lines.
+check('Work with HigherEdImpact present', /id="work"/.test(aboutMain) && /Testimony%20request/.test(aboutMain) && /Speaking%20invitation/.test(aboutMain) && /Advising%20inquiry/.test(aboutMain));
 check('no Eastern photo', !/detweiler-eastern|Eastern Connecticut/.test(aboutRaw));
-check('no fact box / EIN', !/fact-box|87-2050100/.test(aboutMain));
+// Revision 6 (paragraphs 2206-2212) requires the compact fact box, including the EIN.
+check('fact box with EIN', /87-2050100/.test(aboutMain) && /about-factbox/.test(aboutMain));
 
 // --- About: structure and assets -----------------------------------------
 function count(html, pattern) {
@@ -139,8 +144,11 @@ function count(html, pattern) {
 
 check('one h1', count(aboutMain, /<h1[\s>]/g) === 1, String(count(aboutMain, /<h1[\s>]/g)));
 notes.push('About h2: ' + count(aboutMain, /<h2[\s>]/g) + ', h3: ' + count(aboutMain, /<h3[\s>]/g));
-check('four source sections', count(aboutMain, /<h2[\s>]/g) === 4);
-check('seven career milestones', count(aboutMain, /<dt>/g) === 7 && count(aboutMain, /<dd>/g) === 7);
+// Revision 6 adds About HigherEdImpact, Our Managing Director and Work with HigherEdImpact.
+check('six source sections', count(aboutMain, /<h2[\s>]/g) === 6, String(count(aboutMain, /<h2[\s>]/g)));
+// Seven milestone rows; the org fact box adds its own dt/dd pairs.
+const milestoneBlock = aboutMain.split('id="milestones"')[1].split('id="book"')[0];
+check('seven career milestones', count(milestoneBlock, /<dt>/g) === 7 && count(milestoneBlock, /<dd>/g) === 7, String(count(milestoneBlock, /<dt>/g)));
 check('two images', count(aboutMain, /<img /g) === 2);
 check('image alt text', count(aboutMain, /<img [^>]*alt="[^"]+"/g) === 2);
 check('image dimensions', count(aboutMain, /<img [^>]*width="\d+" height="\d+"/g) === 2);

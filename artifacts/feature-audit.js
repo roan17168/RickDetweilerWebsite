@@ -127,7 +127,10 @@ expect('Policy brief request field', count(policyTool, /data-tool-field="request
   });
 
 const about = html('about.html');
-expect('About milestones', count(about, /<dt>/g), 7);
+// Revision 6 adds a fact box with its own dt/dd pairs; the seven milestone rows
+// stay inside #milestones.
+const aboutMilestones = about.split('id="milestones"')[1].split('id="book"')[0];
+expect('About milestones', count(aboutMilestones, /<dt>/g), 7);
 expect('About images', count(about, /<img/g), 2);
 
 const quizPages = ['choosing.js', 'parents.js', 'in-college.js', 'faculty.js', 'college-leaders.js', 'policymakers.js'];

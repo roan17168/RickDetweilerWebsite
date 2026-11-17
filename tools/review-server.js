@@ -4,7 +4,12 @@
    review-notes panel into every HTML page. Nothing here is part of the build,
    so the published site never contains the panel.
 
-   Usage:  node tools/review-server.js [port]
+   The panel is OFF by default now: it is a scratchpad for whoever is
+   reviewing, and it was overlapping page content in screenshots. Turn it on
+   only when you actually want to leave notes:
+
+   Usage:  node tools/review-server.js [port]            # plain site
+           REVIEW_PANEL=1 node tools/review-server.js    # panel injected
 */
 
 'use strict';
@@ -36,6 +41,9 @@ var TYPES = {
   '.pdf': 'application/pdf'
 };
 
+var PANEL_ON = /^(1|true|yes)$/i.test(String(process.env.REVIEW_PANEL || '')) ||
+  process.argv.indexOf('--panel') !== -1;
+
 var INJECT_CSS = '<link rel="stylesheet" href="/__review/review.css">';
 var INJECT_JS = '<script src="/__review/review.js" defer></script>';
 
@@ -48,6 +56,7 @@ function send(res, status, body, type) {
 }
 
 function inject(html) {
+  if (!PANEL_ON) return html;
   var withCss = html.indexOf('</head>') !== -1
     ? html.replace('</head>', '  ' + INJECT_CSS + '\n</head>')
     : INJECT_CSS + html;
@@ -95,6 +104,10 @@ var server = http.createServer(function (req, res) {
   }
 
   if (pathname.indexOf('/__review/') === 0) {
+    if (!PANEL_ON) {
+      send(res, 404, 'Not found');
+      return;
+    }
     servePanel(res, pathname.slice('/__review/'.length));
     return;
   }
@@ -137,5 +150,6 @@ var server = http.createServer(function (req, res) {
 });
 
 server.listen(PORT, '0.0.0.0', function () {
-  console.log('Review server on http://0.0.0.0:' + PORT + ' (review panel injected, never published)');
+  console.log('Review server on http://0.0.0.0:' + PORT + ' ' +
+    (PANEL_ON ? '(review panel ON — never published)' : '(plain site, no review panel)'));
 });

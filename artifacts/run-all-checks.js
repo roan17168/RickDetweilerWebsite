@@ -26,7 +26,11 @@ const CHECKS = [
   ['leaders-audit', 'artifacts/leaders-audit.js'],
   ['policymakers-audit', 'artifacts/policymakers-audit.js'],
   ['understanding-audit', 'artifacts/understanding-audit.js'],
-  ['about-audit', 'artifacts/about-audit.js']
+  ['about-audit', 'artifacts/about-audit.js'],
+  // Browser check for the refinement layer. It needs a Chromium binary; when
+  // none is available it reports SKIP and exits 77, which is counted as a
+  // skip rather than a failure so the suite still runs on a bare machine.
+  ['visual-audit', 'artifacts/visual-audit.js', { optional: true }]
 ];
 
 const results = [];
@@ -40,16 +44,20 @@ CHECKS.forEach(function (entry) {
   });
   const output = (run.stdout || '') + (run.stderr || '');
   const code = typeof run.status === 'number' ? run.status : 1;
-  if (code !== 0) failed += 1;
-  results.push({ name: entry[0], code: code, output: output });
+  const skipped = code === 77 && entry[2] && entry[2].optional;
+  if (code !== 0 && !skipped) failed += 1;
+  results.push({ name: entry[0], code: code, output: output, skipped: skipped });
 
   const tail = output.trim().split('\n').slice(-2).join(' | ');
-  console.log((code === 0 ? 'PASS  ' : 'FAIL  ') + entry[0].padEnd(24) + tail.slice(0, 120));
+  const label = skipped ? 'SKIP  ' : (code === 0 ? 'PASS  ' : 'FAIL  ');
+  console.log(label + entry[0].padEnd(24) + tail.slice(0, 120));
 });
 
-console.log('\n' + results.length + ' checks run, ' + (results.length - failed) + ' passed, ' + failed + ' failed.');
+const skippedCount = results.filter(function (item) { return item.skipped; }).length;
+console.log('\n' + results.length + ' checks run, ' + (results.length - failed - skippedCount) +
+  ' passed, ' + failed + ' failed' + (skippedCount ? ', ' + skippedCount + ' skipped' : '') + '.');
 
-const failedNames = results.filter(function (item) { return item.code !== 0; }).map(function (item) { return item.name; });
+const failedNames = results.filter(function (item) { return item.code !== 0 && !item.skipped; }).map(function (item) { return item.name; });
 if (failedNames.length) {
   console.log('Failing: ' + failedNames.join(', '));
   console.log('Run each with `node <path>` to see its detail; the docx suite prints every deviation.');

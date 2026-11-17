@@ -185,11 +185,49 @@
     return true;
   }
 
+  /* The course self-audit's evidence examples change with the format chosen, so the
+     prompts describe what an observer would actually see in that kind of course. */
+  var FORMAT_EXAMPLES = {
+    'in person': [
+      'e.g. Learned 15 of 30 by midterm',
+      'e.g. Only saw students about grade disputes',
+      'e.g. Lectured 45 of 50 minutes',
+      'e.g. Multiple-choice quizzes only',
+      'e.g. Not explicitly prompted'
+    ],
+    hybrid: [
+      'e.g. Half the class has never shown a face',
+      'e.g. Most questions arrive in the chat window',
+      'e.g. Recorded lectures; breakout rooms stayed silent',
+      'e.g. Discussion prompts with one right answer',
+      'e.g. Breakout groups agreed quickly without objection'
+    ],
+    online: [
+      'e.g. Names matched to posts for about half the class',
+      'e.g. Only replied in the discussion forum',
+      'e.g. Recorded lectures; the forum had one reply each',
+      'e.g. Quizzes drawn from the textbook bank',
+      'e.g. Posts mostly agreed with each other'
+    ]
+  };
+
+  function applyFormatExamples(root) {
+    var formatField = root.querySelector('[data-tool-field="course-format"]');
+    if (!formatField) return;
+    var chosen = String(formatField.value || '').toLowerCase();
+    var examples = FORMAT_EXAMPLES[chosen] || FORMAT_EXAMPLES['in person'];
+    examples.forEach(function (example, index) {
+      var field = root.querySelector('[data-tool-field="evidence-' + (index + 1) + '"]');
+      if (field) field.setAttribute('placeholder', example);
+    });
+  }
+
   function setup(root) {
     var key = root.getAttribute('data-tool-key');
     if (!key) return;
     var saved = readResult(key);
     if (saved) apply(root, saved);
+    applyFormatExamples(root);
 
     var prefillKind = root.getAttribute('data-tool-prefill');
     var prefillNote = root.querySelector('[data-tool-prefill-note]');
@@ -225,6 +263,7 @@
 
     root.addEventListener('change', function (event) {
       if (!event.target.closest('[data-tool-field]')) return;
+      applyFormatExamples(root);
       writeStored(key, JSON.stringify(collect(root)));
       setStatus(root, 'Saved on this device.');
     });

@@ -22,6 +22,34 @@
 
   var initialized = false;
 
+
+  var RESULT_STORAGE = 'wcirf_faculty_result_v1';
+
+  /* A shared link carries only the result name: #result=<key>. It wins over a stored result. */
+  function reopenResult(data) {
+    var wanted = null;
+    try {
+      var hash = String(root.location ? root.location.hash : '').replace(/^#/, '');
+      hash.split('&').forEach(function (part) {
+        var pieces = part.split('=');
+        if (pieces[0] === 'result') wanted = decodeURIComponent(pieces[1] || '');
+      });
+    } catch (error) {
+      wanted = null;
+    }
+    if (!wanted) {
+      try {
+        var raw = root.localStorage ? root.localStorage.getItem(RESULT_STORAGE) : null;
+        var saved = raw ? JSON.parse(raw) : null;
+        wanted = saved ? saved.result : null;
+      } catch (error) {
+        wanted = null;
+      }
+    }
+    if (!wanted) return null;
+    return (data.quiz.results || []).find(function (item) { return item.key === wanted; }) || null;
+  }
+
   function escapeHtml(value) {
     return String(value).replace(/[&<>"']/g, function (character) {
       return {
@@ -93,6 +121,7 @@
     html += '<div class="result-tools">' +
       '<button class="btn btn-outline" type="button" data-result-copy>Copy my questions</button>' +
       '<button class="btn btn-outline" type="button" data-result-email>Email this to me</button>' +
+      '<button class="btn btn-outline" type="button" data-result-share data-result-share-key="wcirf_faculty_result_v1">Share my result</button>' +
       '<span class="result-tool-status" role="status" aria-live="polite"></span>' +
       '</div>';
     html += '<div class="quiz-actions">' +
@@ -476,7 +505,9 @@
     var app = document.querySelector('[data-faculty-quiz]');
     if (app) {
       var quiz = new Quiz(app, data);
-      quiz.start();
+      var reopen = reopenResult(data);
+      if (reopen) quiz.showResults({ result: reopen, values: [] });
+      else quiz.start();
     }
   }
 

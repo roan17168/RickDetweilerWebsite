@@ -853,7 +853,7 @@ function notesPanel(notes) {
   });
 }
 
-const shell = '<!DOCTYPE html>\n<html lang="en">\n{{HEAD}}\n<body data-page="{{PAGE}}">\n{{HEADER}}\n<main id="main">\n{{BODY}}\n</main>\n{{FOOTER}}\n{{NOTES}}\n<script src="scripts/ui.js"></script>\n{{PAGE_SCRIPTS}}\n</body>\n</html>\n';
+const shell = '<!DOCTYPE html>\n<html lang="en">\n{{HEAD}}\n<body data-page="{{PAGE}}">\n{{HEADER}}\n<main id="main">\n{{BODY}}\n</main>\n{{FOOTER}}\n{{NOTES}}\n<script src="scripts/ui.js"></script>\n<script src="scripts/visual.js"></script>\n{{PAGE_SCRIPTS}}\n</body>\n</html>\n';
 
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -899,6 +899,9 @@ console.log('built styles.css');
 fs.mkdirSync(path.join(OUT, 'scripts'), { recursive: true });
 fs.copyFileSync(path.join(SRC, 'scripts', 'ui.js'), path.join(OUT, 'scripts', 'ui.js'));
 console.log('built scripts/ui.js');
+
+fs.copyFileSync(path.join(SRC, 'scripts', 'visual.js'), path.join(OUT, 'scripts', 'visual.js'));
+console.log('built scripts/visual.js');
 
 const choosingData = read('data/choosing.json');
 fs.writeFileSync(path.join(OUT, 'scripts', 'choosing-data.js'), 'window.WCIRF_CHOOSING = ' + choosingData.trim() + ';\n');

@@ -44,6 +44,106 @@
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* The masthead and footer used a percentage width, so their brand lines sat
+   a few pixels outside the content rail. They now share the same rail. */
+.nav-shell,
+.footer-inner {
+  width: min(calc(100% - (var(--edge) * 2)), var(--rail));
+}
+
+/* ==========================================================================
+   1b. ONE HORIZONTAL RAIL
+   A measured pass across all fourteen pages found six different left edges
+   (70, 96, 100, 176, 280, 421px) and five container widths (1140, 1088, 1080,
+   928, 720px), so content shifted sideways as a reader moved between pages.
+
+   Every page container now sits on a single rail with a single gutter:
+
+       --rail      1140px  the full measure
+       --measure    748px  the reading measure, inside the same rail
+       --edge      the gutter, fluid to the rail
+
+   The reading measure stays *inside* the rail rather than being a separate
+   narrower centred column, so its left edge lines up with every other page
+   instead of floating 140px further in.
+   ========================================================================== */
+
+:root {
+  --rail: 1140px;
+  --measure: 46.75rem; /* 748px */
+  --edge: 1.5rem;
+}
+
+@media (min-width: 721px) {
+  :root {
+    --edge: 2rem;
+  }
+}
+
+/* A rail that still keeps its gutter on small screens. */
+.container,
+.reading,
+.wide,
+.research-body,
+.reading-body {
+  width: min(calc(100% - (var(--edge) * 2)), var(--rail));
+  max-width: none;
+  margin-inline: auto;
+}
+
+/* Reading columns share the rail's left edge. Their text is held to a
+   comfortable measure, but the box they sit in is the page. */
+.reading-body {
+  padding-left: 0;
+}
+
+@media (min-width: 861px) {
+  .reading-body > * {
+    max-width: var(--measure);
+  }
+
+  /* Inside long-form pages the section wrapper supplies the measure, so the
+     headings and body copy agree with each other. */
+  .understanding-reading,
+  .research-body > .research-section > *,
+  .reading-body {
+    max-width: none;
+  }
+
+  .understanding-reading > * {
+    max-width: var(--measure);
+  }
+
+  .understanding-reading,
+  .research-body {
+    max-width: none;
+  }
+}
+
+/* The research page's body previously sat on a 68rem inner column; it now
+   uses the rail like every other page. */
+.research-body {
+  padding-top: clamp(2.75rem, 5vw, 4.25rem);
+}
+
+/* Two wrappers still override the rail: the quiz section narrows its own
+   container to a 1080px column, and the privacy body is a standalone 720px
+   column. Both are brought onto the rail so the whole site shares one edge. */
+.choosing-quiz-section .container {
+  width: min(calc(100% - (var(--edge) * 2)), var(--rail));
+}
+
+.privacy-body {
+  width: min(calc(100% - (var(--edge) * 2)), var(--rail));
+  margin-inline: auto;
+}
+
+@media (min-width: 861px) {
+  .privacy-body > * {
+    max-width: var(--measure);
+  }
+}
+
 /* ==========================================================================
    2. PAGE GROUND AND TYPE DETAIL
    ========================================================================== */
@@ -209,70 +309,75 @@ main a:not(.btn):not(.brand) {
 }
 
 /* ==========================================================================
-   5. HOME HERO — the composition fix
-   The hero was one centred column with a wide empty band beneath it. Here it
-   becomes an asymmetric editorial spread: display type on the left, the
-   "start at the end" panel presented as a filed card on the right, and the
-   hero share of the viewport constrained so nothing floats in dead space.
+   5. HOME HERO — a display spread
+   The hero was one centred column; then a text-only two-column spread that
+   still left the lower right of the page bare. It is now a real composition:
+   display type on the left, the "start at the end" card on the right, and a
+   line of study figures beneath, so the fold carries headline, promise,
+   evidence and an action in one look.
    ========================================================================== */
 
 .home-hero {
   position: relative;
   overflow: hidden;
-  padding: clamp(2.5rem, 5.5vw, 4.5rem) 0 clamp(2.5rem, 5vw, 4rem);
+  padding: clamp(2.75rem, 5.5vw, 4.75rem) 0 clamp(2.75rem, 5vw, 4.25rem);
   background: transparent;
   border-bottom: 1px solid var(--border);
   isolation: isolate;
 }
 
-/* Concentric arcs, drawn in CSS, echoing the mark in the favicon.
-   Kept to a whisper: 0.05 alpha at most, and hidden from print. */
+/* Concentric arcs, drawn in CSS, echoing the mark in the icon. Kept to a
+   whisper: 3–6% alpha, and removed from print. */
 .home-hero::before {
   content: "";
   position: absolute;
   z-index: -1;
-  right: -14vw;
-  top: -22vw;
-  width: 62vw;
-  min-width: 420px;
+  right: -16vw;
+  top: -26vw;
+  width: 66vw;
+  min-width: 440px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background:
-    repeating-radial-gradient(circle at 50% 50%,
-      rgba(212, 175, 55, 0.05) 0 1px,
-      transparent 1px 34px);
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 32%, transparent 72%);
-  mask-image: radial-gradient(circle at 50% 50%, #000 32%, transparent 72%);
+  background: repeating-radial-gradient(circle at 50% 50%,
+      rgba(212, 175, 55, 0.055) 0 1px,
+      transparent 1px 30px);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 30%, transparent 70%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 30%, transparent 70%);
   pointer-events: none;
 }
 
-/* A soft gold wash anchoring the base of the left column. */
+/* A single soft pool of warm light low on the left, so the fold does not go
+   flat beneath the headline. Deliberately faint: it should read as paper. */
 .home-hero::after {
   content: "";
   display: block;
   position: absolute;
   z-index: -1;
-  left: -12vw;
-  bottom: -18vw;
-  width: 44vw;
-  min-width: 320px;
+  left: -18vw;
+  bottom: -30vw;
+  width: 52vw;
+  min-width: 300px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.12), transparent 62%);
+  background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.07), transparent 58%);
   pointer-events: none;
 }
 
 .home-hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.32fr) minmax(0, 0.78fr);
-  gap: clamp(1.75rem, 4.5vw, 3.5rem);
+  grid-template-columns: minmax(0, 1.28fr) minmax(0, 0.82fr);
+  grid-template-areas:
+    "copy panel"
+    "figures panel";
+  column-gap: clamp(1.75rem, 4.5vw, 3.75rem);
+  row-gap: clamp(1.75rem, 3.5vw, 2.5rem);
   align-items: start;
   max-width: none;
 }
 
 .home-hero-copy {
+  grid-area: copy;
   text-align: left;
-  /* Keeps the hero from becoming a full-width ribbon of type. */
   max-width: 44rem;
 }
 
@@ -281,7 +386,7 @@ main a:not(.btn):not(.brand) {
   height: 3px;
   margin: 0 0 1.15rem;
   border-radius: 2px;
-  background: linear-gradient(90deg, var(--gold), rgba(212, 175, 55, 0.25));
+  background: linear-gradient(90deg, var(--gold), rgba(212, 175, 55, 0.2));
 }
 
 .home-hero .section-label {
@@ -289,51 +394,51 @@ main a:not(.btn):not(.brand) {
 }
 
 .home-hero h1 {
-  margin-left: 0;
-  margin-right: 0;
+  margin: 0;
   max-width: 19ch;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  line-height: 1.04;
-  letter-spacing: -0.026em;
+  font-size: clamp(2.5rem, 5.1vw, 4.1rem);
+  line-height: 1.03;
+  letter-spacing: -0.028em;
   color: var(--navy);
   text-wrap: balance;
 }
 
-/* The standfirst is the hinge of the argument, so it gets real presence. */
+/* The standfirst is the hinge of the argument, so it gets real presence and a
+   hairline that ties it to the body copy beneath. */
 .home-hero .home-hero-standfirst {
   margin: 1.15rem 0 0;
   max-width: 30ch;
-  font-size: clamp(1.28rem, 1.9vw, 1.62rem);
-  line-height: 1.34;
+  font-size: clamp(1.3rem, 1.95vw, 1.66rem);
+  line-height: 1.32;
   color: var(--navy-soft);
 }
 
 .home-hero .home-hero-standfirst::after {
   content: "";
   display: block;
-  width: 2rem;
+  width: 2.25rem;
   height: 1px;
   margin: 1.1rem 0 0;
   background: var(--border-strong);
 }
 
 .home-hero .lede {
-  margin: 1.1rem 0 0;
+  margin: 1.05rem 0 0;
   max-width: 34rem;
   font-size: 1.02rem;
   line-height: 1.72;
   color: var(--ink);
 }
 
-/* The panel reads as a filed index card: a small tab, a hairline frame, and a
-   shadow that lifts it off the paper. */
+/* The panel is a card, not a box: a two-tone top edge, a tab, and a shadow
+   that lifts it clear of the paper. */
 .home-hero-panel {
+  grid-area: panel;
   position: relative;
   max-width: none;
   margin: 0;
-  padding: 1.5rem 1.5rem 1.4rem;
-  background:
-    linear-gradient(180deg, #ffffff 0%, #fffdf7 100%);
+  padding: 1.55rem 1.55rem 1.45rem;
+  background: linear-gradient(180deg, #ffffff 0%, #fffdf6 100%);
   border: 1px solid var(--border);
   border-top: 0;
   border-radius: var(--radius);
@@ -348,7 +453,7 @@ main a:not(.btn):not(.brand) {
   inset: 0 0 auto;
   height: 3px;
   border-radius: var(--radius) var(--radius) 0 0;
-  background: linear-gradient(90deg, var(--gold) 0%, #e8cf7d 55%, rgba(212, 175, 55, 0.35) 100%);
+  background: linear-gradient(90deg, var(--gold) 0%, #e8cf7d 55%, rgba(212, 175, 55, 0.3) 100%);
 }
 
 .home-hero-panel h2 {
@@ -372,24 +477,14 @@ main a:not(.btn):not(.brand) {
   font-weight: 700;
 }
 
-/* Short sections used to reserve a full-width band under a one-line heading,
-   which is what read as empty space. Each section now flows as a single
-   column: heading, intro, then the grid, with no reserved gap. */
-.home-audiences,
-.home-outcomes-section {
-  padding-top: clamp(2.5rem, 4.2vw, 3.5rem);
-  padding-bottom: clamp(2.5rem, 4.2vw, 3.5rem);
-}
-
-.home-audiences-intro,
-.home-outcomes-intro {
-  margin-bottom: 1.6rem;
-}
-
 @media (max-width: 960px) {
   .home-hero-grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: 1.75rem;
+    grid-template-areas:
+      "copy"
+      "panel"
+      "figures";
+    row-gap: 1.6rem;
   }
 
   .home-hero h1 {
@@ -397,8 +492,8 @@ main a:not(.btn):not(.brand) {
   }
 
   .home-hero::before {
-    right: -32vw;
-    top: -26vw;
+    right: -34vw;
+    top: -28vw;
     opacity: 0.7;
   }
 }
@@ -436,11 +531,134 @@ main a:not(.btn):not(.brand) {
     font-size: 0.9rem;
   }
 
-  /* The decorative arc reads as a smudge at phone widths, so it is dropped. */
   .home-hero::before,
   .home-hero::after {
     display: none;
   }
+}
+
+/* Study figures: four numbers that carry the evidence at a glance. Built in
+   the script layer from text already on the page, so nothing is invented and
+   nothing is lost when the script does not run. */
+.hero-figures {
+  grid-area: figures;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 1.1rem 0 0;
+  border-top: 1px solid var(--border-strong);
+  list-style: none;
+  max-width: 44rem;
+}
+
+.hero-figures li {
+  position: relative;
+  padding: 0 1rem;
+  margin: 0;
+  list-style: none;
+}
+
+.hero-figures li:first-child {
+  padding-left: 0;
+}
+
+.hero-figures li + li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  bottom: 0.15rem;
+  width: 1px;
+  background: var(--border);
+}
+
+.hero-figures .figure {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(1.45rem, 2.1vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.hero-figures .figure-label {
+  display: block;
+  margin-top: 0.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  line-height: 1.35;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media (max-width: 560px) {
+  .hero-figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem 0;
+  }
+
+  .hero-figures li:nth-child(odd) {
+    padding-left: 0;
+  }
+
+  .hero-figures li:nth-child(3)::before,
+  .hero-figures li:nth-child(odd)::before {
+    display: none;
+  }
+}
+
+/* Reading progress: a 2px gold thread along the top of the viewport, present
+   only on pages long enough to lose your place. Built by the script layer;
+   hidden when there is none. */
+.read-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 60;
+  height: 2px;
+  background: rgba(27, 54, 93, 0.06);
+  pointer-events: none;
+}
+
+.read-progress span {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--gold) 0%, #e8cf7d 60%, var(--gold) 100%);
+  transition: transform 120ms linear;
+}
+
+/* Pointer-tracked light. The wash sits under everything and only moves on
+   devices with a precise pointer, so touch scrolling is untouched. */
+.home-hero.has-pointer-light,
+.home-study.has-pointer-light {
+  --light-x: 72%;
+  --light-y: 18%;
+}
+
+.home-hero.has-pointer-light::before {
+  opacity: 1;
+}
+
+.home-hero.has-pointer-light {
+  background-image: radial-gradient(38rem 30rem at var(--light-x) var(--light-y),
+      rgba(212, 175, 55, 0.1), transparent 68%);
+}
+
+.home-study.has-pointer-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(34rem 26rem at var(--light-x) var(--light-y),
+      rgba(212, 175, 55, 0.16), transparent 66%);
+  pointer-events: none;
+  transition: background 200ms linear;
 }
 
 /* ==========================================================================
@@ -640,6 +858,29 @@ main a:not(.btn):not(.brand) {
   transform: translateX(3px);
 }
 
+/* A gold corner fold: two hairlines that meet in the top-right on hover,
+   drawn so the card feels handled rather than printed. */
+.audience-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 46px;
+  height: 46px;
+  background:
+    linear-gradient(225deg, rgba(212, 175, 55, 0.9) 0 1.5px, transparent 1.5px) no-repeat 0 0 / 100% 100%;
+  opacity: 0;
+  transform: translate(6px, -6px);
+  transition: opacity 260ms var(--ease-soft), transform 260ms var(--ease-out);
+  pointer-events: none;
+}
+
+.audience-card:hover::before,
+.audience-card:focus-within::before {
+  opacity: 1;
+  transform: none;
+}
+
 @media (max-width: 720px) {
   .audience-card {
     padding: 1.15rem 1.1rem 1.05rem;
@@ -748,13 +989,36 @@ main a:not(.btn):not(.brand) {
   box-shadow: var(--lift-1);
 }
 
+/* The numeral is set small in gold, with an oversized ghost of itself behind
+   it. The watermark gives each card weight without adding a single word. */
 .home-good-life-list li::before {
+  position: relative;
+  z-index: 1;
   font-family: var(--font-sans);
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   color: var(--gold-text);
   margin-bottom: 0.5rem;
+}
+
+.home-good-life-list li::after {
+  content: "";
+  position: absolute;
+  top: 0.55rem;
+  right: 0.85rem;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.28);
+  background: radial-gradient(circle at 62% 34%, rgba(212, 175, 55, 0.1), transparent 68%);
+  pointer-events: none;
+  transition: transform 260ms var(--ease-out), border-color 260ms var(--ease-soft);
+}
+
+.home-good-life-list li:hover::after {
+  transform: scale(1.08);
+  border-color: rgba(212, 175, 55, 0.55);
 }
 
 .home-good-life-list strong {
@@ -1051,6 +1315,51 @@ main a:not(.btn):not(.brand) {
 .choosing-prestige-card {
   border-radius: var(--radius);
   box-shadow: var(--lift-2);
+}
+
+/* ==========================================================================
+   10b. SECTION TREATMENTS
+   Five cream bands in a row is what made the page feel like one long grey
+   scroll. Sections now alternate on a deliberate three-step scale — white,
+   warm tint, and the deep navy — so each one is visibly its own chapter.
+   ========================================================================== */
+
+/* Audiences: white, with a faint dot grid that gives the empty space texture
+   without any colour. */
+.home-audiences {
+  background-color: #ffffff;
+  background-image: radial-gradient(rgba(27, 54, 93, 0.055) 0.8px, transparent 0.8px);
+  background-size: 17px 17px;
+  background-position: 0 0;
+}
+
+/* Outcomes: the warm band. */
+.home-outcomes-section {
+  background: linear-gradient(180deg, #faf7f0 0%, #fbf9f5 100%);
+}
+
+/* Book: back to white so the jacket is the only saturated thing on screen. */
+.home-book {
+  background: #ffffff;
+}
+
+/* Every section heading opens on the same small gold rule, so the eye can
+   find the next chapter on any page at any width. */
+.home-section > .container > h2::before,
+.about-section > .container > h2::before,
+.research-section > .container > h2::before,
+.home-book > .container > h2::before {
+  content: "";
+  display: block;
+  width: 2.4rem;
+  height: 2px;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(90deg, var(--gold), rgba(212, 175, 55, 0.25));
+}
+
+/* On white sections the rule sits slightly closer to its heading. */
+.home-section > .container > h2::before {
+  margin-bottom: 0.65rem;
 }
 
 /* ==========================================================================
@@ -1353,8 +1662,13 @@ main a:not(.btn):not(.brand) {
   --reveal-delay: 250ms;
 }
 
-/* A section's short gold rule draws itself left to right. */
-.js .section-label.reveal-in::before {
+/* A section's short gold rule draws itself left to right as it arrives. */
+.js .section-label.reveal-in::before,
+.js .home-section > .container > h2.reveal-in::before,
+.js .about-section > .container > h2.reveal-in::before,
+.js .research-section > .container > h2.reveal-in::before,
+.js .choosing-section > .container > h2.reveal-in::before,
+.js .understanding-section > .container > h2.reveal-in::before {
   animation: refine-draw 520ms var(--ease-out) 120ms both;
   transform-origin: left center;
 }

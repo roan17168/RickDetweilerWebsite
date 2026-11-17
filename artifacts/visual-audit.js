@@ -124,8 +124,10 @@ function contrast(fg, bg) {
     process.exit(77);
   }
 
-  var pages = ['index.html', 'choosing-a-college.html', 'parents.html', 'the-research.html',
-    'what-matters.html', 'understanding-college.html', 'about.html'];
+  var pages = ['index.html', 'choosing-a-college.html', 'in-college.html', 'parents.html',
+    'counselors.html', 'faculty.html', 'college-leaders.html', 'policymakers.html',
+    'the-research.html', 'what-matters.html', 'understanding-college.html', 'about.html',
+    'foundation.html', 'privacy.html'];
 
   /* --- 1. nothing is left invisible ------------------------------------ */
   for (var i = 0; i < pages.length; i += 1) {
@@ -361,6 +363,132 @@ function contrast(fg, bg) {
     headerState.before === false && headerState.after === true && headerState.back === false,
     JSON.stringify(headerState));
   await sticky.close();
+
+  /* --- 8. the horizontal rail ------------------------------------------ */
+  /* Every page must share one left edge and one container width, at desktop
+     and on a phone. This is the check that caught six different left edges
+     across the site before they were unified. */
+  var railPages = ['index.html', 'choosing-a-college.html', 'in-college.html', 'parents.html',
+    'counselors.html', 'faculty.html', 'college-leaders.html', 'policymakers.html',
+    'the-research.html', 'what-matters.html', 'understanding-college.html', 'about.html',
+    'foundation.html', 'privacy.html'];
+  for (var rw = 0; rw < 2; rw += 1) {
+    var railWidth = rw === 0 ? 1280 : 390;
+    var edges = {};
+    var railProbe = await browser.newPage();
+    await railProbe.setViewport({ width: railWidth, height: 900 });
+    for (var rp = 0; rp < railPages.length; rp += 1) {
+      await railProbe.goto(BASE + '/' + railPages[rp], { waitUntil: 'domcontentloaded', timeout: 60000 });
+      var rail = await railProbe.evaluate(function () {
+        var el = document.querySelector('main > section .container, main > .container, main > section .reading, main > .reading');
+        var nav = document.querySelector('.nav-shell');
+        var foot = document.querySelector('.footer-inner');
+        return {
+          left: el ? Math.round(el.getBoundingClientRect().left) : null,
+          width: el ? Math.round(el.getBoundingClientRect().width) : null,
+          navLeft: nav ? Math.round(nav.getBoundingClientRect().left) : null,
+          footLeft: foot ? Math.round(foot.getBoundingClientRect().left) : null
+        };
+      });
+      edges[railPages[rp]] = rail;
+    }
+    await railProbe.close();
+
+    var contentLefts = Object.keys(edges).map(function (k) { return edges[k].left; })
+      .filter(function (v) { return v !== null; });
+    var uniqueLefts = contentLefts.filter(function (v, i, arr) { return arr.indexOf(v) === i; });
+    check('rail at ' + railWidth + 'px: every page shares one content left edge',
+      uniqueLefts.length === 1,
+      uniqueLefts.length === 1 ? uniqueLefts[0] + 'px' : 'edges found: ' + uniqueLefts.join(', '));
+
+    var misalignedHeader = Object.keys(edges).filter(function (k) {
+      return edges[k].navLeft !== edges[k].left || edges[k].footLeft !== edges[k].left;
+    });
+    check('rail at ' + railWidth + 'px: masthead and footer sit on the content rail',
+      misalignedHeader.length === 0,
+      misalignedHeader.slice(0, 4).join(', ') || 'aligned');
+  }
+
+  /* --- 9. the enhancements --------------------------------------------- */
+  var heroPage = await browser.newPage();
+  await heroPage.setViewport({ width: 1280, height: 900 });
+  await heroPage.goto(BASE + '/index.html', { waitUntil: 'networkidle0', timeout: 60000 });
+  await new Promise(function (r) { setTimeout(r, 900); });
+
+  var hero = await heroPage.evaluate(function () {
+    var figures = document.querySelectorAll('.hero-figures li');
+    var progress = document.querySelector('.read-progress');
+    var copy = document.querySelector('.home-hero-copy');
+    var panel = document.querySelector('.home-hero-panel');
+    var figuresEl = document.querySelector('.hero-figures');
+    return {
+      figureCount: figures.length,
+      figureText: Array.prototype.map.call(figures, function (li) { return li.textContent.replace(/\s+/g, ' ').trim(); }),
+      hasProgress: !!progress,
+      progressHeight: progress ? progress.getBoundingClientRect().height : null,
+      copyLeft: Math.round(copy.getBoundingClientRect().left),
+      panelLeft: Math.round(panel.getBoundingClientRect().left),
+      figuresBelowCopy: figuresEl ? figuresEl.getBoundingClientRect().top > copy.getBoundingClientRect().top : false,
+      ariaHidden: figuresEl ? figuresEl.getAttribute('aria-hidden') : null
+    };
+  });
+  check('home hero: study figure strip is built', hero.figureCount === 4,
+    hero.figureText.join(' / '));
+  check('home hero: figure strip is hidden from assistive tech (no new copy)', hero.ariaHidden === 'true');
+  check('home hero: figure strip sits beneath the copy, not beside the card', hero.figuresBelowCopy);
+  check('home hero: panel is still the right-hand column', hero.panelLeft > hero.copyLeft);
+  check('long page: reading progress bar is present', hero.hasProgress && hero.progressHeight > 0,
+    hero.progressHeight + 'px');
+
+  /* The counters must land on their exact original values. */
+  var counted = await heroPage.evaluate(function () {
+    return Array.prototype.map.call(document.querySelectorAll('.hero-figures .figure'),
+      function (n) { return n.textContent.trim(); });
+  });
+  check('home hero: counters settle on their true values',
+    counted.join('|') === '1,000|25–65|6|40', counted.join('|'));
+
+  await heroPage.close();
+
+  /* --- 10. reduced motion disables every effect ------------------------- */
+  var rmPage = await browser.newPage();
+  await rmPage.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
+  await rmPage.setViewport({ width: 1280, height: 900 });
+  await rmPage.goto(BASE + '/index.html', { waitUntil: 'networkidle0', timeout: 60000 });
+  await new Promise(function (r) { setTimeout(r, 700); });
+  var rmEffects = await rmPage.evaluate(function () {
+    var card = document.querySelector('.audience-card');
+    var btn = card ? card.querySelector('.btn') : null;
+    var figures = document.querySelectorAll('.hero-figures .figure');
+    return {
+      noPointerClass: !document.querySelector('.has-pointer-light'),
+      cardAnimation: card ? getComputedStyle(card).animationName : null,
+      figureText: Array.prototype.map.call(figures, function (n) { return n.textContent.trim(); }).join('|'),
+      btnTransition: btn ? getComputedStyle(btn).transitionDuration : null
+    };
+  });
+  check('reduced motion: no pointer-tracked effects are attached', rmEffects.noPointerClass);
+  check('reduced motion: counters print their final value with no animation',
+    rmEffects.figureText === '1,000|25–65|6|40', rmEffects.figureText);
+  await rmPage.close();
+
+  /* --- 11. scripts fail safe ------------------------------------------- */
+  var noJs = await browser.newPage();
+  await noJs.setJavaScriptEnabled(false);
+  await noJs.setViewport({ width: 1280, height: 900 });
+  await noJs.goto(BASE + '/index.html', { waitUntil: 'load', timeout: 60000 });
+  var noJsState = await noJs.evaluate(function () {
+    var hero = document.querySelector('.home-hero-grid');
+    var lede = document.querySelector('.home-hero .lede');
+    return {
+      heroRows: hero ? hero.children.length : 0,
+      ledeVisible: lede ? getComputedStyle(lede).opacity : null,
+      figures: document.querySelectorAll('.hero-figures').length
+    };
+  });
+  check('no JavaScript: the hero still lays out with no figure strip',
+    noJsState.heroRows >= 2 && noJsState.figures === 0, JSON.stringify(noJsState));
+  await noJs.close();
 
   await browser.close();
 

@@ -1072,6 +1072,41 @@
   align-items: start;
 }
 
+/* The chart is 452px tall and the finding's own text is 100px, so with the
+   two side by side the reader got text, then a 369px hole, then the next
+   finding — the text column was three quarters empty beside the card. The
+   card was also stretched by the row's own height at 1568px, leaving 85px of
+   empty space inside it beneath the source note.
+
+   The card is not displaced: the number and the finding stay exactly where
+   they are, and the chart sits directly under the finding it illustrates,
+   across the full width the finding has. The row's height is then the text
+   plus the card, with no column left to stand empty. */
+.research-finding--chart {
+  grid-template-areas:
+    "num copy"
+    "num chart";
+  grid-template-rows: auto auto;
+  row-gap: var(--s-5);
+  align-items: start;
+}
+
+.research-finding--chart .research-finding-number {
+  grid-area: num;
+}
+
+.research-finding--chart .research-finding-copy {
+  grid-area: copy;
+}
+
+.research-finding--chart .research-chart {
+  grid-area: chart;
+  /* The card sizes to its contents rather than to the row. */
+  align-self: start;
+  width: 100%;
+  max-width: 46rem;
+}
+
 .research-chart {
   margin: 0;
   padding: var(--s-4);
@@ -1222,12 +1257,10 @@
 }
 
 @media (max-width: 1080px) {
+  /* Narrower, the chart already sits under the finding; only the gutter
+     narrows. Placement comes from the grid areas, so no column override. */
   .research-finding--chart {
     grid-template-columns: 2rem minmax(0, 1fr);
-  }
-
-  .research-finding--chart .research-chart {
-    grid-column: 2;
   }
 }
 
@@ -1359,7 +1392,7 @@
   }
 
   .research-finding--chart .research-chart {
-    grid-column: 2;
+    max-width: none;
   }
 
   .research-finding-number {

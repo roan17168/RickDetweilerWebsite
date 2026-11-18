@@ -221,6 +221,26 @@
       var text = strong.textContent.trim();
       if (!text) return;
 
+      /* firstElementChild is the first *element*, which is not the same as the
+         first thing in the paragraph. A bold run that opens the paragraph is a
+         candidate for a label; a bold run partway through — "the second half of
+         that table, <strong>the context</strong>, was..." — is emphasis inside
+         a sentence. Setting that one as a label breaks the sentence across
+         three lines with its punctuation stranded, so the run has to be
+         checked against the paragraph's first child node, not its first
+         element. Six paragraphs across four pages were being split this way. */
+      var firstNode = null;
+      for (var n = 0; n < p.childNodes.length; n++) {
+        var node = p.childNodes[n];
+        if (node.nodeType === 3 && !node.nodeValue.trim()) continue;
+        firstNode = node;
+        break;
+      }
+      if (firstNode !== strong) {
+        p.setAttribute('data-runin', 'inline');
+        return;
+      }
+
       /* Closing quotes belong to the sentence, not to the test. */
       var bare = text.replace(/[\u201d\u2019\u0022\u0027)\]]+$/, '');
 
@@ -261,6 +281,14 @@
     if (!main) return;
     if (main.classList.contains('margin-outline-host')) return;
     if (main.scrollHeight < 3000) return;
+
+    /* A page that already stands its own contents card in the right-hand
+       column does not need a second one. The choosing page keeps a sticky
+       sidebar of results there from the top of the page to the bottom, so the
+       column is never free: the outline could only appear by covering that
+       card, and the card is the page's own, working, visible version of the
+       same idea. One contents list per page, and it is the page's own. */
+    if (main.querySelector('.audience-sidebar, .choosing-sidebar')) return;
 
     var sections = Array.prototype.filter.call(
       main.querySelectorAll('section'),
@@ -314,6 +342,15 @@
     nav.className = 'margin-outline';
     nav.setAttribute('aria-hidden', 'true');
 
+    /* The panel has three states, and the reader should see one of them
+       change, never a state that blinks.
+         is-dormant   the page is still introducing itself
+         is-lifted    a wide element has come alongside; the list rises above
+                      it rather than being withdrawn
+         is-obscured  only for a genuine impossibility: a window too short to
+                      hold the list at all */
+    var LIFT_GAP = 24;
+
     var inner = document.createElement('div');
     inner.className = 'margin-outline-inner';
 
@@ -358,8 +395,18 @@
       startedAt = seen.getBoundingClientRect().bottom + window.pageYOffset - 120;
     }
     if (!startedAt) {
-      var hero = main.querySelector('section');
+      /* The hero is the page's opening block. Where the page calls its own
+         sections something else and the first <section> is the whole sheet, a
+         fallback is needed or the outline never wakes up: the tools pages have
+         one section wrapping every block, so `startedAt` came out at the very
+         bottom of the page and the list stayed dormant throughout. */
+      var hero = main.querySelector(
+        'section.understanding-hero, section.home-hero, section.choosing-hero, ' +
+        'section[class*="hero"], main > section:first-of-type'
+      );
       startedAt = (hero ? hero.getBoundingClientRect().bottom + window.pageYOffset : 0) - 80;
+      /* Never wait for more than the first screen. */
+      startedAt = Math.min(startedAt, window.innerHeight * 0.9);
     }
 
     var setDormant = function () {
@@ -439,12 +486,10 @@
       ticking = false;
       var box = inner.getBoundingClientRect();
       if (!box.width) return;
-      /* The list of entries grows with the page, and on a short viewport a long
-         one runs past the bottom of the window. Showing the top half of a list
-         that continues below the fold is worse than not showing it: the reader
-         cannot see the entry they want and the panel covers the text beside it.
-         So an outline taller than the window stays out of the way entirely. */
-      if (box.height > window.innerHeight - 180) {
+      /* The list is capped and scrolls inside itself, so a long one is no
+         longer a reason to withdraw the panel. Only a window with no room for
+         even a few entries is. */
+      if (window.innerHeight < 320) {
         nav.classList.add('is-obscured');
         return;
       }
@@ -509,15 +554,331 @@
         }
       }
 
-      nav.classList.toggle('is-obscured', clash);
+      /* Wide content has come alongside. Two ways to respond are wrong: leave
+         the panel where it is and let the list sit over the chart, or take it
+         off the page entirely, which is what made it vanish for 80 per cent of
+         the pages that carry one. The panel moves to the clearest band of the
+         window instead — one move, on one axis, and it never leaves the page.
+         (`clash` above is no longer consulted for that decision; the band
+         search below measures the whole column and is the authority.) */
+      void clash;
+      nav.classList.remove('is-obscured');
+      nav.classList.add('is-lifted');
+      applyLift();
+    };
+
+    /* Where can the list sit without touching anything?
+
+       This has to be measured live. Two earlier attempts cached the answer and
+       both were wrong: cards on these pages fade and rise into place as they
+       scroll in, so a box recorded at load time is not where the box is now.
+       The panel's own offset was mishandled too — the lift is an absolute
+       translate, so the search has to start from the panel's natural top, not
+       from where the previous frame left it.
+
+       The search runs from the panel's resting place outwards and takes the
+       nearest band tall enough for the whole list and clear of every text line
+       and every wide box. Nearest matters: a panel that leaps to the far side
+       of the window on every scroll reads as broken even when it is legible. */
+    var headerBottom = function () {
+      var head = document.querySelector('.site-header, header');
+      if (!head) return 0;
+      var r = head.getBoundingClientRect();
+      return r.bottom > 0 ? r.bottom : 0;
+    };
+
+    var currentLift = 0;
+
+    /* Every obstacle that shares the panel's column, as a list of vertical
+       spans in viewport coordinates. Text lines are included wherever they
+       reach past the panel's left edge, because a short line ending under the
+       list collides exactly as a long paragraph does. */
+    var obstacleSpans = function (panelLeft, panelRight) {
+      var spans = [];
+
+      var walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, null);
+      var node, guard = 0;
+      while ((node = walker.nextNode()) && guard++ < 30000) {
+        if (!node.nodeValue || !node.nodeValue.trim()) continue;
+        if (nav.contains(node)) continue;
+        var pe = node.parentElement;
+        if (!pe) continue;
+        var pcs = window.getComputedStyle(pe);
+        if (pcs.visibility === 'hidden' || pcs.display === 'none' || parseFloat(pcs.opacity) < 0.05) continue;
+        var rg = document.createRange();
+        rg.selectNodeContents(node);
+        var rs = rg.getClientRects();
+        for (var q = 0; q < rs.length; q++) {
+          var rr = rs[q];
+          /* Only genuinely empty rects are skipped. The earlier 6px floor
+             discarded a table cell whose text box measured just under it, so a
+             cell showing "Describing life..." was never recorded and the panel
+             settled across it. */
+          if (rr.width < 1 || rr.height < 1) continue;
+          if (rr.right <= panelLeft + 6) continue;
+          spans.push([rr.top, rr.bottom]);
+        }
+      }
+
+      var wide = main.querySelectorAll(
+        'figure, table, img, svg, video, canvas, .research-chart, .understanding-chart, ' +
+        '.data-table, .chart-table-wrap, .research-table-wrap, .callout, .pullout, ' +
+        '.research-finding, .understanding-quote, .book-band, .about-work-card, ' +
+        '.audience-card, .faculty-card, .parents-cost-card, .leaders-practice, ' +
+        'button, .btn, a.btn, input, select, textarea, [role="button"], ' +
+        /* A quiz is a live control surface, not prose: radio rows, a Next
+           button and a progress bar that the reader is looking at. Treat the
+           whole shell as an object so the outline never sits on it. */
+        '.choosing-quiz, .quiz-card, .choosing-quiz-shell, [class*="quiz"]'
+      );
+      for (var k = 0; k < wide.length; k++) {
+        var el = wide[k];
+        if (nav.contains(el)) continue;
+        var ecs = window.getComputedStyle(el);
+        if (ecs.visibility === 'hidden' || ecs.display === 'none' || parseFloat(ecs.opacity) < 0.05) continue;
+        var er = el.getBoundingClientRect();
+        if (er.width < 24 || er.height < 16) continue;
+        /* Does this box reach the panel's column? Its own right edge is not the
+           test for a table: a narrow header cell stops well short of the
+           column while the table it sits in runs underneath. The table's own
+           width is the one that matters. */
+        /* Any part of the box inside the panel's column counts, not only a
+           box that crosses the panel's left edge. The button on the quiz was
+           998-1215: wide enough to sit under the list, narrow enough that its
+           left edge was past it, so it was skipped and the outline settled on
+           top of it. The panel's own label starts at its left edge, and the
+           label is text a reader is meant to read. */
+        var reaches = er.right > panelLeft + 6 && er.left < panelRight - 6;
+        if (!reaches && (el.tagName === 'TABLE' || el.tagName === 'TABLE'.toLowerCase())) {
+          reaches = true;   /* a table is a block; its box is the collision */
+        }
+        if (!reaches && el.closest && el.closest('table')) {
+          var hostTable = el.closest('table');
+          var tr = hostTable.getBoundingClientRect();
+          if (tr.right > panelLeft + 6) reaches = true;
+        }
+        if (!reaches) continue;
+        spans.push([er.top, er.bottom]);
+      }
+      return spans;
+    };
+
+    /* Choose a top for the panel: the free band nearest to where the panel
+       already rests, preferring the one it is already in so an unchanged
+       window leaves it untouched.
+
+       This is arithmetic on two sorted lists rather than a scan over candidate
+       offsets. The panel is tall, so a 16px offset grid almost always steps
+       over the one free band that exists; merging the spans gives every gap
+       exactly. */
+    var lastGaps = [];
+    var chooseTop = function (spans, height, natural, boundsTop, boundsBottom) {
+      var room = boundsBottom - height;
+      if (room < boundsTop) return null;
+
+      /* Only the window is of interest. Obstacles further away than one window
+         above or below can never affect a placement, and dropping them matters:
+         an obstacle that ended far above the window used to push the one free
+         band out of the candidate list, so a band the reader could plainly see
+         was never offered. */
+      spans = spans.filter(function (sp) {
+        return sp[1] > boundsTop - 400 && sp[0] < boundsBottom + 400;
+      }).sort(function (a, b) { return a[0] - b[0]; });
+      var merged = [];
+      for (var i = 0; i < spans.length; i++) {
+        var last = merged[merged.length - 1];
+        if (last && spans[i][0] <= last[1] + 6) {
+          if (spans[i][1] > last[1]) last[1] = spans[i][1];
+        } else {
+          merged.push([spans[i][0], spans[i][1]]);
+        }
+      }
+
+      /* Every gap between successive obstacles, clipped to the window. Each
+         gap that can hold the panel is where the top may go: either at the
+         gap's start or, if the gap is taller than the panel, as low as the
+         gap allows — both are tried so the nearest one wins. */
+      var best = null;
+      var consider = function (top) {
+        if (top < boundsTop || top + height > boundsBottom) return;
+        if (best === null || Math.abs(top - natural) < Math.abs(best - natural)) best = top;
+      };
+
+      var gaps = [];
+      lastGaps = gaps;
+      for (var m = 0; m <= merged.length; m++) {
+        var gapStart = m === 0 ? -100000 : merged[m - 1][1] + 8;
+        var gapEnd = m === merged.length ? 100000 : merged[m][0] - 8;
+        gaps.push([gapStart, gapEnd]);
+        /* The usable tops are the part of this gap that is inside the window
+           and leaves room for the whole panel. Clamping only to the gap's
+           start let a top outside the gap through: the first obstacle was a
+           "Next question" label at the top of the window, and the panel was
+           placed at the window edge as if the gap extended from it, landing on
+           two lines of text further down. Both ends have to be respected. */
+        var lo = Math.max(gapStart, boundsTop);
+        var hi = Math.min(gapEnd, boundsBottom) - height;
+        if (hi < lo) continue;
+        if (lo >= natural) {
+          /* A gap that starts at or below the resting place. Only the very top
+             of it: a panel that slides down to the last centimetre of the
+             window is half off the fold and reads as broken, and the bottom
+             strip of a viewport is the first thing clipped on a phone or a
+             short laptop window. */
+          consider(lo);
+        } else if (hi <= natural) {
+          /* A gap entirely above the resting place: its lowest usable top is
+             the move that keeps the panel as near as possible. */
+          consider(hi);
+        } else {
+          /* The resting place is inside this gap already. */
+          consider(natural);
+        }
+      }
+      return best;
+    };
+
+    var applyLift = function () {
+      var panel = inner.getBoundingClientRect();
+      var height = panel.height;
+
+      var boundsTop = Math.max(headerBottom() + 16, 12);
+      var boundsBottom = window.innerHeight - 12;
+
+      if (height > boundsBottom - boundsTop) {
+        /* The window cannot hold the list. That is the one honest reason for
+           the panel to stand down. */
+        nav.classList.add('is-obscured');
+        return;
+      }
+      nav.classList.remove('is-obscured');
+
+      /* Every one of the three numbers below is absolute, and the lift applied
+         is the difference between two absolutes rather than an increment.
+         Accumulating an offset was the source of the panel's worst behaviour:
+         while the 260ms transition was still running the measured top was a
+         moving number, the next frame treated it as the resting place and
+         added another delta on top, and the panel climbed out of the window. */
+      /* The resting place is the sticky offset itself: the panel sticks at
+         `top: 7rem` inside a container that spans the whole page, so with no
+         transform it sits 7rem below the window's top edge. offsetTop cannot
+         be used for this — the panel's offsetParent is the tall positioned
+         container, so offsetTop measures from the top of the document's
+         outline track, not from the window. */
+      var stickyTop = parseFloat(window.getComputedStyle(inner).top) || 112;
+      var target = stickyTop;
+
+      /* How tall may the list be? Not a fixed cap: the gutter beside a figure
+         or a table is often only a few hundred pixels, and a list that insists
+         on its full height can then only sit over the figure. So the list is
+         shown at the height of the tallest free band in the window — the rest
+         of its entries are a scroll inside the panel — and the band search runs
+         again against that height. A contents list showing five entries is
+         useful; a contents list lying across a chart is not. */
+      var fullHeight = inner.scrollHeight || height;
+      var spans = obstacleSpans(panel.left, panel.right);
+
+      /* Try full height; if that finds nowhere clear, shrink to the tallest
+         band that exists and try again. */
+      var chosen = chooseTop(spans, height, target, boundsTop, boundsBottom);
+      if (chosen === null) {
+        var tallest = 0;
+        for (var gi = 0; gi < lastGaps.length; gi++) {
+          var band = Math.min(lastGaps[gi][1], boundsBottom) - Math.max(lastGaps[gi][0], boundsTop);
+          if (band > tallest) tallest = band;
+        }
+        var floor = 96;                        /* label plus two entries */
+        if (tallest >= floor && tallest < height) {
+          inner.style.setProperty('--outline-fit', Math.floor(tallest) + 'px');
+          /* The panel is now shorter; measure and place it again. */
+          var shrunk = inner.getBoundingClientRect().height;
+          chosen = chooseTop(spans, shrunk, target, boundsTop, boundsBottom);
+          if (chosen !== null) {
+            height = shrunk;
+            panel = inner.getBoundingClientRect();
+          }
+        }
+      } else {
+        /* It fits at full height again, so the cap goes back. */
+        if (fullHeight > height) inner.style.removeProperty('--outline-fit');
+      }
+
+      if (chosen === null) {
+        /* No free band anywhere in this window, even at the smallest useful
+           height. That happens when a single object owns the whole fold — a
+           table of fifty rows, a long figure. There is no honest place for the
+           list then, so it stands down for those few hundred pixels and comes
+           back when the object has passed. Covering rows of a table is worse
+           than a panel that waits; the page's own contents list remains the
+           route to the same sections meanwhile. */
+        nav.classList.add('is-obscured');
+        return;
+      }
+
+      var delta = chosen - target;
+      if (Math.abs(delta - currentLift) < 1.5) return;
+      currentLift = delta;
+      inner.style.setProperty('--outline-lift', delta.toFixed(1) + 'px');
     };
 
     var onScroll = function () {
       if (ticking) return;
       ticking = true;
-      window.requestAnimationFrame(check);
+      window.requestAnimationFrame(function () {
+        check();
+        markCurrent();
+      });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* Pages here fade and rise their cards in as they come into view, so a
+       measurement taken on the scroll frame describes a layout that is still
+       moving: the panel would settle into a gap that closed underneath it.
+       The browser tells us when that motion ends, which is the only moment the
+       geometry can be trusted. */
+    main.addEventListener('animationend', function () {
+      if (!nav.classList.contains('is-lifted')) return;
+      check();
+    }, true);
+    main.addEventListener('transitionend', function (event) {
+      if (!nav.classList.contains('is-lifted')) return;
+      if (event.propertyName === 'transform' || event.propertyName === 'opacity') check();
+    }, true);
+
+    /* The entry for the section the reader is in. Sections are already in
+       document order, so this is a binary search over their tops; the marked
+       entry tells the reader where they are between scroll events. */
+    var sectionTops = [];
+    var measureSections = function () {
+      sectionTops = [];
+      for (var i = 0; i < links.length; i++) {
+        var host = links[i].h.closest('section') || links[i].h.parentElement;
+        sectionTops.push({ el: host, link: links[i].a });
+      }
+    };
+    measureSections();
+
+    var markCurrent = function () {
+      if (!sectionTops.length) return;
+      var line = window.innerHeight * 0.35;
+      var current = null;
+      for (var i = 0; i < sectionTops.length; i++) {
+        var host = sectionTops[i].el;
+        if (!host || !host.isConnected) continue;
+        var r = host.getBoundingClientRect();
+        if (r.top <= line && r.bottom > line) { current = sectionTops[i]; break; }
+        if (r.top <= line) current = sectionTops[i];
+      }
+      for (var j = 0; j < sectionTops.length; j++) {
+        var a = sectionTops[j].link;
+        if (sectionTops[j] === current) {
+          a.setAttribute('aria-current', 'true');
+        } else {
+          a.removeAttribute('aria-current');
+        }
+      }
+    };
+    markCurrent();
     window.addEventListener('resize', onScroll, { passive: true });
     check();
 

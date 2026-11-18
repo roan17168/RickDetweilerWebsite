@@ -2740,6 +2740,41 @@ html:not(.js) .notes-panel {
   align-items: start;
 }
 
+/* The chart is 452px tall and the finding's own text is 100px, so with the
+   two side by side the reader got text, then a 369px hole, then the next
+   finding — the text column was three quarters empty beside the card. The
+   card was also stretched by the row's own height at 1568px, leaving 85px of
+   empty space inside it beneath the source note.
+
+   The card is not displaced: the number and the finding stay exactly where
+   they are, and the chart sits directly under the finding it illustrates,
+   across the full width the finding has. The row's height is then the text
+   plus the card, with no column left to stand empty. */
+.research-finding--chart {
+  grid-template-areas:
+    "num copy"
+    "num chart";
+  grid-template-rows: auto auto;
+  row-gap: var(--s-5);
+  align-items: start;
+}
+
+.research-finding--chart .research-finding-number {
+  grid-area: num;
+}
+
+.research-finding--chart .research-finding-copy {
+  grid-area: copy;
+}
+
+.research-finding--chart .research-chart {
+  grid-area: chart;
+  /* The card sizes to its contents rather than to the row. */
+  align-self: start;
+  width: 100%;
+  max-width: 46rem;
+}
+
 .research-chart {
   margin: 0;
   padding: var(--s-4);
@@ -2890,12 +2925,10 @@ html:not(.js) .notes-panel {
 }
 
 @media (max-width: 1080px) {
+  /* Narrower, the chart already sits under the finding; only the gutter
+     narrows. Placement comes from the grid areas, so no column override. */
   .research-finding--chart {
     grid-template-columns: 2rem minmax(0, 1fr);
-  }
-
-  .research-finding--chart .research-chart {
-    grid-column: 2;
   }
 }
 
@@ -3027,7 +3060,7 @@ html:not(.js) .notes-panel {
   }
 
   .research-finding--chart .research-chart {
-    grid-column: 2;
+    max-width: none;
   }
 
   .research-finding-number {
@@ -11101,6 +11134,40 @@ main a:not(.btn):not(.brand) {
 }
 
 /* ==========================================================================
+   4g. A LONE CARD IN A TALL HERO COLUMN
+
+   The audience pages set a headline column beside a small "what you get"
+   card. The two columns start level, which is correct for the text, but the
+   card is a third of the height of the headline and the column beside it then
+   stood empty underneath: 443px of white on the faculty page, 430 on college
+   leaders, 362 on policymakers. A card floating at the top of a 700px void
+   reads as content that failed to load.
+
+   The card stays where it is in the reading order, and its column is
+   re-anchored to the bottom of the row, so the card sits with the head of the
+   body copy it summarises rather than leaving the space beneath it. This is
+   the same trick as justify-content:end on a flex column, expressed for a
+   grid item so the card keeps its own height.
+
+   Where the row is short — the in-college hero is 527px — the two columns are
+   close enough in height that there is nothing to mark, so the rule only
+   applies once the row is tall enough for the gap to be visible. */
+@media (min-width: 861px) {
+  .choosing-hero-grid {
+    align-items: stretch;
+  }
+
+  .choosing-hero-grid > .choosing-get-card {
+    align-self: end;
+  }
+
+  /* The card never stretches, whatever the row does. */
+  .choosing-hero-grid > .choosing-get-card {
+    justify-self: stretch;
+  }
+}
+
+/* ==========================================================================
    5. HOME HERO — a display spread
    The hero was one centred column; then a text-only two-column spread that
    still left the lower right of the page bare. It is now a real composition:
@@ -13211,17 +13278,58 @@ main section.research-section--last {
     transition: opacity 220ms var(--ease-soft);
   }
 
-  /* Out of sight while the page is still introducing itself. */
+  /* Out of sight only while the page is still introducing itself, or when the
+     window cannot hold the list at all. A wide element coming alongside no
+     longer removes the panel; it lifts it (see .is-lifted below). */
   .margin-outline.is-dormant,
   .margin-outline.is-obscured {
     opacity: 0;
     pointer-events: none;
   }
 
+  /* The lift. The list keeps its place in the column and rises to the clearest
+     band of the window, so it stays readable instead of sitting over a chart
+     or disappearing. One axis, one direction, one duration — the reader sees
+     the panel move rather than flicker. */
+  .margin-outline-inner {
+    transform: translateY(var(--outline-lift, 0px));
+    transition: transform 260ms var(--ease-out);
+  }
+
+  /* Reduced motion: arrive, do not travel. */
+  @media (prefers-reduced-motion: reduce) {
+    .margin-outline-inner {
+      transition: none;
+    }
+  }
+
   .margin-outline-inner {
     position: sticky;
     top: 7rem;
     pointer-events: auto;
+    /* The panel keeps a fixed top edge and never grows past the window. A page
+       with twelve entries made a 496px list, which on a short window ran past
+       the fold, so the whole panel used to be withdrawn — the list would come
+       and go as the reader scrolled. It is capped to the window instead and
+       scrolls inside itself, which keeps the top of the list at one place and
+       the first entries always readable. */
+    /* A cap in pixels, not fractions of the window. These pages rarely offer
+       more than about 260px of clear gutter beside a figure or a card — the
+       choice on the choosing page is 84px — and a list taller than the clear
+       band can only ever be placed over something. Holding the list to 208px
+       (label plus six entries) keeps it placeable everywhere, and the rest of
+       the entries are a scroll away inside the panel. */
+    max-height: 208px;
+    height: var(--outline-fit, auto);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* On a tall window there is room for more, so the list takes it. */
+  @media (min-height: 1000px) {
+    .margin-outline-inner {
+      max-height: 320px;
+    }
   }
 
   .margin-outline-label {
@@ -13240,6 +13348,24 @@ main section.research-section--last {
     padding: 0;
     list-style: none;
     border-left: 1px solid var(--border);
+    /* The list, not the panel, takes the overflow. */
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+
+  /* The panel is aria-hidden and duplicated by the page's own contents list,
+     so its scroll area is not a control the reader needs; the bar would only
+     draw attention to the panel's edge. */
+  .margin-outline ol::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .margin-outline ol::-webkit-scrollbar-thumb {
+    background: var(--border-strong);
+    border-radius: 2px;
   }
 
   .margin-outline li {
@@ -13270,6 +13396,15 @@ main section.research-section--last {
   }
 
   .margin-outline a.is-current {
+    color: var(--navy);
+    font-weight: 600;
+    border-left-color: var(--gold);
+  }
+
+  /* Reading position. The entry for the section under the reader's eye is
+     marked in place, so the panel answers "where am I" between scroll events
+     instead of flickering on and off. */
+  .margin-outline a[aria-current] {
     color: var(--navy);
     font-weight: 600;
     border-left-color: var(--gold);

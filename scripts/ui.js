@@ -139,11 +139,13 @@
       else panel.setAttribute('open', '');
     }
     if (closeButton) closeButton.focus();
+    setNotesEdges();
     if (id) {
       var target = document.getElementById(id);
       if (target) {
         window.setTimeout(function () {
           target.scrollIntoView({ block: 'center', behavior: motionBehavior() });
+          setNotesEdges();
           target.classList.add('is-highlighted');
           window.setTimeout(function () { target.classList.remove('is-highlighted'); }, 2200);
         }, 220);
@@ -163,11 +165,33 @@
     restoreNotesFocus();
   }
 
+  /* The sources list is longer than any window: thirty-two entries against
+     roughly eight hundred pixels. The scrollbar in this browser is an overlay
+     that fades out, so the drawer gives no sign that it continues past the
+     fold, and a reader can reasonably conclude the rest are simply absent.
+     The panel carries a class while there is more to reach, and fades the list
+     at the edge it continues past. Nothing is added to the page; the class is
+     only a state. */
+  var notesList = panel ? panel.querySelector('.notes-list') : null;
+
+  function setNotesEdges() {
+    if (!notesList) return;
+    panel.classList.toggle('has-more-below', notesList.scrollTop + notesList.clientHeight < notesList.scrollHeight - 2);
+  }
+
   if (panel) {
     panel.addEventListener('close', restoreNotesFocus);
     panel.addEventListener('click', function (event) {
       if (event.target === panel) closeNotes();
     });
+  }
+
+  if (notesList) {
+    notesList.addEventListener('scroll', setNotesEdges, { passive: true });
+    window.addEventListener('resize', setNotesEdges);
+    if (typeof ResizeObserver === 'function') {
+      new ResizeObserver(setNotesEdges).observe(notesList);
+    }
   }
 
 

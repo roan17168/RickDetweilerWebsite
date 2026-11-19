@@ -1107,6 +1107,9 @@ html:not(.js) .notes-panel {
   width: min(440px, 92vw);
   max-width: none;
   height: 100vh;
+  /* On phones the browser chrome makes 100vh taller than the window, which
+     pushed the last source out of reach. */
+  height: 100dvh;
   max-height: none;
   padding: 0;
   overflow: hidden;
@@ -1187,10 +1190,36 @@ html:not(.js) .notes-panel {
   flex: 1 1 auto;
   min-height: 0;
   padding: var(--s-5);
+  /* Room under the last source, so it never sits jammed against the edge. */
+  padding-bottom: var(--s-6);
   margin: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  /* This page has more sources than any window will show — thirty-two of
+     them. Without a scrollbar that stays visible, the drawer looks like it
+     ends at the fold and the rest are simply missing. Styling the scrollbar
+     is what keeps it drawn rather than fading away as an overlay. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
   color: var(--ink);
   font-size: 0.92rem;
+}
+
+.notes-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.notes-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notes-list::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+
+.notes-list::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
 }
 
 .notes-list li {
@@ -13243,15 +13272,20 @@ main section.research-section--last {
 
 /* ==========================================================================
    12f. THE MARGIN OUTLINE
-   On the essay pages the prose is set on the 748px reading measure inside
-   the 1140px rail, which leaves about 380px empty — measured at 90 to 100
-   per cent of the page's full height. That is the blank space the page was
-   carrying.
 
-   The column now holds an outline of the page, built from the headings that
-   are already there. It is duplicative by design (aria-hidden, the page has
-   its own contents list) and it is the reason the prose column no longer
-   reads as a narrow strip with nothing beside it.
+   A contents list in the right-hand margin of four long pages. It is
+   deliberately dull: one column, one place, one job.
+
+   Earlier versions moved it about — out of the way of wide content, up and
+   down the window to find a clear strip, in and out of the page as you
+   scrolled. Every one of those behaviours made it harder to trust. A reader
+   cannot use a navigation aid they have to keep finding.
+
+   So the panel is a fixed column pinned to the right of the rail. It does not
+   move, it does not come and go, and it does not react to the content beside
+   it. The pages it appears on are chosen because their prose keeps to the
+   reading measure and leaves this margin free for the whole length of the
+   page, which is the only condition under which a fixed column is honest.
    ========================================================================== */
 
 .margin-outline {
@@ -13259,81 +13293,78 @@ main section.research-section--last {
 }
 
 @media (min-width: 1180px) {
-  .margin-outline-host {
+  main.margin-outline-host {
     position: relative;
+    /* The lane. Content on these pages is held back from it, and the outline
+       is the only thing allowed inside it, so the two can never meet. */
+    --outline-lane: 20rem;
   }
+
+  /* ---------------------------------------------------------------- the lane
+
+     These four pages are the essay pages: a reading measure on the left, and
+     for most of their length nothing on the right. But not all of it — a
+     chart, a table, a callout runs the full rail. Rather than slide the
+     outline out of the way of each one (which is what the old version did,
+     and why it never stayed still), the rail itself is narrowed and the right
+     of the window is reserved. Nothing may enter the lane; the outline lives
+     in it.
+
+     This is the barrier. It is drawn once, in CSS, and it holds for the whole
+     page whether or not the outline is drawn over it. */
+  /* One rule covering every layout wrapper these pages use, rather than a
+     width override per class: max-width beats whatever width a page already
+     set, so no other rule has to know the lane exists. */
+  main.margin-outline-host {
+    /* The page's usual left edge: the rail's margin where there is one. */
+    --outline-inset: max(1.25rem, calc((100% - var(--rail)) / 2));
+  }
+
+  /* Only the outer wrapper of each section gets the lane. A wrapper nested
+     inside another one — the quotations grid sits inside .container — must not
+     subtract the lane a second time, or it is squeezed into a column half the
+     width it should be. */
+  main.margin-outline-host > .container,
+  main.margin-outline-host > .wide,
+  main.margin-outline-host > .reading,
+  main.margin-outline-host > .reading-body,
+  main.margin-outline-host > .research-body,
+  main.margin-outline-host > section > .container,
+  main.margin-outline-host > section > .wide,
+  main.margin-outline-host > section > .reading,
+  main.margin-outline-host > section > .reading-body,
+  main.margin-outline-host > section > .research-body {
+    max-width: calc(100% - var(--outline-lane) - var(--outline-inset) - 2rem);
+    margin-left: var(--outline-inset);
+    margin-right: var(--outline-lane);
+  }
+
+  /* ------------------------------------------------------------ the outline */
 
   .margin-outline {
     display: block;
     position: absolute;
     top: 0;
-    /* Aligned to the rail's right edge, not the viewport's: main is
-       full-bleed, so right:0 would push the column into the gutter. */
-    right: max(1.15rem, calc((100% - var(--rail)) / 2));
     bottom: 0;
-    width: min(17.5rem, calc(var(--rail) - var(--measure) - 3rem));
-    /* The column is a full-height track — top and bottom both pinned to the
-       page — so the panel inside it has room to travel and can stick. */
+    right: 1.5rem;
+    width: min(17.5rem, calc(var(--outline-lane) - 3rem));
     pointer-events: none;
-    transition: opacity 220ms var(--ease-soft);
-  }
-
-  /* Out of sight only while the page is still introducing itself, or when the
-     window cannot hold the list at all. A wide element coming alongside no
-     longer removes the panel; it lifts it (see .is-lifted below). */
-  .margin-outline.is-dormant,
-  .margin-outline.is-obscured {
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  /* The lift. The list keeps its place in the column and rises to the clearest
-     band of the window, so it stays readable instead of sitting over a chart
-     or disappearing. One axis, one direction, one duration — the reader sees
-     the panel move rather than flicker. */
-  .margin-outline-inner {
-    transform: translateY(var(--outline-lift, 0px));
-    transition: transform 260ms var(--ease-out);
-  }
-
-  /* Reduced motion: arrive, do not travel. */
-  @media (prefers-reduced-motion: reduce) {
-    .margin-outline-inner {
-      transition: none;
-    }
   }
 
   .margin-outline-inner {
     position: sticky;
-    top: 7rem;
+    /* Clears the sticky header with room to spare. */
+    top: 7.5rem;
     pointer-events: auto;
-    /* The panel keeps a fixed top edge and never grows past the window. A page
-       with twelve entries made a 496px list, which on a short window ran past
-       the fold, so the whole panel used to be withdrawn — the list would come
-       and go as the reader scrolled. It is capped to the window instead and
-       scrolls inside itself, which keeps the top of the list at one place and
-       the first entries always readable. */
-    /* A cap in pixels, not fractions of the window. These pages rarely offer
-       more than about 260px of clear gutter beside a figure or a card — the
-       choice on the choosing page is 84px — and a list taller than the clear
-       band can only ever be placed over something. Holding the list to 208px
-       (label plus six entries) keeps it placeable everywhere, and the rest of
-       the entries are a scroll away inside the panel. */
-    max-height: 208px;
-    height: var(--outline-fit, auto);
     display: flex;
     flex-direction: column;
-  }
-
-  /* On a tall window there is room for more, so the list takes it. */
-  @media (min-height: 1000px) {
-    .margin-outline-inner {
-      max-height: 320px;
-    }
+    /* Never taller than the window can show; the list scrolls inside instead,
+       so the panel's own frame is stable whatever the page does. */
+    max-height: calc(100vh - 9.5rem);
   }
 
   .margin-outline-label {
-    margin: 0 0 0.9rem;
+    margin: 0 0 0.85rem;
     font-family: var(--font-sans);
     font-size: var(--step-label);
     font-weight: 700;
@@ -13348,24 +13379,23 @@ main section.research-section--last {
     padding: 0;
     list-style: none;
     border-left: 1px solid var(--border);
-    /* The list, not the panel, takes the overflow. */
+    /* The list takes the overflow, not the panel. */
     min-height: 0;
     overflow-y: auto;
     overscroll-behavior: contain;
+    /* A scrollbar that does not shift the text when it appears. */
+    scrollbar-gutter: stable;
     scrollbar-width: thin;
     scrollbar-color: var(--border-strong) transparent;
   }
 
-  /* The panel is aria-hidden and duplicated by the page's own contents list,
-     so its scroll area is not a control the reader needs; the bar would only
-     draw attention to the panel's edge. */
   .margin-outline ol::-webkit-scrollbar {
-    width: 4px;
+    width: 5px;
   }
 
   .margin-outline ol::-webkit-scrollbar-thumb {
     background: var(--border-strong);
-    border-radius: 2px;
+    border-radius: 3px;
   }
 
   .margin-outline li {
@@ -13374,11 +13404,11 @@ main section.research-section--last {
 
   .margin-outline a {
     display: block;
-    padding: 0.44rem 0 0.44rem 0.95rem;
+    padding: 0.42rem 0.5rem 0.42rem 0.95rem;
     margin-left: -1px;
     font-family: var(--font-sans);
     font-size: 0.82rem;
-    line-height: 1.45;
+    line-height: 1.42;
     color: var(--muted);
     text-decoration: none;
     border-left: 2px solid transparent;
@@ -13395,15 +13425,8 @@ main section.research-section--last {
     outline-offset: 2px;
   }
 
-  .margin-outline a.is-current {
-    color: var(--navy);
-    font-weight: 600;
-    border-left-color: var(--gold);
-  }
-
-  /* Reading position. The entry for the section under the reader's eye is
-     marked in place, so the panel answers "where am I" between scroll events
-     instead of flickering on and off. */
+  /* Where you are. Marked in place, so the list answers the question between
+     scroll events rather than only when something else moves. */
   .margin-outline a[aria-current] {
     color: var(--navy);
     font-weight: 600;
@@ -13411,8 +13434,8 @@ main section.research-section--last {
   }
 }
 
-/* Print and reduced-motion: the outline is already a duplication of the
-   page, so it never prints. */
+/* Print and reduced-motion: the outline duplicates the page, so it never
+   prints, and it has no motion of its own to remove. */
 @media print {
   .margin-outline {
     display: none !important;
@@ -13533,18 +13556,30 @@ main details.has-side-panel {
 
 main details.has-side-panel {
   display: grid;
-  grid-template-columns: minmax(8rem, 0.25fr) minmax(0, 1fr);
-  column-gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  /* A narrow marginal note beside a wide body. The label sat in a quarter of
+     the panel and spent most of it on blank space, which pushed the body in
+     and left the label looking detached from the passage it introduces. */
+  grid-template-columns: minmax(6.5rem, 0.16fr) minmax(0, 1fr);
+  column-gap: clamp(1rem, 2vw, 1.75rem);
   row-gap: 0;
   align-items: start;
 }
 
 main details.has-side-panel > summary {
   margin: 0;
-  padding: 0.15rem 0 0;
+  /* Set as a marginal note: a small gold label, level with the first line of
+     the passage, rather than a heading competing with it. */
+  padding: 0.3rem 0 0;
   border: 0;
   background: none;
   box-shadow: none;
+  color: var(--gold-text);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  text-transform: uppercase;
 }
 
 /* Only panels whose summary is a plain, short label take the side layout.
@@ -13729,6 +13764,27 @@ main details > summary {
 
 .notes-list li::marker {
   color: var(--gold-text);
+}
+
+/* The drawer holds more than the window can show — thirty-two sources against
+   roughly eight hundred pixels — and the scrollbar in this browser is an
+   overlay that fades away. So the drawer gives no sign that it continues past
+   the fold, and a reader can reasonably conclude the rest simply are not
+   there.
+
+   The sign is a fade at the foot of the list. A mask is used rather than an
+   overlaid gradient because the mask belongs to the element's box: the list
+   scrolls underneath it and the fade stays put at the bottom edge, whatever
+   the header happens to be. It clears as soon as the last source is reached,
+   so it never suggests content that is not there. */
+.notes-list {
+  --notes-fade: 0rem;
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - var(--notes-fade)), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - var(--notes-fade)), transparent 100%);
+}
+
+.notes-panel.has-more-below .notes-list {
+  --notes-fade: 3rem;
 }
 
 /* ==========================================================================

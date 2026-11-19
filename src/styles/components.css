@@ -398,6 +398,9 @@ html:not(.js) .notes-panel {
   width: min(440px, 92vw);
   max-width: none;
   height: 100vh;
+  /* On phones the browser chrome makes 100vh taller than the window, which
+     pushed the last source out of reach. */
+  height: 100dvh;
   max-height: none;
   padding: 0;
   overflow: hidden;
@@ -478,10 +481,36 @@ html:not(.js) .notes-panel {
   flex: 1 1 auto;
   min-height: 0;
   padding: var(--s-5);
+  /* Room under the last source, so it never sits jammed against the edge. */
+  padding-bottom: var(--s-6);
   margin: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  /* This page has more sources than any window will show — thirty-two of
+     them. Without a scrollbar that stays visible, the drawer looks like it
+     ends at the fold and the rest are simply missing. Styling the scrollbar
+     is what keeps it drawn rather than fading away as an overlay. */
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
   color: var(--ink);
   font-size: 0.92rem;
+}
+
+.notes-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.notes-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notes-list::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+
+.notes-list::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
 }
 
 .notes-list li {
